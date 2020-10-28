@@ -1,0 +1,35 @@
+<resources>
+
+    <!--Network error messages-->
+    <string name="error_network_connection_error_message">"Can't connect at the moment! Please check your internet connection and try again."</string>
+    <string name="error_network_request_error_message">"Can't connect at the moment!"</string>
+
+    <!--Input fields errors-->
+    <string name="error_character_not_allowed">%1$s not allowed for %2$s!</string>
+    <string name="error_cannot_start_with_a_period">%1$s cannot start with a period!</string>
+    <string name="error_periods_cannot_be_repeated_in">Periods cannot be repeated in %1$s!</string>
+    <string name="error_first_name_null">First name cannot be empty!</string>
+    <string name="error_first_name_length">First names should be %1$d character or longer!</string>
+    <string name="error_first_name_length_short">First name too short!</string>
+    <string name="error_last_name_null">Last name cannot be empty!</string>
+    <string name="error_last_name_length">Last names should be %1$d character or longer!</string>
+    <string name="error_last_name_length_short">Last name too short!</string>
+    <string name="error_username_null">Username cannot be empty!</string>
+    <string name="error_username_length">Usernames should be %1$d characters or longer!</string>
+    <string name="error_email_address_invalid">The email address you entered is invalid!</string>
+    <string name="error_email_address_invalid_short">Invalid email address!</string>
+    <string name="error_phone_number_invalid">The phone number you entered is invalid!</string>
+    <string name="error_phone_number_invalid_short">Invalid phone number!</string>
+    <string name="error_password_length">Your password should be %1$d characters or longer!</string>
+    <string name="error_password_length_short">Password too short!</string>
+    <string name="error_country_null">Please select your country to continue!</string>
+    <string name="error_gender_null">Please select your gender to continue!</string>
+    <string name="error_date_of_birth_null">Please select your date of birth to continue!</string>
+    <string name="error_no_changes_made">You have not made any new changes!</string>
+
+    <!--Other-->
+    <string name="error_sign_in_to_continue">Please sign in to continue</string>
+    <string name="error_email_address_not_verified">Email address not verified!</string>
+    <string name="error_email_address_not_verified_with_placeholder">Your email address "%1$s" has not been verified! Click the button below to verify.</string>
+    <string name="error_image_picker_option_not_found">Image picker option was not found!</string>
+</resources>

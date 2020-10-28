@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/imageTabPeopleOwingMe"
+        android:layout_width="@dimen/dimen_tab_layout_icon_size_small"
+        android:layout_height="@dimen/dimen_tab_layout_icon_size_small"
+        android:layout_marginStart="2dp"
+        android:contentDescription="@string/content_description_icon"
+        android:gravity="center_vertical"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_me_100px_primary_dark" />
+
+    <TextView
+        android:id="@+id/textTabPeopleOwingMe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:gravity="center_vertical"
+        android:text="@string/title_tab_people_owing_me"
+        android:textColor="@color/colorPrimaryGrey"
+        android:textColorHint="@color/colorPrimaryGrey"
+        android:textSize="@dimen/dimen_tab_layout_text_size_small" />
+</LinearLayout>

@@ -1,0 +1,18 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="dimen_toolbar_title_size">15sp</dimen>
+
+    <!--TabLayout-->
+    <dimen name="dimen_tab_layout_icon_size_small">25dp</dimen>
+    <dimen name="dimen_tab_layout_text_size_small">13sp</dimen>
+
+    <!--Bottom Sheets-->
+    <dimen name="dimen_bs_toolbar_height">35dp</dimen>
+    <dimen name="dimen_bs_toolbar_elevation">5dp</dimen>
+    <dimen name="dimen_bs_text_buttons_size">13sp</dimen>
+    <dimen name="dimen_bs_list_text_labels_size">14sp</dimen>
+    <dimen name="dimen_bs_toolbar_text_size">15sp</dimen>
+    <dimen name="dimen_bs_toolbar_view_divider_height">0.5dp</dimen>
+    <dimen name="dimen_bs_toolbar_margin_bottom">5dp</dimen>
+    <dimen name="dimen_bs_action_button_text_size">15sp</dimen>
+</resources>

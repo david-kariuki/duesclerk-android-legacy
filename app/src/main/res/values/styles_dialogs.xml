@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="DatePickerStyle" parent="Theme.AppCompat.Light.NoActionBar.FullScreen">
+        <item name="android:headerBackground">@color/colorPrimaryDark</item>
+        <item name="android:dayOfWeekBackground">@color/colorPrimary</item>
+        <item name="android:dayOfWeekTextAppearance">@color/colorRedDark</item>
+        <item name="android:headerMonthTextAppearance">@color/colorPrimary</item>
+        <item name="android:headerDayOfMonthTextAppearance">@color/colorWhite</item>
+        <item name="android:headerYearTextAppearance">@color/colorPrimary</item>-->
+        <item name="android:yearListItemTextAppearance">@color/colorBlack</item>
+        <item name="android:yearListSelectorColor">@color/colorPrimary</item>
+        <item name="android:calendarTextColor">@color/colorBlack</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/colorPrimary</item>
+    </style>
+
+    <style name="DatePickerDialogTheme" parent="android:Theme.Material.Light.Dialog.NoActionBar">
+        <item name="android:datePickerStyle">@style/DatePickerStyle</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="Style_Dialog_Titles">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:lines">1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:minLines">1</item>
+        <item name="android:singleLine">false</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <!--Gender pickers-->
+    <style name="Style_GenderPicker_Item_Container">
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="layout_constraintVertical_bias">0</item>
+    </style>
+
+    <style name="Style_GenderPicker_Item_Labels" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:textColor">@color/colorPrimaryGrey</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:ems">3</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:lines">2</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:minLines">2</item>
+    </style>
+
+    <style name="Style_GenderPicker_Icons">
+        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="Style_GenderPicker_TextButtons">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:lines">1</item>
+    </style>
+
+    <!--ImagePickerOptions Fragment-->
+   <!-- <style name="Style_ImagePickerOptions_Option">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">@drawable/animation_ripple_list_grey</item>
+    </style>-->
+
+    <style name="Style_ImagePickerOptions_Labels">
+        <item name="android:textSize">@dimen/dimen_bs_list_text_labels_size</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:lines">1</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <!--<style name="Style_ImagePickerOptions_Icons">
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:background">@drawable/outline_image_picker_options_icons</item>
+    </style>-->
+</resources>

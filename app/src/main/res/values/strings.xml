@@ -1,0 +1,101 @@
+<resources>
+    <string name="app_name">DuesClerk</string>
+    <string name="action_settings">Settings</string>
+
+
+    <!--Other titles-->
+    <string name="title_activity_basic">BasicActivity</string>
+
+    <!--Tabs-->
+    <string name="title_tab_people_i_owe">People I Owe</string>
+    <string name="title_tab_people_owing_me">People Owing Me</string>
+    <string name="tab_app_menu">Menu</string>
+    <string name="tab_sign_in">SignIn</string>
+    <string name="tab_sign_up">SignUp</string>
+
+    <!--Content description-->
+    <string name="content_description_image">Image</string>
+    <string name="content_description_icon">Icon</string>
+
+    <!--Hints-->
+    <string name="hint_full_name">Full name</string>
+    <string name="hint_first_name">First name</string>
+    <string name="hint_last_name">Last name</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_usernames">Usernames</string>
+    <string name="hint_email_address">Email address</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_phone_number">Phone number</string>
+    <string name="hint_country_name">Country</string>
+    <string name="hint_gender">Gender</string>
+    <string name="hint_date_of_birth">Date of birth</string>
+    <string name="hint_signup_date">Signup date</string>
+    <string name="hint_zero">0</string>
+
+    <!--Actions-->
+    <string name="action_sign_in">Sign In</string>
+    <string name="action_sign_up">Sign Up</string>
+    <string name="action_forgot_password">Forgot Password?</string>
+    <string name="action_dont_have_account">Don\'t have an account?</string>
+    <string name="action_already_have_account">Already have an account?</string>
+    <string name="action_verify_email_address">Verify Email Address</string>
+    <string name="action_choose_from_gallery">Choose from gallery</string>
+    <string name="action_take_new_picture">Take new picture</string>
+    <string name="action_delete_profile_picture">Delete profile picture</string>
+    <string name="action_delete_cover_picture">Delete cover picture</string>
+    <string name="action_account_settings">Account settings</string>
+    <string name="action_edit_profile">Edit profile</string>
+    <string name="action_about">About</string>
+    <string name="action_logout">Logout</string>
+
+    <!--Labels-->
+    <string name="label_social_signin">Social Sign In</string>
+    <string name="label_social_signup">Social Sign Up</string>
+    <string name="tab_messages">Messages</string>
+    <string name="tab_alerts">Alerts</string>
+    <string name="label_pick_profile_picture">Pick A Profile Picture</string>
+    <string name="label_pick_cover_picture">Pick A Cover Picture</string>
+
+    <!--Messages-->
+    <string name="msg_company_tag_line">Art and Design for today and tomorrow.</string>
+    <string name="msg_signing_up">We are creating your account! Please wait…</string>
+    <string name="msg_signing_in">We are signing you in! Please wait…</string>
+    <string name="msg_updating_user_account_info">Updating account information! Please wait…</string>
+    <string name="msg_logout">Are you sure you want to log out %1$s?</string>
+
+    <!--Others-->
+    <string name="string_in_brackets">(%1$s)</string>
+    <string name="string_hello">Hello %1$s! )</string>
+    <string name="action_close">Close</string>
+    <string name="msg_minimum_age_is">Minimum age is %1$s years.</string>
+    <string name="label_select_gender">Select gender</string>
+    <string name="label_gender_other">Other</string>
+    <string name="label_gender_male">Male</string>
+    <string name="label_gender_female">Female</string>
+    <string name="label_gender_wont_say">I won\'t say</string>
+    <string name="action_ok">Ok</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="msg_select_gender_to_continue">Please select gender to continue!</string>
+    <string name="hint_specify_other_gender">Specify other gender</string>
+    <string name="hint_other_gender">Other gender</string>
+    <string name="msg_specify_gender_type">Please specify gender type!</string>
+    <string name="label_grant_permissions">Grant Permissions</string>
+    <string name="action_goto_settings">GOTO SETTINGS</string>
+
+    <!--Permissions title and messages-->
+    <string name="permission_tag_camera">Camera</string>
+    <string name="permission_tag_storage">Storage</string>
+    <string name="msg_grant_permission_title">Grant %1$s Permissions.</string>
+    <string name="msg_grant_permission_message">This app needs %1$s permission to %2$s. You can grant them in the app settings.</string>
+    <string name="permission_purpose_camera">take a picture</string>
+    <string name="permission_purpose_write_external">Write to storage</string>
+    <string name="tab_following">Following</string>
+    <string name="tab_followers">Followers</string>
+    <string name="error_no_internet_connection">No Internet Connection</string>
+    <string name="action_check_internet_settings">Check Internet Settings</string>
+    <string name="label_or">Or</string>
+    <string name="action_retry">Retry</string>
+    <string name="action_try_again">Try Again</string>
+    <string name="Location">Location</string>
+    <string name="hint_category">Category</string>
+</resources>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">@color/colorBlue700</color>
+    <color name="colorPrimaryDark">@color/colorBlue900</color>
+    <color name="colorAccent">@color/colorBlue500</color>
+
+    <!--Primary colors-->
+    <color name="colorWhite">#FFFFFF</color>
+
+
+    <!--Default-->
+    <color name="color_default_text_view_color">@android:color/tab_indicator_text</color>
+    <color name="colorDefaultActivityBackground">#FAFAFA</color>
+
+    <!--Black-->
+    <color name="colorBlack">#000000</color>
+    <color name="colorBlackTrans_high">#c5000000</color>
+    <color name="colorBlackTrans_medium">#aa000000</color>
+
+    <!--Blue-->
+    <color name="colorBlue200">#90caf9</color>
+    <color name="colorBlue400">#42A5F5</color>
+    <color name="colorBlue500">#2196F3</color>
+    <color name="colorBlue600">#1E88E5</color>
+    <color name="colorBlue700">#1976D2</color>
+    <color name="colorBlue800">#1565C0</color>
+    <color name="colorBlue900">#0D47A1</color>
+
+    <!--Grey-->
+    <color name="colorPrimaryGrey">#9E9E9E</color>
+    <color name="colorGreyMedium">#757575</color>
+    <color name="colorGreyLight">#BDBDBD</color>
+    <color name="colorGreyLight100">#F5F5F5</color>
+    <color name="colorGreyLight200">#EEEEEE</color>
+    <color name="colorGreyLight300">#E0E0E0</color>
+
+    <!--Toolbar Colors-->
+    <color name="colorToolbarDivider">@color/colorGreyLight300</color>
+
+    <!--Red-->
+    <color name="colorRedDark">#ec2f21</color>
+</resources>

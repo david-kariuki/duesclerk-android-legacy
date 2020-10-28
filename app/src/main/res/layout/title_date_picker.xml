@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimaryDark"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hint_date_of_birth"
+        style="@style/Style_Dialog_Titles"
+        android:textColor="@color/colorWhite"
+        android:id="@+id/textViewDatePickerTitle"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="@string/msg_minimum_age_is"
+        android:id="@+id/textViewDatePickerTitle_Message"
+        android:lines="2"
+        android:minLines="2"
+        android:maxLines="2"
+        android:textColor="@color/colorDefaultActivityBackground"
+        android:singleLine="false"
+        android:textSize="12sp"/>
+
+</LinearLayout>
