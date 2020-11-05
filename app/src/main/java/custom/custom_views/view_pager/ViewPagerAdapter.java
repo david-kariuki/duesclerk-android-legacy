@@ -13,6 +13,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
 
+    @SuppressWarnings("deprecation")
     public ViewPagerAdapter(FragmentManager manager) {
         super(manager);
     }
@@ -31,7 +32,6 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getItemPosition(@NotNull Object object) {
         return super.getItemPosition(object);
-
     }
 
     @Override

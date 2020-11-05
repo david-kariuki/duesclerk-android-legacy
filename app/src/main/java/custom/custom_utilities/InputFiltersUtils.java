@@ -15,8 +15,16 @@ import java.util.Objects;
 import custom.custom_views.toast.CustomToast;
 
 /**
- * This class filters inputs on different fields
- * It contains input filters for names, usernames, phone numbers and verification codes
+ * This class filters inputs on different fields. It contains input filters for
+ * persons names (first and last),
+ * business names,
+ * phone numbers,
+ * email addresses,
+ * country,
+ * city,
+ * password,
+ * gender and
+ * verification codes
  */
 public class InputFiltersUtils {
 
@@ -26,11 +34,12 @@ public class InputFiltersUtils {
     public static final int minPasswordLength = 8;
     public static final int minVerificationCodeLength = 6;
     public static final int maxSingleNameLength = 50;
-    public static final int maxUsernameLength = (3 * maxSingleNameLength);
     public static final int maxPhoneNumberLength = 15;
     public static final int maxPhoneNumberLengthNoCode = 12;
     public static final int maxEmailLength = 320;
     private static final int minPhoneNumberLength = 7;
+
+
     // Filter first and last names
     public static InputFilter filterNames = (source, start, end, dest, dstart, dend) -> {
         for (int i = start; i < end; i++) {
@@ -55,34 +64,6 @@ public class InputFiltersUtils {
                         return source;
                     }
                 }
-            }
-        }
-        return null;
-    };
-
-    // Filter username
-    public static InputFilter filterUsername = (source, start, end, dest, dstart, dend) -> {
-        for (int i = start; i < end; i++) {
-            if (!Character.isLetterOrDigit(source.charAt(i))) {
-                if (!String.valueOf(source.charAt(i)).equals("_")) {
-                    if (!String.valueOf(source.charAt(i)).equals(".")) {
-                        if ((Character.isWhitespace(source.charAt(i)))) {
-                            CustomToast.errorMessage(ApplicationClass.getAppContext(),
-                                    ApplicationClass.getAppContext().getResources().getString(R.string.error_character_not_allowed,
-                                            "Spaces are",
-                                            ApplicationClass.getAppContext().getResources().getString(R.string.hint_username) + "s."),
-                                    0);
-                        } else {
-                            CustomToast.errorMessage(ApplicationClass.getAppContext(),
-                                    ApplicationClass.getAppContext().getResources().getString(R.string.error_character_not_allowed, source.charAt(i) + " is",
-                                            ApplicationClass.getAppContext().getResources().getString(R.string.hint_username) + "s."),
-                                    0);
-                        }
-                        return "";
-                    }
-                }
-            } else {
-                return source.toString().toLowerCase();
             }
         }
         return null;
@@ -196,8 +177,8 @@ public class InputFiltersUtils {
         }
     }
 
-    public static boolean checkNameLengthNotify(Context context, @NonNull EditText editText,
-                                                boolean isFirstName) {
+    public static boolean checkPersonNameLengthNotify(Context context, @NonNull EditText editText,
+                                                      boolean isFirstName) {
         boolean valueAcceptable = false;
 
         if (DataUtils.isEmptyEditText(editText)) {
@@ -234,6 +215,28 @@ public class InputFiltersUtils {
                 editText.setError(DataUtils.getStringResource(context,
                         R.string.error_last_name_length_short));
             }
+        } else valueAcceptable = true;
+        return valueAcceptable;
+    }
+
+    /**
+     * Function to check business name length
+     *
+     * @param context  - context used to show toast
+     * @param editText - Character Sequence
+     * @return boolean
+     */
+    public static boolean checkBusinessNameLengthNotify(Context context,
+                                                        @NonNull EditText editText) {
+        boolean valueAcceptable = false;
+        if (Objects.requireNonNull(editText.getText()).length() == 0) {
+            // Toast Error Message
+            CustomToast.errorMessage(context, DataUtils.getStringResource(context,
+                    R.string.error_business_name_null),
+                    R.drawable.ic_baseline_business_24_white);
+            // Enable Error Icon
+            editText.setError(DataUtils.getStringResource(context,
+                    R.string.error_business_name_null));
         } else valueAcceptable = true;
         return valueAcceptable;
     }
@@ -277,7 +280,7 @@ public class InputFiltersUtils {
      * @param editText - Character Sequence
      * @return boolean
      */
-    public static boolean checkPhoneNumberValidNotify(@NonNull EditText editText) {
+    public static boolean checkPhoneNumberValid(@NonNull EditText editText) {
         return ((Patterns.PHONE.matcher(editText.getText().toString()).matches())
                 && (editText.getText().toString().length() >= minPhoneNumberLength));
     }
@@ -346,6 +349,25 @@ public class InputFiltersUtils {
     }
 
     /**
+     * Function to check city length
+     *
+     * @param context  - context used to show toast
+     * @param editText - Character Sequence
+     * @return boolean
+     */
+    public static boolean checkCityLengthNotify(Context context, @NonNull EditText editText) {
+        boolean valueAcceptable = false;
+        if (!(Objects.requireNonNull(editText.getText()).length() > 0)) {
+            // Toast Error Message
+            CustomToast.errorMessage(context, DataUtils.getStringResource(context,
+                    R.string.error_city_null), R.drawable.ic_baseline_location_city_24_white);
+            editText.requestFocus();
+            editText.setError(null); // Enable Error Icon
+        } else valueAcceptable = true;
+        return valueAcceptable;
+    }
+
+    /**
      * Function to check gender length
      *
      * @param context  - context used to show toast
@@ -359,7 +381,26 @@ public class InputFiltersUtils {
             CustomToast.errorMessage(context, DataUtils.getStringResource(context,
                     R.string.error_gender_null),
                     R.drawable.ic_gender_neutral_100px_white);
+
             editText.setError(null); // Enable Error Icon
+        } else valueAcceptable = true;
+        return valueAcceptable;
+    }
+
+    /**
+     * Function to check gender length
+     *
+     * @param context  - context used to show toast
+     * @param gender - Character Sequence
+     * @return boolean
+     */
+    public static boolean checkGenderLengthNotify(Context context, String gender) {
+        boolean valueAcceptable = false;
+        if (!(gender.length() > 0)) {
+            // Toast Error Message
+            CustomToast.errorMessage(context, DataUtils.getStringResource(context,
+                    R.string.error_gender_null),
+                    R.drawable.ic_gender_neutral_100px_white);
         } else valueAcceptable = true;
         return valueAcceptable;
     }

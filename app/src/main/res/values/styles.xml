@@ -29,4 +29,32 @@
         <item name="android:singleLine">true</item>
     </style>
 
+    <!--ScrollView style-->
+    <style name="Style_ScrollView" parent="Widget.Design.ScrimInsetsFrameLayout">
+        <item name="android:fillViewport">true</item>
+        <item name="android:scrollbarThumbVertical">@color/colorPrimary</item>
+        <item name="android:scrollbarSize">1dp</item>
+        <item name="android:scrollbars">vertical</item>>
+        <item name="android:fadingEdge">vertical</item>>
+        <item name="android:fadingEdgeLength">10dp</item>
+        <item name="android:drawingCacheQuality">high</item>
+        <item name="android:animationCache">true</item>
+        <item name="android:alwaysDrawnWithCache">true</item>
+        <item name="android:nestedScrollingEnabled">false</item>
+        <item name="android:scrollbarStyle">insideOverlay</item>
+        <item name="android:scrollbarThumbHorizontal">@color/colorPrimaryDark</item>
+        <item name="android:scrollbarTrackVertical">@color/colorBlackTrans_high</item>
+        <item name="android:colorEdgeEffect">@color/colorBlackTrans_medium</item>
+        <item name="android:background">@color/colorWhite</item>
+        <item name="fastScrollVerticalThumbDrawable">@color/colorPrimaryDark</item>
+        <item name="android:overScrollMode">never</item>
+        <item name="layout_behavior">@string/appbar_scrolling_view_behavior</item>
+    </style>
+
+    <!--TextViews with intent -->
+    <style name="Style_PageLinks" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textStyle">italic|bold</item>
+    </style>
 </resources>

@@ -9,7 +9,11 @@ public class VolleyUtils {
     public static final String KEY_SUCCESS_MESSAGE = "SuccessMessage";
 
     // User Account
-    public static final String KEY_USER = "User";
+    public static final String KEY_CLIENT = "Client";
+
+    // SignIN and SignUp
+    public static final String KEY_SIGNIN = "SignIn";
+    public static final String KEY_SIGNUP = "SignUp";
 
     // Email Verification
     public static final String KEY_VERIFICATION_CODE = "VerificationCode";

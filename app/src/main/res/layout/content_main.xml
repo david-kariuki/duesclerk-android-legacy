@@ -3,40 +3,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    tools:showIn="@layout/activity_main"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <com.google.android.material.tabs.TabLayout
-        android:layout_height="30dp"
+    <include
+        android:id="@+id/dividerToolbar"
+        layout="@layout/divider_toolbar_activities"
         android:layout_width="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tabIndicatorHeight="0dp"
-        android:layout_marginTop="5dp"
-        app:tabSelectedTextColor="@color/colorPrimaryDark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:tabTextColor="@color/colorBlack"
-        android:id="@+id/tabLayoutMainActivity"/>
-
-    <include layout="@layout/divider_toolbar_activities"
-        android:layout_width="0dp"
+        android:layout_marginTop=".5dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayoutMainActivity"
         app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/dividerToolbar"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPagerMainActivity"
+        style="@style/Style_ScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/viewPagerMainActivity"
         android:animationCache="true"
         android:drawingCacheQuality="high"
         android:nestedScrollingEnabled="true"
         android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dividerToolbar"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dividerToolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

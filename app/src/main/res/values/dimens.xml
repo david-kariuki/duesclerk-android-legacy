@@ -2,17 +2,33 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="dimen_toolbar_title_size">15sp</dimen>
 
+    <!--ImageView size dimensions-->
+    <dimen name="dimen_icon_size_small">29dp</dimen>
+
+    <!--ImageView padding dimensions-->
+    <dimen name="dimen_icon_padding_small">5dp</dimen>
+
+    <!--ToolBar Dimensions-->
+    <dimen name="dimen_toolbar_height_medium">45dp</dimen>
+    <dimen name="dimen_toolbar_elevation_medium">10dp</dimen>
+    <dimen name="dimen_toolbar_elevation_large">14dp</dimen>
+
     <!--TabLayout-->
     <dimen name="dimen_tab_layout_icon_size_small">25dp</dimen>
-    <dimen name="dimen_tab_layout_text_size_small">13sp</dimen>
+    <dimen name="dimen_tab_layout_text_size_small">12sp</dimen>
 
     <!--Bottom Sheets-->
     <dimen name="dimen_bs_toolbar_height">35dp</dimen>
-    <dimen name="dimen_bs_toolbar_elevation">5dp</dimen>
     <dimen name="dimen_bs_text_buttons_size">13sp</dimen>
-    <dimen name="dimen_bs_list_text_labels_size">14sp</dimen>
-    <dimen name="dimen_bs_toolbar_text_size">15sp</dimen>
-    <dimen name="dimen_bs_toolbar_view_divider_height">0.5dp</dimen>
-    <dimen name="dimen_bs_toolbar_margin_bottom">5dp</dimen>
-    <dimen name="dimen_bs_action_button_text_size">15sp</dimen>
+
+    <!--SignUp and SignIn Dimensions-->
+    <dimen name="dimen_signup_signin_edit_text_size">14sp</dimen>
+    <dimen name="dimen_signup_signin_labels_text_size">13sp</dimen>
+    <dimen name="dimen_signup_signin_card_elevation">10dp</dimen>
+    <dimen name="dimen_signup_signin_card_margin_top">5dp</dimen>
+    <dimen name="dimen_signup_signin_card_corner_radius">15dp</dimen>
+    <dimen name="dimen_signup_signin_edit_text_min_width">150dp</dimen>
+    <dimen name="dimen_signup_signin_field_divider_height">0.5dp</dimen>
+    <dimen name="dimen_signup_signin_field_divider_margin_top">6dp</dimen>
+    <dimen name="dimen_outlines_corners">25dp</dimen>
 </resources>

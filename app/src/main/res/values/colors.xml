@@ -29,10 +29,6 @@
 
     <!--Grey-->
     <color name="colorPrimaryGrey">#9E9E9E</color>
-    <color name="colorGreyMedium">#757575</color>
-    <color name="colorGreyLight">#BDBDBD</color>
-    <color name="colorGreyLight100">#F5F5F5</color>
-    <color name="colorGreyLight200">#EEEEEE</color>
     <color name="colorGreyLight300">#E0E0E0</color>
 
     <!--Toolbar Colors-->
@@ -40,4 +36,7 @@
 
     <!--Red-->
     <color name="colorRedDark">#ec2f21</color>
+
+    <!--Transparent-->
+    <color name="colorTransparent">@android:color/transparent</color>
 </resources>

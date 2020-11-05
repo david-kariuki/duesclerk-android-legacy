@@ -4,43 +4,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="dk.duesclerk.MainActivity">
+    android:background="@color/colorDefaultActivityBackground"
+    tools:context="com.duesclerk.MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.DuesClerk.AppBarOverlay">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/outline_tab_layout_main_activity"
+            android:elevation="@dimen/dimen_toolbar_elevation_large"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
+                style="@style/TextAppearance.AppCompat.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/dimen_toolbar_title_size"
-                android:text="@string/app_name"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
                 android:layout_gravity="start"
-                style="@style/TextAppearance.Design.CollapsingToolbar.Expanded"
-                android:layout_marginStart="10dp"/>
-        </RelativeLayout>
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="1dp"
+                android:text="@string/app_name"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/dimen_toolbar_title_size"
+                android:textStyle="bold" />
 
-    </com.google.android.material.appbar.AppBarLayout>
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayoutMainActivity"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:longClickable="false"
+                android:overScrollMode="never"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tabBackground="@color/colorWhite"
+                app:tabIndicatorHeight=".2dp"
+                app:tabPaddingEnd="0dp"
+                app:tabPaddingStart="0dp"
+                app:tabSelectedTextColor="@color/colorPrimaryDark"
+                app:tabTextColor="@color/colorBlack" />
+        </LinearLayout>
 
-    <include layout="@layout/content_main" />
+        <include layout="@layout/content_main" />
+    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fabMainActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:visibility="gone"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email"
-        android:contentDescription="@string/content_description_icon" />
+        android:contentDescription="@string/content_description_icon"
+        android:src="@drawable/ic_baseline_add_24_white"
+        android:backgroundTint="@color/colorPrimary"
+        app:tint="@color/colorWhite"
+        android:elevation="6dp"
+        app:borderWidth="0dp"
+        app:fabSize="auto"
+         />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

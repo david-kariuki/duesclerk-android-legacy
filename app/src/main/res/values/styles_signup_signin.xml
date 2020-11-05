@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Style_SignInSignUp_TextInputLayout" parent="@android:style/TextAppearance.Widget.EditText">
+        <item name="android:maxLines">1</item>
+        <item name="android:textSize">@dimen/dimen_signup_signin_edit_text_size</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColorHint">@color/color_default_text_view_color</item>
+        <item name="android:minHeight">32dp</item>
+        <item name="android:minWidth">@dimen/dimen_signup_signin_edit_text_min_width</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="Style_SignInSignUp_TextInputEditText" parent="@android:style/TextAppearance.Widget.EditText">
+        <item name="android:background">@color/colorTransparent</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textSize">@dimen/dimen_signup_signin_edit_text_size</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColorHint">@color/color_default_text_view_color</item>
+    </style>
+
+    <style name="Style_SignUpSignIn_CardView">
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:elevation">@dimen/dimen_signup_signin_card_elevation</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:layout_marginTop">@dimen/dimen_signup_signin_card_margin_top</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:background">@color/colorWhite</item>
+    </style>
+
+</resources>

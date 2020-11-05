@@ -27,6 +27,7 @@ import com.bumptech.glide.request.target.Target;
 import com.duesclerk.R;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.tabs.TabLayout;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
@@ -44,6 +45,7 @@ import custom.custom_views.dialog_fragments.dialogs.DatePickerFragment;
  * Dismiss ProgressBar
  * Load urls to ImageViews
  * Expand and collapse ExpandableLayout
+ * Switch TabLayout positions
  */
 public class ViewsUtils {
 
@@ -383,5 +385,15 @@ public class ViewsUtils {
                 expandableLayout.collapse(); // Collapse ExpandableLayout
             }
         }
+    }
+
+    /**
+     * Function to select TabLayout position
+     *
+     * @param position  - tab position
+     * @param tabLayout - associated view
+     */
+    public static void selectTabPosition(int position, TabLayout tabLayout) {
+        Objects.requireNonNull(tabLayout.getTabAt(position)).select();
     }
 }

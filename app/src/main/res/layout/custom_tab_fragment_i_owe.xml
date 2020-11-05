@@ -2,8 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="4dp"
-    android:layout_marginBottom="4dp"
     android:gravity="center"
     android:orientation="horizontal">
 
@@ -13,17 +11,20 @@
         android:layout_height="@dimen/dimen_tab_layout_icon_size_small"
         android:layout_marginStart="2dp"
         android:contentDescription="@string/content_description_icon"
-        android:gravity="center_vertical"
         android:scaleType="centerCrop"
+        android:layout_gravity="center_vertical"
         android:src="@drawable/ic_they_100px_primary_dark" />
 
     <TextView
         android:id="@+id/textTabPeopleIOwe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:gravity="center_vertical"
-        android:text="@string/title_tab_people_i_owe"
+        android:layout_marginStart="5dp"
+        android:lines="1"
+        android:layout_gravity="center_vertical"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="@string/title_fragment_people_i_owe"
         android:textColor="@color/colorPrimaryGrey"
         android:textColorHint="@color/colorPrimaryGrey"
         android:textSize="@dimen/dimen_tab_layout_text_size_small" />

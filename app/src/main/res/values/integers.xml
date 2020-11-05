@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--general-->
+
+    <!--volley timeouts-->
+    <integer name="int_volley_account_request_initial_timeout_ms">10000</integer>
+    <integer name="int_volley_account_request_max_timeout_retry">2</integer>
+
+</resources>
