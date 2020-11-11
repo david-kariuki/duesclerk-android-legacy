@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,14 +22,12 @@ import androidx.fragment.app.Fragment;
 import com.duesclerk.R;
 import com.duesclerk.interfaces.Interface_CountryPicker;
 import com.duesclerk.interfaces.Interface_SignInSignup;
-import com.duesclerk.interfaces.Interface_UserAccountInformation;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
 
-import custom.custom_utilities.DataUtils;
 import custom.custom_utilities.InputFiltersUtils;
-import custom.custom_utilities.UserAccountUtils;
+import custom.custom_utilities.AccountUtils;
 import custom.custom_utilities.ViewsUtils;
 import custom.custom_views.dialog_fragments.bottom_sheets.CountryPickerFragment;
 
@@ -42,6 +39,7 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
     private String countryCode, countryAlpha2, selectedGender;
     private ImageView imagePasswordToggle, imageCountryFlag;
     private CountryPickerFragment countryPickerFragment;
+    private TextView textGenderMale, textGenderFemale, textGenderOther;
 
     public static FragmentPersonalSignup newInstance() {
         return new FragmentPersonalSignup();
@@ -53,7 +51,7 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_personal_signup, container, false);
 
-        mContext = requireActivity(); // Context
+        mContext = getContext(); // Context
 
         Interface_SignInSignup interfaceSignUpSignIn = (Interface_SignInSignup) getActivity();
 
@@ -69,15 +67,19 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
         editCountry = view.findViewById(R.id.editSignUpActivity_Country);
         editPassword = view.findViewById(R.id.editSignUpActivity_Password);
 
+        textGenderMale = view.findViewById(R.id.textSignupActivity_GenderMale);
+        textGenderFemale = view.findViewById(R.id.textSignupActivity_GenderFemale);
+        textGenderOther = view.findViewById(R.id.textSignupActivity_GenderOther);
+
         imageCountryFlag = view.findViewById(R.id.imageSignupActivity_CountryFlag);
 
         imagePasswordToggle = view.findViewById(R.id.imageSignupActivity_PasswordToggle);
 
         TextView textCreateBusinessAccount = view.findViewById(R.id.textCreateBusinessAccount);
 
-        RadioButton radioGenderMale = view.findViewById(R.id.radioSignupGenderMale);
-        RadioButton radioGenderFemale = view.findViewById(R.id.radioSignupGenderFemale);
-        RadioButton radioGenderOther = view.findViewById(R.id.radioSignupGenderOther);
+        RadioButton radioGenderMale = view.findViewById(R.id.radioSignupActivityGenderMale);
+        RadioButton radioGenderFemale = view.findViewById(R.id.radioSignupActivityGenderFemale);
+        RadioButton radioGenderOther = view.findViewById(R.id.radioSignupActivityGenderOther);
 
         LinearLayout llSignIn = view.findViewById(R.id.llSignUpActivity_SignIn);
         LinearLayout llSignUp = view.findViewById(R.id.llSignUpActivity_SignUp);
@@ -98,21 +100,26 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
                 ViewsUtils.showBottomSheetDialogFragment(getParentFragmentManager(),
                 countryPickerFragment, true));
 
+        // Gender labels on click
+        textGenderMale.setOnClickListener(v -> radioGenderMale.setChecked(true));
+        textGenderFemale.setOnClickListener(v -> radioGenderFemale.setChecked(true));
+        textGenderOther.setOnClickListener(v -> radioGenderOther.setChecked(true));
+
         radioGenderMale.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                selectedGender = UserAccountUtils.KEY_GENDER_MALE; // Set gender value
+                selectedGender = AccountUtils.KEY_GENDER_MALE; // Set gender value
             }
         });
 
         radioGenderFemale.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                selectedGender = UserAccountUtils.KEY_GENDER_FEMALE; // Set gender value
+                selectedGender = AccountUtils.KEY_GENDER_FEMALE; // Set gender value
             }
         });
 
         radioGenderOther.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                selectedGender = UserAccountUtils.KEY_GENDER_OTHER; // Set gender value
+                selectedGender = AccountUtils.KEY_GENDER_OTHER; // Set gender value
             }
         });
 

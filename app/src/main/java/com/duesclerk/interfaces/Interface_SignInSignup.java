@@ -39,4 +39,9 @@ public interface Interface_SignInSignup {
     void passBusinessAccountSignupDetails(String businessName, String countryCode,
                                           String countryAlpha2, String city, String phoneNumber,
                                           String emailAddress, String password);
+
+    /**
+     * Method to exit activity
+     */
+    void finishActivity();
 }

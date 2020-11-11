@@ -5,7 +5,7 @@
     android:background="@color/colorDefaultActivityBackground"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".SplashActivity"
+    tools:context=".activities.SplashActivity"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_splash">
 
@@ -51,7 +51,7 @@
                 android:textColor="@color/colorBlack"
                 android:id="@+id/textSplashActivity_AppName"
                 style="@style/TextAppearance.AppCompat.Headline"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:layout_marginBottom="20dp"
                 android:textStyle="bold"
                 />

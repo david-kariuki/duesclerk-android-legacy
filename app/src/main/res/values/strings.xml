@@ -2,17 +2,18 @@
 <resources>
     <string name="app_name">DuesClerk</string>
 
-
-    <!--Other titles-->
+    <!--Activity titles-->
     <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_signin_signup">SignInSignUp</string>
     <string name="title_signing_up">Signing you up</string>
     <string name="title_signing_in">Signing you in</string>
+    <string name="title_activity_profile">ProfileActivity</string>
 
-    <!--Fragments-->
+    <!--Fragment titles-->
     <string name="title_fragment_people_i_owe">Those I Owe</string>
     <string name="title_fragment_people_owing_me">Owing Me</string>
     <string name="tittle_fragment_app_menu">Menu</string>
-    <string name="title_activity_signup">SignUpActivity</string>
+    <string name="title_fragment_signup">SignUpActivity</string>
     <string name="title_fragment_sign_in">SignIn</string>
     <string name="title_fragment_personal_account">SignUp Personal Account</string>
     <string name="title_fragment_business_account">SignUp Business Account</string>
@@ -20,6 +21,7 @@
     <!--Content description-->
     <string name="content_description_image">Image</string>
     <string name="content_description_icon">Icon</string>
+    <string name="content_description_fab">Fab</string>
 
     <!--Hints-->
     <string name="hint_first_name">First name</string>
@@ -39,31 +41,41 @@
     <string name="hint_gender_male">Male</string>
     <string name="hint_gender_female">Female</string>
     <string name="hint_gender_other">Other</string>
+    <string name="hint_account_type">Account Type</string>
+    <string name="hint_feedback">Feedback</string>
+    <string name="hint_personal_account">Personal Account</string>
+    <string name="hint_business_account">Business Account</string>
 
     <!--Actions-->
     <string name="action_sign_in">Sign In</string>
     <string name="action_sign_up">Sign Up</string>
     <string name="action_forgot_password">Forgot Password?</string>
-    <string name="action_dont_have_account">Don\'t have an account?</string>
     <string name="action_create_a_business_account">Create a business account instead?</string>
     <string name="action_create_a_personal_account">Create a personal account instead?</string>
     <string name="action_close">Close</string>
+    <string name="action_account_settings">Account Settings</string>
+    <string name="action_help_center">Help Center</string>
+    <string name="action_about">About</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_view_profile">View Profile</string>
+    <string name="action_verify_email_address">Verify Email Address</string>
 
     <!--Labels-->
     <string name="label_create_personal_account">Create A Personal Account</string>
     <string name="label_create_business_account">Create A Business Account</string>
     <string name="label_sign_in_to_your_account">Sign In to your account</string>
 
-    <!--Tabs-->
-
     <!--Messages-->
     <string name="msg_company_tag_line">Manage your dues with ease.</string>
     <string name="msg_signing_up">We are creating your account! Please wait…</string>
     <string name="msg_signing_in">We are signing you in! Please wait…</string>
-    <string name="msg_minimum_age_is">Minimum age is %1$s years.</string>
-
+    <string name="msg_welcome_to">Welcome to %1$s</string>
+    <string name="msg_logout">Are you sure you want to log out %1$s?</string>
+    
     <!--Others-->
-
-    <!--Permissions title and messages-->
+    <string name="placeholder_in_brackets">(%1$s)</string>
+    <string name="string_hello">Hello %1$s</string>
+    <string name="action_cancel">Cancel</string>
 
 </resources>

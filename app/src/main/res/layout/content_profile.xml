@@ -1,0 +1,612 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollViewProfileActivity"
+    style="@style/Style_ScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorDefaultActivityBackground"
+    android:descendantFocusability="beforeDescendants"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:focusedByDefault="true"
+    tools:context=".activities.ProfileActivity"
+    tools:ignore="UnusedAttribute"
+    tools:showIn="@layout/activity_profile">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/Style_ScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorDefaultActivityBackground"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@color/colorDefaultActivityBackground"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="-1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="-1.0"
+            app:layout_constraintWidth_percent=".9">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardProfileActivity_BusinessName"
+                style="@style/Style_SignUpSignIn_CardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/colorWhite"
+                app:cardCornerRadius="@dimen/dimen_signup_signin_card_corner_radius"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Style_SignInSignUp_TextInputEditText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/hint_first_and_last_name"
+                        android:textColor="@color/colorPrimary" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/dimen_icon_size_small"
+                            android:layout_height="@dimen/dimen_icon_size_small"
+                            android:layout_marginEnd="8dp"
+                            android:contentDescription="@string/content_description_icon"
+                            android:padding="@dimen/dimen_icon_padding_small"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_baseline_business_24_primary" />
+
+                        <EditText
+                            android:id="@+id/editProfileActivity_BusinessName"
+                            style="@style/Style_SignInSignUp_TextInputEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:autofillHints=""
+                            android:background="@null"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="@string/hint_business_name"
+                            android:imeActionLabel="Next"
+                            android:inputType="textNoSuggestions|textCapWords" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardProfileActivity_PersonsNames"
+                style="@style/Style_SignUpSignIn_CardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/colorWhite"
+                app:cardCornerRadius="@dimen/dimen_signup_signin_card_corner_radius"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Style_SignInSignUp_TextInputEditText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/hint_first_and_last_name"
+                        android:textColor="@color/colorPrimary" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/dimen_icon_size_small"
+                            android:layout_height="@dimen/dimen_icon_size_small"
+                            android:layout_marginEnd="10dp"
+                            android:contentDescription="@string/content_description_icon"
+                            android:padding="@dimen/dimen_icon_padding_small"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_baseline_person_24_primary" />
+
+                        <EditText
+                            android:id="@+id/editProfileActivity_FirstName"
+                            style="@style/Style_SignInSignUpProfile_TextInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:autofillHints=""
+                            android:background="@null"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="@string/hint_first_name"
+                            android:imeActionLabel="Next"
+                            android:inputType="textPersonName|textCapWords" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_signup_signin_field_divider_height"
+                        android:layout_marginStart="49dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@color/colorDividerGrey" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/dimen_icon_size_small"
+                            android:layout_height="@dimen/dimen_icon_size_small"
+                            android:layout_marginEnd="10dp"
+                            android:contentDescription="@string/content_description_icon"
+                            android:padding="@dimen/dimen_icon_padding_small"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_baseline_email_24_primary"
+                            android:visibility="invisible" />
+
+                        <EditText
+                            android:id="@+id/editProfileActivity_LastName"
+                            style="@style/Style_SignInSignUpProfile_TextInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:autofillHints=""
+                            android:background="@null"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="@string/hint_last_name"
+                            android:imeActionLabel="Next"
+                            android:inputType="textPersonName|textCapWords" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                style="@style/Style_SignUpSignIn_CardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/dimen_signup_signin_card_corner_radius"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Style_SignInSignUp_TextInputEditText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/hint_phone_number_and_email_address"
+                        android:textColor="@color/colorPrimary" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/dimen_icon_size_small"
+                            android:layout_height="@dimen/dimen_icon_size_small"
+                            android:layout_marginEnd="10dp"
+                            android:contentDescription="@string/content_description_icon"
+                            android:padding="@dimen/dimen_icon_padding_small"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_baseline_phone_24_primary" />
+
+                        <EditText
+                            android:id="@+id/editProfileActivity_PhoneNumber"
+                            style="@style/Style_SignInSignUpProfile_TextInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:autofillHints=""
+                            android:background="@null"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="@string/hint_phone_number"
+                            android:imeActionLabel="Next"
+                            android:inputType="phone" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_signup_signin_field_divider_height"
+                        android:layout_marginStart="49dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@color/colorDividerGrey" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/dimen_icon_size_small"
+                            android:layout_height="@dimen/dimen_icon_size_small"
+                            android:layout_marginEnd="10dp"
+                            android:contentDescription="@string/content_description_icon"
+                            android:padding="@dimen/dimen_icon_padding_small"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_baseline_email_24_primary" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+                                android:id="@+id/editProfileActivity_EmailAddress"
+                                style="@style/Style_SignInSignUpProfile_TextInputLayout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:autofillHints=""
+                                android:background="@null"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:layout_toStartOf="@+id/imageProfileActivity_EmailVerificationError"
+                                android:hint="@string/hint_email_address"
+                                android:imeActionLabel="Next"
+                                android:layout_marginEnd="10dp"
+                                android:inputType="textEmailAddress" />
+
+                            <ImageView
+                                android:id="@+id/imageProfileActivity_EmailVerificationError"
+                                android:layout_width="@dimen/dimen_icon_size_small"
+                                android:layout_height="@dimen/dimen_icon_size_small"
+                                android:visibility="invisible"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="10dp"
+                                android:contentDescription="@string/content_description_icon"
+                                android:padding="@dimen/dimen_icon_padding_small"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_baseline_error_outline_24_red" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                style="@style/Style_SignUpSignIn_CardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/colorWhite"
+                app:cardCornerRadius="@dimen/dimen_signup_signin_card_corner_radius"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Style_SignInSignUp_TextInputEditText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/hint_country_name"
+                        android:textColor="@color/colorPrimary" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/dimen_icon_size_small"
+                            android:layout_height="@dimen/dimen_icon_size_small"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="2dp"
+                            android:contentDescription="@string/content_description_icon"
+                            android:padding="@dimen/dimen_icon_padding_small"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_baseline_location_on_24_primary" />
+
+                        <ImageView
+                            android:layout_width="@dimen/dimen_icon_size_small"
+                            android:layout_height="@dimen/dimen_icon_size_small"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="2dp"
+                            android:contentDescription="@string/content_description_icon"
+                            android:padding="@dimen/dimen_icon_padding_small"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_baseline_flag_24_primary_grey" />
+
+                        <EditText
+                            android:id="@+id/editProfileActivity_Country"
+                            style="@style/Style_SignInSignUp_TextInputEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:autofillHints=""
+                            android:background="@null"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="@string/hint_country_name"
+                            android:imeActionLabel="Next"
+                            android:inputType="textNoSuggestions|textCapWords" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardProfileActivity_CityTownName"
+                style="@style/Style_SignUpSignIn_CardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/colorWhite"
+                app:cardCornerRadius="@dimen/dimen_signup_signin_card_corner_radius"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Style_SignInSignUp_TextInputEditText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/hint_city_town"
+                        android:textColor="@color/colorPrimary" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/dimen_icon_size_small"
+                            android:layout_height="@dimen/dimen_icon_size_small"
+                            android:layout_marginEnd="8dp"
+                            android:contentDescription="@string/content_description_icon"
+                            android:padding="@dimen/dimen_icon_padding_small"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_baseline_business_24_primary" />
+
+
+                        <EditText
+                            android:id="@+id/editProfileActivity_CityTown"
+                            style="@style/Style_SignInSignUp_TextInputEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="@string/hint_city_town"
+                            android:imeActionLabel="Next"
+                            android:inputType="textNoSuggestions|textCapWords"
+                            android:autofillHints="" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardProfileActivity_Gender"
+                style="@style/Style_SignUpSignIn_CardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/dimen_signup_signin_card_corner_radius"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Style_SignInSignUp_TextInputEditText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/hint_gender"
+                        android:textColor="@color/colorPrimary" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/dimen_icon_size_small"
+                            android:layout_height="@dimen/dimen_icon_size_small"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="10dp"
+                            android:contentDescription="@string/content_description_icon"
+                            android:padding="@dimen/dimen_icon_padding_small"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_toilet_100px_primary" />
+
+                        <RadioGroup
+                            android:id="@+id/radioGroupProfileActivity_Gender"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <RadioButton
+                                android:id="@+id/radioProfileActivityGenderMale"
+                                android:layout_width="@dimen/dimen_icon_size_small"
+                                android:layout_height="@dimen/dimen_icon_size_small"
+                                android:buttonTint="@color/colorPrimary" />
+
+                            <TextView
+                                android:id="@+id/textProfileActivity_GenderMale"
+                                style="@style/TextAppearance.AppCompat.Headline"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="5dp"
+                                android:text="@string/hint_gender_male"
+                                android:textSize="15sp" />
+
+                            <RadioButton
+                                android:id="@+id/radioProfileActivityGenderFemale"
+                                android:layout_width="@dimen/dimen_icon_size_small"
+                                android:layout_height="@dimen/dimen_icon_size_small"
+                                android:layout_marginStart="5dp"
+                                android:buttonTint="@color/colorPrimary" />
+
+                            <TextView
+                                android:id="@+id/textProfileActivity_GenderFemale"
+                                style="@style/TextAppearance.AppCompat.Headline"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="5dp"
+                                android:text="@string/hint_gender_female"
+                                android:textSize="15sp" />
+
+                            <RadioButton
+                                android:id="@+id/radioProfileActivityGenderOther"
+                                android:layout_width="@dimen/dimen_icon_size_small"
+                                android:layout_height="@dimen/dimen_icon_size_small"
+                                android:layout_marginStart="5dp"
+                                android:buttonTint="@color/colorPrimary" />
+
+                            <TextView
+                                android:id="@+id/textProfileActivity_GenderOther"
+                                style="@style/TextAppearance.AppCompat.Headline"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="5dp"
+                                android:text="@string/hint_gender_other"
+                                android:textSize="15sp" />
+                        </RadioGroup>
+
+                        <TextView
+                            android:id="@+id/textProfileActivity_Gender"
+                            style="@style/Style_SignInSignUp_TextInputEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/hint_gender"
+                            android:textColor="@color/colorBlack" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardProfileActivity_AccountType"
+                style="@style/Style_SignUpSignIn_CardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/dimen_signup_signin_card_corner_radius"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Style_SignInSignUp_TextInputEditText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/hint_account_type"
+                        android:textColor="@color/colorPrimary" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/dimen_icon_size_small"
+                            android:layout_height="@dimen/dimen_icon_size_small"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="10dp"
+                            android:contentDescription="@string/content_description_icon"
+                            android:padding="@dimen/dimen_icon_padding_small"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_baseline_account_box_24_primary" />
+
+                        <TextView
+                            android:id="@+id/textProfileActivity_AccountType"
+                            style="@style/Style_SignInSignUp_TextInputEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/hint_account_type"
+                            android:textColor="@color/colorBlack" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

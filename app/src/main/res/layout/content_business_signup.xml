@@ -61,13 +61,13 @@
                         android:src="@drawable/ic_baseline_business_24_primary" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Style_SignInSignUp_TextInputLayout"
+                        style="@style/Style_SignInSignUpProfile_TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginTop="5dp"
-                        android:background="@null"
+                        android:background="@color/colorWhite"
                         android:hint="@string/hint_business_name"
-                        app:boxBackgroundColor="@color/colorTransparent"
+                        app:boxBackgroundColor="@color/colorWhite"
                         app:boxStrokeWidth="0dp">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -142,7 +142,7 @@
 
                         <EditText
                             android:id="@+id/editSignUpActivity_Country"
-                            style="@style/Style_SignInSignUp_TextInputLayout"
+                            style="@style/Style_SignInSignUpProfile_TextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:autofillHints=""
@@ -160,7 +160,7 @@
                         android:layout_marginStart="49dp"
                         android:layout_marginTop="@dimen/dimen_signup_signin_field_divider_margin_top"
                         android:layout_marginEnd="10dp"
-                        android:background="@color/colorToolbarDivider" />
+                        android:background="@color/colorDividerGrey" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -183,7 +183,7 @@
 
                         <EditText
                             android:id="@+id/editSignUpActivity_CityTown"
-                            style="@style/Style_SignInSignUp_TextInputLayout"
+                            style="@style/Style_SignInSignUpProfile_TextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginTop="5dp"
@@ -243,7 +243,7 @@
 
                         <EditText
                             android:id="@+id/editSignUpActivity_PhoneNumber"
-                            style="@style/Style_SignInSignUp_TextInputLayout"
+                            style="@style/Style_SignInSignUpProfile_TextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginTop="5dp"
@@ -260,7 +260,7 @@
                         android:layout_marginStart="49dp"
                         android:layout_marginTop="@dimen/dimen_signup_signin_field_divider_margin_top"
                         android:layout_marginEnd="10dp"
-                        android:background="@color/colorToolbarDivider" />
+                        android:background="@color/colorDividerGrey" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -283,7 +283,7 @@
 
                         <EditText
                             android:id="@+id/editSignUpActivity_EmailAddress"
-                            style="@style/Style_SignInSignUp_TextInputLayout"
+                            style="@style/Style_SignInSignUpProfile_TextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginTop="5dp"
@@ -327,7 +327,7 @@
                         android:src="@drawable/ic_baseline_lock_24_primary" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Style_SignInSignUp_TextInputLayout"
+                        style="@style/Style_SignInSignUpProfile_TextInputLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="55dp"
                         android:layout_marginEnd="10dp"
@@ -380,7 +380,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginEnd="20dp"
-                    android:background="@drawable/button_signin_signup"
+                    android:background="@drawable/button_signup"
                     android:gravity="center"
                     android:orientation="horizontal"
                     tools:ignore="UselessParent">
@@ -413,7 +413,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:background="@drawable/button_signin_signup"
+                    android:background="@drawable/button_signup"
                     android:gravity="center"
                     android:orientation="horizontal"
                     tools:ignore="UselessParent">
@@ -447,7 +447,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginBottom="50dp"
                 android:text="@string/action_create_a_personal_account"
                 android:textColor="@color/colorPrimary"

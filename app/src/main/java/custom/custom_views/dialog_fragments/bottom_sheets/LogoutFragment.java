@@ -1,26 +1,42 @@
 package custom.custom_views.dialog_fragments.bottom_sheets;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
+import com.duesclerk.R;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
+import org.jetbrains.annotations.NotNull;
+
+import custom.custom_utilities.DataUtils;
+import custom.storage_adapters.SQLiteDB;
+import custom.storage_adapters.SessionManager;
 
 @SuppressWarnings("rawtypes")
 @SuppressLint("ValidFragment")
 public class LogoutFragment extends BottomSheetDialogFragment {
 
-    /*private final Context mContext;
+    private final Context mContext;
     private final SQLiteDB database;
     private final SessionManager sessionManager;
-    private final String profilePictureUrl;
-    private Interface_MainActivity interfaceMainActivity;
     private BottomSheetBehavior bottomSheetBehavior;
     private BottomSheetBehavior.BottomSheetCallback bottomSheetCallback;
 
-    public LogoutFragment(Context mContext, String profilePictureUrl) {
+    public LogoutFragment(Context mContext) {
         this.mContext = mContext; // Get context
         this.sessionManager = new SessionManager(mContext); // Initialize SessionManager object
         this.database = new SQLiteDB(mContext); // Initialize database
-        this.profilePictureUrl = profilePictureUrl;
     }
 
     @NonNull
@@ -33,33 +49,27 @@ public class LogoutFragment extends BottomSheetDialogFragment {
         TextView tvCancel = contentView.findViewById(R.id.textBSLogout_Cancel);
         TextView tvLogout = contentView.findViewById(R.id.textBSLogout_Logout);
         TextView tvLogoutMessage = contentView.findViewById(R.id.textBSLogout_Message);
-        CircleImageView imageProfilePicture =
-                contentView.findViewById(R.id.imageBSLogout_ProfilePicture);
 
-        // Load profile picture
-        ViewsUtils.loadImageView(mContext, profilePictureUrl, imageProfilePicture);
-
-        // Check for user information
-        if (!DataUtils.isEmptyArrayList(database.getUserAccountInfo())) {
+        // Check for client information
+        if (!DataUtils.isEmptyArrayList(database.getClientAccountInfo())) {
             // Set logout message
             tvLogoutMessage.setText(DataUtils.getStringResource(mContext,
-                    R.string.msg_logout, database.getUserAccountInfo().get(0).getFirstName()));
+                    R.string.msg_logout, database.getClientAccountInfo().get(0).getEmailAddress()));
         }
         // Dismiss dialog
         tvCancel.setOnClickListener(v -> dialog.dismiss());
 
         tvLogout.setOnClickListener(v -> {
-            // Check if user is logged in
-            if (sessionManager.isLoggedIn()) {
-                sessionManager.setLogin(false); // Delete session
+            // Check if client is logged in
+            if (sessionManager.isSignedIn()) {
 
-                // Check for user information
-                if (!DataUtils.isEmptyArrayList(database.getUserAccountInfo())) {
-                    // Delete user details from SQLite database
-                    if (database.deleteUserAccountInfo((database.getUserAccountInfo().get(0)
-                            .getUserId()))) {
-                        // Set MainActivity notification count
-                        this.interfaceMainActivity.setAlertsCount(0);
+                // Check for client information
+                if (!DataUtils.isEmptyArrayList(database.getClientAccountInfo())) {
+                    // Delete client details from SQLite database
+                    if (database.deleteClientAccountInfo((database.getClientAccountInfo().get(0)
+                            .getClientId()))) {
+
+                        sessionManager.setSignedIn(false); // Falsify session
                     }
                 }
             }
@@ -97,7 +107,6 @@ public class LogoutFragment extends BottomSheetDialogFragment {
     @Override
     public void onAttach(@NotNull Context context) {
         super.onAttach(context);
-        this.interfaceMainActivity = (Interface_MainActivity) context;
     }
 
     @Override
@@ -105,5 +114,5 @@ public class LogoutFragment extends BottomSheetDialogFragment {
         super.onStart();
         this.bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         this.bottomSheetBehavior.addBottomSheetCallback(bottomSheetCallback);
-    }*/
+    }
 }

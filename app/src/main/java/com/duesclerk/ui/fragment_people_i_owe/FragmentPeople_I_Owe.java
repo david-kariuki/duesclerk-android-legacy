@@ -33,7 +33,6 @@ public class FragmentPeople_I_Owe extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(ViewModel_People_I_Owe.class);
-        // TODO: Use the ViewModel
     }
 
 }

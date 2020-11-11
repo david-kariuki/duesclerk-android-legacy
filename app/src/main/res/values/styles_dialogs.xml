@@ -30,20 +30,4 @@
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
 
-    <!--Gender pickers-->
-
-    <!--ImagePickerOptions Fragment-->
-   <!-- <style name="Style_ImagePickerOptions_Option">
-        <item name="android:clickable">true</item>
-        <item name="android:focusable">true</item>
-        <item name="android:background">@drawable/animation_ripple_list_grey</item>
-    </style>-->
-
-    <!--<style name="Style_ImagePickerOptions_Icons">
-        <item name="android:layout_marginTop">8dp</item>
-        <item name="android:layout_marginBottom">8dp</item>
-        <item name="android:layout_marginStart">5dp</item>
-        <item name="android:layout_marginEnd">10dp</item>
-        <item name="android:background">@drawable/outline_image_picker_options_icons</item>
-    </style>-->
 </resources>

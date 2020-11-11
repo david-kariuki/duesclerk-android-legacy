@@ -37,28 +37,52 @@
         android:usesCleartextTraffic="false"
         tools:targetApi="o">
 
-        <activity android:name=".ui.SignInActivity" />
-        <activity android:name=".ui.BusinessSignup" />
-        <activity android:name=".ui.PersonalSignup" />
         <activity
-            android:name=".SignInSignupActivity"
-            android:label="@string/title_activity_signup"
-            android:theme="@style/Theme.DuesClerk.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:name=".activities.ProfileActivity"
+            android:label="@string/title_activity_profile"
+            android:theme="@style/Theme.DuesClerk.NoActionBar"
+            android:colorMode="wideColorGamut">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
+            android:name=".ui.SignInActivity"
+            android:colorMode="wideColorGamut"
+            android:label="@string/title_fragment_sign_in"
+            android:parentActivityName=".activities.SignInSignupActivity"
+            android:theme="@style/Theme.DuesClerk.NoActionBar" />
+        <activity
+            android:name=".ui.BusinessSignup"
+            android:colorMode="wideColorGamut"
+            android:label="@string/title_fragment_signup"
+            android:parentActivityName=".activities.SignInSignupActivity"
+            android:theme="@style/Theme.DuesClerk.NoActionBar" />
+        <activity
+            android:name=".ui.PersonalSignup"
+            android:colorMode="wideColorGamut"
+            android:label="@string/title_activity_signin_signup"
+            android:parentActivityName=".activities.SignInSignupActivity"
+            android:theme="@style/Theme.DuesClerk.NoActionBar" />
+        <activity
+            android:name=".activities.SignInSignupActivity"
+            android:colorMode="wideColorGamut"
+            android:label="@string/title_fragment_signup"
+            android:theme="@style/Theme.DuesClerk.NoActionBar"/>
+        <activity
             android:name=".ui.AppMenu"
-            android:colorMode="wideColorGamut" />
+            android:colorMode="wideColorGamut"
+            android:label="@string/tittle_fragment_app_menu"
+            android:parentActivityName=".activities.MainActivity" />
         <activity
             android:name=".ui.PeopleOwingMe"
-            android:colorMode="wideColorGamut" />
+            android:colorMode="wideColorGamut"
+            android:label="@string/title_fragment_people_owing_me"
+            android:parentActivityName=".activities.MainActivity" />
         <activity
             android:name=".ui.People_I_Owe"
-            android:colorMode="wideColorGamut" />
+            android:colorMode="wideColorGamut"
+            android:label="@string/title_fragment_people_i_owe"
+            android:parentActivityName=".activities.MainActivity" />
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -66,7 +90,9 @@
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="fullSensor"
-            android:theme="@style/AppTheme.NoActionBar" /> <!-- cache directory file provider paths -->
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- cache directory file provider paths -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -78,15 +104,23 @@
         </provider>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:colorMode="wideColorGamut"
             android:label="@string/app_name"
-            android:theme="@style/Theme.DuesClerk.NoActionBar" />
+            android:theme="@style/Theme.DuesClerk.NoActionBar">
+            <intent-filter
+                android:icon="@drawable/app_logo"
+                android:label="@string/app_name">
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
-            android:name=".SplashActivity"
+            android:name=".activities.SplashActivity"
             android:colorMode="wideColorGamut"
             android:label="@string/title_activity_splash"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
     </application>
 
 </manifest>

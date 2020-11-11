@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import custom.custom_utilities.UserAccountUtils;
+import custom.custom_utilities.AccountUtils;
 import custom.java_beans.JB_ClientAccountInfo;
 
 public class SQLiteDB extends SQLiteOpenHelper {
@@ -41,10 +41,10 @@ public class SQLiteDB extends SQLiteOpenHelper {
         String CREATE_TABLE_USER;
         CREATE_TABLE_USER = "CREATE TABLE " + TABLE_CLIENT
                 + "("
-                + UserAccountUtils.KEY_RECORD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + UserAccountUtils.KEY_CLIENT_ID + " TEXT UNIQUE,"
-                + UserAccountUtils.KEY_EMAIL_ADDRESS + " TEXT UNIQUE,"
-                + UserAccountUtils.KEY_PASSWORD + " TEXT" + ")";
+                + AccountUtils.KEY_RECORD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + AccountUtils.KEY_CLIENT_ID + " TEXT UNIQUE,"
+                + AccountUtils.KEY_EMAIL_ADDRESS + " TEXT UNIQUE,"
+                + AccountUtils.KEY_PASSWORD + " TEXT" + ")";
         sqLiteDatabase.execSQL(CREATE_TABLE_USER);
     }
 
@@ -87,9 +87,9 @@ public class SQLiteDB extends SQLiteOpenHelper {
             SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
             ContentValues contentValues = new ContentValues();
-            contentValues.put(UserAccountUtils.KEY_CLIENT_ID, clientId); // ClientId
-            contentValues.put(UserAccountUtils.KEY_EMAIL_ADDRESS, emailAddress); // emailAddress
-            contentValues.put(UserAccountUtils.KEY_PASSWORD, password); // password
+            contentValues.put(AccountUtils.KEY_CLIENT_ID, clientId); // ClientId
+            contentValues.put(AccountUtils.KEY_EMAIL_ADDRESS, emailAddress); // emailAddress
+            contentValues.put(AccountUtils.KEY_PASSWORD, password); // password
 
             // Inserting Data
             sqLiteDatabase.insert(TABLE_CLIENT, null, contentValues);
@@ -129,9 +129,9 @@ public class SQLiteDB extends SQLiteOpenHelper {
 
             // Loop through cursor
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                jbClient.setClientId(cursor.getString(cursor.getColumnIndex(UserAccountUtils.KEY_CLIENT_ID)));
-                jbClient.setEmailAddress(cursor.getString(cursor.getColumnIndex(UserAccountUtils.KEY_EMAIL_ADDRESS)));
-                jbClient.setPassword(cursor.getString(cursor.getColumnIndex(UserAccountUtils.KEY_PASSWORD)));
+                jbClient.setClientId(cursor.getString(cursor.getColumnIndex(AccountUtils.KEY_CLIENT_ID)));
+                jbClient.setEmailAddress(cursor.getString(cursor.getColumnIndex(AccountUtils.KEY_EMAIL_ADDRESS)));
+                jbClient.setPassword(cursor.getString(cursor.getColumnIndex(AccountUtils.KEY_PASSWORD)));
                 client.add(jbClient); // Add java bean to ArrayList
             }
 
@@ -150,12 +150,12 @@ public class SQLiteDB extends SQLiteOpenHelper {
      *
      * @param userId - primary key
      */
-    public boolean deleteUserAccountInfo(String userId) {
+    public boolean deleteClientAccountInfo(String userId) {
         SQLiteDB myDB = new SQLiteDB(mContext);
         SQLiteDatabase database = this.getWritableDatabase();
         boolean deleteStatus;
 
-        database.delete(TABLE_CLIENT, UserAccountUtils.KEY_CLIENT_ID + "= ?",
+        database.delete(TABLE_CLIENT, AccountUtils.KEY_CLIENT_ID + "= ?",
                 new String[]{userId}); // Delete All Rows
         database.close(); // Closing Connection to the database
 
@@ -175,8 +175,8 @@ public class SQLiteDB extends SQLiteOpenHelper {
                                                 String updateField) {
         String strOldValue = null, strUpdatedField = null;
 
-        if (updateField.equals(UserAccountUtils.KEY_EMAIL_ADDRESS)
-                || updateField.equals(UserAccountUtils.KEY_PASSWORD)) {
+        if (updateField.equals(AccountUtils.KEY_EMAIL_ADDRESS)
+                || updateField.equals(AccountUtils.KEY_PASSWORD)) {
 
             // Create database object
             SQLiteDatabase database = this.getWritableDatabase();
@@ -188,22 +188,22 @@ public class SQLiteDB extends SQLiteOpenHelper {
                     loadClientAccountInfoDataJavaBean(checkDatabase);
 
             switch (updateField) {
-                case UserAccountUtils.KEY_EMAIL_ADDRESS:
+                case AccountUtils.KEY_EMAIL_ADDRESS:
                     strOldValue = jbClientAccountInfo.getEmailAddress();
-                    contentValues.put(UserAccountUtils.KEY_EMAIL_ADDRESS, newValue);
+                    contentValues.put(AccountUtils.KEY_EMAIL_ADDRESS, newValue);
 
                     // update fields
                     database.update(TABLE_CLIENT, contentValues,
-                            UserAccountUtils.KEY_CLIENT_ID + "=" + clientId, null);
+                            AccountUtils.KEY_CLIENT_ID + "=" + clientId, null);
                     break;
 
-                case UserAccountUtils.KEY_PASSWORD:
+                case AccountUtils.KEY_PASSWORD:
                     strOldValue = jbClientAccountInfo.getPassword();
-                    contentValues.put(UserAccountUtils.KEY_PASSWORD, newValue);
+                    contentValues.put(AccountUtils.KEY_PASSWORD, newValue);
 
                     // Update fields
                     database.update(TABLE_CLIENT, contentValues,
-                            UserAccountUtils.KEY_CLIENT_ID + "=" + clientId, null);
+                            AccountUtils.KEY_CLIENT_ID + "=" + clientId, null);
                     break;
 
                 default:
@@ -214,10 +214,10 @@ public class SQLiteDB extends SQLiteOpenHelper {
             database.close();
 
             switch (updateField) {
-                case UserAccountUtils.KEY_EMAIL_ADDRESS:
+                case AccountUtils.KEY_EMAIL_ADDRESS:
                     strUpdatedField = jbClientAccountInfo.getEmailAddress();
                     break;
-                case UserAccountUtils.KEY_PASSWORD:
+                case AccountUtils.KEY_PASSWORD:
                     strUpdatedField = jbClientAccountInfo.getPassword();
                     break;
                 default:

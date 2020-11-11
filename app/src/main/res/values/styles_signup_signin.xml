@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Style_SignInSignUp_TextInputLayout" parent="@android:style/TextAppearance.Widget.EditText">
+    <style name="Style_SignInSignUpProfile_TextInputLayout" parent="@android:style/TextAppearance.Widget.EditText">
         <item name="android:maxLines">1</item>
         <item name="android:textSize">@dimen/dimen_signup_signin_edit_text_size</item>
         <item name="android:textColor">@color/colorBlack</item>
@@ -28,6 +28,7 @@
         <item name="android:layout_centerInParent">true</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:background">@color/colorWhite</item>
+        <item name="cardBackgroundColor">@color/colorWhite</item>
     </style>
 
 </resources>

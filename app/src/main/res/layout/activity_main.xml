@@ -5,18 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorDefaultActivityBackground"
-    tools:context="com.duesclerk.MainActivity">
+    tools:context="com.duesclerk.activities.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorDefaultActivityBackground"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
-            android:background="@drawable/outline_tab_layout_main_activity"
+            android:background="@color/colorDefaultActivityBackground"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:paddingVertical="0dp"
+            android:paddingHorizontal="0dp"
             android:elevation="@dimen/dimen_toolbar_elevation_large"
             android:gravity="center"
             android:orientation="vertical">
@@ -27,8 +32,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="1dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:text="@string/app_name"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/dimen_toolbar_title_size"
@@ -37,13 +42,16 @@
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayoutMainActivity"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginStart="0dp"
+                android:background="@color/colorDefaultActivityBackground"
+                android:elevation="0dp"
                 android:longClickable="false"
                 android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tabBackground="@color/colorWhite"
                 app:tabIndicatorHeight=".2dp"
                 app:tabPaddingEnd="0dp"
                 app:tabPaddingStart="0dp"
@@ -59,14 +67,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:contentDescription="@string/content_description_icon"
+        android:layout_margin="@dimen/dimen_fab_margin"
+        android:contentDescription="@string/content_description_fab"
         android:src="@drawable/ic_baseline_add_24_white"
         android:backgroundTint="@color/colorPrimary"
         app:tint="@color/colorWhite"
         android:elevation="6dp"
         app:borderWidth="0dp"
         app:fabSize="auto"
-         />
+        />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

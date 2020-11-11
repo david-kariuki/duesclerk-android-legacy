@@ -5,6 +5,6 @@
 
     <!--volley timeouts-->
     <integer name="int_volley_account_request_initial_timeout_ms">10000</integer>
-    <integer name="int_volley_account_request_max_timeout_retry">2</integer>
+    <integer name="int_volley_account_request_max_timeout_retry">1</integer>
 
 </resources>

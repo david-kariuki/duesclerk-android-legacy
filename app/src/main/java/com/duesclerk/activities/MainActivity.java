@@ -1,4 +1,4 @@
-package com.duesclerk;
+package com.duesclerk.activities;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,7 +9,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import com.duesclerk.ui.fragment_appmenu.FragmentAppMenu;
+import com.duesclerk.R;
+import com.duesclerk.ui.fragment_app_menu.FragmentAppMenu;
 import com.duesclerk.ui.fragment_people_i_owe.FragmentPeople_I_Owe;
 import com.duesclerk.ui.fragment_peopleowingme.FragmentPeopleOwingMe;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -74,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         floatingActionButton.setOnClickListener(v -> fabClickedAction()); // Fab on click
+
+        Objects.requireNonNull(tabLayout.getTabAt(2)).select();
     }
 
     /**

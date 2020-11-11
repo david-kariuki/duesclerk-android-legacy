@@ -1,6 +1,6 @@
 package custom.custom_utilities;
 
-public class UserAccountUtils {
+public class AccountUtils {
 
     // SQLite Database User Table Column Names
 
@@ -44,7 +44,7 @@ public class UserAccountUtils {
     public static final String KEY_ACCOUNT_TYPE_BUSINESS = "AccountTypeBusiness";
 
     // Email Verification
-    public static final String KEY_EMAIL_VERIFIED = "EmailVerification";
+    public static final String KEY_EMAIL_VERIFIED = "EmailVerified";
 
     public static final String KEY_SIGNUP_DATE = "SignupDate";
 

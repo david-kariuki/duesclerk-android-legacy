@@ -30,13 +30,19 @@
     <!--Grey-->
     <color name="colorPrimaryGrey">#9E9E9E</color>
     <color name="colorGreyLight300">#E0E0E0</color>
+    <color name="colorGreyLight200">#EEEEEE</color>
 
     <!--Toolbar Colors-->
-    <color name="colorToolbarDivider">@color/colorGreyLight300</color>
+    <color name="colorDividerGrey">@color/colorGreyLight300</color>
 
     <!--Red-->
     <color name="colorRedDark">#ec2f21</color>
 
     <!--Transparent-->
     <color name="colorTransparent">@android:color/transparent</color>
+
+    <!--App Option-->
+    <color name="color_app_option_list_divider">@color/colorGreyLight300</color>
+
+    <color name="color_shimmer_item_grey">@color/colorGreyLight200</color>
 </resources>

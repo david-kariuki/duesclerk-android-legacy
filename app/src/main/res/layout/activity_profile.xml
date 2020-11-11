@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.ProfileActivity">
+
+    <custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout
+        android:id="@+id/swipeProfileActivity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/llProfileActivity_Profile"
+                android:visibility="gone">
+
+                <include layout="@layout/content_profile" />
+            </LinearLayout>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerProfileActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <include layout="@layout/shimmer_placeholder_profile_activity"/>
+            </com.facebook.shimmer.ShimmerFrameLayout>
+        </LinearLayout>
+    </custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabMainActivity_EditProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/dimen_fab_margin"
+        android:backgroundTint="@color/colorPrimary"
+        android:contentDescription="@string/content_description_fab"
+        android:elevation="6dp"
+        android:src="@drawable/ic_baseline_edit_24_white"
+        app:borderWidth="0dp"
+        app:fabSize="auto"
+        app:tint="@color/colorWhite" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabMainActivity_SaveProfileEdits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/dimen_fab_margin"
+        android:backgroundTint="@color/colorPrimary"
+        android:contentDescription="@string/content_description_fab"
+        android:elevation="6dp"
+        android:src="@drawable/ic_baseline_check_24_white"
+        android:visibility="gone"
+        app:borderWidth="0dp"
+        app:fabSize="auto"
+        app:tint="@color/colorWhite" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

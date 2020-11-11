@@ -50,13 +50,14 @@ public class DatePickerFragment extends DialogFragment
     public @NotNull Dialog onCreateDialog(Bundle savedInstanceState) {
         @SuppressLint("InflateParams") View titleView = inflater.inflate(
                 R.layout.title_date_picker, null, false);
+
         TextView textTitle = titleView.findViewById(R.id.textViewDatePickerTitle);
-        TextView textTitle_Message = titleView.findViewById(R.id.textViewDatePickerTitle_Message);
+
         // Set title and age restriction message
         textTitle.setText(dialogTitle);
 
         final Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);;
+        int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 

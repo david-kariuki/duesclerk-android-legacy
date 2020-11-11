@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.DataSource;
@@ -35,6 +36,7 @@ import java.util.Objects;
 
 import custom.custom_views.custom_glide.GlideApp;
 import custom.custom_views.dialog_fragments.dialogs.DatePickerFragment;
+import custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout;
 
 
 /**
@@ -46,6 +48,7 @@ import custom.custom_views.dialog_fragments.dialogs.DatePickerFragment;
  * Load urls to ImageViews
  * Expand and collapse ExpandableLayout
  * Switch TabLayout positions
+ * Start/Stop SwipeRefreshLayout
  */
 public class ViewsUtils {
 
@@ -395,5 +398,27 @@ public class ViewsUtils {
      */
     public static void selectTabPosition(int position, TabLayout tabLayout) {
         Objects.requireNonNull(tabLayout.getTabAt(position)).select();
+    }
+
+    /**
+     * Function to start SwipeRefreshLayout
+     *
+     * @param refresh            - Refresh state
+     * @param swipeRefreshListener - Associated SwipeRefreshLayout
+     */
+    public static void startStopSwipeRefreshLayout(boolean refresh,
+                                                   MultiSwipeRefreshLayout swipeRefreshLayout,
+                                                   SwipeRefreshLayout.OnRefreshListener swipeRefreshListener) {
+        if (refresh) {
+            // Check if layout is already refreshing
+            if (!swipeRefreshLayout.isRefreshing()) {
+                // Start SwipeRefreshLayout
+                swipeRefreshLayout.setRefreshing(true);
+                swipeRefreshListener.onRefresh();
+            }
+        } else {
+            // Stop SwipeRefreshLayout
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 }

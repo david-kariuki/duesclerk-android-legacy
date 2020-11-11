@@ -50,7 +50,7 @@ public class FragmentBusinessSignup extends Fragment implements Interface_Countr
                              @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.activity_business_signup, container, false);
 
-        mContext = requireActivity(); // Context
+        mContext = getContext(); // Context
 
         Interface_SignInSignup interfaceSignUpSignIn = (Interface_SignInSignup) getActivity();
 

@@ -16,20 +16,6 @@
         android:layout_gravity="center_vertical"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="10dp"
         />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:text="@string/msg_minimum_age_is"
-        android:id="@+id/textViewDatePickerTitle_Message"
-        android:lines="2"
-        android:minLines="2"
-        android:maxLines="2"
-        android:textColor="@color/colorDefaultActivityBackground"
-        android:singleLine="false"
-        android:textSize="12sp"/>
-
 </LinearLayout>

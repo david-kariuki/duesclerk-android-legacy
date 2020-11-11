@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,26 +13,26 @@
     tools:ignore="UnusedAttribute"
     tools:showIn="@layout/activity_personal_signup">
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/Style_ScrollView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/colorDefaultActivityBackground"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="-1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="-1.0"
-        app:layout_constraintWidth_percent=".9">
+        android:fillViewport="true">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:background="@color/colorDefaultActivityBackground"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="-1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="-1.0"
+            app:layout_constraintWidth_percent=".9">
 
             <androidx.cardview.widget.CardView
                 style="@style/Style_SignUpSignIn_CardView"
@@ -81,7 +81,7 @@
 
                         <EditText
                             android:id="@+id/editSignUpActivity_FirstName"
-                            style="@style/Style_SignInSignUp_TextInputLayout"
+                            style="@style/Style_SignInSignUpProfile_TextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginTop="5dp"
@@ -98,7 +98,7 @@
                         android:layout_marginStart="49dp"
                         android:layout_marginTop="@dimen/dimen_signup_signin_field_divider_margin_top"
                         android:layout_marginEnd="10dp"
-                        android:background="@color/colorToolbarDivider" />
+                        android:background="@color/colorDividerGrey" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -122,7 +122,7 @@
 
                         <EditText
                             android:id="@+id/editSignUpActivity_LastName"
-                            style="@style/Style_SignInSignUp_TextInputLayout"
+                            style="@style/Style_SignInSignUpProfile_TextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginTop="5dp"
@@ -180,7 +180,7 @@
 
                         <EditText
                             android:id="@+id/editSignUpActivity_PhoneNumber"
-                            style="@style/Style_SignInSignUp_TextInputLayout"
+                            style="@style/Style_SignInSignUpProfile_TextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginTop="5dp"
@@ -197,7 +197,7 @@
                         android:layout_marginStart="49dp"
                         android:layout_marginTop="@dimen/dimen_signup_signin_field_divider_margin_top"
                         android:layout_marginEnd="10dp"
-                        android:background="@color/colorToolbarDivider" />
+                        android:background="@color/colorDividerGrey" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -220,7 +220,7 @@
 
                         <EditText
                             android:id="@+id/editSignUpActivity_EmailAddress"
-                            style="@style/Style_SignInSignUp_TextInputLayout"
+                            style="@style/Style_SignInSignUpProfile_TextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginTop="5dp"
@@ -259,17 +259,17 @@
                         android:src="@drawable/ic_baseline_location_on_24_primary" />
 
                     <ImageView
+                        android:id="@+id/imageSignupActivity_CountryFlag"
                         android:layout_width="@dimen/dimen_icon_size_small"
                         android:layout_height="@dimen/dimen_icon_size_small"
+                        android:layout_marginEnd="2dp"
                         android:contentDescription="@string/content_description_icon"
                         android:padding="@dimen/dimen_icon_padding_small"
-                        android:layout_marginEnd="2dp"
-                        android:id="@+id/imageSignupActivity_CountryFlag"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_baseline_flag_24_primary_grey" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Style_SignInSignUp_TextInputLayout"
+                        style="@style/Style_SignInSignUpProfile_TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:background="@null"
@@ -277,7 +277,7 @@
                         android:focusableInTouchMode="false"
                         android:focusedByDefault="false"
                         android:hint="@string/hint_country_name"
-                        app:boxBackgroundColor="@color/colorTransparent"
+                        app:boxBackgroundColor="@color/colorWhite"
                         app:boxStrokeWidth="0dp">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -329,7 +329,7 @@
                         android:src="@drawable/ic_baseline_lock_24_primary" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Style_SignInSignUp_TextInputLayout"
+                        style="@style/Style_SignInSignUpProfile_TextInputLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="55dp"
                         android:layout_marginEnd="10dp"
@@ -419,12 +419,13 @@
                             android:orientation="horizontal">
 
                             <RadioButton
-                                android:id="@+id/radioSignupGenderMale"
+                                android:id="@+id/radioSignupActivityGenderMale"
                                 android:layout_width="@dimen/dimen_icon_size_small"
                                 android:layout_height="@dimen/dimen_icon_size_small"
                                 android:buttonTint="@color/colorPrimary" />
 
                             <TextView
+                                android:id="@+id/textSignupActivity_GenderMale"
                                 style="@style/TextAppearance.AppCompat.Headline"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -433,13 +434,14 @@
                                 android:textSize="15sp" />
 
                             <RadioButton
-                                android:id="@+id/radioSignupGenderFemale"
+                                android:id="@+id/radioSignupActivityGenderFemale"
                                 android:layout_width="@dimen/dimen_icon_size_small"
                                 android:layout_height="@dimen/dimen_icon_size_small"
                                 android:layout_marginStart="5dp"
-                                android:buttonTint="@color/colorPrimaryGrey" />
+                                android:buttonTint="@color/colorPrimary" />
 
                             <TextView
+                                android:id="@+id/textSignupActivity_GenderFemale"
                                 style="@style/TextAppearance.AppCompat.Headline"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -448,13 +450,14 @@
                                 android:textSize="15sp" />
 
                             <RadioButton
-                                android:id="@+id/radioSignupGenderOther"
+                                android:id="@+id/radioSignupActivityGenderOther"
                                 android:layout_width="@dimen/dimen_icon_size_small"
                                 android:layout_height="@dimen/dimen_icon_size_small"
                                 android:layout_marginStart="5dp"
-                                android:buttonTint="@color/colorPrimaryGrey" />
+                                android:buttonTint="@color/colorPrimary" />
 
                             <TextView
+                                android:id="@+id/textSignupActivity_GenderOther"
                                 style="@style/TextAppearance.AppCompat.Headline"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -470,7 +473,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
-                android:gravity="center_horizontal"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -479,7 +482,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginEnd="20dp"
-                    android:background="@drawable/button_signin_signup"
+                    android:background="@drawable/button_signin"
                     android:gravity="center"
                     android:orientation="horizontal"
                     tools:ignore="UselessParent">
@@ -491,8 +494,7 @@
                         android:layout_marginEnd="5dp"
                         android:contentDescription="@string/content_description_icon"
                         android:padding="@dimen/dimen_icon_padding_small"
-                        android:rotation="180"
-                        android:src="@drawable/ic_baseline_arrow_forward_24_white" />
+                        android:src="@drawable/ic_baseline_arrow_back_24_primary_dark" />
 
                     <TextView
                         style="@style/Base.TextAppearance.AppCompat.Button"
@@ -502,7 +504,7 @@
                         android:layout_marginEnd="20dp"
                         android:layout_marginBottom="10dp"
                         android:text="@string/action_sign_in"
-                        android:textColor="@color/colorWhite"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="13sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -512,7 +514,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:background="@drawable/button_signin_signup"
+                    android:background="@drawable/button_signup"
                     android:gravity="center"
                     android:orientation="horizontal"
                     tools:ignore="UselessParent">
@@ -521,22 +523,15 @@
                         style="@style/Base.TextAppearance.AppCompat.Button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginStart="31dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginEnd="5dp"
+                        android:layout_marginEnd="31dp"
                         android:layout_marginBottom="10dp"
                         android:text="@string/action_sign_up"
                         android:textColor="@color/colorWhite"
                         android:textSize="13sp"
                         android:textStyle="bold" />
 
-                    <ImageView
-                        android:layout_width="@dimen/dimen_icon_size_small"
-                        android:layout_height="@dimen/dimen_icon_size_small"
-                        android:layout_marginEnd="13dp"
-                        android:contentDescription="@string/content_description_icon"
-                        android:padding="@dimen/dimen_icon_padding_small"
-                        android:src="@drawable/ic_baseline_arrow_forward_24_white" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -546,12 +541,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginBottom="50dp"
                 android:text="@string/action_create_a_business_account"
                 android:textColor="@color/colorPrimary"
                 android:textSize="13sp" />
 
         </LinearLayout>
-    </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

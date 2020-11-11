@@ -1,9 +1,13 @@
 package custom.custom_utilities;
 
+import android.content.Context;
+
+import com.duesclerk.R;
+
 public class VolleyUtils {
 
     // General
-    public static final String KEY_API_KEY = "ApiKey";
+
     public static final String KEY_ERROR = "Error";
     public static final String KEY_ERROR_MESSAGE = "ErrorMessage";
     public static final String KEY_SUCCESS_MESSAGE = "SuccessMessage";
@@ -22,6 +26,9 @@ public class VolleyUtils {
     public static final String KEY_GET_EMAIL_CODE = "GetEmailCode";
     public static final String KEY_PASSWORD_RESET = "PasswordReset";
 
-    // Cart Activity
-    public static final String KEY_CART = "Cart";
+    public static final String KEY_API_KEY = "ApiKey";
+
+    public static String getApiKey(Context context){
+        return "API_" + DataUtils.getStringResource(context, R.string.app_name) + "php_2020";
+    }
 }

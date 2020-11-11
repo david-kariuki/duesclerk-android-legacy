@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:ignore="ContentDescription"
+    tools:showIn="@layout/activity_app_menu">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="30dp"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/llAppMenu_ViewProfile"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_icon_size_large"
+                android:layout_height="@dimen/dimen_icon_size_large"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="20dp"
+                android:padding="@dimen/dimen_icon_padding_medium"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_baseline_person_24_black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/action_view_profile"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/dimen_app_options_list_text_size" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_app_options_list_divider_height"
+            android:background="@drawable/gradient_app_options_divider" />
+
+        <LinearLayout
+            android:id="@+id/llAppMenu_AccountSettings"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_icon_size_large"
+                android:layout_height="@dimen/dimen_icon_size_large"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="20dp"
+                android:padding="@dimen/dimen_icon_padding_medium"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_baseline_admin_panel_settings_24_black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/action_account_settings"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/dimen_app_options_list_text_size" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_app_options_list_divider_height"
+            android:background="@drawable/gradient_app_options_divider" />
+
+        <LinearLayout
+            android:id="@+id/llAppMenu_HelpCentre"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_app_options_list_item_height"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_icon_size_large"
+                android:layout_height="@dimen/dimen_icon_size_large"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="20dp"
+                android:padding="@dimen/dimen_icon_padding_medium"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_baseline_help_24_black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/action_help_center"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/dimen_app_options_list_text_size" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_app_options_list_divider_height"
+            android:background="@drawable/gradient_app_options_divider" />
+
+        <LinearLayout
+            android:id="@+id/llAppMenu_Feedback"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_icon_size_large"
+                android:layout_height="@dimen/dimen_icon_size_large"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="20dp"
+                android:padding="@dimen/dimen_icon_padding_medium"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_baseline_feedback_24_black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/hint_feedback"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/dimen_app_options_list_text_size" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_app_options_list_divider_height"
+            android:background="@drawable/gradient_app_options_divider" />
+
+        <LinearLayout
+            android:id="@+id/llAppMenu_About"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_icon_size_large"
+                android:layout_height="@dimen/dimen_icon_size_large"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="20dp"
+                android:padding="@dimen/dimen_icon_padding_medium"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_baseline_info_24_black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/action_about"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/dimen_app_options_list_text_size" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_app_options_list_divider_height"
+            android:background="@drawable/gradient_app_options_divider" />
+
+        <LinearLayout
+            android:id="@+id/llAppMenu_Settings"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_icon_size_large"
+                android:layout_height="@dimen/dimen_icon_size_large"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="20dp"
+                android:padding="@dimen/dimen_icon_padding_medium"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_baseline_settings_24_black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/action_settings"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/dimen_app_options_list_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llAppMenu_Logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_app_options_list_divider_height"
+                android:background="@drawable/gradient_app_options_divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_icon_size_large"
+                    android:layout_height="@dimen/dimen_icon_size_large"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="20dp"
+                    android:padding="@dimen/dimen_icon_padding_medium"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_baseline_exit_to_app_24_red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="24dp"
+                    android:text="@string/action_logout"
+                    android:textColor="#f82727"
+                    android:textSize="@dimen/dimen_app_options_list_text_size" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

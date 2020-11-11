@@ -2,12 +2,11 @@ package com.duesclerk.ui.fragment_signin;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.Paint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -29,6 +27,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.StringRequest;
 import com.duesclerk.R;
+import com.duesclerk.activities.MainActivity;
 import com.duesclerk.interfaces.Interface_SignInSignup;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -39,10 +38,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import custom.custom_utilities.AccountUtils;
 import custom.custom_utilities.ApplicationClass;
 import custom.custom_utilities.DataUtils;
 import custom.custom_utilities.InputFiltersUtils;
-import custom.custom_utilities.UserAccountUtils;
 import custom.custom_utilities.ViewsUtils;
 import custom.custom_utilities.VolleyUtils;
 import custom.custom_views.toast.CustomToast;
@@ -53,8 +52,7 @@ import custom.storage_adapters.SessionManager;
 
 public class FragmentSignIn extends Fragment {
 
-    private static final String TAG = FragmentSignIn.class.getSimpleName();
-    private ViewModel_FragmentSignIn mViewModel;
+    // private static final String TAG = FragmentSignIn.class.getSimpleName();
 
     private Context mContext;
     private ProgressDialog progressDialog;
@@ -62,6 +60,7 @@ public class FragmentSignIn extends Fragment {
     private SQLiteDB database;
     private SessionManager sessionManager;
     private ImageView imagePasswordToggle;
+    private Interface_SignInSignup interfaceSignInSignup;
 
     public static FragmentSignIn newInstance() {
         return new FragmentSignIn();
@@ -73,20 +72,20 @@ public class FragmentSignIn extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_sign_in, container, false);
 
-        mContext = requireActivity();
+        mContext = getContext();
 
         // Interface to switch SignIn and SignUp tabs
-        Interface_SignInSignup interfaceSignInSignup = (Interface_SignInSignup) getActivity();
+        interfaceSignInSignup = (Interface_SignInSignup) getActivity();
 
         // Progress Dialog
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setCancelable(false);
 
-        editEmailAddress = view.findViewById(R.id.editSignInActivity_Username);
+        editEmailAddress = view.findViewById(R.id.editSignInActivity_EmailAddress);
         editPassword = view.findViewById(R.id.editSignInActivity_Password);
         TextView textForgotPassword = view.findViewById(R.id.textSignInActivity_ForgotPassword);
-        TextView textDontHaveAnAccount = view.findViewById(R.id.textSignInActivity_DontHaveAccount);
-        LinearLayout llSignIn = view.findViewById(R.id.llSignInActivity_SingIn);
+        LinearLayout llSignIn = view.findViewById(R.id.llSignInActivity_SignIn);
+        LinearLayout llSignUp = view.findViewById(R.id.llSignInActivity_SignUp);
         imagePasswordToggle = view.findViewById(R.id.imageSignInActivity_PasswordToggle);
 
         // Set Input Filters
@@ -134,12 +133,8 @@ public class FragmentSignIn extends Fragment {
             // startActivity(intentForgotPassword);
         });
 
-        // Underline text
-        textDontHaveAnAccount.setPaintFlags(textDontHaveAnAccount.getPaintFlags()
-                | Paint.UNDERLINE_TEXT_FLAG);
-
         // SignUp link
-        textDontHaveAnAccount.setOnClickListener(view1 -> Objects.requireNonNull(
+        llSignUp.setOnClickListener(view1 -> Objects.requireNonNull(
                 interfaceSignInSignup).setTabPosition(1));
 
         llSignIn.setOnClickListener(view1 -> {
@@ -198,7 +193,7 @@ public class FragmentSignIn extends Fragment {
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST,
                     NetworkUtils.URL_SIGNIN_USER, response -> {
-                Log.d(TAG, "SignIn Response: " + response); // Log response
+                // Log.d(TAG, "SignIn Response: " + response); // Log response
 
                 ViewsUtils.dismissProgressDialog(progressDialog); // Hide Progress Dialog
 
@@ -208,19 +203,24 @@ public class FragmentSignIn extends Fragment {
 
                     // Check for error node in json
                     if (!error) {
-                        String accountId, currentPassword, emailAddress;
+                        String accountId, emailAddress;
 
                         JSONObject signIN = jsonObject.getJSONObject(VolleyUtils.KEY_SIGNIN);
-                        accountId = signIN.getString(UserAccountUtils.KEY_CLIENT_ID);
-                        emailAddress = signIN.getString(UserAccountUtils.KEY_EMAIL_ADDRESS);
-                        currentPassword = signIN.getString(UserAccountUtils.KEY_PASSWORD);
+                        accountId = signIN.getString(AccountUtils.KEY_CLIENT_ID);
+                        emailAddress = signIN.getString(AccountUtils.KEY_EMAIL_ADDRESS);
 
                         // Inserting row in users table
                         if (database.storeUserAccountInformation(mContext, accountId, emailAddress,
-                                currentPassword)) {
+                                password)) {
 
                             // User details stored
-                            sessionManager.setLogin(true); // Create login session
+                            sessionManager.setSignedIn(true); // Create login session
+
+                            // Start MainActivity
+                            startActivity(new Intent(requireActivity(), MainActivity.class));
+
+                            // Close current activity
+                            interfaceSignInSignup.finishActivity();
                         }
                     } else CustomToast.errorMessage(mContext, jsonObject.getString(
                             // Toast Error Message
@@ -230,7 +230,7 @@ public class FragmentSignIn extends Fragment {
             }, volleyError -> {
                 ViewsUtils.dismissProgressDialog(progressDialog); // Stop Progress Dialog
 
-                Log.e(TAG, "SignIn Error: " + volleyError.getMessage()); // Log response
+                // Log.e(TAG, "SignIn Error: " + volleyError.getMessage()); // Log response
 
                 // Check response
                 if (volleyError.getMessage() == null || volleyError instanceof NetworkError
@@ -254,8 +254,8 @@ public class FragmentSignIn extends Fragment {
                 protected Map<String, String> getParams() {
                     // Posting parameters to sign in url
                     Map<String, String> params = new HashMap<>();
-                    params.put(UserAccountUtils.KEY_EMAIL_ADDRESS, signInEmailAddress);
-                    params.put(UserAccountUtils.KEY_PASSWORD, password);
+                    params.put(AccountUtils.KEY_EMAIL_ADDRESS, signInEmailAddress);
+                    params.put(AccountUtils.KEY_PASSWORD, password);
                     return params;
                 }
             };

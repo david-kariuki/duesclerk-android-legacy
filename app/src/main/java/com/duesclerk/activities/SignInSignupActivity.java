@@ -1,15 +1,16 @@
-package com.duesclerk;
+package com.duesclerk.activities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.android.volley.AuthFailureError;
@@ -19,6 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.StringRequest;
+import com.duesclerk.R;
 import com.duesclerk.interfaces.Interface_SignInSignup;
 import com.duesclerk.ui.fragment_business_signup.FragmentBusinessSignup;
 import com.duesclerk.ui.fragment_personal_signup.FragmentPersonalSignup;
@@ -33,9 +35,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import custom.custom_utilities.AccountUtils;
 import custom.custom_utilities.ApplicationClass;
 import custom.custom_utilities.DataUtils;
-import custom.custom_utilities.UserAccountUtils;
 import custom.custom_utilities.ViewsUtils;
 import custom.custom_utilities.VolleyUtils;
 import custom.custom_views.toast.CustomToast;
@@ -49,6 +51,7 @@ import custom.storage_adapters.SessionManager;
 
 public class SignInSignupActivity extends AppCompatActivity implements Interface_SignInSignup {
 
+    @SuppressWarnings("unused")
     private final String TAG = SignInSignupActivity.class.getSimpleName();
 
     // Java bean object to hold signup details
@@ -62,6 +65,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
     private SessionManager sessionManager;
     private SQLiteDB database;
     private ArrayList<JB_ClientAccountInfo> signupDetailsArray;
+    private ImageView imageBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,9 +86,72 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
         jbUserAccountInfo = new JB_ClientAccountInfo();
         jbUserAccountInfo.clear();
 
-        ImageView imageBack = findViewById(R.id.imageSignupBack);
+        imageBack = findViewById(R.id.imageSignupBack);
         textTitle = findViewById(R.id.textSignupTitle);
 
+        setupTabLayoutAndViewPager();
+
+        // Select SignIn fragment
+        imageBack.setOnClickListener(v -> ViewsUtils.selectTabPosition(0, tabLayout));
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // Select ignIn fragment on fragment start
+        Objects.requireNonNull(tabLayout.getTabAt(0)).select();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        setupTabLayoutAndViewPager();
+    }
+
+    /**
+     * Function to setup TabLayout icons and title
+     */
+    private void setupTabLayout() {
+
+        tabLayout = findViewById(R.id.tabLayoutSignup);
+        viewPager = findViewById(R.id.viewPagerSignup);
+
+        // Set TabLayout titles
+        tabLayout.addTab(tabLayout.newTab().setText(DataUtils.getStringResource(mContext,
+                R.string.title_fragment_personal_account)));
+        tabLayout.addTab(tabLayout.newTab().setText(DataUtils.getStringResource(mContext,
+                R.string.title_fragment_business_account)));
+
+        // Set Mode and Gravity
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+    }
+
+    /**
+     * Function to setup viewpager
+     *
+     * @param viewPager - Associated ViewPager
+     */
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+        FragmentSignIn fragmentSignIn = new FragmentSignIn();
+        FragmentPersonalSignup fragmentPersonalSignup = new FragmentPersonalSignup();
+        FragmentBusinessSignup fragmentBusinessSignup = new FragmentBusinessSignup();
+
+        // Add Fragments To ViewPager Adapter
+        viewPagerAdapter.addFragment(fragmentSignIn, DataUtils.getStringResource(mContext,
+                R.string.title_fragment_sign_in));
+        viewPagerAdapter.addFragment(fragmentPersonalSignup, DataUtils.getStringResource(mContext,
+                R.string.title_fragment_personal_account));
+        viewPagerAdapter.addFragment(fragmentBusinessSignup, DataUtils.getStringResource(mContext,
+                R.string.title_fragment_business_account));
+        viewPager.setAdapter(viewPagerAdapter);
+    }
+
+    private void setupTabLayoutAndViewPager(){
         setupTabLayout(); // Set up TabLayout
         viewPager.setPagingEnabled(false); // Disabling paging on view pager
         viewPager.setOffscreenPageLimit(1); // Set ViewPager off screen limit
@@ -131,58 +198,6 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
 
         // Add page change listener
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
-        // Select SignIn fragment
-        imageBack.setOnClickListener(v -> ViewsUtils.selectTabPosition(0, tabLayout));
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // Select ignIn fragment on fragment start
-        Objects.requireNonNull(tabLayout.getTabAt(0)).select();
-    }
-
-    /**
-     * Function to setup TabLayout icons and title
-     */
-    private void setupTabLayout() {
-
-        tabLayout = findViewById(R.id.tabLayoutSignup);
-        viewPager = findViewById(R.id.viewPagerSignup);
-
-        // Set TabLayout titles
-        tabLayout.addTab(tabLayout.newTab().setText(DataUtils.getStringResource(mContext,
-                R.string.title_fragment_personal_account)));
-        tabLayout.addTab(tabLayout.newTab().setText(DataUtils.getStringResource(mContext,
-                R.string.title_fragment_business_account)));
-
-        // Set Mode and Gravity
-        tabLayout.setTabMode(TabLayout.MODE_FIXED);
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-    }
-
-    /**
-     * Function to setup viewpager
-     *
-     * @param viewPager - Associated ViewPager
-     */
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-
-        FragmentSignIn fragmentSignIn = new FragmentSignIn();
-        FragmentPersonalSignup fragmentPersonalSignup = new FragmentPersonalSignup();
-        FragmentBusinessSignup fragmentBusinessSignup = new FragmentBusinessSignup();
-
-        // Add Fragments To ViewPager Adapter
-        viewPagerAdapter.addFragment(fragmentSignIn, DataUtils.getStringResource(mContext,
-                R.string.title_fragment_sign_in));
-        viewPagerAdapter.addFragment(fragmentPersonalSignup, DataUtils.getStringResource(mContext,
-                R.string.title_fragment_personal_account));
-        viewPagerAdapter.addFragment(fragmentBusinessSignup, DataUtils.getStringResource(mContext,
-                R.string.title_fragment_business_account));
-        viewPager.setAdapter(viewPagerAdapter);
     }
 
     /**
@@ -232,7 +247,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
         signupDetailsArray.add(jbUserAccountInfo);
 
         // Pass account type and signup details hashMap
-        signupUser(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL,
+        signupUser(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL,
                 NetworkUtils.TAG_SIGNUP_PERSONAL_STRING_REQUEST, signupDetailsArray);
     }
 
@@ -269,8 +284,16 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
         signupDetailsArray.add(jbUserAccountInfo);
 
         // Pass account type and signup details hashMap
-        signupUser(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS,
+        signupUser(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS,
                 NetworkUtils.TAG_SIGNUP_BUSINESS_STRING_REQUEST, signupDetailsArray);
+    }
+
+    /**
+     * Function to exit current activity
+     */
+    @Override
+    public void finishActivity() {
+        SignInSignupActivity.this.finish(); // Exit activity
     }
 
     /**
@@ -294,7 +317,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
             StringRequest stringRequest = new StringRequest(Request.Method.POST,
                     NetworkUtils.URL_SIGNUP_CLIENT, response -> {
                 // Log Custom_Response
-                Log.d(TAG, "SignUp Response: " + response);
+                // Log.d(TAG, "SignUp Response: " + response);
 
                 // Hide Dialog
                 ViewsUtils.dismissProgressDialog(progressDialog);
@@ -309,24 +332,51 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
 
                         // Get Json Object
                         JSONObject signup = jsonObject.getJSONObject(VolleyUtils.KEY_SIGNUP);
-                        String clientId, emailAddress, password;
+                        String clientId, firstName, lastName, businessName, emailAddress,
+                                successMessage = null;
 
                         // Get signup details
-                        clientId = signup.getString(UserAccountUtils.KEY_CLIENT_ID);
-                        emailAddress = signup.getString(UserAccountUtils.KEY_EMAIL_ADDRESS);
-                        password = signup.getString(UserAccountUtils.KEY_PASSWORD);
+                        clientId = signup.getString(AccountUtils.KEY_CLIENT_ID);
+                        emailAddress = signup.getString(AccountUtils.KEY_EMAIL_ADDRESS);
 
                         // Inserting row in users table
                         if (database.storeUserAccountInformation(mContext, clientId, emailAddress,
-                                password)) {
-                            Toast.makeText(mContext, "Stored", Toast.LENGTH_SHORT).show();
+                                signupDetailsArray.get(0).getPassword())) {
+
                             // Create login sessionManager
-                            sessionManager.setLogin(true);
+                            sessionManager.setSignedIn(true);
+
+                            if (signupAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
+
+                                // Get first name and last name
+                                firstName = signup.getString(AccountUtils.KEY_FIRST_NAME);
+                                lastName = signup.getString(AccountUtils.KEY_LAST_NAME);
+
+                                successMessage = DataUtils.getStringResource(mContext,
+                                        R.string.msg_welcome_to, R.string.app_name +
+                                                ", " + firstName + " " + lastName);
+
+                            } else if (signupAccountType.equals(
+                                    AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
+
+                                // Get business name
+                                businessName = signup.getString(AccountUtils.KEY_BUSINESS_NAME);
+
+                                successMessage = DataUtils.getStringResource(mContext,
+                                        R.string.msg_welcome_to, R.string.app_name,
+                                        ", " + businessName);
+                            }
 
                             // Toast welcome message
-                            CustomToast.infoMessage(mContext,
-                                    jsonObject.getString(VolleyUtils.KEY_SUCCESS_MESSAGE),
-                                    false, 0);
+                            CustomToast.infoMessage(mContext, successMessage, false,
+                                    0);
+
+                            // Launch MainActivity
+                            startActivity(new Intent(SignInSignupActivity.this,
+                                    MainActivity.class));
+
+                            // Exit current activity
+                            finishActivity();
                         }
                     } else {
                         // Error occurred during signup
@@ -339,7 +389,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
                 }
             }, volleyError -> {
 
-                Log.e(TAG, "SignUp Error: " + volleyError.getMessage());
+                // Log.e(TAG, "SignUp Error: " + volleyError.getMessage());
 
                 // Stop Progress Dialog
                 ViewsUtils.dismissProgressDialog(progressDialog);
@@ -374,40 +424,38 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
                     Map<String, String> params = new HashMap<>();
 
                     // Personal account related fields
-                    if (signupAccountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
-                        params.put(UserAccountUtils.KEY_FIRST_NAME,
+                    if (signupAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
+                        params.put(AccountUtils.KEY_FIRST_NAME,
                                 signupDetailsArray.get(0).getFirstName());
-                        params.put(UserAccountUtils.KEY_LAST_NAME,
+                        params.put(AccountUtils.KEY_LAST_NAME,
                                 signupDetailsArray.get(0).getLastName());
-                        params.put(UserAccountUtils.KEY_GENDER,
+                        params.put(AccountUtils.KEY_GENDER,
                                 signupDetailsArray.get(0).getGender());
-                        params.put(UserAccountUtils.KEY_ACCOUNT_TYPE,
-                                UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL);
+                        params.put(AccountUtils.KEY_ACCOUNT_TYPE,
+                                AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL);
                     }
 
                     // Business account related fields
-                    if (signupAccountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
-                        params.put(UserAccountUtils.KEY_BUSINESS_NAME,
+                    if (signupAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
+                        params.put(AccountUtils.KEY_BUSINESS_NAME,
                                 signupDetailsArray.get(0).getBusinessName());
-                        params.put(UserAccountUtils.KEY_CITY_NAME,
+                        params.put(AccountUtils.KEY_CITY_NAME,
                                 signupDetailsArray.get(0).getCity());
-                        params.put(UserAccountUtils.KEY_ACCOUNT_TYPE,
-                                UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS);
+                        params.put(AccountUtils.KEY_ACCOUNT_TYPE,
+                                AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS);
                     }
 
                     // Other shared fields
-                    params.put(UserAccountUtils.KEY_PHONE_NUMBER,
+                    params.put(AccountUtils.KEY_PHONE_NUMBER,
                             signupDetailsArray.get(0).getPhoneNumber());
-                    params.put(UserAccountUtils.KEY_EMAIL_ADDRESS,
+                    params.put(AccountUtils.KEY_EMAIL_ADDRESS,
                             signupDetailsArray.get(0).getEmailAddress());
-                    params.put(UserAccountUtils.KEY_COUNTRY_CODE,
+                    params.put(AccountUtils.KEY_COUNTRY_CODE,
                             signupDetailsArray.get(0).getCountryCode());
-                    params.put(UserAccountUtils.KEY_COUNTRY_ALPHA2,
+                    params.put(AccountUtils.KEY_COUNTRY_ALPHA2,
                             signupDetailsArray.get(0).getCountryAlpha2());
-                    params.put(UserAccountUtils.KEY_PASSWORD,
+                    params.put(AccountUtils.KEY_PASSWORD,
                             signupDetailsArray.get(0).getPassword());
-
-                    Log.v("Signup PARAMS", params.toString());
                     return params;
                 }
             };
@@ -450,4 +498,5 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
             progressDialog.show();
         }
     }
+
 }

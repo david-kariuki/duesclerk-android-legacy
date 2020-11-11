@@ -1,4 +1,4 @@
-package com.duesclerk;
+package com.duesclerk.activities;
 
 
 import android.content.Context;
@@ -12,13 +12,16 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.duesclerk.R;
 import com.vstechlab.easyfonts.EasyFonts;
 
 import custom.custom_utilities.DataUtils;
+import custom.storage_adapters.SessionManager;
 
 public class SplashActivity extends AppCompatActivity {
 
     private Thread counterThread;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,9 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         Context mContext = getApplicationContext();
+
+        sessionManager = new SessionManager(mContext); // Initialize Session manager object
+
         TextView textAppName = findViewById(R.id.textSplashActivity_AppName);
 
         // Animation
@@ -38,8 +44,8 @@ public class SplashActivity extends AppCompatActivity {
         animSlideDown.setDuration(1500);
 
         // Set app name font family and size
-        textAppName.setTypeface(EasyFonts.cac_champagne(this));
-        textAppName.setTextSize(25);
+        textAppName.setTypeface(EasyFonts.ostrichBold(this));
+        textAppName.setTextSize(35);
         textAppName.setTextColor(ContextCompat.getColor(mContext, R.color.colorBlack));
         textAppName.startAnimation(animSlideDown); // set animation
 
@@ -48,25 +54,35 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 try {
                     int wait = 0; // Thread wait time
-                    while (wait < 5000) {
+                    while (wait < 3500) {
                         sleep(100);
                         wait += 100;
                     }
-                    // Launch activity as per status
-                    startActivity(new Intent(SplashActivity.this,
-                            MainActivity.class));
+
+                    if (sessionManager.isSignedIn()) {
+                        // Launch MainActivity
+                        startActivity(new Intent(SplashActivity.this,
+                                MainActivity.class));
+                    } else {
+                        // Launch Signin and SignUp activity
+                        startActivity(new Intent(SplashActivity.this,
+                                SignInSignupActivity.class));
+                    }
+
+                    SplashActivity.this.finish(); // Exit activity
                 } catch (Exception ignored) {
                 } finally {
-                    SplashActivity.this.finish(); // Finish Activity
+                   SplashActivity.this.finish(); // Exit Activity
                 }
             }
         };
+
         counterThread.start(); // Start thread
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        counterThread.interrupt(); // Interrupt thread on activity exit
+        //counterThread.interrupt(); // Interrupt thread on activity exit
     }
 }

@@ -25,5 +25,9 @@
     <string name="error_gender_null">Please select your gender to continue!</string>
     <string name="error_date_of_birth_null">Please select your date of birth to continue!</string>
 
+
     <!--Other-->
+    <string name="error_email_address_not_verified">Email address not verified!</string>
+    <string name="error_email_address_not_verified_with_placeholder">Your email address "%1$s" has not been verified! Click the button below to verify.</string>
+
 </resources>

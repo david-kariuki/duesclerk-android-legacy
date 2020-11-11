@@ -5,7 +5,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
         <item name="colorError">@color/colorRedDark</item>
     </style>
 
@@ -55,6 +55,70 @@
     <style name="Style_PageLinks" parent="@android:style/TextAppearance.Widget.TextView">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:textStyle">italic|bold</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <!--
+        ShimmerFrameLayout
+    -->
+    <style name="Style_Shimmer_TextView_Labels">
+        <item name="android:layout_height">@dimen/dimen_shimmer_text_view_height</item>
+        <item name="android:layout_width">@dimen/dimen_shimmer_text_view_width</item>
+        <item name="android:background">@color/color_shimmer_item_grey</item>
+    </style>
+
+    <style name="Style_Shimmer_EditText">
+        <item name="android:layout_height">@dimen/dimen_shimmer_edit_text_height</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/color_shimmer_item_grey</item>
+    </style>
+
+    <!--
+        BottomSheets
+    -->
+    <!--BottomSheets title texts-->
+    <style name="Style_BottomSheets_Titles" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--BottomSheets dismiss icon-->
+    <style name="Style_BottomSheets_Dismiss" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:padding">@dimen/dimen_icon_padding_small</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:src">@drawable/ic_baseline_close_24_black</item>
+        <item name="android:contentDescription">@string/content_description_icon</item>
+    </style>
+
+    <!--Custom LinearLayout button-->
+    <style name="Style_CustomButton_Parent_Fill_Primary_Dark">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:background">@drawable/outline_rectangle_curved_fill_primary_dark</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <!--Custom LinearLayout button-->
+
+    <!--Custom LinearLayout button-->
+    <style name="Style_CustomButton_Text">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">center</item>
     </style>
 </resources>

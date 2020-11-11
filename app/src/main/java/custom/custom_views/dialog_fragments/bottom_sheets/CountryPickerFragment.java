@@ -1,6 +1,7 @@
 package custom.custom_views.dialog_fragments.bottom_sheets;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.duesclerk.R;
+import com.duesclerk.activities.ProfileActivity;
 import com.duesclerk.interfaces.Interface_CountryPicker;
 import com.duesclerk.ui.fragment_business_signup.FragmentBusinessSignup;
 import com.duesclerk.ui.fragment_personal_signup.FragmentPersonalSignup;
@@ -33,8 +35,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import custom.custom_utilities.AccountUtils;
 import custom.custom_utilities.DataUtils;
-import custom.custom_utilities.UserAccountUtils;
 import custom.custom_utilities.ViewsUtils;
 import custom.custom_views.recycler_view_adapters.RVLA_CountryPicker;
 import custom.custom_views.view_decorators.Decorator_CountryPicker;
@@ -45,21 +47,35 @@ import custom.java_beans.JB_CountryData;
 public class CountryPickerFragment extends BottomSheetDialogFragment {
     private final Context mContext;
     private final Interface_CountryPicker interfaceCountryPicker;
-    private final Fragment fragment;
+    private final Activity activity;
     private BottomSheetBehavior bottomSheetBehavior;
     private BottomSheetBehavior.BottomSheetCallback bottomSheetCallback;
     private ArrayList<JB_CountryData> countryListArray;
 
+    public CountryPickerFragment(ProfileActivity profileActivity){
+        this.mContext = profileActivity.getApplicationContext();
+        this.interfaceCountryPicker = profileActivity;
+        this.activity = profileActivity;
+    }
+
+    /**
+     * Constructor for Personal signup fragment
+     * @param fragmentPersonalSignup - Personal signup fragment
+     */
     public CountryPickerFragment(FragmentPersonalSignup fragmentPersonalSignup) {
         this.mContext = fragmentPersonalSignup.requireActivity();
         this.interfaceCountryPicker = fragmentPersonalSignup;
-        this.fragment = fragmentPersonalSignup;
+        this.activity = fragmentPersonalSignup.requireActivity();
     }
 
+    /**
+     * Constructor for Business signup fragment
+     * @param fragmentBusinessSignup - Business signup fragment
+     */
     public CountryPickerFragment(FragmentBusinessSignup fragmentBusinessSignup) {
         this.mContext = fragmentBusinessSignup.requireActivity();
         this.interfaceCountryPicker = fragmentBusinessSignup;
-        this.fragment = fragmentBusinessSignup;
+        this.activity = fragmentBusinessSignup.requireActivity();
     }
 
     @NonNull
@@ -106,7 +122,7 @@ public class CountryPickerFragment extends BottomSheetDialogFragment {
 
                 switch (event) {
                     case XmlPullParser.START_TAG:
-                        if (key.equals(UserAccountUtils.KEY_COUNTRY_ITEM)) {
+                        if (key.equals(AccountUtils.KEY_COUNTRY_ITEM)) {
                             pojoCountryData = new JB_CountryData(); // Initialize POJO
                         }
                         break;
@@ -117,22 +133,22 @@ public class CountryPickerFragment extends BottomSheetDialogFragment {
 
                     case XmlPullParser.END_TAG:
                         // Put Country Name
-                        if (key.equalsIgnoreCase(UserAccountUtils.KEY_COUNTRY_NAME)) {
+                        if (key.equalsIgnoreCase(AccountUtils.KEY_COUNTRY_NAME)) {
                             Objects.requireNonNull(pojoCountryData).setCountryName(tagValue);
                             // Put Country Code
-                        } else if (key.equalsIgnoreCase(UserAccountUtils.KEY_COUNTRY_CODE)) {
+                        } else if (key.equalsIgnoreCase(AccountUtils.KEY_COUNTRY_CODE)) {
                             Objects.requireNonNull(pojoCountryData).setCountryCode(tagValue);
                             // Put Country Alpha2
-                        } else if (key.equalsIgnoreCase(UserAccountUtils.KEY_COUNTRY_ALPHA2)) {
+                        } else if (key.equalsIgnoreCase(AccountUtils.KEY_COUNTRY_ALPHA2)) {
                             Objects.requireNonNull(pojoCountryData).setCountryAlpha2(tagValue);
                             // Put Country Alpha3
-                        } else if (key.equalsIgnoreCase(UserAccountUtils.KEY_COUNTRY_ALPHA3)) {
+                        } else if (key.equalsIgnoreCase(AccountUtils.KEY_COUNTRY_ALPHA3)) {
                             Objects.requireNonNull(pojoCountryData).setCountryAlpha3(tagValue);
                             // Put Country Flag without file extension
-                        } else if (key.equalsIgnoreCase(UserAccountUtils.KEY_COUNTRY_FLAG)) {
+                        } else if (key.equalsIgnoreCase(AccountUtils.KEY_COUNTRY_FLAG)) {
                             Objects.requireNonNull(pojoCountryData).setCountryFlag(tagValue.replace(".png",
                                     ""));
-                        } else if (key.equalsIgnoreCase(UserAccountUtils.KEY_COUNTRY_ITEM)) {
+                        } else if (key.equalsIgnoreCase(AccountUtils.KEY_COUNTRY_ITEM)) {
                             if (pojoCountryData != null) {
                                 countryListArray.add(pojoCountryData);
                             }
@@ -180,7 +196,6 @@ public class CountryPickerFragment extends BottomSheetDialogFragment {
         // Dismiss Dialog
         textClose.setOnClickListener(v -> dismiss());
 
-
         // Set BottomSheet callback
         bottomSheetCallback = new BottomSheetBehavior.BottomSheetCallback() {
             @Override
@@ -196,7 +211,7 @@ public class CountryPickerFragment extends BottomSheetDialogFragment {
         };
 
         // Set owner activity
-        bottomSheetDialog.setOwnerActivity(fragment.requireActivity());
+        bottomSheetDialog.setOwnerActivity(this.activity);
 
         // Remove window title
         bottomSheetDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
