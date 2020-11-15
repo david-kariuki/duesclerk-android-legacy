@@ -1,8 +1,13 @@
 <resources>
 
     <!--General-->
-    <dimen name="dimen_fab_margin">16dp</dimen>
     <dimen name="dimen_toolbar_title_size">17sp</dimen>
+
+    <!--Floating action button-->
+    <dimen name="dimen_fab_margin_top">15dp</dimen>
+    <dimen name="dimen_fab_margin_start">15dp</dimen>
+    <dimen name="dimen_fab_margin_end">@dimen/dimen_fab_margin_start</dimen>
+    <dimen name="dimen_fab_margin_bottom">10dp</dimen>
 
     <!--ImageView size dimensions-->
     <dimen name="dimen_icon_size_small">29dp</dimen>
@@ -47,5 +52,6 @@
     <dimen name="dimen_shimmer_text_view_width">100dp</dimen>
     <dimen name="dimen_shimmer_text_view_height">12dp</dimen>
     <dimen name="dimen_shimmer_edit_text_height">25dp</dimen>
+    <dimen name="dimen_fab_elevation">6dp</dimen>
 
 </resources>

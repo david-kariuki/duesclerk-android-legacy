@@ -6,9 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorDefaultActivityBackground"
-    tools:context=".activities.ProfileActivity"
+    tools:context=".activities.ClientProfileActivity"
     tools:ignore="UnusedAttribute"
-    tools:showIn="@layout/activity_profile">
+    tools:showIn="@layout/activity_client_profile">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/Style_ScrollView"

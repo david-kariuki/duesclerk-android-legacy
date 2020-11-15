@@ -26,8 +26,8 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
 
-import custom.custom_utilities.InputFiltersUtils;
 import custom.custom_utilities.AccountUtils;
+import custom.custom_utilities.InputFiltersUtils;
 import custom.custom_utilities.ViewsUtils;
 import custom.custom_views.dialog_fragments.bottom_sheets.CountryPickerFragment;
 
@@ -39,7 +39,6 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
     private String countryCode, countryAlpha2, selectedGender;
     private ImageView imagePasswordToggle, imageCountryFlag;
     private CountryPickerFragment countryPickerFragment;
-    private TextView textGenderMale, textGenderFemale, textGenderOther;
 
     public static FragmentPersonalSignup newInstance() {
         return new FragmentPersonalSignup();
@@ -67,9 +66,9 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
         editCountry = view.findViewById(R.id.editSignUpActivity_Country);
         editPassword = view.findViewById(R.id.editSignUpActivity_Password);
 
-        textGenderMale = view.findViewById(R.id.textSignupActivity_GenderMale);
-        textGenderFemale = view.findViewById(R.id.textSignupActivity_GenderFemale);
-        textGenderOther = view.findViewById(R.id.textSignupActivity_GenderOther);
+        TextView textGenderMale = view.findViewById(R.id.textSignupActivity_GenderMale);
+        TextView textGenderFemale = view.findViewById(R.id.textSignupActivity_GenderFemale);
+        TextView textGenderOther = view.findViewById(R.id.textSignupActivity_GenderOther);
 
         imageCountryFlag = view.findViewById(R.id.imageSignupActivity_CountryFlag);
 
@@ -89,6 +88,8 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
                 new InputFilter.LengthFilter(InputFiltersUtils.maxSingleNameLength)});
         editLastName.setFilters(new InputFilter[]{InputFiltersUtils.filterNames,
                 new InputFilter.LengthFilter(InputFiltersUtils.maxSingleNameLength)});
+        editPhoneNumber.setFilters(new InputFilter[]{InputFiltersUtils.filterPhoneNumber,
+                new InputFilter.LengthFilter(InputFiltersUtils.maxPhoneNumberLength)});
         editEmailAddress.setFilters(new InputFilter[]{InputFiltersUtils.filterEmailAddress,
                 new InputFilter.LengthFilter(InputFiltersUtils.maxEmailLength)});
 
@@ -98,7 +99,7 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
 
         editCountry.setOnClickListener(v ->
                 ViewsUtils.showBottomSheetDialogFragment(getParentFragmentManager(),
-                countryPickerFragment, true));
+                        countryPickerFragment, true));
 
         // Gender labels on click
         textGenderMale.setOnClickListener(v -> radioGenderMale.setChecked(true));
@@ -198,13 +199,17 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
 
     @Override
     public void passCountryName(String countryName) {
-        editCountry.setText(countryName); // Set country name
-        ViewsUtils.hideKeyboard(requireActivity()); // Hide keyboard
     }
 
     @Override
     public void passCountryCode(String countryCode) {
         this.countryCode = countryCode;
+        ViewsUtils.hideKeyboard(requireActivity()); // Hide keyboard
+    }
+
+    @Override
+    public void passCountryCodeWithCountryName(String countryCodeAndName) {
+        editCountry.setText(countryCodeAndName); // Set country name
         ViewsUtils.hideKeyboard(requireActivity()); // Hide keyboard
     }
 

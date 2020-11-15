@@ -5,8 +5,6 @@
     <!--Activity titles-->
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_activity_signin_signup">SignInSignUp</string>
-    <string name="title_signing_up">Signing you up</string>
-    <string name="title_signing_in">Signing you in</string>
     <string name="title_activity_profile">ProfileActivity</string>
 
     <!--Fragment titles-->
@@ -17,6 +15,11 @@
     <string name="title_fragment_sign_in">SignIn</string>
     <string name="title_fragment_personal_account">SignUp Personal Account</string>
     <string name="title_fragment_business_account">SignUp Business Account</string>
+
+    <!--Other titles-->
+    <string name="title_signing_up">Signing you up</string>
+    <string name="title_signing_in">Signing you in</string>
+    <string name="title_updating_profile">Updating profile.</string>
 
     <!--Content description-->
     <string name="content_description_image">Image</string>
@@ -41,7 +44,8 @@
     <string name="hint_gender_male">Male</string>
     <string name="hint_gender_female">Female</string>
     <string name="hint_gender_other">Other</string>
-    <string name="hint_account_type">Account Type</string>
+    <string name="hint_account_type">Account type</string>
+    <string name="hint_signup_date">Signup date</string>
     <string name="hint_feedback">Feedback</string>
     <string name="hint_personal_account">Personal Account</string>
     <string name="hint_business_account">Business Account</string>
@@ -70,9 +74,11 @@
     <string name="msg_company_tag_line">Manage your dues with ease.</string>
     <string name="msg_signing_up">We are creating your account! Please wait…</string>
     <string name="msg_signing_in">We are signing you in! Please wait…</string>
+    <string name="msg_updating_profile">Updating profile! Please wait…</string>
     <string name="msg_welcome_to">Welcome to %1$s</string>
     <string name="msg_logout">Are you sure you want to log out %1$s?</string>
-    
+    <string name="msg_profile_updated">Profile updated successfully.</string>
+
     <!--Others-->
     <string name="placeholder_in_brackets">(%1$s)</string>
     <string name="string_hello">Hello %1$s</string>

@@ -6,11 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.android.volley.AuthFailureError;
@@ -104,7 +102,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
 
         setupTabLayoutAndViewPager();
@@ -151,7 +149,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
         viewPager.setAdapter(viewPagerAdapter);
     }
 
-    private void setupTabLayoutAndViewPager(){
+    private void setupTabLayoutAndViewPager() {
         setupTabLayout(); // Set up TabLayout
         viewPager.setPagingEnabled(false); // Disabling paging on view pager
         viewPager.setOffscreenPageLimit(1); // Set ViewPager off screen limit
@@ -340,7 +338,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
                         emailAddress = signup.getString(AccountUtils.KEY_EMAIL_ADDRESS);
 
                         // Inserting row in users table
-                        if (database.storeUserAccountInformation(mContext, clientId, emailAddress,
+                        if (database.storeClientAccountInformation(mContext, clientId, emailAddress,
                                 signupDetailsArray.get(0).getPassword())) {
 
                             // Create login sessionManager
@@ -490,12 +488,18 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
      * Function to show progress dialog
      */
     private void showProgressDialog() {
+        // Check if progress dialog is showing
         if (!progressDialog.isShowing()) {
+
+            // Set progress dialog title
             progressDialog.setTitle(DataUtils.getStringResource(mContext,
                     R.string.title_signing_up));
+
+            // Set progress dialog message
             progressDialog.setMessage(DataUtils.getStringResource(mContext,
                     R.string.msg_signing_up));
-            progressDialog.show();
+
+            progressDialog.show(); // Show progress dialog
         }
     }
 

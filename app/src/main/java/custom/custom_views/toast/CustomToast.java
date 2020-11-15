@@ -87,7 +87,10 @@ public class CustomToast {
      * @param icon    - icon to match type of message or associated field
      */
     private static void showToast(String message, int icon) {
-        if (!message.equals("")) textToastMessage.setText(message); // Set Toast Message
+        // Check if message is null
+        if (message != null) {
+            textToastMessage.setText(message); // Set Toast Message
+        }
 
         setToastIcon(icon); // Set image resource
         llRootView.startAnimation(animCustomToast); // Animate (Slide) message

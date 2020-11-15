@@ -210,7 +210,7 @@ public class FragmentSignIn extends Fragment {
                         emailAddress = signIN.getString(AccountUtils.KEY_EMAIL_ADDRESS);
 
                         // Inserting row in users table
-                        if (database.storeUserAccountInformation(mContext, accountId, emailAddress,
+                        if (database.storeClientAccountInformation(mContext, accountId, emailAddress,
                                 password)) {
 
                             // User details stored
@@ -285,12 +285,18 @@ public class FragmentSignIn extends Fragment {
      * Function to show progress dialog
      */
     private void showProgressDialog() {
+        // Check if progress dialog is showing
         if (!progressDialog.isShowing()) {
+
+            // Set progress dialog title
             progressDialog.setTitle(DataUtils.getStringResource(mContext,
                     R.string.title_signing_in));
+
+            // Set progress dialog message
             progressDialog.setMessage(DataUtils.getStringResource(mContext,
                     R.string.msg_signing_in));
-            progressDialog.show();
+
+            progressDialog.show(); // Show progress dialog
         }
     }
 

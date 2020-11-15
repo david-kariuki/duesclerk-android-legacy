@@ -6,7 +6,6 @@
     android:background="@color/colorDefaultActivityBackground"
     tools:context="com.duesclerk.ui.People_I_Owe">
 
-    <include layout="@layout/content_people_i_owe"/>
-
+    <include layout="@layout/content_people_i_owe" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

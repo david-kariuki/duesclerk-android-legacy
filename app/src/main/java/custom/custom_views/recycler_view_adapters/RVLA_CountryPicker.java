@@ -74,10 +74,18 @@ public class RVLA_CountryPicker extends RecyclerView.Adapter<RVLA_CountryPicker.
         if (viewHolderView != null) {
             // List item OnClick
             holder.consCountryItem.setOnClickListener(v -> {
+
+                // Concatenate country name to country code
+                String countryCodeWithCountryName = DataUtils.getStringResource(mContext,
+                        R.string.placeholder_in_brackets,
+                        this.countryData.get(position).getCountryCode())
+                        + " " + this.countryData.get(position).getCountryName();
+
                 // Pass country data to interface
                 this.countryPickerFragment.passSelectedCountryDataToInterface(
                         this.countryData.get(position).getCountryName(),
                         this.countryData.get(position).getCountryCode(),
+                        countryCodeWithCountryName,
                         this.countryData.get(position).getCountryAlpha2(),
                         this.countryData.get(position).getCountryAlpha3(), countryFlagID);
             });

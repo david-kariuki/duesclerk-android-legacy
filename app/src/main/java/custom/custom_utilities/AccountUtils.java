@@ -46,7 +46,7 @@ public class AccountUtils {
     // Email Verification
     public static final String KEY_EMAIL_VERIFIED = "EmailVerified";
 
-    public static final String KEY_SIGNUP_DATE = "SignupDate";
+    public static final String KEY_SIGNUP_DATE_TIME = "SignUpDateTime";
 
     // User Profile
     public static final String KEY_UPDATE = "Update";

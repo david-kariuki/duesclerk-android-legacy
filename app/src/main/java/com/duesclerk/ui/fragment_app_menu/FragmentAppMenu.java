@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.duesclerk.R;
-import com.duesclerk.activities.ProfileActivity;
+import com.duesclerk.activities.ClientProfileActivity;
 
 public class FragmentAppMenu extends Fragment {
 
@@ -47,7 +47,7 @@ public class FragmentAppMenu extends Fragment {
 
         // List options onClick
         llViewProfile.setOnClickListener(v -> startActivity(new Intent(requireActivity(),
-                ProfileActivity.class)));
+                ClientProfileActivity.class)));
         return view;
     }
 

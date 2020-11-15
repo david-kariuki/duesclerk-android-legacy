@@ -390,8 +390,8 @@ public class InputFiltersUtils {
     /**
      * Function to check gender length
      *
-     * @param context  - context used to show toast
-     * @param gender - Character Sequence
+     * @param context - context used to show toast
+     * @param gender  - Character Sequence
      * @return boolean
      */
     public static boolean checkGenderLengthNotify(Context context, String gender) {

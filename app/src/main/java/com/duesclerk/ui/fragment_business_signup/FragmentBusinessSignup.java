@@ -4,11 +4,6 @@ package com.duesclerk.ui.fragment_business_signup;
 import android.content.Context;
 import android.graphics.Paint;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
@@ -19,6 +14,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.duesclerk.R;
 import com.duesclerk.interfaces.Interface_CountryPicker;
@@ -33,10 +32,6 @@ import custom.custom_views.dialog_fragments.bottom_sheets.CountryPickerFragment;
 
 public class FragmentBusinessSignup extends Fragment implements Interface_CountryPicker {
 
-    public static FragmentBusinessSignup newInstance() {
-        return new FragmentBusinessSignup();
-    }
-
     private Context mContext;
     private EditText editBusinessName, editCountry, editCity, editPhoneNumber, editEmailAddress;
     private TextInputEditText editPassword;
@@ -44,11 +39,15 @@ public class FragmentBusinessSignup extends Fragment implements Interface_Countr
     private CountryPickerFragment countryPickerFragment;
     private ImageView imageCountryFlag, imagePasswordToggle;
 
+    public static FragmentBusinessSignup newInstance() {
+        return new FragmentBusinessSignup();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.activity_business_signup, container, false);
+        View view = inflater.inflate(R.layout.activity_business_signup, container, false);
 
         mContext = getContext(); // Context
 
@@ -75,7 +74,8 @@ public class FragmentBusinessSignup extends Fragment implements Interface_Countr
         LinearLayout llSignUp = view.findViewById(R.id.llSignUpActivity_SignUp);
 
         // Set Input Filters
-
+        editPhoneNumber.setFilters(new InputFilter[]{InputFiltersUtils.filterPhoneNumber,
+                new InputFilter.LengthFilter(InputFiltersUtils.maxPhoneNumberLength)});
         editEmailAddress.setFilters(new InputFilter[]{InputFiltersUtils.filterEmailAddress,
                 new InputFilter.LengthFilter(InputFiltersUtils.maxEmailLength)});
 
@@ -111,11 +111,11 @@ public class FragmentBusinessSignup extends Fragment implements Interface_Countr
 
         editCountry.setOnClickListener(v ->
                 ViewsUtils.showBottomSheetDialogFragment(getParentFragmentManager(),
-                countryPickerFragment, true));
+                        countryPickerFragment, true));
 
         // Select SignIn tab
         llSignIn.setOnClickListener(v ->
-            Objects.requireNonNull(interfaceSignUpSignIn).setTabPosition(0));
+                Objects.requireNonNull(interfaceSignUpSignIn).setTabPosition(0));
 
         // Pass business signup details to parent activity for signup
         llSignUp.setOnClickListener(v -> {
@@ -159,13 +159,17 @@ public class FragmentBusinessSignup extends Fragment implements Interface_Countr
 
     @Override
     public void passCountryName(String countryName) {
-        editCountry.setText(countryName); // Set country name
-        ViewsUtils.hideKeyboard(requireActivity()); // Hide keyboard
     }
 
     @Override
     public void passCountryCode(String countryCode) {
         this.countryCode = countryCode;
+        ViewsUtils.hideKeyboard(requireActivity()); // Hide keyboard
+    }
+
+    @Override
+    public void passCountryCodeWithCountryName(String countryCodeAndName) {
+        editCountry.setText(countryCodeAndName); // Set country name
         ViewsUtils.hideKeyboard(requireActivity()); // Hide keyboard
     }
 

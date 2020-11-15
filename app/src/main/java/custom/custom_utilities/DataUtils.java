@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 
+@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 public class DataUtils {
     /*
      * This class contains functions/methods for data manipulation(For one single point of change)
@@ -50,7 +51,7 @@ public class DataUtils {
      * @param string - associated string
      */
     public static boolean isEmptyString(String string) {
-        return ((string.equals("")) || (string.length() == 0));
+        return string.equals("");
     }
 
     /**
@@ -239,19 +240,13 @@ public class DataUtils {
     public static int[] getSwipeRefreshColorSchemeResources() {
         int[] colorSchemeResources = {
                 R.color.colorBlue900,
-                R.color.colorBlue800,
                 R.color.colorBlue700,
-                R.color.colorBlue600,
                 R.color.colorBlue500,
-                R.color.colorBlue400,
                 R.color.colorBlue200,
 
-                // Reverse
-                R.color.colorBlue400,
+                // Reverse colors
                 R.color.colorBlue500,
-                R.color.colorBlue600,
-                R.color.colorBlue700,
-                R.color.colorBlue800,
+                R.color.colorBlue700
         };
 
         return colorSchemeResources.clone();
@@ -280,7 +275,7 @@ public class DataUtils {
      * @param number - number to set unit
      */
     public static String getNumberUnit(int number) {
-        String labelledString = null;
+        String labelledString;
         // 1000 to less than 100,000
         if ((number >= 10000) && (number < 100000)) {
             String string = roundDouble((double) number / 1000, 1) + "K";

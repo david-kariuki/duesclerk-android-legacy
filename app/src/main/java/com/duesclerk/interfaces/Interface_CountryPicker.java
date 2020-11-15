@@ -20,6 +20,13 @@ public interface Interface_CountryPicker {
     void passCountryCode(String countryCode);
 
     /**
+     * Interface to pass CountryCode with CountryName
+     *
+     * @param countryCodeAndName - Selected CountryCode and CountryName
+     */
+    void passCountryCodeWithCountryName(String countryCodeAndName);
+
+    /**
      * Interface to pass CountryAlpha2
      *
      * @param countryAlpha2 - Selected CountryAlpha2

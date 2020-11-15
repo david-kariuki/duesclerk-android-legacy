@@ -14,7 +14,6 @@ import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -325,30 +324,6 @@ public class ViewsUtils {
     }
 
     /**
-     * Function to show DatePickerFragment
-     *
-     * @param fragmentManager - to show DatePickerFragment
-     * @param dialogFragment  - associated DatePickerFragment
-     * @param show            - boolean(show-true/false) - to show or hide DatePickerFragment
-     */
-    public static void showGenderPickerFragment(FragmentManager fragmentManager,
-                                                DialogFragment dialogFragment, final boolean show) {
-        if (show) {
-            try {
-                if (!dialogFragment.isAdded() && !dialogFragment.isRemoving()) {
-                    // Show BottomSheetDialogFragment
-                    dialogFragment.show(fragmentManager, dialogFragment.getTag());
-                }
-            } catch (Exception ignored) {
-            }
-        } else {
-            if (dialogFragment.isAdded()) {
-                dialogFragment.dismiss(); // Dismiss BottomSheet
-            }
-        }
-    }
-
-    /**
      * Function to show and start ShimmerFrameLayout and hide activities layout
      *
      * @param show               - boolean(show-true/false) - to show or hide ShimmerFrameLayout
@@ -357,15 +332,15 @@ public class ViewsUtils {
     public static void showShimmerFrameLayout(boolean show, ShimmerFrameLayout shimmerFrameLayout) {
         if (show) {
             // Check if Shimmer is started, show layout and start animation
+            shimmerFrameLayout.setVisibility(View.VISIBLE);
             if (!shimmerFrameLayout.isShimmerStarted()) {
-                shimmerFrameLayout.setVisibility(View.VISIBLE);
                 shimmerFrameLayout.startShimmer();
             }
         } else {
             // Check if Shimmer is started, stop animation and hide layout
+            shimmerFrameLayout.setVisibility(View.GONE);
             if (shimmerFrameLayout.isShimmerStarted()) {
                 shimmerFrameLayout.stopShimmer();
-                shimmerFrameLayout.setVisibility(View.GONE);
             }
         }
     }
@@ -403,18 +378,21 @@ public class ViewsUtils {
     /**
      * Function to start SwipeRefreshLayout
      *
-     * @param refresh            - Refresh state
+     * @param refresh              - Refresh state
      * @param swipeRefreshListener - Associated SwipeRefreshLayout
      */
-    public static void startStopSwipeRefreshLayout(boolean refresh,
-                                                   MultiSwipeRefreshLayout swipeRefreshLayout,
-                                                   SwipeRefreshLayout.OnRefreshListener swipeRefreshListener) {
+    public static void startSwipeRefreshLayout(boolean refresh,
+                                               MultiSwipeRefreshLayout swipeRefreshLayout,
+                                               SwipeRefreshLayout.OnRefreshListener swipeRefreshListener) {
+        // Set color scheme
+        swipeRefreshLayout.setColorSchemeColors(DataUtils.getSwipeRefreshColorSchemeResources());
+
         if (refresh) {
             // Check if layout is already refreshing
             if (!swipeRefreshLayout.isRefreshing()) {
                 // Start SwipeRefreshLayout
-                swipeRefreshLayout.setRefreshing(true);
                 swipeRefreshListener.onRefresh();
+                swipeRefreshLayout.setRefreshing(true);
             }
         } else {
             // Stop SwipeRefreshLayout

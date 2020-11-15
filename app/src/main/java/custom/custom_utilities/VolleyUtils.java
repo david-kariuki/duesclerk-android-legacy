@@ -14,6 +14,7 @@ public class VolleyUtils {
 
     // User Account
     public static final String KEY_CLIENT = "Client";
+    public static final String KEY_UPDATE_PROFILE = "UpdateProfile";
 
     // SignIN and SignUp
     public static final String KEY_SIGNIN = "SignIn";

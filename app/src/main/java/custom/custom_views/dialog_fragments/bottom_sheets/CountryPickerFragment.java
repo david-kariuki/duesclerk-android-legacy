@@ -13,12 +13,11 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.duesclerk.R;
-import com.duesclerk.activities.ProfileActivity;
+import com.duesclerk.activities.ClientProfileActivity;
 import com.duesclerk.interfaces.Interface_CountryPicker;
 import com.duesclerk.ui.fragment_business_signup.FragmentBusinessSignup;
 import com.duesclerk.ui.fragment_personal_signup.FragmentPersonalSignup;
@@ -52,14 +51,15 @@ public class CountryPickerFragment extends BottomSheetDialogFragment {
     private BottomSheetBehavior.BottomSheetCallback bottomSheetCallback;
     private ArrayList<JB_CountryData> countryListArray;
 
-    public CountryPickerFragment(ProfileActivity profileActivity){
-        this.mContext = profileActivity.getApplicationContext();
-        this.interfaceCountryPicker = profileActivity;
-        this.activity = profileActivity;
+    public CountryPickerFragment(ClientProfileActivity clientProfileActivity) {
+        this.mContext = clientProfileActivity.getApplicationContext();
+        this.interfaceCountryPicker = clientProfileActivity;
+        this.activity = clientProfileActivity;
     }
 
     /**
      * Constructor for Personal signup fragment
+     *
      * @param fragmentPersonalSignup - Personal signup fragment
      */
     public CountryPickerFragment(FragmentPersonalSignup fragmentPersonalSignup) {
@@ -70,6 +70,7 @@ public class CountryPickerFragment extends BottomSheetDialogFragment {
 
     /**
      * Constructor for Business signup fragment
+     *
      * @param fragmentBusinessSignup - Business signup fragment
      */
     public CountryPickerFragment(FragmentBusinessSignup fragmentBusinessSignup) {
@@ -261,6 +262,7 @@ public class CountryPickerFragment extends BottomSheetDialogFragment {
     }
 
     public void passSelectedCountryDataToInterface(String countryName, String countryCode,
+                                                   String countryCodeWithCountryName,
                                                    String countryAlpha2, String countryAlpha3,
                                                    int countryFlagId) {
         // Pass country data to interface
@@ -270,6 +272,7 @@ public class CountryPickerFragment extends BottomSheetDialogFragment {
             // Pass country data to interface
             interfaceCountryPicker.passCountryName(countryName);
             interfaceCountryPicker.passCountryCode(countryCode);
+            interfaceCountryPicker.passCountryCodeWithCountryName(countryCodeWithCountryName);
             interfaceCountryPicker.passCountryAlpha2(countryAlpha2);
             interfaceCountryPicker.passCountryAlpha3(countryAlpha3);
             interfaceCountryPicker.passCountryFlag(countryFlagId);
