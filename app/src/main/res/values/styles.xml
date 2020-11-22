@@ -90,16 +90,32 @@
     <style name="Style_BottomSheets_Dismiss" parent="@android:style/TextAppearance.Widget.TextView">
         <item name="android:padding">@dimen/dimen_icon_padding_small</item>
         <item name="android:layout_marginStart">10dp</item>
-        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginEnd">5dp</item>
         <item name="android:src">@drawable/ic_baseline_close_24_black</item>
         <item name="android:contentDescription">@string/content_description_icon</item>
     </style>
 
     <!--Custom LinearLayout button-->
-    <style name="Style_CustomButton_Parent_Fill_Primary_Dark">
+    <style name="Style_CustomButton_Container_Fill_Primary_Dark">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:background">@drawable/outline_rectangle_curved_fill_primary_dark</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <style name="Style_CustomButton_No_Margins_Parent_Fill_Primary_Dark">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:background">@drawable/outline_rectangle_curved_fill_primary_dark</item>
+    </style>
+
+    <style name="Style_CustomButton_Container_Stroke_Primary_Dark">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:background">@drawable/outline_rectangle_curved_stroke_primary_dark</item>
         <item name="android:layout_marginStart">10dp</item>
         <item name="android:layout_marginEnd">10dp</item>
         <item name="android:layout_marginTop">20dp</item>
@@ -114,8 +130,8 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_marginStart">20dp</item>
         <item name="android:layout_marginEnd">20dp</item>
-        <item name="android:layout_marginTop">10dp</item>
-        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginTop">7dp</item>
+        <item name="android:layout_marginBottom">7dp</item>
         <item name="android:textStyle">bold</item>
         <item name="textAllCaps">true</item>
         <item name="android:textSize">12sp</item>

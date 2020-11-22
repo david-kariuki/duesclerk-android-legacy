@@ -75,7 +75,7 @@
     <string name="msg_signing_up">We are creating your account! Please wait…</string>
     <string name="msg_signing_in">We are signing you in! Please wait…</string>
     <string name="msg_updating_profile">Updating profile! Please wait…</string>
-    <string name="msg_welcome_to">Welcome to %1$s</string>
+    <string name="msg_welcome_to">Welcome to %1$s.</string>
     <string name="msg_logout">Are you sure you want to log out %1$s?</string>
     <string name="msg_profile_updated">Profile updated successfully.</string>
 

@@ -132,12 +132,34 @@ public class DataUtils {
      * @param args     - placeholders strings
      */
     public static String getStringResource(Context context, int stringId, Object... args) {
+        /*Object[] newArgs = new Object[args.length];
+
+        Object argValue;
+        for (int i = 0; i < args.length; i++) {
+            argValue = args[i];
+
+            if (argValue.getClass() == Integer.class) {
+                // Argument is of type integer
+                newArgs[i] = getStringResource(context, (Integer) argValue);
+                Log.e("Type", "Integer : " + newArgs[i]);
+
+            }
+
+            if (argValue.getClass() == String.class) {
+                // Argument is of type string
+
+                // Add value to new arguments string array
+                newArgs[i] = (String) argValue;
+                Log.e("Type", "String : " + newArgs[i]);
+            }
+        }*/
+
         // Return string with placeholders
         return context.getResources().getString(stringId, args);
     }
 
     /**
-     * Function to get string resource with multiple placeholders
+     * Function to get string resource with multiple integer placeholders
      *
      * @param context  - for getting resources
      * @param stringId - string resource id
@@ -153,6 +175,32 @@ public class DataUtils {
             newArgs[i] = context.getResources().getString((Integer) args[i]);
         }
 
+        // Return string with placeholders
+        return context.getResources().getString(stringId, newArgs);
+    }
+
+    /**
+     * Function to get string resource with multiple string placeholders
+     *
+     * @param context  - for getting resources
+     * @param stringId - string resource id
+     * @param args     - placeholders ids
+     */
+    @SuppressWarnings("EqualsBetweenInconvertibleTypes")
+    public static String getStringResource(Context context, int stringId, String... args) {
+        // Create new Object array with same size as args length
+        Object[] newArgs = new Object[args.length];
+
+        // Loop through passed object with string id
+        for (int i = 0; i < args.length; i++) {
+            // Get string from string id adding them to new Object array
+            if (args[i].getClass().equals(Integer.class)) {
+                newArgs[i] = context.getResources().getString(Integer.parseInt(args[i]));
+            } else {
+                newArgs[i] = args[i];
+
+            }
+        }
         // Return string with placeholders
         return context.getResources().getString(stringId, newArgs);
     }

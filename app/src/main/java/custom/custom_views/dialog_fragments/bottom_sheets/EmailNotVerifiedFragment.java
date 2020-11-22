@@ -31,8 +31,8 @@ public class EmailNotVerifiedFragment extends BottomSheetDialogFragment {
     private final Context mContext;
     private BottomSheetBehavior bottomSheetBehavior;
     private BottomSheetBehavior.BottomSheetCallback bottomSheetCallback;
-    private String firstName;
-    private TextView textGreetings;
+    private String clientsName;
+    private Animation animSwivel;
 
     public EmailNotVerifiedFragment(Context mContext) {
         this.mContext = mContext; // get context
@@ -47,23 +47,23 @@ public class EmailNotVerifiedFragment extends BottomSheetDialogFragment {
         View contentView = View.inflate(getContext(), R.layout.bottom_sheet_email_not_verified,
                 null);
 
-        textGreetings = contentView.findViewById(R.id.textBSEmailNotVerified_Greetings);
+        TextView textGreetings = contentView.findViewById(R.id.textBSEmailNotVerified_Greetings);
         TextView textMessage = contentView.findViewById(R.id.textBSEmailNotVerified_Message);
         ImageView imageDismiss = contentView.findViewById(R.id.imageViewBSClose);
         ImageView imageArm = contentView.findViewById(R.id.ivBSEmailNotVerified_hand);
         LinearLayout llVerifyEmailAddress =
-                contentView.findViewById(R.id.llBSVerifyEmailAddress_Verify);
+                contentView.findViewById(R.id.llBSEmailNotVerified_Verify);
 
         SQLiteDB database = new SQLiteDB(mContext); // Initialize Database  object
 
         // Initialize Animation
-        Animation animSwivel = AnimationUtils.loadAnimation(mContext, R.anim.anim_swivel);
-        animSwivel.setRepeatCount(10);
-        animSwivel.setDuration(1000);
+        animSwivel = AnimationUtils.loadAnimation(mContext, R.anim.anim_swivel);
+        animSwivel.setRepeatCount(Animation.INFINITE);
+        animSwivel.setDuration(900);
         imageArm.startAnimation(animSwivel); // Start animation
 
         textGreetings.setText(DataUtils.getStringResource(mContext, R.string.string_hello,
-                firstName));
+                clientsName));
 
         // Set email not verified message
         textMessage.setText(DataUtils.getStringResource(mContext,
@@ -121,14 +121,16 @@ public class EmailNotVerifiedFragment extends BottomSheetDialogFragment {
 
         // Remove BottomSheet callback
         bottomSheetBehavior.removeBottomSheetCallback(bottomSheetCallback);
+
+        // Cancel swivel animation
+        animSwivel.cancel();
     }
 
     /**
      * Function to set greeting with clients firstName
-     * @param firstName - Clients firstName
+     * @param clientsName - Clients first Name or business name
      */
-    public void setFirstName(String firstName){
-        // Set hello text
-        this.firstName = firstName;
+    public void setClientsName(String clientsName){
+        this.clientsName = clientsName; // Set hello text
     }
 }

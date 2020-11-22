@@ -134,19 +134,19 @@ public class CountryPickerFragment extends BottomSheetDialogFragment {
 
                     case XmlPullParser.END_TAG:
                         // Put Country Name
-                        if (key.equalsIgnoreCase(AccountUtils.KEY_COUNTRY_NAME)) {
+                        if (key.equalsIgnoreCase(AccountUtils.FIELD_COUNTRY_NAME)) {
                             Objects.requireNonNull(pojoCountryData).setCountryName(tagValue);
                             // Put Country Code
-                        } else if (key.equalsIgnoreCase(AccountUtils.KEY_COUNTRY_CODE)) {
+                        } else if (key.equalsIgnoreCase(AccountUtils.FIELD_COUNTRY_CODE)) {
                             Objects.requireNonNull(pojoCountryData).setCountryCode(tagValue);
                             // Put Country Alpha2
-                        } else if (key.equalsIgnoreCase(AccountUtils.KEY_COUNTRY_ALPHA2)) {
+                        } else if (key.equalsIgnoreCase(AccountUtils.FIELD_COUNTRY_ALPHA2)) {
                             Objects.requireNonNull(pojoCountryData).setCountryAlpha2(tagValue);
                             // Put Country Alpha3
-                        } else if (key.equalsIgnoreCase(AccountUtils.KEY_COUNTRY_ALPHA3)) {
+                        } else if (key.equalsIgnoreCase(AccountUtils.FIELD_COUNTRY_ALPHA3)) {
                             Objects.requireNonNull(pojoCountryData).setCountryAlpha3(tagValue);
                             // Put Country Flag without file extension
-                        } else if (key.equalsIgnoreCase(AccountUtils.KEY_COUNTRY_FLAG)) {
+                        } else if (key.equalsIgnoreCase(AccountUtils.FIELD_COUNTRY_FLAG)) {
                             Objects.requireNonNull(pojoCountryData).setCountryFlag(tagValue.replace(".png",
                                     ""));
                         } else if (key.equalsIgnoreCase(AccountUtils.KEY_COUNTRY_ITEM)) {

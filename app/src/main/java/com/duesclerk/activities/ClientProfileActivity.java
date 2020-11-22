@@ -83,6 +83,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
             fetchedPhoneNumber = "", fetchedEmailAddress = "", fetchedCountryName,
             fetchedCountryCode = "", fetchedCountryAlpha2 = "", fetchedCityName = "",
             fetchedGender = "", fetchedAccountType = "";
+    private boolean emailVerified = false, emailNotVerifiedDialogShown = false;
     private EditText newSelectedGender = null, newSelectedCountryCode = null,
             newSelectedCountryAlpha2 = null;
     private String newFirstName = "", newLastName = "", newBusinessName = "", newPhoneNumber = "",
@@ -181,16 +182,12 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
         countryPickerFragment.setCancelable(true);
         countryPickerFragment.setRetainInstance(true);
 
-        // Email not verified
-        emailNotVerifiedFragment = new EmailNotVerifiedFragment(this);
-        emailNotVerifiedFragment.setCancelable(true);
-        emailNotVerifiedFragment.setRetainInstance(true);
+        // Check if account type was fetched to initialize email not verified fragment and
+        // set first name or business name to it
+        if (!fetchedAccountType.equals("")) {
 
-        // Check if first name was fetched
-        if (!fetchedFirstName.equals("")) {
-            emailNotVerifiedFragment.setFirstName(fetchedFirstName); // Set first name
+            initEmailVerificationFragment(); // Initialize fragment
         }
-
         // Gender labels on click
         textGenderMale.setOnClickListener(v -> radioGenderMale.setChecked(true));
         textGenderFemale.setOnClickListener(v -> radioGenderFemale.setChecked(true));
@@ -234,8 +231,10 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
         // SwipeRefresh listener
         swipeRefreshListener = () -> {
             if (!editingProfile) {
-                fetchClientAccountInfo(database.getClientAccountInfo().get(0).getEmailAddress(),
-                        database.getClientAccountInfo().get(0).getPassword());
+                if (!database.isEmpty()) {
+                    fetchClientAccountInfo(database.getClientAccountInfo().get(0).getEmailAddress(),
+                            database.getClientAccountInfo().get(0).getPassword());
+                }
             }
         };
 
@@ -247,7 +246,9 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                 getSupportFragmentManager(), countryPickerFragment, true));
 
         imageEmailVerificationError.setOnClickListener(v -> {
-            if (!fetchedFirstName.equals("") && (!editingProfile)) {
+            if ((!fetchedFirstName.equals("") || !fetchedBusinessName.equals(""))
+                    && (!editingProfile)) {
+
                 // Start email not verified bottom sheet
                 ViewsUtils.showBottomSheetDialogFragment(getSupportFragmentManager(),
                         emailNotVerifiedFragment, true);
@@ -261,7 +262,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
     public void onStart() {
         super.onStart();
 
-        setViewsLoadProfile();
+        loadClientProfile();
     }
 
     @Override
@@ -282,15 +283,33 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
     }
 
     /**
+     * Function to initialize email not verified fragment
+     */
+    private void initEmailVerificationFragment() {
+        // Email not verified
+        emailNotVerifiedFragment = new EmailNotVerifiedFragment(this);
+        emailNotVerifiedFragment.setCancelable(true);
+        emailNotVerifiedFragment.setRetainInstance(true);
+
+        if (fetchedAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
+            if (!fetchedFirstName.equals("")) {
+
+                // Pass first name to bottom sheet
+                emailNotVerifiedFragment.setClientsName(fetchedFirstName);
+            }
+        } else if (fetchedAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
+            if (!fetchedBusinessName.equals("")) {
+
+                // Pass business name to bottom sheet
+                emailNotVerifiedFragment.setClientsName(fetchedBusinessName);
+            }
+        }
+    }
+
+    /**
      * Function to set default views on activity start
      */
-    private void setViewsLoadProfile() {
-
-        // Show ShimmerFrameLayout
-        ViewsUtils.showShimmerFrameLayout(true, shimmerFrameLayout);
-
-        // Hide profile layout
-        llClientProfileActivity.setVisibility(View.GONE);
+    private void loadClientProfile() {
 
         fabEdit.setVisibility(View.GONE); // Hide edit button
 
@@ -331,8 +350,11 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                 fabCancelEdits.setVisibility(View.GONE); // Hide cancel profile edits fab
                 fabSaveEdits.setVisibility(View.GONE); // Hide save profile edits fab
 
-                // Show email verification error icon
-                imageEmailVerificationError.setVisibility(View.VISIBLE);
+                if (!emailVerified) {
+
+                    // Show email verification error icon if email is not verified
+                    imageEmailVerificationError.setVisibility(View.VISIBLE);
+                }
 
                 // Hide keyboard
                 ViewsUtils.hideKeyboard(ClientProfileActivity.this);
@@ -351,10 +373,17 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                 newSelectedCountryAlpha2.setText(fetchedCountryAlpha2);
             }
 
+            // Enable field focus
+            enableEditTexts(enable, editPhoneNumber);
+            enableEditTexts(enable, editEmailAddress);
+
             if (fetchedAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
+                // Personal
 
                 enableEditTexts(enable, editFirstName);
                 enableEditTexts(enable, editLastName);
+
+                editFirstName.requestFocus(); // Focus on first name
 
                 if (enable) {
 
@@ -374,17 +403,17 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                 }
 
             } else if (fetchedAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
+                // Business
 
                 enableEditTexts(enable, editBusinessName);
                 enableEditTexts(enable, editCityName);
+
+                editBusinessName.requestFocus(); // Focus on first name
 
                 // Revert previously set details in case they changed
                 editBusinessName.setText(fetchedBusinessName);
                 editCityName.setText(fetchedCityName);
             }
-
-            enableEditTexts(enable, editPhoneNumber);
-            enableEditTexts(enable, editEmailAddress);
 
             swipeRefreshLayout.setEnabled(!enable); // Enable/Disable swipe refresh
         }
@@ -414,28 +443,28 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
         // Check if JSONObject is null
         if (client != null) {
 
-            boolean emailVerified;
-
             // Get profile details
             try {
 
-                fetchedEmailAddress = client.getString(AccountUtils.KEY_EMAIL_ADDRESS);
-                fetchedPhoneNumber = client.getString(AccountUtils.KEY_PHONE_NUMBER);
-                fetchedCountryName = client.getString(AccountUtils.KEY_COUNTRY_NAME);
-                fetchedCountryCode = client.getString(AccountUtils.KEY_COUNTRY_CODE);
-                fetchedCountryAlpha2 = client.getString(AccountUtils.KEY_COUNTRY_ALPHA2);
-                fetchedAccountType = client.getString(AccountUtils.KEY_ACCOUNT_TYPE);
+                fetchedEmailAddress = client.getString(AccountUtils.FIELD_EMAIL_ADDRESS);
+                fetchedPhoneNumber = client.getString(AccountUtils.FIELD_PHONE_NUMBER);
+                fetchedCountryName = client.getString(AccountUtils.FIELD_COUNTRY_NAME);
+                fetchedCountryCode = client.getString(AccountUtils.FIELD_COUNTRY_CODE);
+                fetchedCountryAlpha2 = client.getString(AccountUtils.FIELD_COUNTRY_ALPHA2);
+                fetchedAccountType = client.getString(AccountUtils.FIELD_ACCOUNT_TYPE);
                 emailVerified = Boolean.parseBoolean(client.getString(
-                        AccountUtils.KEY_EMAIL_VERIFIED));
+                        AccountUtils.FIELD_EMAIL_VERIFIED));
 
                 // Set profile details
                 editEmailAddress.setText(fetchedEmailAddress);
                 editPhoneNumber.setText(fetchedPhoneNumber);
-                String countryCodeAndName = DataUtils.getStringResource(mContext,
-                        R.string.placeholder_in_brackets, fetchedCountryCode)
-                        + " " + client.getString(AccountUtils.KEY_COUNTRY_NAME);
+                String countryCodeAndName = DataUtils.getStringResource(
+                        mContext,
+                        R.string.placeholder_in_brackets,
+                        fetchedCountryCode)
+                        + " " + client.getString(AccountUtils.FIELD_COUNTRY_NAME);
                 editCountry.setText(countryCodeAndName);
-                textSignupDate.setText(client.getString(AccountUtils.KEY_SIGNUP_DATE_TIME));
+                textSignupDate.setText(client.getString(AccountUtils.FIELD_SIGNUP_DATE_TIME));
 
                 // Set to newly EditText to avoid showing save button during field check
                 newSelectedCountryCode.setText(fetchedCountryCode);
@@ -444,9 +473,9 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                 if (fetchedAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
                     // Business account
 
-                    fetchedFirstName = client.getString(AccountUtils.KEY_FIRST_NAME);
-                    fetchedLastName = client.getString(AccountUtils.KEY_LAST_NAME);
-                    fetchedGender = client.getString(AccountUtils.KEY_GENDER);
+                    fetchedFirstName = client.getString(AccountUtils.FIELD_FIRST_NAME);
+                    fetchedLastName = client.getString(AccountUtils.FIELD_LAST_NAME);
+                    fetchedGender = client.getString(AccountUtils.FIELD_GENDER);
 
                     // Hide views
                     cardBusinessName.setVisibility(View.GONE);
@@ -470,8 +499,8 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                 } else if (fetchedAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
                     // Business account
 
-                    fetchedBusinessName = client.getString(AccountUtils.KEY_BUSINESS_NAME);
-                    fetchedCityName = client.getString(AccountUtils.KEY_CITY_NAME);
+                    fetchedBusinessName = client.getString(AccountUtils.FIELD_BUSINESS_NAME);
+                    fetchedCityName = client.getString(AccountUtils.FIELD_CITY_NAME);
 
                     // Hide views
                     cardPersonsNames.setVisibility(View.GONE);
@@ -488,6 +517,8 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                             R.string.hint_business_account));
                 }
 
+                resetNewValueFields(); // Reset new value fields to null
+
                 // Hide ShimmerFrameLayout
                 ViewsUtils.showShimmerFrameLayout(false, shimmerFrameLayout);
 
@@ -500,14 +531,16 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
 
                 // Check email verification
                 if (!emailVerified) {
-                    new CountDownTimer(4000, 1000) {
+                    new CountDownTimer(3000, 1000) {
                         public void onTick(long millisUntilFinished) {
                         }
 
                         public void onFinish() {
 
+                            initEmailVerificationFragment(); // Initialize fragment
+
                             // Hide error icon in case user clicked edit before it was shown
-                            if (!editingProfile) {
+                            if (editingProfile) {
 
                                 // Hide error icon in case user clicked edit before it was shown
                                 imageEmailVerificationError.setVisibility(View.INVISIBLE);
@@ -515,20 +548,23 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
 
                                 // Show Email Not Verified Icon
                                 imageEmailVerificationError.setVisibility(View.VISIBLE);
+
+                                // Prevent dialog from showing when fetch method is called
+                                // after a profile update
+                                if (!emailNotVerifiedDialogShown) {
+
+                                    emailNotVerifiedDialogShown = true; // SEt shown to true
+
+                                    // Start Email Not Verified BottomSheet
+                                    ViewsUtils.showBottomSheetDialogFragment(getSupportFragmentManager(),
+                                            emailNotVerifiedFragment, true);
+                                }
                             }
-
-                            // Pass first name to bottom sheet
-                            emailNotVerifiedFragment.setFirstName(fetchedFirstName);
-
-                            // Start Email Not Verified BottomSheet
-                            /*ViewsUtils.showBottomSheetDialogFragment(getSupportFragmentManager(),
-                                    emailNotVerifiedFragment,
-                                    true);*/
                         }
                     }.start();
 
                     // Hide error icon in case user clicked edit before it was shown
-                    if (!editingProfile) {
+                    if (editingProfile) {
                         // Hide Email Not Verified Icon
                         imageEmailVerificationError.setVisibility(View.INVISIBLE);
                     }
@@ -546,8 +582,13 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
      * Function to respond to connection failures
      */
     private void respondToConnectionFailure() {
+
         // Hide ShimmerFrameLayout
         ViewsUtils.showShimmerFrameLayout(true, shimmerFrameLayout);
+
+        // Stop swipe SwipeRefresh
+        ViewsUtils.startSwipeRefreshLayout(false, swipeRefreshLayout,
+                swipeRefreshListener);
 
         // Show profile layout
         llClientProfileActivity.setVisibility(View.GONE);
@@ -648,6 +689,21 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
     }
 
     /**
+     * Function to reset newly selected values in case of concurrent updates
+     */
+    private void resetNewValueFields(){
+        this.newFirstName = "";
+        this.newLastName = "";
+        this.newBusinessName = "";
+        this.newPhoneNumber = "";
+        this.newEmailAddress = "";
+        this.newCountryCode = "";
+        this.newCountryAlpha2 = "";
+        this.newCityName = "";
+        this.newGender = "";
+    }
+
+    /**
      * Function to fetch/retrieve user account information
      *
      * @param strEmailAddress - Clients email address
@@ -663,11 +719,17 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                 // Hide FABS layout
                 llClientProfileActivityFABS.setVisibility(View.GONE);
 
+                // Hide client profile
+                llClientProfileActivity.setVisibility(View.GONE);
+
+                // Show ShimmerFrameLayout
+                ViewsUtils.showShimmerFrameLayout(true, shimmerFrameLayout);
+
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,
                         NetworkUtils.URL_FETCH_CLIENT_PROFILE_DETAILS, response -> {
 
                     // Log Response
-                    // Log.d(TAG, "Profile Response:" + response);
+                    Log.d(TAG, "Profile Response:" + response);
 
                     try {
                         JSONObject jsonObject = new JSONObject(response);
@@ -738,8 +800,8 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                     protected Map<String, String> getParams() {
                         @SuppressWarnings({"unchecked", "rawtypes"}) Map<String, String> params =
                                 new HashMap();
-                        params.put(AccountUtils.KEY_EMAIL_ADDRESS, strEmailAddress);
-                        params.put(AccountUtils.KEY_PASSWORD, strPassword);
+                        params.put(AccountUtils.FIELD_EMAIL_ADDRESS, strEmailAddress);
+                        params.put(AccountUtils.FIELD_PASSWORD, strPassword);
                         return params;
                     }
 
@@ -802,41 +864,43 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                         NetworkUtils.URL_UPDATE_CLIENT_DETAILS, response -> {
 
                     // Log Response
-                    Log.d(TAG, "Update Response:" + response);
+                    // Log.d(TAG, "Update Response:" + response);
 
                     try {
                         JSONObject jsonObject = new JSONObject(response);
                         boolean error = jsonObject.getBoolean(VolleyUtils.KEY_ERROR);
 
+                        // Hide Dialog
+                        ViewsUtils.dismissProgressDialog(progressDialog);
+
                         // Check for error
                         if (!error) {
                             // Client profile updated successfully
 
-                            // Hide Dialog
-                            ViewsUtils.dismissProgressDialog(progressDialog);
-
                             // Show FABS layout
                             llClientProfileActivityFABS.setVisibility(View.VISIBLE);
 
-                            boolean updated; // Variable to indicate update success
+                            // Variable to indicate update success for other fields apart
+                            // from email address
+                            boolean updated = true;
+
                             // Check if updated fields was email address
                             if (!DataUtils.isEmptyString(newEmailAddress)) {
 
                                 // Update email address in SQLite database
                                 updated = database.updateClientAccountInformation(mContext,
                                         database.getClientAccountInfo().get(0).getClientId(),
-                                        newEmailAddress, AccountUtils.KEY_EMAIL_ADDRESS);
+                                        newEmailAddress, AccountUtils.FIELD_EMAIL_ADDRESS);
 
-                            } else {
-
-                                // For other fields since email address did not change
-                                updated = true; // Set updated to true
+                                // Allow email not verified bottom sheet to be shown again since
+                                // email verification was revoked after updating email address
+                                emailNotVerifiedDialogShown = false;
                             }
 
                             if (updated) {
                                 // Update complete
 
-                                enableProfileEdit(false); // Disable edit mode
+                                enableProfileEdit(false); // Disable profile edit
 
                                 // Show update successful message
                                 CustomToast.infoMessage(mContext,
@@ -849,21 +913,34 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                                         swipeRefreshListener);
                             }
                         } else {
-                            // Error fetching details
+                            // Error updating details
+
+                            // Toast error message
+                            CustomToast.errorMessage(
+                                    mContext,
+                                    DataUtils.getStringResource(
+                                            mContext,
+                                            R.string.error_profile_update_failed),
+                                    R.drawable.ic_baseline_edit_24_white);
 
                             // Cancel Pending Request
                             ApplicationClass.getClassInstance().cancelPendingRequests(
                                     NetworkUtils.TAG_UPDATE_CLIENT_DETAILS_STRING_REQUEST);
+                            
+                            enableProfileEdit(true); // Enable profile edit
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }, volleyError -> {
+
                     // Log Response
-                    Log.e(TAG, "Profile Response Error " + ":" + volleyError.getMessage());
+                    // Log.e(TAG, "Profile Response Error " + ":" + volleyError.getMessage());
 
                     // Hide Dialog
                     ViewsUtils.dismissProgressDialog(progressDialog);
+
+                    enableProfileEdit(false); // Disable profile edit
 
                     // Show FABS layout
                     llClientProfileActivityFABS.setVisibility(View.VISIBLE);
@@ -902,41 +979,41 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                         if (fetchedAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
                             // Check for changed values for personal account
                             if (!DataUtils.isEmptyString(newFirstName)) {
-                                params.put(AccountUtils.KEY_FIRST_NAME, newFirstName);
+                                params.put(AccountUtils.FIELD_FIRST_NAME, newFirstName);
                             }
                             if (!DataUtils.isEmptyString(newLastName)) {
-                                params.put(AccountUtils.KEY_LAST_NAME, newLastName);
+                                params.put(AccountUtils.FIELD_LAST_NAME, newLastName);
                             }
                             if (!DataUtils.isEmptyString(newGender)) {
-                                params.put(AccountUtils.KEY_GENDER, newGender);
+                                params.put(AccountUtils.FIELD_GENDER, newGender);
                             }
 
                         } else if (fetchedAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
                             // Check for changed values for business account
 
                             if (!DataUtils.isEmptyString(newBusinessName)) {
-                                params.put(AccountUtils.KEY_BUSINESS_NAME, newBusinessName);
+                                params.put(AccountUtils.FIELD_BUSINESS_NAME, newBusinessName);
                             }
                             if (!DataUtils.isEmptyString(newCityName)) {
-                                params.put(AccountUtils.KEY_CITY_NAME, newCityName);
+                                params.put(AccountUtils.FIELD_CITY_NAME, newCityName);
                             }
                         }
 
                         // Check for changed values for shared details
                         if (!DataUtils.isEmptyString(newPhoneNumber)) {
-                            params.put(AccountUtils.KEY_PHONE_NUMBER, newPhoneNumber);
+                            params.put(AccountUtils.FIELD_PHONE_NUMBER, newPhoneNumber);
                         }
                         if (!DataUtils.isEmptyString(newEmailAddress)) {
-                            params.put(AccountUtils.KEY_EMAIL_ADDRESS, newEmailAddress);
+                            params.put(AccountUtils.FIELD_EMAIL_ADDRESS, newEmailAddress);
                         }
                         if ((!DataUtils.isEmptyString(newCountryCode))
                                 && (!DataUtils.isEmptyString(newCountryAlpha2))) {
-                            params.put(AccountUtils.KEY_COUNTRY_CODE, newCountryCode);
-                            params.put(AccountUtils.KEY_COUNTRY_ALPHA2, newCountryAlpha2);
+                            params.put(AccountUtils.FIELD_COUNTRY_CODE, newCountryCode);
+                            params.put(AccountUtils.FIELD_COUNTRY_ALPHA2, newCountryAlpha2);
                         }
 
-                        params.put(AccountUtils.KEY_CLIENT_ID, clientId);
-                        params.put(AccountUtils.KEY_ACCOUNT_TYPE, accountType);
+                        params.put(AccountUtils.FIELD_CLIENT_ID, clientId);
+                        params.put(AccountUtils.FIELD_ACCOUNT_TYPE, accountType);
                         Log.e(TAG, "\n\n" + params.toString() + "\n\n");
                         return params;
                     }

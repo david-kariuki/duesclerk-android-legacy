@@ -1,108 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="@drawable/bottom_sheet_top"
     android:layout_height="match_parent"
-    tools:ignore="HardcodedText">
+    android:background="@drawable/bottom_sheet_top"
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:elevation="@dimen/dimen_bs_toolbar_elevation"
-        android:layout_height="@dimen/dimen_bs_toolbar_height">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            style="@style/Style_BottomSheets_Titles"
-            android:text="@string/error_email_address_not_verified"
-            android:textColor="@color/colorRedDark"/>
-
-        <ImageView
-            android:layout_width="@dimen/dimen_icon_size_small"
-            android:layout_height="@dimen/dimen_icon_size_small"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/imageViewBSClose"
-            style="@style/Style_BottomSheets_Dismiss"
-            android:contentDescription="@string/content_description_icon"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <include layout="@layout/divider_toolbar_bottom_sheets"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/dimen_bs_toolbar_height"
+        android:elevation="@dimen/dimen_bs_toolbar_elevation">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="5dp"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_height="wrap_content"
-                android:id="@+id/textBSEmailNotVerified_Greetings"
-                android:hint="Greetings."
-                android:textStyle="bold"
-                android:textColor="@color/colorBlack"
-                android:textSize="14sp"
-                android:singleLine="false" />
-
-            <ImageView
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:scaleType="centerCrop"
-                android:layout_marginTop="2dp"
-                android:padding="@dimen/dimen_icon_padding_small"
-                android:id="@+id/ivBSEmailNotVerified_hand"
-                android:layout_marginBottom="2dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_hand_coloured"
-                android:contentDescription="@string/content_description_icon"/>
-        </LinearLayout>
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:gravity="center_vertical"
+            android:id="@+id/llBSEmailNotVerified_Greetings"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textBSEmailNotVerified_Greetings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:hint="@string/string_hello"
+                android:layout_marginStart="5dp"
+                android:singleLine="true"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/ivBSEmailNotVerified_hand"
+                android:layout_width="@dimen/dimen_icon_size_small"
+                android:layout_height="@dimen/dimen_icon_size_small"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:contentDescription="@string/content_description_icon"
+                android:padding="@dimen/dimen_icon_padding_small"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_hand_coloured" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageViewBSClose"
+            style="@style/Style_BottomSheets_Dismiss"
+            android:layout_width="@dimen/dimen_icon_size_small"
+            android:layout_height="@dimen/dimen_icon_size_small"
+            android:contentDescription="@string/content_description_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias="-1"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include layout="@layout/divider_toolbar_bottom_sheets" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
             android:id="@+id/textBSEmailNotVerified_Message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:hint="@string/error_email_address_not_verified_with_placeholder"
             android:singleLine="false"
             android:textColor="@color/colorBlack"
             android:textSize="14sp"
-            android:hint="message here"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            />
+            app:layout_constraintEnd_toStartOf="@+id/llBSEmailNotVerified_Verify"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="-1" />
 
         <LinearLayout
+            android:id="@+id/llBSEmailNotVerified_Verify"
+            style="@style/Style_CustomButton_No_Margins_Parent_Fill_Primary_Dark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/llBSVerifyEmailAddress_Verify"
             android:layout_gravity="center_horizontal"
-            style="@style/Style_CustomButton_Parent_Fill_Primary_Dark">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="-1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@+id/textBSEmailNotVerified_Message"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                style="@style/Style_CustomButton_Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/action_verify_email_address"
-                android:textColor="@color/colorWhite"
-                style="@style/Style_CustomButton_Text" />
+                android:text="@string/action_verify"
+                android:textColor="@color/colorWhite" />
         </LinearLayout>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include layout="@layout/layout_page_footer_bottom_sheets" />
 </LinearLayout>

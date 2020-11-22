@@ -205,12 +205,13 @@ public class FragmentSignIn extends Fragment {
                     if (!error) {
                         String accountId, emailAddress;
 
-                        JSONObject signIN = jsonObject.getJSONObject(VolleyUtils.KEY_SIGNIN);
-                        accountId = signIN.getString(AccountUtils.KEY_CLIENT_ID);
-                        emailAddress = signIN.getString(AccountUtils.KEY_EMAIL_ADDRESS);
+                        JSONObject signIn = jsonObject.getJSONObject(VolleyUtils.KEY_SIGNIN);
+                        accountId = signIn.getString(AccountUtils.FIELD_CLIENT_ID);
+                        emailAddress = signIn.getString(AccountUtils.FIELD_EMAIL_ADDRESS);
 
                         // Inserting row in users table
-                        if (database.storeClientAccountInformation(mContext, accountId, emailAddress,
+                        if (database.storeClientAccountInformation(mContext, accountId,
+                                emailAddress,
                                 password)) {
 
                             // User details stored
@@ -254,8 +255,8 @@ public class FragmentSignIn extends Fragment {
                 protected Map<String, String> getParams() {
                     // Posting parameters to sign in url
                     Map<String, String> params = new HashMap<>();
-                    params.put(AccountUtils.KEY_EMAIL_ADDRESS, signInEmailAddress);
-                    params.put(AccountUtils.KEY_PASSWORD, password);
+                    params.put(AccountUtils.FIELD_EMAIL_ADDRESS, signInEmailAddress);
+                    params.put(AccountUtils.FIELD_PASSWORD, password);
                     return params;
                 }
             };

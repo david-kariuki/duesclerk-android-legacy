@@ -373,7 +373,11 @@
                             android:focusableInTouchMode="false"
                             android:hint="@string/hint_country_name"
                             android:imeActionLabel="Next"
-                            android:inputType="textNoSuggestions|textCapWords" />
+                            android:inputType="textNoSuggestions|textCapWords"
+                            android:lines="2"
+                            android:maxLines="2"
+                            android:minLines="2"
+                            android:singleLine="false" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -625,7 +629,8 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginBottom="5dp"
                         android:text="@string/hint_signup_date"
-                        android:textColor="@color/colorPrimaryGrey" />
+                        android:textColor="@color/colorPrimaryGrey"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"

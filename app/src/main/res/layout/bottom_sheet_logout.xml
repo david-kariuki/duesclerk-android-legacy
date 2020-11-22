@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bottom_sheet_top"
@@ -15,18 +15,16 @@
             android:id="@+id/textBSLogout_Message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginEnd="20dp"
             android:hint="@string/msg_logout"
-            app:layout_constraintHorizontal_bias="0"
             android:singleLine="false"
             android:textColor="@color/colorBlack"
             android:textColorHint="@color/colorBlack"
-            android:textSize="15sp"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textBSLogout_Message">
@@ -45,7 +43,7 @@
                 style="@style/Base.TextAppearance.AppCompat.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="10dp"
                 android:layout_toStartOf="@+id/textBSLogout_Logout"
                 android:text="@string/action_cancel"
                 android:textColor="@color/colorPrimary"
@@ -59,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="15dp"
                 android:text="@string/action_logout"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/dimen_bs_text_buttons_size"
@@ -76,5 +74,5 @@
 
             <include layout="@layout/layout_page_footer_bottom_sheets" />
         </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -23,6 +24,7 @@ import java.util.Objects;
 import custom.custom_utilities.DataUtils;
 import custom.custom_utilities.ViewsUtils;
 import custom.custom_views.view_pager.ViewPagerAdapter;
+import custom.storage_adapters.SQLiteDB;
 import custom.storage_adapters.SessionManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
 
     private Context mContext;
-    private SessionManager sessionManager;
     private ImageView imageTabPeopleOwingMe, imageTabPeopleIOwe, imageTabAppMenu;
     private TextView textTabPeopleOwingMe, textTabPeopleIOwe, textTabAppMenu;
     private FloatingActionButton floatingActionButton;
@@ -43,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mContext = this; // Get Context
-        sessionManager = new SessionManager(mContext); // Initialize SessionManager object
 
         floatingActionButton = findViewById(R.id.fabMainActivity);
 
@@ -75,6 +75,20 @@ public class MainActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         floatingActionButton.setOnClickListener(v -> fabClickedAction()); // Fab on click
+
+        SessionManager sessionManager = new SessionManager(mContext);
+        SQLiteDB database = new SQLiteDB(mContext);
+
+        floatingActionButton.setOnLongClickListener( v -> {
+                sessionManager.setSignedIn(false);
+                if (!database.isEmpty()) {
+                    database.deleteClientAccountInfo(
+                            database.getClientAccountInfo().get(0).getClientId());
+                }
+
+            Toast.makeText(mContext, "Deleted", Toast.LENGTH_SHORT).show();
+                return false;
+            });
 
         Objects.requireNonNull(tabLayout.getTabAt(2)).select();
     }
@@ -141,7 +155,8 @@ public class MainActivity extends AppCompatActivity {
                 R.string.title_fragment_people_owing_me));
         textTabPeopleIOwe.setText(DataUtils.getStringResource(mContext,
                 R.string.title_fragment_people_i_owe));
-        textTabAppMenu.setText(DataUtils.getStringResource(mContext, R.string.tittle_fragment_app_menu));
+        textTabAppMenu.setText(DataUtils.getStringResource(mContext,
+                R.string.tittle_fragment_app_menu));
 
         // Set TabLayout titles text colors
         textTabPeopleOwingMe.setTextColor(DataUtils.getColorResource(mContext,
@@ -238,6 +253,7 @@ public class MainActivity extends AppCompatActivity {
                     ViewsUtils.loadImageView(mContext, R.drawable.ic_baseline_menu_24_primary_dark,
                             imageTabAppMenu);
                 } else {
+
                     // Set tab title color
                     textTabAppMenu.setTextColor(DataUtils.getColorResource(mContext,
                             R.color.colorPrimaryGrey));

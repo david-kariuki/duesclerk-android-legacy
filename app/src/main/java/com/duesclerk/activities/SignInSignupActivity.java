@@ -331,11 +331,11 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
                         // Get Json Object
                         JSONObject signup = jsonObject.getJSONObject(VolleyUtils.KEY_SIGNUP);
                         String clientId, firstName, lastName, businessName, emailAddress,
-                                successMessage = null;
+                                successMessage = "";
 
                         // Get signup details
-                        clientId = signup.getString(AccountUtils.KEY_CLIENT_ID);
-                        emailAddress = signup.getString(AccountUtils.KEY_EMAIL_ADDRESS);
+                        clientId = signup.getString(AccountUtils.FIELD_CLIENT_ID);
+                        emailAddress = signup.getString(AccountUtils.FIELD_EMAIL_ADDRESS);
 
                         // Inserting row in users table
                         if (database.storeClientAccountInformation(mContext, clientId, emailAddress,
@@ -347,27 +347,40 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
                             if (signupAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
 
                                 // Get first name and last name
-                                firstName = signup.getString(AccountUtils.KEY_FIRST_NAME);
-                                lastName = signup.getString(AccountUtils.KEY_LAST_NAME);
+                                firstName = signup.getString(AccountUtils.FIELD_FIRST_NAME);
+                                lastName = signup.getString(AccountUtils.FIELD_LAST_NAME);
 
-                                successMessage = DataUtils.getStringResource(mContext,
-                                        R.string.msg_welcome_to, R.string.app_name +
-                                                ", " + firstName + " " + lastName);
-
+                                if (!DataUtils.isEmptyString(firstName) && !DataUtils.isEmptyString(lastName)) {
+                                    successMessage = DataUtils.getStringResource(
+                                            mContext,
+                                            R.string.msg_welcome_to,
+                                            DataUtils.getStringResource(
+                                                    mContext,
+                                                    R.string.app_name)
+                                                    + ", " + (firstName + " " + lastName));
+                                }
                             } else if (signupAccountType.equals(
                                     AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
 
                                 // Get business name
-                                businessName = signup.getString(AccountUtils.KEY_BUSINESS_NAME);
+                                businessName = signup.getString(AccountUtils.FIELD_BUSINESS_NAME);
 
-                                successMessage = DataUtils.getStringResource(mContext,
-                                        R.string.msg_welcome_to, R.string.app_name,
-                                        ", " + businessName);
+                                if (!DataUtils.isEmptyString(businessName)) {
+                                    successMessage = DataUtils.getStringResource(
+                                            mContext,
+                                            R.string.msg_welcome_to,
+                                            DataUtils.getStringResource(
+                                                    mContext,
+                                                    R.string.app_name)
+                                                    + ", " + businessName);
+                                }
                             }
 
                             // Toast welcome message
-                            CustomToast.infoMessage(mContext, successMessage, false,
-                                    0);
+                            if (!DataUtils.isEmptyString(Objects.requireNonNull(successMessage))) {
+                                CustomToast.infoMessage(mContext, successMessage, false,
+                                        0);
+                            }
 
                             // Launch MainActivity
                             startActivity(new Intent(SignInSignupActivity.this,
@@ -423,36 +436,36 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
 
                     // Personal account related fields
                     if (signupAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
-                        params.put(AccountUtils.KEY_FIRST_NAME,
+                        params.put(AccountUtils.FIELD_FIRST_NAME,
                                 signupDetailsArray.get(0).getFirstName());
-                        params.put(AccountUtils.KEY_LAST_NAME,
+                        params.put(AccountUtils.FIELD_LAST_NAME,
                                 signupDetailsArray.get(0).getLastName());
-                        params.put(AccountUtils.KEY_GENDER,
+                        params.put(AccountUtils.FIELD_GENDER,
                                 signupDetailsArray.get(0).getGender());
-                        params.put(AccountUtils.KEY_ACCOUNT_TYPE,
+                        params.put(AccountUtils.FIELD_ACCOUNT_TYPE,
                                 AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL);
                     }
 
                     // Business account related fields
                     if (signupAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
-                        params.put(AccountUtils.KEY_BUSINESS_NAME,
+                        params.put(AccountUtils.FIELD_BUSINESS_NAME,
                                 signupDetailsArray.get(0).getBusinessName());
-                        params.put(AccountUtils.KEY_CITY_NAME,
+                        params.put(AccountUtils.FIELD_CITY_NAME,
                                 signupDetailsArray.get(0).getCity());
-                        params.put(AccountUtils.KEY_ACCOUNT_TYPE,
+                        params.put(AccountUtils.FIELD_ACCOUNT_TYPE,
                                 AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS);
                     }
 
                     // Other shared fields
-                    params.put(AccountUtils.KEY_PHONE_NUMBER,
+                    params.put(AccountUtils.FIELD_PHONE_NUMBER,
                             signupDetailsArray.get(0).getPhoneNumber());
-                    params.put(AccountUtils.KEY_EMAIL_ADDRESS,
+                    params.put(AccountUtils.FIELD_EMAIL_ADDRESS,
                             signupDetailsArray.get(0).getEmailAddress());
-                    params.put(AccountUtils.KEY_COUNTRY_CODE,
+                    params.put(AccountUtils.FIELD_COUNTRY_CODE,
                             signupDetailsArray.get(0).getCountryCode());
-                    params.put(AccountUtils.KEY_COUNTRY_ALPHA2,
+                    params.put(AccountUtils.FIELD_COUNTRY_ALPHA2,
                             signupDetailsArray.get(0).getCountryAlpha2());
-                    params.put(AccountUtils.KEY_PASSWORD,
+                    params.put(AccountUtils.FIELD_PASSWORD,
                             signupDetailsArray.get(0).getPassword());
                     return params;
                 }
@@ -503,4 +516,19 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
         }
     }
 
+    /**
+     * Function to return to first tab on back pressed
+     */
+    @Override
+    public void onBackPressed() {
+        if (tabPosition != 0) {
+            this.runOnUiThread(() -> {
+                // Return 1 step back
+                TabLayout.Tab tab = tabLayout.getTabAt(tabPosition - 1);
+                Objects.requireNonNull(tab).select();
+            });
+        } else {
+            finish(); // Exit Activity
+        }
+    }
 }

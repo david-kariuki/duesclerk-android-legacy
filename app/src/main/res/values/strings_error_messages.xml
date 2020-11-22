@@ -1,7 +1,8 @@
 <resources>
 
     <!--Network error messages-->
-    <string name="error_network_connection_error_message">"Can't connect at the moment! Please check your internet connection and try again."</string>
+    <string name="error_network_connection_error_message">"Poor or no internet connection! Please
+        check your internet connection or try again."</string>
     <string name="error_network_request_error_message">"Can't connect at the moment!"</string>
 
     <!--Input fields errors-->
@@ -28,6 +29,8 @@
 
     <!--Other-->
     <string name="error_email_address_not_verified">Email address not verified!</string>
-    <string name="error_email_address_not_verified_with_placeholder">Your email address "%1$s" has not been verified! Click the button below to verify.</string>
+    <string name="error_email_address_not_verified_with_placeholder">Your email address "%1$s"
+        is not verified!</string>
 
+    <string name="error_profile_update_failed">Profile update failed!</string>
 </resources>

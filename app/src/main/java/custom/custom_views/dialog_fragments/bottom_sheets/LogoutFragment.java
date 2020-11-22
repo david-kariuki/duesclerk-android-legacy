@@ -3,6 +3,7 @@ package custom.custom_views.dialog_fragments.bottom_sheets;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.duesclerk.R;
+import com.duesclerk.activities.SignInSignupActivity;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -64,12 +66,19 @@ public class LogoutFragment extends BottomSheetDialogFragment {
             if (sessionManager.isSignedIn()) {
 
                 // Check for client information
-                if (!DataUtils.isEmptyArrayList(database.getClientAccountInfo())) {
+                if (!database.isEmpty()) {
+
                     // Delete client details from SQLite database
                     if (database.deleteClientAccountInfo((database.getClientAccountInfo().get(0)
                             .getClientId()))) {
 
                         sessionManager.setSignedIn(false); // Falsify session
+
+                        // Launch SignInSignUp activity
+                        startActivity(new Intent(getActivity(), SignInSignupActivity.class));
+
+                        // Close activity
+                        requireActivity().finish();
                     }
                 }
             }

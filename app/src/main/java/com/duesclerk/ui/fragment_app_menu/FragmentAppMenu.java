@@ -1,22 +1,23 @@
 package com.duesclerk.ui.fragment_app_menu;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.duesclerk.R;
 import com.duesclerk.activities.ClientProfileActivity;
+
+import custom.custom_utilities.ViewsUtils;
+import custom.custom_views.dialog_fragments.bottom_sheets.LogoutFragment;
 
 public class FragmentAppMenu extends Fragment {
 
@@ -29,6 +30,7 @@ public class FragmentAppMenu extends Fragment {
     private Context mContext;
     private LinearLayout llViewProfile, llAccountSettings, llHelpCentre, llFeedback, llAbout,
             llSettings, llLogOut;
+    private LogoutFragment logoutFragment;
 
     @Nullable
     @Override
@@ -45,9 +47,30 @@ public class FragmentAppMenu extends Fragment {
         llSettings = view.findViewById(R.id.llAppMenu_Settings);
         llLogOut = view.findViewById(R.id.llAppMenu_Logout);
 
+        // Initialize logout fragment
+        logoutFragment = new LogoutFragment(mContext);
+        logoutFragment.setRetainInstance(true);
+        logoutFragment.setCancelable(true);
+
         // List options onClick
-        llViewProfile.setOnClickListener(v -> startActivity(new Intent(requireActivity(),
-                ClientProfileActivity.class)));
+        llViewProfile.setOnClickListener(v -> startActivity(
+                new Intent(requireActivity(),
+                        ClientProfileActivity.class)));
+
+        // Account settings onClick
+        llAccountSettings.setOnClickListener(v -> {
+        });
+
+        // Feedback settings onClick
+        llFeedback.setOnClickListener(v -> {
+        });
+
+        // Log out onClick
+        llLogOut.setOnClickListener(v -> ViewsUtils.showBottomSheetDialogFragment(
+                getParentFragmentManager(),
+                logoutFragment,
+                true));
+
         return view;
     }
 

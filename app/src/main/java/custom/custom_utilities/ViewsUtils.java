@@ -333,12 +333,19 @@ public class ViewsUtils {
         if (show) {
             // Check if Shimmer is started, show layout and start animation
             shimmerFrameLayout.setVisibility(View.VISIBLE);
-            if (!shimmerFrameLayout.isShimmerStarted()) {
-                shimmerFrameLayout.startShimmer();
+
+            // Check if shimmer frame layout is started
+            if (shimmerFrameLayout.isShimmerStarted()) {
+                shimmerFrameLayout.stopShimmer(); // Stop shimmer
             }
+
+            shimmerFrameLayout.startShimmer(); // Start shimmer
         } else {
+
             // Check if Shimmer is started, stop animation and hide layout
-            shimmerFrameLayout.setVisibility(View.GONE);
+            shimmerFrameLayout.setVisibility(View.GONE); // Hide shimmer frame layout
+
+            // Check if shimmer frame layout is started
             if (shimmerFrameLayout.isShimmerStarted()) {
                 shimmerFrameLayout.stopShimmer();
             }
@@ -390,9 +397,15 @@ public class ViewsUtils {
         if (refresh) {
             // Check if layout is already refreshing
             if (!swipeRefreshLayout.isRefreshing()) {
-                // Start SwipeRefreshLayout
-                swipeRefreshListener.onRefresh();
-                swipeRefreshLayout.setRefreshing(true);
+
+                swipeRefreshListener.onRefresh(); // Call onRefresh listener
+                swipeRefreshLayout.setRefreshing(true); // Start refreshing
+
+            } else {
+
+                swipeRefreshLayout.setRefreshing(false); // Stop refreshing
+                swipeRefreshListener.onRefresh(); // Call onRefresh listener
+                swipeRefreshLayout.setRefreshing(false); // Start refreshing
             }
         } else {
             // Stop SwipeRefreshLayout

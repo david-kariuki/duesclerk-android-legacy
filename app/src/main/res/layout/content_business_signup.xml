@@ -151,7 +151,11 @@
                             android:focusableInTouchMode="false"
                             android:hint="@string/hint_country_name"
                             android:imeActionLabel="Next"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:lines="2"
+                            android:maxLines="2"
+                            android:minLines="2"
+                            android:singleLine="false" />
                     </LinearLayout>
 
                     <View
