@@ -179,11 +179,8 @@ public class SQLiteDB extends SQLiteOpenHelper {
                     new String[]{clientId}); // Delete All Rows
             database.close(); // Closing Connection to the database
 
-            ArrayList<JB_ClientAccountInfo> details = this.getClientAccountInfo();
-
-            return details.isEmpty();
+            return this.isEmpty();
         } catch (Exception ignored) {
-
         }
 
         return false;

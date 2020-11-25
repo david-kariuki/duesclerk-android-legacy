@@ -1,9 +1,9 @@
 <resources>
 
     <!--Network error messages-->
-    <string name="error_network_connection_error_message">"Poor or no internet connection! Please
+    <string name="error_network_connection_error_message_long">"Poor or no internet connection! Please
         check your internet connection or try again."</string>
-    <string name="error_network_request_error_message">"Can't connect at the moment!"</string>
+    <string name="error_network_connection_error_message_short">"Can't connect at the moment!"</string>
 
     <!--Input fields errors-->
     <string name="error_cannot_start_with_a_period">%1$s cannot start with a period!</string>

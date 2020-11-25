@@ -243,7 +243,7 @@ public class FragmentSignIn extends Fragment {
                     // R.string.error_network_request_error_message),
                     // R.drawable.ic_sad_cloud_100px_white); // Toast Connection Error Message
                 } else CustomToast.errorMessage(mContext, DataUtils.getStringResource(mContext,
-                        R.string.error_network_connection_error_message),
+                        R.string.error_network_connection_error_message_long),
                         R.drawable.ic_sad_cloud_100px_white);
 
                 ApplicationClass.getClassInstance().cancelPendingRequests(
@@ -276,7 +276,7 @@ public class FragmentSignIn extends Fragment {
         } else {
             // Not Connected
             CustomToast.errorMessage(mContext, DataUtils.getStringResource(mContext,
-                    R.string.error_network_connection_error_message),
+                    R.string.error_network_connection_error_message_long),
                     R.drawable.ic_sad_cloud_100px_white);
             ViewsUtils.dismissProgressDialog(progressDialog); // Stop Progress Dialog
         }

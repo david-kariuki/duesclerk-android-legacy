@@ -414,7 +414,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
 
                     // Toast Connection Error Message
                     CustomToast.errorMessage(mContext, DataUtils.getStringResource(mContext,
-                            R.string.error_network_request_error_message),
+                            R.string.error_network_connection_error_message_short),
                             R.drawable.ic_sad_cloud_100px_white);
                 } else {
                     // Toast Connection Error Message
@@ -489,7 +489,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
         } else {
             // Not Connected
             CustomToast.errorMessage(mContext, DataUtils.getStringResource(mContext,
-                    R.string.error_network_connection_error_message),
+                    R.string.error_network_connection_error_message_long),
                     R.drawable.ic_sad_cloud_100px_white);
 
             // Stop Progress Dialog

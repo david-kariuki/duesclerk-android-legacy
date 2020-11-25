@@ -49,7 +49,7 @@
     <dimen name="dimen_app_options_list_text_size">14sp</dimen>
 
     <!--Shimmer layout dimensions-->
-    <dimen name="dimen_shimmer_text_view_width">100dp</dimen>
+    <dimen name="dimen_shimmer_text_view_width">120dp</dimen>
     <dimen name="dimen_shimmer_text_view_height">12dp</dimen>
     <dimen name="dimen_shimmer_edit_text_height">25dp</dimen>
     <dimen name="dimen_fab_elevation">6dp</dimen>

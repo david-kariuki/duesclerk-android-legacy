@@ -405,7 +405,7 @@ public class ViewsUtils {
 
                 swipeRefreshLayout.setRefreshing(false); // Stop refreshing
                 swipeRefreshListener.onRefresh(); // Call onRefresh listener
-                swipeRefreshLayout.setRefreshing(false); // Start refreshing
+                swipeRefreshLayout.setRefreshing(true); // Start refreshing
             }
         } else {
             // Stop SwipeRefreshLayout

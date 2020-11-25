@@ -77,7 +77,7 @@ public class CustomToast {
         else toast.setDuration((Toast.LENGTH_SHORT));
 
         // Set Toast gravity
-        toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 50);
+        toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 150);
     }
 
     /**

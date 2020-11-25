@@ -105,5 +105,6 @@
         </LinearLayout>
     </LinearLayout>
 
+    <include layout="@layout/layout_no_connection_bar" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

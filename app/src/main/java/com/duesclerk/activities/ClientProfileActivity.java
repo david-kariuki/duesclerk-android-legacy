@@ -44,6 +44,7 @@ import custom.custom_utilities.AccountUtils;
 import custom.custom_utilities.ApplicationClass;
 import custom.custom_utilities.DataUtils;
 import custom.custom_utilities.InputFiltersUtils;
+import custom.custom_utilities.TaskUtils;
 import custom.custom_utilities.ViewsUtils;
 import custom.custom_utilities.VolleyUtils;
 import custom.custom_views.dialog_fragments.bottom_sheets.CountryPickerFragment;
@@ -78,17 +79,19 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
     private CountryPickerFragment countryPickerFragment;
     private EmailNotVerifiedFragment emailNotVerifiedFragment;
     private ShimmerFrameLayout shimmerFrameLayout;
-    private LinearLayout llClientProfileActivity, llClientProfileActivityFABS;
+    private LinearLayout llClientProfileActivity, llClientProfileActivityFABS, llNoConnection;
     private String fetchedFirstName = "", fetchedLastName = "", fetchedBusinessName = "",
             fetchedPhoneNumber = "", fetchedEmailAddress = "", fetchedCountryName,
             fetchedCountryCode = "", fetchedCountryAlpha2 = "", fetchedCityName = "",
             fetchedGender = "", fetchedAccountType = "";
-    private boolean emailVerified = false, emailNotVerifiedDialogShown = false;
+    private boolean emailVerified = false, emailNotVerifiedDialogShown = false,
+            fetchedClientProfile = false;
     private EditText newSelectedGender = null, newSelectedCountryCode = null,
             newSelectedCountryAlpha2 = null;
     private String newFirstName = "", newLastName = "", newBusinessName = "", newPhoneNumber = "",
             newEmailAddress = "", newCountryCode = "", newCountryAlpha2 = "", newCityName = "",
             newGender = "";
+    private int CURRENT_TASK;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,6 +166,8 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
         shimmerFrameLayout = findViewById(R.id.shimmerClientProfileActivity);
         llClientProfileActivity = findViewById(R.id.llClientProfileActivity_Profile);
         llClientProfileActivityFABS = findViewById(R.id.llClientProfileActivity_FABS);
+        llNoConnection = findViewById(R.id.llNoConnectionBar);
+        LinearLayout llNoConnection_TryAgain = findViewById(R.id.llNoConnection_TryAgain);
 
         // FloatingActionButtons
         fabEdit = findViewById(R.id.fabMainActivity_EditProfile);
@@ -255,7 +260,31 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
             }
         });
 
-        editingProfile = false; // Set editing profile to false
+        llNoConnection_TryAgain.setOnClickListener(v -> {
+            if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
+                if (CURRENT_TASK == TaskUtils.TASK_FETCH_CLIENT_PROFILE) {
+
+                    // Start/Stop swipe SwipeRefresh
+                    ViewsUtils.startSwipeRefreshLayout(true, swipeRefreshLayout,
+                            swipeRefreshListener);
+
+                } else if (CURRENT_TASK == TaskUtils.TASK_UPDATE_CLIENT_PROFILE) {
+
+                    if (editingProfile) {
+                        if (fieldValuesChanged(fetchedAccountType
+                                .equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL))) {
+                            fabSaveEdits.performClick();
+                        }
+                    }
+                }
+            } else {
+
+                // Toast network connection message
+                CustomToast.errorMessage(mContext, DataUtils.getStringResource(
+                        mContext, R.string.error_network_connection_error_message_short),
+                        R.drawable.ic_sad_cloud_100px_white);
+            }
+        });
     }
 
     @Override
@@ -286,6 +315,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
      * Function to initialize email not verified fragment
      */
     private void initEmailVerificationFragment() {
+
         // Email not verified
         emailNotVerifiedFragment = new EmailNotVerifiedFragment(this);
         emailNotVerifiedFragment.setCancelable(true);
@@ -313,9 +343,18 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
 
         fabEdit.setVisibility(View.GONE); // Hide edit button
 
+        // Hide profile layout
+        llClientProfileActivity.setVisibility(View.GONE);
+
+        // Hide ShimmerFrameLayout
+        ViewsUtils.showShimmerFrameLayout(true, shimmerFrameLayout);
+
         // Start/Stop swipe SwipeRefresh
         ViewsUtils.startSwipeRefreshLayout(true, swipeRefreshLayout,
                 swipeRefreshListener);
+
+        // Atop refresh animation
+        swipeRefreshLayout.setRefreshing(false);
 
         // Disable profile edits
         enableProfileEdit(false);
@@ -454,6 +493,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                 fetchedAccountType = client.getString(AccountUtils.FIELD_ACCOUNT_TYPE);
                 emailVerified = Boolean.parseBoolean(client.getString(
                         AccountUtils.FIELD_EMAIL_VERIFIED));
+                fetchedClientProfile = true;
 
                 // Set profile details
                 editEmailAddress.setText(fetchedEmailAddress);
@@ -581,17 +621,49 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
     /**
      * Function to respond to connection failures
      */
-    private void respondToConnectionFailure() {
+    private void respondToNetworkConnectionEvent(boolean connected,
+                                                 boolean updatingProfile) {
 
-        // Hide ShimmerFrameLayout
-        ViewsUtils.showShimmerFrameLayout(true, shimmerFrameLayout);
+        // Check connection state
+        if (!connected) {
 
-        // Stop swipe SwipeRefresh
-        ViewsUtils.startSwipeRefreshLayout(false, swipeRefreshLayout,
-                swipeRefreshListener);
+            // Stop swipe SwipeRefresh
+            ViewsUtils.startSwipeRefreshLayout(false, swipeRefreshLayout,
+                    swipeRefreshListener);
 
-        // Show profile layout
-        llClientProfileActivity.setVisibility(View.GONE);
+            // Check if updating profile
+            if (updatingProfile) {
+
+                // Set current task to updating client profile
+                CURRENT_TASK = TaskUtils.TASK_UPDATE_CLIENT_PROFILE;
+
+            } else {
+
+                // Set current task to fetching client profile
+                CURRENT_TASK = TaskUtils.TASK_FETCH_CLIENT_PROFILE;
+
+                if (!fetchedClientProfile) {
+
+                    // Show ShimmerFrameLayout
+                    ViewsUtils.showShimmerFrameLayout(true, shimmerFrameLayout);
+                }
+
+                fabEdit.setVisibility(View.GONE); // Hide save edits fab
+            }
+
+            if (!fetchedClientProfile) {
+                // Show profile layout
+                llClientProfileActivity.setVisibility(View.GONE);
+            }
+
+            // Show no connection bar
+            llNoConnection.setVisibility(View.VISIBLE);
+
+        } else {
+
+            // Hide no connection bar
+            llNoConnection.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -691,7 +763,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
     /**
      * Function to reset newly selected values in case of concurrent updates
      */
-    private void resetNewValueFields(){
+    private void resetNewValueFields() {
         this.newFirstName = "";
         this.newLastName = "";
         this.newBusinessName = "";
@@ -715,6 +787,9 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
             if (InternetConnectivity.isConnectionFast(mContext)) {
                 // Connected
+
+                // Respond to network connection event
+                respondToNetworkConnectionEvent(true, false);
 
                 // Hide FABS layout
                 llClientProfileActivityFABS.setVisibility(View.GONE);
@@ -834,10 +909,13 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                 ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
                         NetworkUtils.TAG_FETCH_CLIENT_PROFILE_STRING_REQUEST);
             } else {
-                respondToConnectionFailure(); // Respond to connection failure
+
+                // Respond to network connection event
+                respondToNetworkConnectionEvent(false, false);
             }
         } else {
-            respondToConnectionFailure(); // Respond to connection failure
+            // Respond to network connection event
+            respondToNetworkConnectionEvent(false, false);
         }
     }
 
@@ -850,6 +928,9 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
             if (InternetConnectivity.isConnectionFast(mContext)) {
                 // Connected
+
+                // Respond to network connection event
+                respondToNetworkConnectionEvent(true, true);
 
                 // Hide keyboard if showing
                 ViewsUtils.hideKeyboard(ClientProfileActivity.this);
@@ -926,7 +1007,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                             // Cancel Pending Request
                             ApplicationClass.getClassInstance().cancelPendingRequests(
                                     NetworkUtils.TAG_UPDATE_CLIENT_DETAILS_STRING_REQUEST);
-                            
+
                             enableProfileEdit(true); // Enable profile edit
                         }
                     } catch (Exception e) {
@@ -1046,11 +1127,16 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                 // Adding request to request queue
                 ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
                         NetworkUtils.TAG_UPDATE_CLIENT_DETAILS_STRING_REQUEST);
+
             } else {
-                respondToConnectionFailure(); // Respond to connection failure
+
+                // Respond to network connection event
+                respondToNetworkConnectionEvent(false, true);
             }
         } else {
-            respondToConnectionFailure(); // Respond to connection failure
+
+            // Respond to network connection event
+            respondToNetworkConnectionEvent(false, false);
         }
     }
 
