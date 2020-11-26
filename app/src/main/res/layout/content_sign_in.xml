@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorDefaultActivityBackground"
+    android:background="@color/color_default_activity_background"
     android:descendantFocusability="beforeDescendants"
     android:focusable="true"
     android:focusableInTouchMode="true"
@@ -17,7 +17,7 @@
         style="@style/Style_ScrollView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorDefaultActivityBackground"
+        android:background="@color/color_default_activity_background"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:background="@color/colorDefaultActivityBackground"
+            android:background="@color/color_default_activity_background"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
@@ -70,7 +70,7 @@
                                 android:layout_height="@dimen/dimen_icon_size_small"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginEnd="10dp"
-                                android:contentDescription="@string/content_description_icon"
+                                android:contentDescription="@string/content_description_icon_email_address"
                                 android:padding="@dimen/dimen_icon_padding_small"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/ic_baseline_email_24_primary" />
@@ -130,7 +130,7 @@
                                 android:layout_alignParentStart="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginEnd="10dp"
-                                android:contentDescription="@string/content_description_icon"
+                                android:contentDescription="@string/content_description_icon_password"
                                 android:padding="@dimen/dimen_icon_padding_small"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/ic_baseline_lock_24_primary" />
@@ -172,7 +172,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginEnd="10dp"
-                                android:contentDescription="@string/content_description_icon"
+                                android:contentDescription="@string/content_description_icon_password_toggle"
                                 android:padding="@dimen/dimen_icon_padding_small"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/ic_baseline_visibility_24_primary_grey"

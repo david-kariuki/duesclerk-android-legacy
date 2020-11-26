@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Content description-->
+    <string name="content_description_app_icon">Application icon</string>
+    <string name="content_description_icon_exit">Exit icon</string>
+    <string name="content_description_icon_greetings">Greetings icon</string>
+    <string name="content_description_icon_dismiss_dialog">Dismiss dialog icon</string>
+    <string name="content_description_icon_people_i_owe">People I Owe tab</string>
+    <string name="content_description_icon_people_owing_me">People Owing Me tab</string>
+    <string name="content_description_icon_app_menu">App Menu tab</string>
+    <string name="content_description_icon_network">Network icon</string>
+    <string name="content_description_icon_message">Icon</string>
+    <string name="content_description_footer">End of page</string>
+    <string name="content_description_fab_edit_profile">Edit profile button</string>
+    <string name="content_description_fab_save_profile_edits">Save profile edits button
+    </string>
+    <string name="content_description_fab_cancel_profile_edits">Cancel profile edits button
+    </string>
+    <string name="content_description_fab_add_debt_record">Add debt record button
+    </string>
+
+    <!--Client profile and signup-->
+    <string name="content_description_icon_first_name">First name icon</string>
+    <string name="content_description_icon_last_name">Last name icon</string>
+    <string name="content_description_icon_business_name">Business name icon</string>
+    <string name="content_description_icon_email_address">Email address icon</string>
+    <string name="content_description_icon_phone_number">Phone number icon</string>
+    <string name="content_description_icon_country">Country icon</string>
+    <string name="content_description_icon_country_flag">Country flag icon</string>
+    <string name="content_description_icon_city_name">Country icon</string>
+    <string name="content_description_icon_gender">Gender icon</string>
+    <string name="content_description_icon_account_type">Account type icon</string>
+    <string name="content_description_icon_signup_date">Signup date icon</string>
+    <string name="content_description_icon_password">Password icon</string>
+    <string name="content_description_icon_password_toggle">Password toggle icon</string>
+
+    <!--SignUp and SignIn-->
+    <string name="content_description_icon_sign_in">Sign in icon</string>
+    <string name="content_description_icon_sign_up">Sign up icon</string>
+</resources>

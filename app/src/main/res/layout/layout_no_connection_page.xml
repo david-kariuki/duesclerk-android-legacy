@@ -35,7 +35,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center_horizontal"
-                    android:contentDescription="@string/content_description_icon"
+                    android:contentDescription="@string/content_description_icon_network"
                     android:padding="5dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_no_connection_primary_grey" />

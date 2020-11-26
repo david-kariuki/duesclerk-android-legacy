@@ -12,12 +12,12 @@
         android:elevation="@dimen/dimen_bs_toolbar_elevation">
 
         <LinearLayout
+            android:id="@+id/llBSEmailNotVerified_Greetings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:id="@+id/llBSEmailNotVerified_Greetings"
-            android:orientation="horizontal"
             android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -26,11 +26,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:hint="@string/string_hello"
                 android:layout_marginStart="5dp"
+                android:hint="@string/string_hello"
                 android:singleLine="true"
-                android:textColorHint="@color/colorPrimaryDark"
                 android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimaryDark"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
@@ -41,7 +41,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginTop="2dp"
                 android:layout_marginBottom="2dp"
-                android:contentDescription="@string/content_description_icon"
+                android:contentDescription="@string/content_description_icon_greetings"
                 android:padding="@dimen/dimen_icon_padding_small"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_hand_coloured" />
@@ -52,11 +52,11 @@
             style="@style/Style_BottomSheets_Dismiss"
             android:layout_width="@dimen/dimen_icon_size_small"
             android:layout_height="@dimen/dimen_icon_size_small"
-            android:contentDescription="@string/content_description_icon"
+            android:contentDescription="@string/content_description_icon_dismiss_dialog"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintVertical_bias="-1"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="-1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include layout="@layout/divider_toolbar_bottom_sheets" />
@@ -65,8 +65,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp">
 
         <TextView
             android:id="@+id/textBSEmailNotVerified_Message"
@@ -77,10 +77,10 @@
             android:singleLine="false"
             android:textColor="@color/colorBlack"
             android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/llBSEmailNotVerified_Verify"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="-1" />
 
@@ -91,11 +91,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="-1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintStart_toEndOf="@+id/textBSEmailNotVerified_Message"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="-1">
 
             <TextView
                 style="@style/Style_CustomButton_Text"

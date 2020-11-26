@@ -6,6 +6,7 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_activity_signin_signup">SignInSignUp</string>
     <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_account_settings">Account Settings</string>
 
     <!--Fragment titles-->
     <string name="title_fragment_people_i_owe">Those I Owe</string>
@@ -15,16 +16,12 @@
     <string name="title_fragment_sign_in">SignIn</string>
     <string name="title_fragment_personal_account">SignUp Personal Account</string>
     <string name="title_fragment_business_account">SignUp Business Account</string>
+    <string name="title_fragment_sign_in_sign_up">SignIn SignUp Activity</string>
 
     <!--Other titles-->
     <string name="title_signing_up">Signing you up</string>
     <string name="title_signing_in">Signing you in</string>
     <string name="title_updating_profile">Updating profile.</string>
-
-    <!--Content description-->
-    <string name="content_description_image">Image</string>
-    <string name="content_description_icon">Icon</string>
-    <string name="content_description_fab">Fab</string>
 
     <!--Hints-->
     <string name="hint_first_name">First name</string>
@@ -64,6 +61,11 @@
     <string name="action_logout">Logout</string>
     <string name="action_view_profile">View Profile</string>
     <string name="action_verify_email_address">Verify Email Address</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_verify">VERIFY</string>
+    <string name="action_try_again">Try again</string>
+    <string name="action_change_password">Change Password</string>
+    <string name="action_switch_account_type">Switch to %1$s Account</string>
 
     <!--Labels-->
     <string name="label_create_personal_account">Create A Personal Account</string>
@@ -82,6 +84,6 @@
     <!--Others-->
     <string name="placeholder_in_brackets">(%1$s)</string>
     <string name="string_hello">Hello %1$s</string>
-    <string name="action_cancel">Cancel</string>
+
 
 </resources>

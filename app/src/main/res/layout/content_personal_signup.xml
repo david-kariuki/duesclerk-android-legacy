@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorDefaultActivityBackground"
+    android:background="@color/color_default_activity_background"
     android:descendantFocusability="beforeDescendants"
     android:focusable="true"
     android:focusableInTouchMode="true"
@@ -17,14 +17,14 @@
         style="@style/Style_ScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorDefaultActivityBackground"
+        android:background="@color/color_default_activity_background"
         android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:background="@color/colorDefaultActivityBackground"
+            android:background="@color/color_default_activity_background"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -74,7 +74,7 @@
                             android:layout_height="@dimen/dimen_icon_size_small"
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="10dp"
-                            android:contentDescription="@string/content_description_icon"
+                            android:contentDescription="@string/content_description_icon_first_name"
                             android:padding="@dimen/dimen_icon_padding_small"
                             android:scaleType="centerCrop"
                             android:src="@drawable/ic_baseline_person_24_primary" />
@@ -114,7 +114,7 @@
                             android:layout_height="@dimen/dimen_icon_size_small"
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="10dp"
-                            android:contentDescription="@string/content_description_icon"
+                            android:contentDescription="@string/content_description_icon_last_name"
                             android:padding="@dimen/dimen_icon_padding_small"
                             android:scaleType="centerCrop"
                             android:src="@drawable/ic_baseline_email_24_primary"
@@ -173,7 +173,7 @@
                             android:layout_height="@dimen/dimen_icon_size_small"
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="10dp"
-                            android:contentDescription="@string/content_description_icon"
+                            android:contentDescription="@string/content_description_icon_phone_number"
                             android:padding="@dimen/dimen_icon_padding_small"
                             android:scaleType="centerCrop"
                             android:src="@drawable/ic_baseline_phone_24_primary" />
@@ -213,7 +213,7 @@
                             android:layout_height="@dimen/dimen_icon_size_small"
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="10dp"
-                            android:contentDescription="@string/content_description_icon"
+                            android:contentDescription="@string/content_description_icon_email_address"
                             android:padding="@dimen/dimen_icon_padding_small"
                             android:scaleType="centerCrop"
                             android:src="@drawable/ic_baseline_email_24_primary" />
@@ -253,7 +253,7 @@
                         android:layout_width="@dimen/dimen_icon_size_small"
                         android:layout_height="@dimen/dimen_icon_size_small"
                         android:layout_marginEnd="6dp"
-                        android:contentDescription="@string/content_description_icon"
+                        android:contentDescription="@string/content_description_icon_country"
                         android:padding="@dimen/dimen_icon_padding_small"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_baseline_location_on_24_primary" />
@@ -263,7 +263,7 @@
                         android:layout_width="@dimen/dimen_icon_size_small"
                         android:layout_height="@dimen/dimen_icon_size_small"
                         android:layout_marginEnd="2dp"
-                        android:contentDescription="@string/content_description_icon"
+                        android:contentDescription="@string/content_description_icon_country_flag"
                         android:padding="@dimen/dimen_icon_padding_small"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_baseline_flag_24_primary_grey" />
@@ -325,7 +325,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="10dp"
-                        android:contentDescription="@string/content_description_icon"
+                        android:contentDescription="@string/content_description_icon_password"
                         android:padding="@dimen/dimen_icon_padding_small"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_baseline_lock_24_primary" />
@@ -363,7 +363,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="10dp"
-                        android:contentDescription="@string/content_description_icon"
+                        android:contentDescription="@string/content_description_icon_password_toggle"
                         android:padding="@dimen/dimen_icon_padding_small"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_baseline_visibility_24_primary_grey"
@@ -409,7 +409,7 @@
                             android:layout_height="@dimen/dimen_icon_size_small"
                             android:layout_gravity="center_vertical"
                             android:layout_marginEnd="2dp"
-                            android:contentDescription="@string/content_description_icon"
+                            android:contentDescription="@string/content_description_icon_gender"
                             android:padding="@dimen/dimen_icon_padding_small"
                             android:scaleType="centerCrop"
                             android:src="@drawable/ic_toilet_100px_primary" />
@@ -494,7 +494,7 @@
                         android:layout_height="@dimen/dimen_icon_size_small"
                         android:layout_marginStart="13dp"
                         android:layout_marginEnd="5dp"
-                        android:contentDescription="@string/content_description_icon"
+                        android:contentDescription="@string/content_description_icon_sign_in"
                         android:padding="@dimen/dimen_icon_padding_small"
                         android:src="@drawable/ic_baseline_arrow_back_24_primary_dark" />
 

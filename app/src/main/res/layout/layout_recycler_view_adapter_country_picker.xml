@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/consCountryPicker_CountryItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorWhite"
-    android:orientation="horizontal"
     android:layout_marginTop="2dp"
     android:layout_marginBottom="2dp"
-    android:id="@+id/consCountryPicker_CountryItem"
+    android:background="@color/colorWhite"
     android:gravity="center_vertical"
+    android:orientation="horizontal"
     tools:ignore="HardcodedText">
 
     <!--Country Flag-->
     <custom.custom_views.image_views.RectangleImageView
+        android:id="@+id/imageCountryPicker_CountryFlag"
         android:layout_width="35dp"
         android:layout_height="30dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="10dp"
+        android:contentDescription="@string/content_description_icon_country_flag"
         android:padding="@dimen/dimen_icon_padding_small"
         android:scaleType="centerCrop"
-        android:contentDescription="@string/content_description_icon"
         android:src="@drawable/ic_baseline_flag_24_primary_grey"
-        android:id="@+id/imageCountryPicker_CountryFlag"
-        android:layout_marginStart="10dp"
-        app:layout_constraintDimensionRatio="H,1.91:1"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="H,1.91:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/imageCountryPicker_CountryFlag"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:orientation="vertical"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:background="@color/colorWhite">
+        app:layout_constraintStart_toEndOf="@id/imageCountryPicker_CountryFlag"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:gravity="center_vertical"
-            android:background="@color/colorWhite"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
+            android:background="@color/colorWhite"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <!-- Country Name -->
             <TextView
@@ -53,20 +53,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:singleLine="true"
                 android:layout_marginEnd="10dp"
                 android:hint="@string/hint_country_name"
+                android:singleLine="true"
                 android:textColor="@color/colorBlack"
-                android:textSize="14sp"
-                />
+                android:textSize="14sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:background="@color/colorWhite"
             android:gravity="center_vertical"
-            android:layout_marginBottom="5dp"
-            android:layout_height="wrap_content">
+            android:orientation="horizontal">
 
             <!-- Country Code -->
             <TextView
@@ -74,13 +74,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:singleLine="true"
                 android:ellipsize="marquee"
                 android:hint="0-000"
-                android:minEms="1"
                 android:maxEms="3"
-                android:textSize="13sp"
-                />
+                android:minEms="1"
+                android:singleLine="true"
+                android:textSize="13sp" />
 
             <!-- Country Iso2 -->
             <TextView
@@ -88,8 +87,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:singleLine="true"
                 android:hint="KE"
+                android:singleLine="true"
                 android:textSize="12sp" />
 
             <!-- Country Iso3 -->
@@ -98,10 +97,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:singleLine="true"
                 android:hint="KEN"
-                android:textSize="12sp"
-                />
+                android:singleLine="true"
+                android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

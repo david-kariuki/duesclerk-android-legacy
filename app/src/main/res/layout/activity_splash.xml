@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorDefaultActivityBackground"
+    android:background="@color/color_default_activity_background"
     tools:context=".activities.SplashActivity">
 
     <include layout="@layout/content_splash" />

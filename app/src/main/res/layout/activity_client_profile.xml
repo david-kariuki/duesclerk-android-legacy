@@ -6,40 +6,46 @@
     android:layout_height="match_parent"
     tools:context=".activities.ClientProfileActivity">
 
-    <custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout
-        android:id="@+id/swipeProfileActivity"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:saveEnabled="true"
         android:orientation="vertical">
 
-        <LinearLayout
+        <custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout
+            android:id="@+id/swipeProfileActivity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:saveEnabled="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/llClientProfileActivity_Profile">
+                android:orientation="vertical">
 
-                <include layout="@layout/content_client_profile" />
+                <LinearLayout
+                    android:id="@+id/llClientProfileActivity_Profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <include layout="@layout/content_client_profile" />
+                </LinearLayout>
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmerClientProfileActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+
+                    <include layout="@layout/shimmer_placeholder_profile_activity" />
+                </com.facebook.shimmer.ShimmerFrameLayout>
             </LinearLayout>
-
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmerClientProfileActivity"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone">
-
-                <include layout="@layout/shimmer_placeholder_profile_activity"/>
-            </com.facebook.shimmer.ShimmerFrameLayout>
-        </LinearLayout>
-    </custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout>
+        </custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout>
+    </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
         android:id="@+id/llClientProfileActivity_FABS"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end">
 
@@ -48,15 +54,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:visibility="gone"
-            android:layout_marginTop="@dimen/dimen_fab_margin_top"
             android:layout_marginStart="@dimen/dimen_fab_margin_start"
+            android:layout_marginTop="@dimen/dimen_fab_margin_top"
             android:layout_marginEnd="@dimen/dimen_fab_margin_end"
             android:layout_marginBottom="@dimen/dimen_fab_margin_bottom"
             android:backgroundTint="@color/colorPrimary"
-            android:contentDescription="@string/content_description_fab"
+            android:contentDescription="@string/content_description_fab_edit_profile"
             android:elevation="@dimen/dimen_fab_elevation"
             android:src="@drawable/ic_baseline_edit_24_white"
+            android:visibility="gone"
             app:borderWidth="0dp"
             app:fabSize="auto"
             app:tint="@color/colorWhite" />
@@ -64,25 +70,25 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fabMainActivity_CancelProfileEdits"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
-                android:layout_marginTop="@dimen/dimen_fab_margin_top"
-                android:visibility="gone"
                 android:layout_marginStart="@dimen/dimen_fab_margin_start"
+                android:layout_marginTop="@dimen/dimen_fab_margin_top"
                 android:layout_marginEnd="@dimen/dimen_fab_margin_end"
                 android:layout_marginBottom="@dimen/dimen_fab_margin_bottom"
                 android:backgroundTint="@color/colorPrimary"
-                app:layout_behavior=".activities.ScrollingFABAnimation"
-                android:contentDescription="@string/content_description_fab"
+                android:contentDescription="@string/content_description_fab_cancel_profile_edits"
                 android:elevation="@dimen/dimen_fab_elevation"
                 android:src="@drawable/ic_x_100px_white"
+                android:visibility="gone"
                 app:borderWidth="0dp"
                 app:fabSize="auto"
+                app:layout_behavior=".activities.ScrollingFABAnimation"
                 app:tint="@color/colorWhite" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -91,16 +97,16 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:layout_marginTop="@dimen/dimen_fab_margin_top"
-                android:visibility="gone"
                 android:layout_marginEnd="@dimen/dimen_fab_margin_end"
                 android:layout_marginBottom="@dimen/dimen_fab_margin_bottom"
                 android:backgroundTint="@color/colorPrimary"
-                app:layout_behavior=".activities.ScrollingFABAnimation"
-                android:contentDescription="@string/content_description_fab"
+                android:contentDescription="@string/content_description_fab_save_profile_edits"
                 android:elevation="@dimen/dimen_fab_elevation"
                 android:src="@drawable/ic_baseline_check_24_white"
+                android:visibility="gone"
                 app:borderWidth="0dp"
                 app:fabSize="auto"
+                app:layout_behavior=".activities.ScrollingFABAnimation"
                 app:tint="@color/colorWhite" />
         </LinearLayout>
     </LinearLayout>

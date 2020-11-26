@@ -9,11 +9,11 @@
 
     <ImageView
         android:id="@+id/imageTabPeopleOwingMe"
-        android:layout_gravity="center_vertical"
         android:layout_width="@dimen/dimen_tab_layout_icon_size_small"
         android:layout_height="@dimen/dimen_tab_layout_icon_size_small"
+        android:layout_gravity="center_vertical"
         android:layout_marginStart="2dp"
-        android:contentDescription="@string/content_description_icon"
+        android:contentDescription="@string/content_description_icon_people_owing_me"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_me_100px_primary_dark" />
 
@@ -21,11 +21,11 @@
         android:id="@+id/textTabPeopleOwingMe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:lines="1"
         android:maxLines="1"
         android:singleLine="true"
         android:text="@string/title_fragment_people_owing_me"
-        android:layout_gravity="center_vertical"
         android:textColor="@color/colorPrimaryGrey"
         android:textColorHint="@color/colorPrimaryGrey"
         android:textSize="@dimen/dimen_tab_layout_text_size_small" />
