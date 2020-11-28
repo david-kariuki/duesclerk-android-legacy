@@ -13,7 +13,7 @@
     tools:ignore="HardcodedText">
 
     <!--Country Flag-->
-    <custom.custom_views.image_views.RectangleImageView
+    <com.duesclerk.custom.custom_views.image_views.RectangleImageView
         android:id="@+id/imageCountryPicker_CountryFlag"
         android:layout_width="35dp"
         android:layout_height="30dp"

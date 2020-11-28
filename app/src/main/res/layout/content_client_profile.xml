@@ -6,7 +6,7 @@
     style="@style/Style_ScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_default_activity_background"
+    android:background="@color/colorActivityBackground"
     android:descendantFocusability="beforeDescendants"
     android:focusable="true"
     android:focusableInTouchMode="true"
@@ -17,14 +17,14 @@
         style="@style/Style_ScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color_default_activity_background"
+        android:background="@color/colorActivityBackground"
         android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:background="@color/color_default_activity_background"
+            android:background="@color/colorActivityBackground"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +36,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardClientProfileActivity_BusinessName"
-                style="@style/Style_SignUpSignIn_CardView"
+                style="@style/Style_SignInSignUp_Profile_CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/colorWhite"
@@ -51,13 +51,10 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/Style_SignInSignUp_TextInputEditText"
+                        style="@style/Style_SignInSignUp_Profile_Text_Labels"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginBottom="5dp"
-                        android:text="@string/hint_business_name"
-                        android:textColor="@color/colorPrimary" />
+                        android:text="@string/hint_business_name" />
 
 
                     <LinearLayout
@@ -79,7 +76,7 @@
 
                         <EditText
                             android:id="@+id/editClientProfileActivity_BusinessName"
-                            style="@style/Style_SignInSignUp_TextInputEditText"
+                            style="@style/Style_SignInSignUp_Profile_Text_Labels"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:autofillHints=""
@@ -95,7 +92,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardClientProfileActivity_PersonsNames"
-                style="@style/Style_SignUpSignIn_CardView"
+                style="@style/Style_SignInSignUp_Profile_CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/colorWhite"
@@ -110,13 +107,10 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/Style_SignInSignUp_TextInputEditText"
+                        style="@style/Style_SignInSignUp_Profile_Text_Labels"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginBottom="5dp"
-                        android:text="@string/hint_first_and_last_name"
-                        android:textColor="@color/colorPrimary" />
+                        android:text="@string/hint_first_and_last_name" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -193,7 +187,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                style="@style/Style_SignUpSignIn_CardView"
+                style="@style/Style_SignInSignUp_Profile_CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="@dimen/dimen_signup_signin_card_corner_radius"
@@ -207,13 +201,10 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/Style_SignInSignUp_TextInputEditText"
+                        style="@style/Style_SignInSignUp_Profile_Text_Labels"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginBottom="5dp"
-                        android:text="@string/hint_phone_number_and_email_address"
-                        android:textColor="@color/colorPrimary" />
+                        android:text="@string/hint_phone_number_and_email_address" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -311,7 +302,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                style="@style/Style_SignUpSignIn_CardView"
+                style="@style/Style_SignInSignUp_Profile_CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/colorWhite"
@@ -326,13 +317,10 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/Style_SignInSignUp_TextInputEditText"
+                        style="@style/Style_SignInSignUp_Profile_Text_Labels"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginBottom="5dp"
-                        android:text="@string/hint_country_name"
-                        android:textColor="@color/colorPrimary" />
+                        android:text="@string/hint_country_name" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -364,7 +352,7 @@
 
                         <EditText
                             android:id="@+id/editClientProfileActivity_Country"
-                            style="@style/Style_SignInSignUp_TextInputEditText"
+                            style="@style/Style_SignInSignUp_Profile_Text_Labels"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:autofillHints=""
@@ -377,6 +365,7 @@
                             android:lines="2"
                             android:maxLines="2"
                             android:minLines="2"
+                            android:textColor="@color/colorBlack"
                             android:singleLine="false" />
                     </LinearLayout>
                 </LinearLayout>
@@ -384,7 +373,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardClientProfileActivity_CityTownName"
-                style="@style/Style_SignUpSignIn_CardView"
+                style="@style/Style_SignInSignUp_Profile_CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/colorWhite"
@@ -399,13 +388,10 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/Style_SignInSignUp_TextInputEditText"
+                        style="@style/Style_SignInSignUp_Profile_Text_Labels"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginBottom="5dp"
-                        android:text="@string/hint_city_town"
-                        android:textColor="@color/colorPrimary" />
+                        android:text="@string/hint_city_town" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -428,7 +414,7 @@
 
                         <EditText
                             android:id="@+id/editClientProfileActivity_CityTown"
-                            style="@style/Style_SignInSignUp_TextInputEditText"
+                            style="@style/Style_SignInSignUp_Profile_Text_Labels"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:autofillHints=""
@@ -444,7 +430,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardClientProfileActivity_Gender"
-                style="@style/Style_SignUpSignIn_CardView"
+                style="@style/Style_SignInSignUp_Profile_CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="@dimen/dimen_signup_signin_card_corner_radius"
@@ -458,13 +444,10 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/Style_SignInSignUp_TextInputEditText"
+                        style="@style/Style_SignInSignUp_Profile_Text_Labels"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginBottom="5dp"
-                        android:text="@string/hint_gender"
-                        android:textColor="@color/colorPrimary" />
+                        android:text="@string/hint_gender" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -543,7 +526,7 @@
 
                         <TextView
                             android:id="@+id/textClientProfileActivity_Gender"
-                            style="@style/Style_SignInSignUp_TextInputEditText"
+                            style="@style/Style_SignInSignUp_Profile_Text_Labels"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:hint="@string/hint_gender"
@@ -554,7 +537,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardClientProfileActivity_AccountType"
-                style="@style/Style_SignUpSignIn_CardView"
+                style="@style/Style_SignInSignUp_Profile_CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="@dimen/dimen_signup_signin_card_corner_radius"
@@ -568,13 +551,10 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/Style_SignInSignUp_TextInputEditText"
+                        style="@style/Style_SignInSignUp_Profile_Text_Labels"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginBottom="5dp"
-                        android:text="@string/hint_account_type"
-                        android:textColor="@color/colorPrimary" />
+                        android:text="@string/hint_account_type" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -597,7 +577,7 @@
 
                         <TextView
                             android:id="@+id/textClientProfileActivity_AccountType"
-                            style="@style/Style_SignInSignUp_TextInputEditText"
+                            style="@style/Style_SignInSignUp_Profile_Text_Labels"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:hint="@string/hint_account_type"
@@ -608,7 +588,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardClientProfileActivity_SignupDate"
-                style="@style/Style_SignUpSignIn_CardView"
+                style="@style/Style_SignInSignUp_Profile_CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -623,11 +603,9 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/Style_SignInSignUp_TextInputEditText"
+                        style="@style/Style_SignInSignUp_Profile_Text_Labels"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginBottom="5dp"
                         android:text="@string/hint_signup_date"
                         android:textColor="@color/colorPrimaryGrey"
                         android:textStyle="bold" />
@@ -653,7 +631,7 @@
 
                         <TextView
                             android:id="@+id/textClientProfileActivity_SignupDate"
-                            style="@style/Style_SignInSignUp_TextInputEditText"
+                            style="@style/Style_SignInSignUp_Profile_Text_Labels"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:hint="@string/hint_signup_date"

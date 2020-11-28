@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/color_default_activity_background"
+    android:background="@color/colorActivityBackground"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activities.SplashActivity"
@@ -20,7 +20,7 @@
         android:layout_marginEnd="30dp"
         >
 
-        <custom.custom_views.image_views.CircleImageView
+        <com.duesclerk.custom.custom_views.image_views.CircleImageView
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:src="@drawable/app_logo"

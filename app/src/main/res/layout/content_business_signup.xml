@@ -5,7 +5,7 @@
     style="@style/Style_ScrollView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/color_default_activity_background"
+    android:background="@color/colorActivityBackground"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,7 +33,7 @@
             app:layout_constraintWidth_percent=".9">
 
             <androidx.cardview.widget.CardView
-                style="@style/Style_SignUpSignIn_CardView"
+                style="@style/Style_SignInSignUp_Profile_CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -72,7 +72,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editSignUpActivity_BusinessName"
-                            style="@style/Style_SignInSignUp_TextInputEditText"
+                            style="@style/Style_SignInSignUp_Profile_TextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@null"
@@ -84,7 +84,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                style="@style/Style_SignUpSignIn_CardView"
+                style="@style/Style_SignInSignUp_Profile_CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/colorWhite"
@@ -99,14 +99,10 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/Style_SignInSignUp_TextInputEditText"
+                        style="@style/Style_SignInSignUp_Profile_Text_Labels"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:text="@string/hint_country_and_city"
-                        android:textColor="@color/colorPrimary" />
+                        android:text="@string/hint_country_and_city" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -202,7 +198,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                style="@style/Style_SignUpSignIn_CardView"
+                style="@style/Style_SignInSignUp_Profile_CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/colorWhite"
@@ -217,14 +213,10 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/Style_SignInSignUp_TextInputEditText"
+                        style="@style/Style_SignInSignUp_Profile_Text_Labels"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:text="@string/hint_phone_number_and_email_address"
-                        android:textColor="@color/colorPrimary" />
+                        android:text="@string/hint_phone_number_and_email_address" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -302,7 +294,7 @@
 
 
             <androidx.cardview.widget.CardView
-                style="@style/Style_SignUpSignIn_CardView"
+                style="@style/Style_SignInSignUp_Profile_CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/colorWhite"
@@ -344,7 +336,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editSignUpActivity_Password"
-                            style="@style/Style_SignInSignUp_TextInputEditText"
+                            style="@style/Style_SignInSignUp_Profile_TextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@null"
@@ -384,10 +376,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginEnd="20dp"
-                    android:background="@drawable/button_signup"
+                    style="@style/Style_CustomButton_Container_Stroke_Dotted_Primary_Dark"
+                    android:layout_marginBottom="0dp"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    tools:ignore="UselessParent">
+                    tools:ignore="UseCompoundDrawables,UselessParent">
 
                     <ImageView
                         android:layout_width="@dimen/dimen_icon_size_small"
@@ -396,8 +389,7 @@
                         android:layout_marginEnd="5dp"
                         android:contentDescription="@string/content_description_icon_sign_in"
                         android:padding="@dimen/dimen_icon_padding_small"
-                        android:rotation="180"
-                        android:src="@drawable/ic_baseline_arrow_forward_24_white" />
+                        android:src="@drawable/ic_baseline_arrow_back_24_primary_dark" />
 
                     <TextView
                         style="@style/Base.TextAppearance.AppCompat.Button"
@@ -407,7 +399,7 @@
                         android:layout_marginEnd="20dp"
                         android:layout_marginBottom="10dp"
                         android:text="@string/action_sign_in"
-                        android:textColor="@color/colorWhite"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="13sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -417,10 +409,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:background="@drawable/button_signup"
+                    style="@style/Style_CustomButton_Container_Fill_Primary_Dark"
                     android:gravity="center"
+                    android:layout_marginBottom="0dp"
                     android:orientation="horizontal"
-                    tools:ignore="UselessParent">
+                    tools:ignore="UseCompoundDrawables,UselessParent">
 
                     <TextView
                         style="@style/Base.TextAppearance.AppCompat.Button"

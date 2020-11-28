@@ -241,7 +241,7 @@
                     android:layout_marginBottom="0dp"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    tools:ignore="UselessParent">
+                    tools:ignore="UseCompoundDrawables,UselessParent">
 
                     <TextView
                         style="@style/Style_CustomButton_Text"

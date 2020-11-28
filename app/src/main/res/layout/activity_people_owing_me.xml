@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_default_activity_background"
+    android:background="@color/colorActivityBackground"
     tools:context="com.duesclerk.ui.PeopleOwingMe">
 
     <include layout="@layout/content_people_owing_me" />

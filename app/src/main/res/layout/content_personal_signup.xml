@@ -476,7 +476,7 @@
                     android:layout_marginBottom="0dp"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    tools:ignore="UselessParent">
+                    tools:ignore="UseCompoundDrawables,UselessParent">
 
                     <ImageView
                         android:layout_width="@dimen/dimen_icon_size_small"

@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout
+        <com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout
             android:id="@+id/swipeProfileActivity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -40,7 +40,7 @@
                     <include layout="@layout/shimmer_placeholder_profile_activity" />
                 </com.facebook.shimmer.ShimmerFrameLayout>
             </LinearLayout>
-        </custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout>
+        </com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout>
     </LinearLayout>
 
     <LinearLayout

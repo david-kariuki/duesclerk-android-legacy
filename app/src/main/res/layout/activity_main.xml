@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_default_activity_background"
+    android:background="@color/colorActivityBackground"
     tools:context="com.duesclerk.activities.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_default_activity_background"
+        android:background="@color/colorActivityBackground"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
-            android:background="@color/color_default_activity_background"
+            android:background="@color/colorActivityBackground"
             android:layout_marginStart="0dp"
             android:layout_marginEnd="0dp"
             android:paddingVertical="0dp"
@@ -45,7 +45,7 @@
                 android:layout_height="35dp"
                 android:layout_marginEnd="0dp"
                 android:layout_marginStart="0dp"
-                android:background="@color/color_default_activity_background"
+                android:background="@color/colorActivityBackground"
                 android:elevation="0dp"
                 android:longClickable="false"
                 android:overScrollMode="never"
