@@ -14,23 +14,23 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.duesclerk.R;
+import com.duesclerk.activities.AccountSettings;
 import com.duesclerk.activities.ClientProfileActivity;
-
-import custom.custom_utilities.ViewsUtils;
-import custom.custom_views.dialog_fragments.bottom_sheets.LogoutFragment;
+import com.duesclerk.custom.custom_utilities.ViewsUtils;
+import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.ChangePasswordFragment;
+import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.LogoutFragment;
 
 public class FragmentAppMenu extends Fragment {
 
     private ViewModel_FragmentAppMenu mViewModel;
-
-    public static FragmentAppMenu newInstance() {
-        return new FragmentAppMenu();
-    }
-
     private Context mContext;
     private LinearLayout llViewProfile, llAccountSettings, llHelpCentre, llFeedback, llAbout,
             llSettings, llLogOut;
     private LogoutFragment logoutFragment;
+
+    public static FragmentAppMenu newInstance() {
+        return new FragmentAppMenu();
+    }
 
     @Nullable
     @Override
@@ -53,13 +53,14 @@ public class FragmentAppMenu extends Fragment {
         logoutFragment.setCancelable(true);
 
         // List options onClick
-        llViewProfile.setOnClickListener(v -> startActivity(
-                new Intent(requireActivity(),
-                        ClientProfileActivity.class)));
+        llViewProfile.setOnClickListener(v ->
+                startActivity(new Intent(requireActivity(), ClientProfileActivity.class))
+        );
 
         // Account settings onClick
-        llAccountSettings.setOnClickListener(v -> {
-        });
+        llAccountSettings.setOnClickListener(v ->
+                startActivity( new Intent(requireActivity(), AccountSettings.class))
+        );
 
         // Feedback settings onClick
         llFeedback.setOnClickListener(v -> {
@@ -71,6 +72,8 @@ public class FragmentAppMenu extends Fragment {
                 logoutFragment,
                 true));
 
+        ViewsUtils.showBottomSheetDialogFragment(getParentFragmentManager(),
+                new ChangePasswordFragment(mContext), true);
         return view;
     }
 

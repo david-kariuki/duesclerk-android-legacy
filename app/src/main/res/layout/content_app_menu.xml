@@ -266,7 +266,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="24dp"
                     android:text="@string/action_logout"
-                    android:textColor="@color/colorRedDark"
+                    android:textColor="@color/colorPrimaryRed"
                     android:textSize="@dimen/dimen_app_options_list_text_size" />
             </LinearLayout>
 
