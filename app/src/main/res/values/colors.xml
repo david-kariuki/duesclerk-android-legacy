@@ -10,8 +10,8 @@
 
 
     <!--Default-->
-    <color name="color_default_text_view_color">@android:color/tab_indicator_text</color>
-    <color name="colorDefaultActivityBackground">#FAFAFA</color>
+    <color name="colorTextView">@android:color/tab_indicator_text</color>
+    <color name="colorActivityBackground">#FAFAFA</color>
 
     <!--Black-->
     <color name="colorBlack">#000000</color>
@@ -20,11 +20,8 @@
 
     <!--Blue-->
     <color name="colorBlue200">#90caf9</color>
-    <color name="colorBlue400">#42A5F5</color>
     <color name="colorBlue500">#2196F3</color>
-    <color name="colorBlue600">#1E88E5</color>
     <color name="colorBlue700">#1976D2</color>
-    <color name="colorBlue800">#1565C0</color>
     <color name="colorBlue900">#0D47A1</color>
 
     <!--Grey-->
@@ -36,13 +33,12 @@
     <color name="colorDividerGrey">@color/colorGreyLight300</color>
 
     <!--Red-->
-    <color name="colorRedDark">#ec2f21</color>
+    <color name="colorPrimaryRed">#ec2f21</color>
 
     <!--Transparent-->
     <color name="colorTransparent">@android:color/transparent</color>
 
     <!--App Option-->
-    <color name="color_app_option_list_divider">@color/colorGreyLight300</color>
 
     <color name="color_shimmer_item_grey">@color/colorGreyLight200</color>
 </resources>

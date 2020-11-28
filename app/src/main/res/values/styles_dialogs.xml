@@ -4,7 +4,7 @@
     <style name="DatePickerStyle" parent="Theme.AppCompat.Light.NoActionBar.FullScreen">
         <item name="android:headerBackground">@color/colorPrimaryDark</item>
         <item name="android:dayOfWeekBackground">@color/colorPrimary</item>
-        <item name="android:dayOfWeekTextAppearance">@color/colorRedDark</item>
+        <item name="android:dayOfWeekTextAppearance">@color/colorPrimaryRed</item>
         <item name="android:headerMonthTextAppearance">@color/colorPrimary</item>
         <item name="android:headerDayOfMonthTextAppearance">@color/colorWhite</item>
         <item name="android:headerYearTextAppearance">@color/colorPrimary</item>-->

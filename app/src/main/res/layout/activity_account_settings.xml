@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorActivityBackground"
+    tools:context=".activities.AccountSettings">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:elevation="@dimen/dimen_toolbar_elevation_medium"
+            android:orientation="horizontal"
+            style="@style/Style_Toolbar_Container_Medium">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_icon_size_small"
+                android:layout_height="@dimen/dimen_icon_size_small"
+                style="@style/Style_Toolbar_Icon_Exit"
+                android:contentDescription="@string/content_description_icon_exit"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_activity_account_settings"
+                style="@style/Style_Toolbar_Title_Medium_Primary_Dark"/>
+
+        </LinearLayout>
+
+        <include layout="@layout/content_account_settings" />
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

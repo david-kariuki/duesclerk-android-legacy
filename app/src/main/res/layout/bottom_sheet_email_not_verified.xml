@@ -12,7 +12,6 @@
         android:elevation="@dimen/dimen_bs_toolbar_elevation">
 
         <LinearLayout
-            android:id="@+id/llBSEmailNotVerified_Greetings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"

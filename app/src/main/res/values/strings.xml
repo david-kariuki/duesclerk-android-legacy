@@ -3,7 +3,6 @@
     <string name="app_name">DuesClerk</string>
 
     <!--Activity titles-->
-    <string name="title_activity_splash">SplashActivity</string>
     <string name="title_activity_signin_signup">SignInSignUp</string>
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="title_activity_account_settings">Account Settings</string>
@@ -22,6 +21,7 @@
     <string name="title_signing_up">Signing you up</string>
     <string name="title_signing_in">Signing you in</string>
     <string name="title_updating_profile">Updating profile.</string>
+    <string name="title_updating_password">Updating password.</string>
 
     <!--Hints-->
     <string name="hint_first_name">First name</string>
@@ -29,6 +29,9 @@
     <string name="hint_usernames">Usernames</string>
     <string name="hint_email_address">Email address</string>
     <string name="hint_password">Password</string>
+    <string name="hint_current_password">Current password</string>
+    <string name="hint_new_password">New password</string>
+    <string name="hint_confirm_new_password">Confirm new password</string>
     <string name="hint_phone_number">Phone number</string>
     <string name="hint_country_name">Country</string>
     <string name="hint_city_town">City/Town</string>
@@ -60,11 +63,11 @@
     <string name="action_settings">Settings</string>
     <string name="action_logout">Logout</string>
     <string name="action_view_profile">View Profile</string>
-    <string name="action_verify_email_address">Verify Email Address</string>
     <string name="action_cancel">Cancel</string>
-    <string name="action_verify">VERIFY</string>
+    <string name="action_verify">Verify</string>
     <string name="action_try_again">Try again</string>
     <string name="action_change_password">Change Password</string>
+    <string name="action_change">Change</string>
     <string name="action_switch_account_type">Switch to %1$s Account</string>
 
     <!--Labels-->
@@ -76,14 +79,19 @@
     <string name="msg_company_tag_line">Manage your dues with ease.</string>
     <string name="msg_signing_up">We are creating your account! Please wait…</string>
     <string name="msg_signing_in">We are signing you in! Please wait…</string>
-    <string name="msg_updating_profile">Updating profile! Please wait…</string>
+    <string name="msg_updating_profile">Updating your profile! Please wait…</string>
+    <string name="msg_updating_password">Updating your password! Please wait…</string>
     <string name="msg_welcome_to">Welcome to %1$s.</string>
     <string name="msg_logout">Are you sure you want to log out %1$s?</string>
     <string name="msg_profile_updated">Profile updated successfully.</string>
+    <string name="msg_password_updated">Password updated successfully.</string>
 
     <!--Others-->
     <string name="placeholder_in_brackets">(%1$s)</string>
     <string name="string_hello">Hello %1$s</string>
+    <string name="action_next">Next</string>
+    <string name="action_done">Done</string>
+    <string name="label_change_account_password">Change account password</string>
 
 
 </resources>

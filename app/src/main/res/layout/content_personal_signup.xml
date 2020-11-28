@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_default_activity_background"
+    android:background="@color/colorActivityBackground"
     android:descendantFocusability="beforeDescendants"
     android:focusable="true"
     android:focusableInTouchMode="true"
@@ -17,14 +17,14 @@
         style="@style/Style_ScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color_default_activity_background"
+        android:background="@color/colorActivityBackground"
         android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:background="@color/color_default_activity_background"
+            android:background="@color/colorActivityBackground"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,7 @@
             app:layout_constraintWidth_percent=".9">
 
             <androidx.cardview.widget.CardView
-                style="@style/Style_SignUpSignIn_CardView"
+                style="@style/Style_SignInSignUp_Profile_CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -51,14 +51,10 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/Style_SignInSignUp_TextInputEditText"
+                        style="@style/Style_SignInSignUp_Profile_Text_Labels"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:text="@string/hint_first_and_last_name"
-                        android:textColor="@color/colorPrimary" />
+                        android:text="@string/hint_first_and_last_name" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -136,7 +132,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                style="@style/Style_SignUpSignIn_CardView"
+                style="@style/Style_SignInSignUp_Profile_CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="@dimen/dimen_signup_signin_card_corner_radius"
@@ -150,14 +146,10 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/Style_SignInSignUp_TextInputEditText"
+                        style="@style/Style_SignInSignUp_Profile_Text_Labels"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:text="@string/hint_phone_number_and_email_address"
-                        android:textColor="@color/colorPrimary" />
+                        android:text="@string/hint_phone_number_and_email_address" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -234,7 +226,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                style="@style/Style_SignUpSignIn_CardView"
+                style="@style/Style_SignInSignUp_Profile_CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/colorWhite"
@@ -282,7 +274,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editSignUpActivity_Country"
-                            style="@style/Style_SignInSignUp_TextInputEditText"
+                            style="@style/Style_SignInSignUp_Profile_TextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@null"
@@ -302,7 +294,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                style="@style/Style_SignUpSignIn_CardView"
+                style="@style/Style_SignInSignUp_Profile_CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/colorWhite"
@@ -344,7 +336,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editSignUpActivity_Password"
-                            style="@style/Style_SignInSignUp_TextInputEditText"
+                            style="@style/Style_SignInSignUp_Profile_TextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@null"
@@ -372,7 +364,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                style="@style/Style_SignUpSignIn_CardView"
+                style="@style/Style_SignInSignUp_Profile_CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="@dimen/dimen_signup_signin_card_corner_radius"
@@ -386,14 +378,10 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/Style_SignInSignUp_TextInputEditText"
+                        style="@style/Style_SignInSignUp_Profile_Text_Labels"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:text="@string/hint_gender"
-                        android:textColor="@color/colorPrimary" />
+                        android:text="@string/hint_gender" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -480,11 +468,12 @@
 
                 <LinearLayout
                     android:id="@+id/llSignUpActivity_SignIn"
+                    style="@style/Style_CustomButton_Container_Stroke_Dotted_Primary_Dark"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginEnd="20dp"
-                    android:background="@drawable/button_signin"
+                    android:layout_marginBottom="0dp"
                     android:gravity="center"
                     android:orientation="horizontal"
                     tools:ignore="UselessParent">
@@ -513,10 +502,11 @@
 
                 <LinearLayout
                     android:id="@+id/llSignUpActivity_SignUp"
+                    style="@style/Style_CustomButton_Container_Fill_Primary_Dark"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:background="@drawable/button_signup"
+                    android:layout_marginBottom="0dp"
                     android:gravity="center"
                     android:orientation="horizontal"
                     tools:ignore="UselessParent">

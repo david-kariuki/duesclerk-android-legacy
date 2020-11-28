@@ -30,6 +30,20 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.duesclerk.R;
+import com.duesclerk.custom.custom_utilities.AccountUtils;
+import com.duesclerk.custom.custom_utilities.ApplicationClass;
+import com.duesclerk.custom.custom_utilities.DataUtils;
+import com.duesclerk.custom.custom_utilities.InputFiltersUtils;
+import com.duesclerk.custom.custom_utilities.TaskUtils;
+import com.duesclerk.custom.custom_utilities.ViewsUtils;
+import com.duesclerk.custom.custom_utilities.VolleyUtils;
+import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.CountryPickerFragment;
+import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.EmailNotVerifiedFragment;
+import com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout;
+import com.duesclerk.custom.custom_views.toast.CustomToast;
+import com.duesclerk.custom.network.InternetConnectivity;
+import com.duesclerk.custom.network.NetworkUtils;
+import com.duesclerk.custom.storage_adapters.SQLiteDB;
 import com.duesclerk.interfaces.Interface_CountryPicker;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -39,21 +53,6 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import custom.custom_utilities.AccountUtils;
-import custom.custom_utilities.ApplicationClass;
-import custom.custom_utilities.DataUtils;
-import custom.custom_utilities.InputFiltersUtils;
-import custom.custom_utilities.TaskUtils;
-import custom.custom_utilities.ViewsUtils;
-import custom.custom_utilities.VolleyUtils;
-import custom.custom_views.dialog_fragments.bottom_sheets.CountryPickerFragment;
-import custom.custom_views.dialog_fragments.bottom_sheets.EmailNotVerifiedFragment;
-import custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout;
-import custom.custom_views.toast.CustomToast;
-import custom.network.InternetConnectivity;
-import custom.network.NetworkUtils;
-import custom.storage_adapters.SQLiteDB;
 
 public class ClientProfileActivity extends AppCompatActivity implements Interface_CountryPicker,
         TextWatcher {
@@ -353,8 +352,12 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
         ViewsUtils.startSwipeRefreshLayout(true, swipeRefreshLayout,
                 swipeRefreshListener);
 
-        // Atop refresh animation
-        swipeRefreshLayout.setRefreshing(false);
+        // Check for network connection and stop refreshing animation on no connection
+        if (!InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
+
+            // Stop refresh animation
+            swipeRefreshLayout.setRefreshing(false);
+        }
 
         // Disable profile edits
         enableProfileEdit(false);
@@ -942,7 +945,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                 showProgressDialog();
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                        NetworkUtils.URL_UPDATE_CLIENT_DETAILS, response -> {
+                        NetworkUtils.URL_UPDATE_CLIENT_PROFILE_DETAILS, response -> {
 
                     // Log Response
                     // Log.d(TAG, "Update Response:" + response);
@@ -1010,13 +1013,12 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
 
                             enableProfileEdit(true); // Enable profile edit
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    } catch (Exception ignored) {
                     }
                 }, volleyError -> {
 
                     // Log Response
-                    // Log.e(TAG, "Profile Response Error " + ":" + volleyError.getMessage());
+                    // Log.e(TAG, "Update Response Error " + ":" + volleyError.getMessage());
 
                     // Hide Dialog
                     ViewsUtils.dismissProgressDialog(progressDialog);
@@ -1095,8 +1097,8 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
 
                         params.put(AccountUtils.FIELD_CLIENT_ID, clientId);
                         params.put(AccountUtils.FIELD_ACCOUNT_TYPE, accountType);
-                        Log.e(TAG, "\n\n" + params.toString() + "\n\n");
-                        return params;
+
+                        return params; // Return params
                     }
 
                     @Override

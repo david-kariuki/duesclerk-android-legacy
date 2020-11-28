@@ -21,6 +21,10 @@
     <string name="error_phone_number_invalid_short">Invalid phone number!</string>
     <string name="error_password_length">Your password should be %1$s characters or longer!</string>
     <string name="error_password_length_short">Password too short!</string>
+    <string name="error_password_select_new">Please choose a different password other than the current
+        one!</string>
+    <string name="error_password_incorrect">The password you have entered is incorrect!</string>
+    <string name="error_new_password_mismatch">Your new passwords do not match!</string>
     <string name="error_country_null">Please select your country to continue!</string>
     <string name="error_city_null">City cannot be empty!</string>
     <string name="error_gender_null">Please select your gender to continue!</string>
@@ -28,9 +32,9 @@
 
 
     <!--Other-->
-    <string name="error_email_address_not_verified">Email address not verified!</string>
     <string name="error_email_address_not_verified_with_placeholder">Your email address "%1$s"
         is not verified!</string>
 
     <string name="error_profile_update_failed">Profile update failed!</string>
+    <string name="error_password_update_failed">Password update failed!</string>
 </resources>

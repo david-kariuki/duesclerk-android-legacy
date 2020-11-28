@@ -6,7 +6,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <!--<item name="colorAccent">@color/colorAccent</item>-->
-        <item name="colorError">@color/colorRedDark</item>
+        <item name="colorError">@color/colorPrimaryRed</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -27,6 +27,11 @@
         <item name="android:maxLines">1</item>
         <item name="android:minLines">1</item>
         <item name="android:singleLine">true</item>
+    </style>
+
+    <!--ProgressDialog-->
+    <style name="Style_ProgressDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorPrimaryDark</item>
     </style>
 
     <!--ScrollView style-->
@@ -58,9 +63,38 @@
         <item name="android:textStyle">italic</item>
     </style>
 
-    <!--
-        ShimmerFrameLayout
-    -->
+    <!--Toolbars-->
+    <style name="Style_Toolbar_Container_Medium">
+        <item name="android:layout_width">match_parent</item>
+        <item name="elevation">@dimen/dimen_toolbar_elevation_medium</item>
+        <item name="android:layout_height">@dimen/dimen_toolbar_height_medium</item>
+        <item name="android:minHeight">@dimen/dimen_toolbar_height_medium</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="Style_Toolbar_Title_Medium_Primary_Dark">
+        <item name="android:textSize">@dimen/dimen_toolbar_title_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_gravity">center_vertical|start</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentStart">true</item>
+    </style>
+
+    <style name="Style_Toolbar_Icon_Exit">
+        <item name="android:layout_height">@dimen/dimen_icon_size_small</item>
+        <item name="android:layout_width">@dimen/dimen_icon_size_small</item>
+        <item name="android:padding">@dimen/dimen_icon_padding_small</item>
+        <item name="android:src">@drawable/ic_baseline_arrow_back_24_primary_dark</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="contentDescription">@string/content_description_icon_exit</item>
+    </style>
+
+    <!--ShimmerFrameLayout-->
     <style name="Style_Shimmer_TextView_Labels">
         <item name="android:layout_height">@dimen/dimen_shimmer_text_view_height</item>
         <item name="android:layout_width">@dimen/dimen_shimmer_text_view_width</item>
@@ -77,14 +111,6 @@
         BottomSheets
     -->
     <!--BottomSheets title texts-->
-    <style name="Style_BottomSheets_Titles" parent="@android:style/TextAppearance.Widget.TextView">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">10dp</item>
-        <item name="android:layout_marginEnd">10dp</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
 
     <!--BottomSheets dismiss icon-->
     <style name="Style_BottomSheets_Dismiss" parent="@android:style/TextAppearance.Widget.TextView">
@@ -92,14 +118,15 @@
         <item name="android:layout_marginStart">10dp</item>
         <item name="android:layout_marginEnd">5dp</item>
         <item name="android:src">@drawable/ic_baseline_close_24_black</item>
-        <item name="android:contentDescription">@string/content_description_icon</item>
+        <item name="android:contentDescription">@string/content_description_icon_exit</item>
     </style>
 
     <!--Custom LinearLayout button-->
     <style name="Style_CustomButton_Container_Fill_Primary_Dark">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:background">@drawable/outline_rectangle_curved_fill_primary_dark</item>
+        <item name="android:background">@drawable/outline_rectangle_curved_fill_primary_dark
+        </item>
         <item name="android:layout_marginStart">10dp</item>
         <item name="android:layout_marginEnd">10dp</item>
         <item name="android:layout_marginTop">20dp</item>
@@ -109,13 +136,19 @@
     <style name="Style_CustomButton_No_Margins_Parent_Fill_Primary_Dark">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:background">@drawable/outline_rectangle_curved_fill_primary_dark</item>
+        <item name="android:background">@drawable/outline_rectangle_curved_fill_primary_dark
+        </item>
     </style>
 
-    <style name="Style_CustomButton_Container_Stroke_Primary_Dark">
+    <!--Stroke continuous-->
+
+    <!--Stroke dotted-->
+    <style name="Style_CustomButton_Container_Stroke_Dotted_Primary_Dark">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:background">@drawable/outline_rectangle_curved_stroke_primary_dark</item>
+        <item name="android:background">
+            @drawable/outline_curved_rectangle_stroke_dotted_primary_dark
+        </item>
         <item name="android:layout_marginStart">10dp</item>
         <item name="android:layout_marginEnd">10dp</item>
         <item name="android:layout_marginTop">20dp</item>
@@ -123,18 +156,28 @@
     </style>
 
     <!--Custom LinearLayout button-->
-
-    <!--Custom LinearLayout button-->
     <style name="Style_CustomButton_Text">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_marginStart">20dp</item>
         <item name="android:layout_marginEnd">20dp</item>
-        <item name="android:layout_marginTop">7dp</item>
-        <item name="android:layout_marginBottom">7dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
         <item name="android:textStyle">bold</item>
         <item name="textAllCaps">true</item>
         <item name="android:textSize">12sp</item>
         <item name="android:gravity">center</item>
     </style>
+
+    <style name="Style_CustomButton_Text_No_Margins">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>
