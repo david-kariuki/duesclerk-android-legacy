@@ -28,6 +28,17 @@ import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.StringRequest;
 import com.duesclerk.R;
 import com.duesclerk.activities.MainActivity;
+import com.duesclerk.custom.custom_utilities.AccountUtils;
+import com.duesclerk.custom.custom_utilities.ApplicationClass;
+import com.duesclerk.custom.custom_utilities.DataUtils;
+import com.duesclerk.custom.custom_utilities.InputFiltersUtils;
+import com.duesclerk.custom.custom_utilities.ViewsUtils;
+import com.duesclerk.custom.custom_utilities.VolleyUtils;
+import com.duesclerk.custom.custom_views.toast.CustomToast;
+import com.duesclerk.custom.network.InternetConnectivity;
+import com.duesclerk.custom.network.NetworkUtils;
+import com.duesclerk.custom.storage_adapters.SQLiteDB;
+import com.duesclerk.custom.storage_adapters.SessionManager;
 import com.duesclerk.interfaces.Interface_SignInSignup;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -37,18 +48,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
-import custom.custom_utilities.AccountUtils;
-import custom.custom_utilities.ApplicationClass;
-import custom.custom_utilities.DataUtils;
-import custom.custom_utilities.InputFiltersUtils;
-import custom.custom_utilities.ViewsUtils;
-import custom.custom_utilities.VolleyUtils;
-import custom.custom_views.toast.CustomToast;
-import custom.network.InternetConnectivity;
-import custom.network.NetworkUtils;
-import custom.storage_adapters.SQLiteDB;
-import custom.storage_adapters.SessionManager;
 
 public class FragmentSignIn extends Fragment {
 

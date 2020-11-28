@@ -11,6 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.duesclerk.R;
+import com.duesclerk.custom.custom_utilities.DataUtils;
+import com.duesclerk.custom.custom_utilities.ViewsUtils;
+import com.duesclerk.custom.custom_views.view_pager.ViewPagerAdapter;
+import com.duesclerk.custom.storage_adapters.SQLiteDB;
+import com.duesclerk.custom.storage_adapters.SessionManager;
 import com.duesclerk.ui.fragment_app_menu.FragmentAppMenu;
 import com.duesclerk.ui.fragment_people_i_owe.FragmentPeople_I_Owe;
 import com.duesclerk.ui.fragment_peopleowingme.FragmentPeopleOwingMe;
@@ -20,12 +25,6 @@ import com.google.android.material.tabs.TabLayout;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
-
-import custom.custom_utilities.DataUtils;
-import custom.custom_utilities.ViewsUtils;
-import custom.custom_views.view_pager.ViewPagerAdapter;
-import custom.storage_adapters.SQLiteDB;
-import custom.storage_adapters.SessionManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -82,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         floatingActionButton.setOnLongClickListener( v -> {
                 sessionManager.setSignedIn(false);
                 if (!database.isEmpty()) {
-                    database.deleteClientAccountInfo(
+                    database.deleteClientAccountInfoByClientId(
                             database.getClientAccountInfo().get(0).getClientId());
                 }
 

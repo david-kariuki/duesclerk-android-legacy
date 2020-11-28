@@ -19,6 +19,19 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.StringRequest;
 import com.duesclerk.R;
+import com.duesclerk.custom.custom_utilities.AccountUtils;
+import com.duesclerk.custom.custom_utilities.ApplicationClass;
+import com.duesclerk.custom.custom_utilities.DataUtils;
+import com.duesclerk.custom.custom_utilities.ViewsUtils;
+import com.duesclerk.custom.custom_utilities.VolleyUtils;
+import com.duesclerk.custom.custom_views.toast.CustomToast;
+import com.duesclerk.custom.custom_views.view_pager.CustomViewPager;
+import com.duesclerk.custom.custom_views.view_pager.ViewPagerAdapter;
+import com.duesclerk.custom.java_beans.JB_ClientAccountInfo;
+import com.duesclerk.custom.network.InternetConnectivity;
+import com.duesclerk.custom.network.NetworkUtils;
+import com.duesclerk.custom.storage_adapters.SQLiteDB;
+import com.duesclerk.custom.storage_adapters.SessionManager;
 import com.duesclerk.interfaces.Interface_SignInSignup;
 import com.duesclerk.ui.fragment_business_signup.FragmentBusinessSignup;
 import com.duesclerk.ui.fragment_personal_signup.FragmentPersonalSignup;
@@ -32,20 +45,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
-import custom.custom_utilities.AccountUtils;
-import custom.custom_utilities.ApplicationClass;
-import custom.custom_utilities.DataUtils;
-import custom.custom_utilities.ViewsUtils;
-import custom.custom_utilities.VolleyUtils;
-import custom.custom_views.toast.CustomToast;
-import custom.custom_views.view_pager.CustomViewPager;
-import custom.custom_views.view_pager.ViewPagerAdapter;
-import custom.java_beans.JB_ClientAccountInfo;
-import custom.network.InternetConnectivity;
-import custom.network.NetworkUtils;
-import custom.storage_adapters.SQLiteDB;
-import custom.storage_adapters.SessionManager;
 
 public class SignInSignupActivity extends AppCompatActivity implements Interface_SignInSignup {
 

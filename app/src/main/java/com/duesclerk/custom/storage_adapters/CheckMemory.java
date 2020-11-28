@@ -1,5 +1,6 @@
 package com.duesclerk.custom.storage_adapters;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Environment;
@@ -12,10 +13,11 @@ import static java.util.jar.Pack200.Packer.ERROR;
 
 public class CheckMemory {
 
-    static Context context;
+    @SuppressLint("StaticFieldLeak")
+    static Context mContext;
 
     public CheckMemory(Context context) {
-        CheckMemory.context = context;
+        mContext = context;
     }
 
     public static String getAvailableInternalMemorySize() {
@@ -88,7 +90,7 @@ public class CheckMemory {
     }
 
     public static double getRamSize() {
-        ActivityManager actManager = (ActivityManager) context.getSystemService(ACTIVITY_SERVICE);
+        ActivityManager actManager = (ActivityManager) mContext.getSystemService(ACTIVITY_SERVICE);
         ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
         actManager.getMemoryInfo(memInfo);
         return memInfo.totalMem;

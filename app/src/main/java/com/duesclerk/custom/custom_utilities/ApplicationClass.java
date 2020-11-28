@@ -14,8 +14,9 @@ import com.android.volley.toolbox.Volley;
 
 public class ApplicationClass extends Application {
 
-    public static final String TAG = ApplicationClass.class.getSimpleName();
+    @SuppressLint("StaticFieldLeak")
     private static ApplicationClass mInstance;
+    public static final String TAG = ApplicationClass.class.getSimpleName();
     @SuppressLint("StaticFieldLeak")
     private static Context mContext;
     private RequestQueue customRequestQueue;
@@ -27,7 +28,7 @@ public class ApplicationClass extends Application {
      * @return context
      */
     public static Context getAppContext() {
-        return ApplicationClass.mContext;
+        return mContext;
     }
 
     @Override

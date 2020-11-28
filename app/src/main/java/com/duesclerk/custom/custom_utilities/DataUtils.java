@@ -170,7 +170,7 @@ public class DataUtils {
         // Loop through passed object with string id
         for (int i = 0; i < args.length; i++) {
             // Get string from string id adding them to new Object array
-            newArgs[i] = context.getResources().getString((Integer) args[i]);
+            newArgs[i] = context.getResources().getString(args[i]);
         }
 
         // Return string with placeholders

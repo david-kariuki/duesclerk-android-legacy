@@ -13,10 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.duesclerk.R;
+import com.duesclerk.custom.custom_utilities.DataUtils;
+import com.duesclerk.custom.storage_adapters.SessionManager;
 import com.vstechlab.easyfonts.EasyFonts;
-
-import custom.custom_utilities.DataUtils;
-import custom.storage_adapters.SessionManager;
 
 public class SplashActivity extends AppCompatActivity {
 

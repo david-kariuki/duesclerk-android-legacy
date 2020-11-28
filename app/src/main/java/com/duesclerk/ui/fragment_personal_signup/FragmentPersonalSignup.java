@@ -20,16 +20,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.duesclerk.R;
+import com.duesclerk.custom.custom_utilities.AccountUtils;
+import com.duesclerk.custom.custom_utilities.InputFiltersUtils;
+import com.duesclerk.custom.custom_utilities.ViewsUtils;
+import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.CountryPickerFragment;
 import com.duesclerk.interfaces.Interface_CountryPicker;
 import com.duesclerk.interfaces.Interface_SignInSignup;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
-
-import custom.custom_utilities.AccountUtils;
-import custom.custom_utilities.InputFiltersUtils;
-import custom.custom_utilities.ViewsUtils;
-import custom.custom_views.dialog_fragments.bottom_sheets.CountryPickerFragment;
 
 public class FragmentPersonalSignup extends Fragment implements Interface_CountryPicker {
 
