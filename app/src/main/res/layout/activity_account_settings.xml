@@ -22,6 +22,7 @@
             <ImageView
                 android:layout_width="@dimen/dimen_icon_size_small"
                 android:layout_height="@dimen/dimen_icon_size_small"
+                android:id="@+id/imageAccountSettings_Exit"
                 style="@style/Style_Toolbar_Icon_Exit"
                 android:contentDescription="@string/content_description_icon_exit"/>
 

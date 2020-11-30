@@ -6,6 +6,7 @@
     <string name="title_activity_signin_signup">SignInSignUp</string>
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="title_activity_account_settings">Account Settings</string>
+    <string name="title_activity_client_profile">Profile</string>
 
     <!--Fragment titles-->
     <string name="title_fragment_people_i_owe">Those I Owe</string>
