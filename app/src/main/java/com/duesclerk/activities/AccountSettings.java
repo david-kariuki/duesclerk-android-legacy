@@ -2,6 +2,7 @@ package com.duesclerk.activities;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,10 +21,13 @@ public class AccountSettings extends AppCompatActivity {
         Context mContext = getApplicationContext();
         LinearLayout llChangePassword = findViewById(R.id.llAccountSettings_ChangePassword);
         LinearLayout llSwitchAccountType = findViewById(R.id.llAccountSettings_SwitchAccountType);
-
+        ImageView imageExit = findViewById(R.id.imageAccountSettings_Exit);
         ChangePasswordFragment changePasswordFragment = new ChangePasswordFragment(mContext);
         changePasswordFragment.setRetainInstance(true);
         changePasswordFragment.setCancelable(true);
+
+        // Image exit onClick
+        imageExit.setOnClickListener(v -> finish());
 
         llChangePassword.setOnClickListener(v ->
                 // Show change password fragment

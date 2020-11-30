@@ -17,15 +17,10 @@ import com.duesclerk.R;
 import com.duesclerk.activities.AccountSettings;
 import com.duesclerk.activities.ClientProfileActivity;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
-import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.ChangePasswordFragment;
 import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.LogoutFragment;
 
 public class FragmentAppMenu extends Fragment {
 
-    private ViewModel_FragmentAppMenu mViewModel;
-    private Context mContext;
-    private LinearLayout llViewProfile, llAccountSettings, llHelpCentre, llFeedback, llAbout,
-            llSettings, llLogOut;
     private LogoutFragment logoutFragment;
 
     public static FragmentAppMenu newInstance() {
@@ -38,14 +33,14 @@ public class FragmentAppMenu extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_app_menu, container, false);
 
-        mContext = requireActivity();
-        llViewProfile = view.findViewById(R.id.llAppMenu_ViewProfile);
-        llAccountSettings = view.findViewById(R.id.llAppMenu_AccountSettings);
-        llHelpCentre = view.findViewById(R.id.llAppMenu_HelpCentre);
-        llFeedback = view.findViewById(R.id.llAppMenu_Feedback);
-        llAbout = view.findViewById(R.id.llAppMenu_About);
-        llSettings = view.findViewById(R.id.llAppMenu_Settings);
-        llLogOut = view.findViewById(R.id.llAppMenu_Logout);
+        Context mContext = requireActivity();
+        LinearLayout llViewProfile = view.findViewById(R.id.llAppMenu_ViewProfile);
+        LinearLayout llAccountSettings = view.findViewById(R.id.llAppMenu_AccountSettings);
+        LinearLayout llHelpCentre = view.findViewById(R.id.llAppMenu_HelpCentre);
+        LinearLayout llFeedback = view.findViewById(R.id.llAppMenu_Feedback);
+        LinearLayout llAbout = view.findViewById(R.id.llAppMenu_About);
+        LinearLayout llSettings = view.findViewById(R.id.llAppMenu_Settings);
+        LinearLayout llLogOut = view.findViewById(R.id.llAppMenu_Logout);
 
         // Initialize logout fragment
         logoutFragment = new LogoutFragment(mContext);
@@ -59,7 +54,7 @@ public class FragmentAppMenu extends Fragment {
 
         // Account settings onClick
         llAccountSettings.setOnClickListener(v ->
-                startActivity( new Intent(requireActivity(), AccountSettings.class))
+                startActivity(new Intent(requireActivity(), AccountSettings.class))
         );
 
         // Feedback settings onClick
@@ -72,15 +67,14 @@ public class FragmentAppMenu extends Fragment {
                 logoutFragment,
                 true));
 
-        ViewsUtils.showBottomSheetDialogFragment(getParentFragmentManager(),
-                new ChangePasswordFragment(mContext), true);
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(ViewModel_FragmentAppMenu.class);
+        ViewModel_FragmentAppMenu mViewModel =
+                new ViewModelProvider(this).get(ViewModel_FragmentAppMenu.class);
 
     }
 

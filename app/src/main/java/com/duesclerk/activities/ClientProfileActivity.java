@@ -175,6 +175,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
 
         imageEmailVerificationError =
                 findViewById(R.id.imageClientProfileActivity_EmailVerificationError);
+        ImageView imageExit = findViewById(R.id.imageClientProfileActivity_Exit);
 
         swipeRefreshLayout.setEnabled(true); // Enable SwipeRefresh
         swipeRefreshLayout.setSwipeableChildren(scrollView.getId()); // Set scrollable children
@@ -284,6 +285,9 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                         R.drawable.ic_sad_cloud_100px_white);
             }
         });
+
+        // Image exit onClick
+        imageExit.setOnClickListener(v -> finish());
     }
 
     @Override
