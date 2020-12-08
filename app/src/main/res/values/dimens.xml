@@ -21,6 +21,7 @@
     <dimen name="dimen_toolbar_height_medium">45dp</dimen>
     <dimen name="dimen_toolbar_elevation_medium">10dp</dimen>
     <dimen name="dimen_toolbar_elevation_large">14dp</dimen>
+    <dimen name="dimen_toolbar_divider_height">.3dp</dimen>
 
     <!--TabLayout-->
     <dimen name="dimen_tab_layout_icon_size_small">25dp</dimen>
@@ -53,5 +54,11 @@
     <dimen name="dimen_shimmer_text_view_height">12dp</dimen>
     <dimen name="dimen_shimmer_edit_text_height">25dp</dimen>
     <dimen name="dimen_fab_elevation">6dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <!--Verification Activity Text Size-->
+    <dimen name="dimen_email_verification_message_text_size">15sp</dimen>
+    <dimen name="dimen_email_verification_link_text_size">13sp</dimen>
+    <dimen name="dimen_email_verification_button_height">45dp</dimen>
 
 </resources>

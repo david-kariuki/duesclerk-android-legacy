@@ -70,6 +70,7 @@
         <item name="android:layout_height">@dimen/dimen_toolbar_height_medium</item>
         <item name="android:minHeight">@dimen/dimen_toolbar_height_medium</item>
         <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@color/colorWhite</item>
         <item name="android:orientation">horizontal</item>
     </style>
 
@@ -160,8 +161,8 @@
     <style name="Style_CustomButton_Text">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_marginStart">20dp</item>
-        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:layout_marginStart">22dp</item>
+        <item name="android:layout_marginEnd">22dp</item>
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:layout_marginBottom">8dp</item>
         <item name="android:textStyle">bold</item>

@@ -341,10 +341,10 @@
                             android:src="@drawable/ic_baseline_location_on_24_primary" />
 
                         <ImageView
-                            android:layout_width="@dimen/dimen_icon_size_small"
+                            android:id="@+id/imageClientProfileActivity_CountryFlag"
+                            android:layout_width="@dimen/dimen_icon_size_large"
                             android:layout_height="@dimen/dimen_icon_size_small"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginEnd="2dp"
                             android:contentDescription="@string/content_description_icon_country_flag"
                             android:padding="@dimen/dimen_icon_padding_small"
                             android:scaleType="centerCrop"
@@ -355,6 +355,7 @@
                             style="@style/Style_SignInSignUp_Profile_Text_Labels"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
                             android:autofillHints=""
                             android:background="@null"
                             android:focusable="false"
@@ -365,8 +366,8 @@
                             android:lines="2"
                             android:maxLines="2"
                             android:minLines="2"
-                            android:textColor="@color/colorBlack"
-                            android:singleLine="false" />
+                            android:singleLine="false"
+                            android:textColor="@color/colorBlack" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
