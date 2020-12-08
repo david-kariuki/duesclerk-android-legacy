@@ -54,7 +54,7 @@ public class CustomToast {
         toast = new Toast(context);
 
         // Initialize CustomView
-        customView = inflater.inflate(R.layout.custom_layout_toast, null);
+        customView = inflater.inflate(R.layout.layout_toast, null);
 
         // Initialize Container Under CustomView
         llRootView = customView.findViewById(R.id.llCustomToast_Root);
