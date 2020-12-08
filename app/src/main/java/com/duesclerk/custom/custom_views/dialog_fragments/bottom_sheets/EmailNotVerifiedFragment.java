@@ -3,6 +3,7 @@ package com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.duesclerk.R;
+import com.duesclerk.activities.EmailVerificationActivity;
 import com.duesclerk.custom.custom_utilities.DataUtils;
 import com.duesclerk.custom.storage_adapters.SQLiteDB;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -77,8 +79,7 @@ public class EmailNotVerifiedFragment extends BottomSheetDialogFragment {
             dismiss(); // Dismiss
 
             // Launch activity for email verification
-            //intent  = new Intent(getActivity(), EmailVerification_Activity.class);
-            //startActivity(intent);
+            startActivity(new Intent(getActivity(), EmailVerificationActivity.class));
         });
 
         // Set BottomSheet callback

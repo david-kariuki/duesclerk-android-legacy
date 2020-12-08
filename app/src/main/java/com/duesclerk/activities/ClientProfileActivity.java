@@ -7,7 +7,6 @@ import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -72,7 +71,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
     private RadioGroup radioGroupGender;
     private RadioButton radioGenderMale, radioGenderFemale, radioGenderOther;
     private FloatingActionButton fabEdit, fabSaveEdits, fabCancelEdits;
-    private ImageView imageEmailVerificationError;
+    private ImageView imageCountryFlag, imageEmailVerificationError;
     private boolean editingProfile = false;
     private SQLiteDB database;
     private CountryPickerFragment countryPickerFragment;
@@ -81,8 +80,8 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
     private LinearLayout llClientProfileActivity, llClientProfileActivityFABS, llNoConnection;
     private String fetchedFirstName = "", fetchedLastName = "", fetchedBusinessName = "",
             fetchedPhoneNumber = "", fetchedEmailAddress = "", fetchedCountryName,
-            fetchedCountryCode = "", fetchedCountryAlpha2 = "", fetchedCityName = "",
-            fetchedGender = "", fetchedAccountType = "";
+            fetchedCountryCode = "", fetchedCountryFlag = "", fetchedCountryAlpha2 = "",
+            fetchedCityName = "", fetchedGender = "", fetchedAccountType = "";
     private boolean emailVerified = false, emailNotVerifiedDialogShown = false,
             fetchedClientProfile = false;
     private EditText newSelectedGender = null, newSelectedCountryCode = null,
@@ -173,6 +172,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
         fabSaveEdits = findViewById(R.id.fabMainActivity_SaveProfileEdits);
         fabCancelEdits = findViewById(R.id.fabMainActivity_CancelProfileEdits);
 
+        imageCountryFlag = findViewById(R.id.imageClientProfileActivity_CountryFlag);
         imageEmailVerificationError =
                 findViewById(R.id.imageClientProfileActivity_EmailVerificationError);
         ImageView imageExit = findViewById(R.id.imageClientProfileActivity_Exit);
@@ -417,6 +417,11 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                 editCountry.setText(countryCodeAndName);
                 newSelectedCountryCode.setText(fetchedCountryCode);
                 newSelectedCountryAlpha2.setText(fetchedCountryAlpha2);
+
+                // Load previous country flag if country changed
+                ViewsUtils.loadImageView(mContext,
+                        DataUtils.getDrawableFromName(mContext, fetchedCountryFlag),
+                        imageCountryFlag);
             }
 
             // Enable field focus
@@ -497,6 +502,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                 fetchedCountryName = client.getString(AccountUtils.FIELD_COUNTRY_NAME);
                 fetchedCountryCode = client.getString(AccountUtils.FIELD_COUNTRY_CODE);
                 fetchedCountryAlpha2 = client.getString(AccountUtils.FIELD_COUNTRY_ALPHA2);
+                fetchedCountryFlag = client.getString(AccountUtils.FIELD_COUNTRY_FLAG);
                 fetchedAccountType = client.getString(AccountUtils.FIELD_ACCOUNT_TYPE);
                 emailVerified = Boolean.parseBoolean(client.getString(
                         AccountUtils.FIELD_EMAIL_VERIFIED));
@@ -510,7 +516,15 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                         R.string.placeholder_in_brackets,
                         fetchedCountryCode)
                         + " " + client.getString(AccountUtils.FIELD_COUNTRY_NAME);
+
+                // Set country details
                 editCountry.setText(countryCodeAndName);
+
+                // Load country flag
+                ViewsUtils.loadImageView(mContext,
+                        DataUtils.getDrawableFromName(mContext, fetchedCountryFlag),
+                        imageCountryFlag);
+
                 textSignupDate.setText(client.getString(AccountUtils.FIELD_SIGNUP_DATE_TIME));
 
                 // Set to newly EditText to avoid showing save button during field check
@@ -620,7 +634,8 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                     // Hide error icon
                     imageEmailVerificationError.setVisibility(View.INVISIBLE);
                 }
-            } catch (JSONException ignored) {
+            } catch (JSONException ignor) {
+                ignor.printStackTrace();
             }
         }
     }
@@ -811,7 +826,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                         NetworkUtils.URL_FETCH_CLIENT_PROFILE_DETAILS, response -> {
 
                     // Log Response
-                    Log.d(TAG, "Profile Response:" + response);
+                    // Log.d(TAG, "Profile Response:" + response);
 
                     try {
                         JSONObject jsonObject = new JSONObject(response);
@@ -945,7 +960,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                 // Hide FABS layout
                 llClientProfileActivityFABS.setVisibility(View.GONE);
 
-                // Show dialog
+                // Show ProgressDialog
                 showProgressDialog();
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,
@@ -958,7 +973,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                         JSONObject jsonObject = new JSONObject(response);
                         boolean error = jsonObject.getBoolean(VolleyUtils.KEY_ERROR);
 
-                        // Hide Dialog
+                        // Hide ProgressDialog
                         ViewsUtils.dismissProgressDialog(progressDialog);
 
                         // Check for error
@@ -1024,7 +1039,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                     // Log Response
                     // Log.e(TAG, "Update Response Error " + ":" + volleyError.getMessage());
 
-                    // Hide Dialog
+                    // Hide ProgressDialog
                     ViewsUtils.dismissProgressDialog(progressDialog);
 
                     enableProfileEdit(false); // Disable profile edit
@@ -1208,6 +1223,8 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
      */
     @Override
     public void passCountryFlag(int countryFlagId) {
+        // Load country flag
+        ViewsUtils.loadImageView(mContext, countryFlagId, this.imageCountryFlag);
     }
 
     /**

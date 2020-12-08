@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/colorActivityBackground"
+    android:layout_height="match_parent"
+    tools:context=".activities.EmailVerificationActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            style="@style/Style_Toolbar_Container_Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/imageEmailActivation_Exit"
+                style="@style/Style_Toolbar_Icon_Exit"
+                android:layout_width="@dimen/dimen_icon_size_small"
+                android:layout_height="@dimen/dimen_icon_size_small"
+                android:contentDescription="@string/content_description_icon_exit"
+                android:padding="@dimen/dimen_icon_padding_small" />
+
+            <TextView
+                style="@style/Style_Toolbar_Title_Medium_Primary_Dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_activity_email_verification"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible">
+
+            <include layout="@layout/content_email_verification" />
+        </com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout>
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -82,8 +82,8 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:2.0.4"
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.navigation:navigation-fragment:2.3.1'
-    implementation 'androidx.navigation:navigation-ui:2.3.1'
+    implementation 'androidx.navigation:navigation-fragment:2.3.2'
+    implementation 'androidx.navigation:navigation-ui:2.3.2'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
@@ -95,6 +95,9 @@ dependencies {
 
     // Expandable View
     implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
+
+    // Verification code EditText
+    implementation 'com.justkiddingbaby:vercodeedittext:1.0.5'
 
     // Shimmer layout
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
@@ -133,14 +136,14 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
-    //LifeCycle
+    // LifeCycle
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel:2.2.0'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'org.greenrobot:eventbus:3.1.1'
 
     // Google
-    implementation 'com.google.android.gms:play-services-auth:18.1.0'
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
 
     // Temporary
     implementation 'androidx.annotation:annotation:1.1.0'

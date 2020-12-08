@@ -30,6 +30,11 @@
     <string name="error_gender_null">Please select your gender to continue!</string>
     <string name="error_date_of_birth_null">Please select your date of birth to continue!</string>
 
+    <!--Email verification-->
+    <string name="error_email_verification_code_length">The verification code you entered is
+        too short
+    </string>
+    <string name="error_enter_code">Enter code</string>
 
     <!--Other-->
     <string name="error_email_address_not_verified_with_placeholder">Your email address "%1$s"
