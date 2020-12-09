@@ -27,6 +27,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.StringRequest;
 import com.duesclerk.R;
+import com.duesclerk.activities.ForgotPasswordActivity;
 import com.duesclerk.activities.MainActivity;
 import com.duesclerk.custom.custom_utilities.AccountUtils;
 import com.duesclerk.custom.custom_utilities.ApplicationClass;
@@ -48,6 +49,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
+import static com.duesclerk.custom.custom_utilities.ViewsUtils.showProgressDialog;
 
 public class FragmentSignIn extends Fragment {
 
@@ -77,8 +80,8 @@ public class FragmentSignIn extends Fragment {
         interfaceSignInSignup = (Interface_SignInSignup) getActivity();
 
         // Progress Dialog
-        progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setCancelable(false);
+        progressDialog = ViewsUtils.initProgressDialog(requireActivity(),
+                false);
 
         editEmailAddress = view.findViewById(R.id.editSignInActivity_EmailAddress);
         editPassword = view.findViewById(R.id.editSignInActivity_Password);
@@ -87,9 +90,9 @@ public class FragmentSignIn extends Fragment {
         LinearLayout llSignUp = view.findViewById(R.id.llSignInActivity_SignUp);
         imagePasswordToggle = view.findViewById(R.id.imageSignInActivity_PasswordToggle);
 
-        // Set Input Filters
+        // Set InputFilters
         editEmailAddress.setFilters(new InputFilter[]{InputFiltersUtils.filterEmailAddress,
-                new InputFilter.LengthFilter(InputFiltersUtils.maxEmailLength)});
+                new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_EMAIL_ADDRESS)});
 
         // Initialize database
         database = new SQLiteDB(getActivity());
@@ -126,10 +129,8 @@ public class FragmentSignIn extends Fragment {
         // Forgot Password On Click
         textForgotPassword.setOnClickListener(v -> {
 
-            // Launch Forgot Password Activity
-            // Intent intentForgotPassword = new Intent(getActivity(),
-            // ForgotPassword_Activity.class);
-            // startActivity(intentForgotPassword);
+            // Launch forgot password activity
+            startActivity(new Intent(getActivity(), ForgotPasswordActivity.class));
         });
 
         // SignUp link
@@ -161,11 +162,9 @@ public class FragmentSignIn extends Fragment {
     public void onStop() {
         super.onStop();
 
+        // Cancel pending request
         ApplicationClass.getClassInstance().cancelPendingRequests((RequestQueue.RequestFilter)
-                customRequest -> {
-                    // Cancel
-                    return true;
-                });
+                customRequest -> true);
     }
 
     /**
@@ -185,10 +184,18 @@ public class FragmentSignIn extends Fragment {
      * @param password           - plain text
      */
     private void signInUser(final String signInEmailAddress, final String password) {
+
         ViewsUtils.hideKeyboard(requireActivity()); // Hide Keyboard
 
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) { // Connected
-            showProgressDialog(); // Show progress dialog
+
+            // Show progress dialog
+            showProgressDialog(progressDialog,
+                    DataUtils.getStringResource(mContext,
+                            R.string.title_signing_in),
+                    DataUtils.getStringResource(mContext,
+                            R.string.msg_signing_in)
+            );
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST,
                     NetworkUtils.URL_SIGNIN_USER, response -> {
@@ -278,25 +285,6 @@ public class FragmentSignIn extends Fragment {
                     R.string.error_network_connection_error_message_long),
                     R.drawable.ic_sad_cloud_100px_white);
             ViewsUtils.dismissProgressDialog(progressDialog); // Stop Progress Dialog
-        }
-    }
-
-    /**
-     * Function to show progress dialog
-     */
-    private void showProgressDialog() {
-        // Check if progress dialog is showing
-        if (!progressDialog.isShowing()) {
-
-            // Set progress dialog title
-            progressDialog.setTitle(DataUtils.getStringResource(mContext,
-                    R.string.title_signing_in));
-
-            // Set progress dialog message
-            progressDialog.setMessage(DataUtils.getStringResource(mContext,
-                    R.string.msg_signing_in));
-
-            progressDialog.show(); // Show progress dialog
         }
     }
 

@@ -141,13 +141,13 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
 
         // Set Input Filters
         editFirstName.setFilters(new InputFilter[]{InputFiltersUtils.filterNames,
-                new InputFilter.LengthFilter(InputFiltersUtils.maxSingleNameLength)});
+                new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_SINGLE_NAME)});
         editLastName.setFilters(new InputFilter[]{InputFiltersUtils.filterNames,
-                new InputFilter.LengthFilter(InputFiltersUtils.maxSingleNameLength)});
+                new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_SINGLE_NAME)});
         editPhoneNumber.setFilters(new InputFilter[]{InputFiltersUtils.filterPhoneNumber,
-                new InputFilter.LengthFilter(InputFiltersUtils.maxPhoneNumberLength)});
+                new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_PHONE_NUMBER)});
         editEmailAddress.setFilters(new InputFilter[]{InputFiltersUtils.filterEmailAddress,
-                new InputFilter.LengthFilter(InputFiltersUtils.maxEmailLength)});
+                new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_EMAIL_ADDRESS)});
 
         // Add text change listeners
         editFirstName.addTextChangedListener(this);
@@ -961,7 +961,12 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                 llClientProfileActivityFABS.setVisibility(View.GONE);
 
                 // Show ProgressDialog
-                showProgressDialog();
+                ViewsUtils.showProgressDialog(progressDialog,
+                        DataUtils.getStringResource(mContext,
+                                R.string.title_updating_profile),
+                        DataUtils.getStringResource(mContext,
+                                R.string.msg_updating_profile)
+                );
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,
                         NetworkUtils.URL_UPDATE_CLIENT_PROFILE_DETAILS, response -> {
@@ -1158,25 +1163,6 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
 
             // Respond to network connection event
             respondToNetworkConnectionEvent(false, false);
-        }
-    }
-
-    /**
-     * Function to show progress dialog
-     */
-    private void showProgressDialog() {
-        // Check if progress dialog is showing
-        if (!progressDialog.isShowing()) {
-
-            // Set progress dialog title
-            progressDialog.setTitle(DataUtils.getStringResource(mContext,
-                    R.string.title_updating_profile));
-
-            // Set progress dialog message
-            progressDialog.setMessage(DataUtils.getStringResource(mContext,
-                    R.string.msg_updating_profile));
-
-            progressDialog.show(); // Show progress dialog
         }
     }
 

@@ -84,13 +84,13 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
 
         // Set Input Filters
         editFirstName.setFilters(new InputFilter[]{InputFiltersUtils.filterNames,
-                new InputFilter.LengthFilter(InputFiltersUtils.maxSingleNameLength)});
+                new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_SINGLE_NAME)});
         editLastName.setFilters(new InputFilter[]{InputFiltersUtils.filterNames,
-                new InputFilter.LengthFilter(InputFiltersUtils.maxSingleNameLength)});
+                new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_SINGLE_NAME)});
         editPhoneNumber.setFilters(new InputFilter[]{InputFiltersUtils.filterPhoneNumber,
-                new InputFilter.LengthFilter(InputFiltersUtils.maxPhoneNumberLength)});
+                new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_PHONE_NUMBER)});
         editEmailAddress.setFilters(new InputFilter[]{InputFiltersUtils.filterEmailAddress,
-                new InputFilter.LengthFilter(InputFiltersUtils.maxEmailLength)});
+                new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_EMAIL_ADDRESS)});
 
         // Underline text
         textCreateBusinessAccount.setPaintFlags(textCreateBusinessAccount.getPaintFlags()

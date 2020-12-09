@@ -74,9 +74,9 @@ public class FragmentBusinessSignup extends Fragment implements Interface_Countr
 
         // Set Input Filters
         editPhoneNumber.setFilters(new InputFilter[]{InputFiltersUtils.filterPhoneNumber,
-                new InputFilter.LengthFilter(InputFiltersUtils.maxPhoneNumberLength)});
+                new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_PHONE_NUMBER)});
         editEmailAddress.setFilters(new InputFilter[]{InputFiltersUtils.filterEmailAddress,
-                new InputFilter.LengthFilter(InputFiltersUtils.maxEmailLength)});
+                new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_EMAIL_ADDRESS)});
 
         // Underline text
         textCreatePersonalAccount.setPaintFlags(textCreatePersonalAccount.getPaintFlags()

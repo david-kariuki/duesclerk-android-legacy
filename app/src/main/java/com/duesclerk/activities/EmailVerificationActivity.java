@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -65,7 +64,6 @@ public class EmailVerificationActivity extends AppCompatActivity {
     private int lastActiveLayout;
     private boolean isEmailSent, isResendEnabledHidden = false, isResendCountFinished = true;
     private CountDownTimer countDownResendCode;
-    private String name = "";
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -80,7 +78,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
         Intent intent = new Intent();
 
         // Get business name or first name
-        name = intent.getStringExtra(AccountUtils.KEY_NAME);
+        String name = intent.getStringExtra(AccountUtils.KEY_NAME);
 
         ImageView ivExit = findViewById(R.id.imageEmailActivation_Exit);
         imageLogo = findViewById(R.id.imageEmailVerification_Logo);
@@ -303,7 +301,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
                     // Connected
 
                     // Hide no connection layout
-                    showConnectionLayout(false);
+                    showNoConnectionLayout(false);
 
                     // Check last visible layout
                     switch (lastActiveLayout) {
@@ -403,7 +401,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
 
                     showSendCodeLayout(true); // Show send code layout
                     showVerificationLayout(false); // Hide verification layout
-                    showConnectionLayout(false); // Hide no connection layout
+                    showNoConnectionLayout(false); // Hide no connection layout
                     break;
 
                 case 1:
@@ -411,7 +409,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
 
                     showVerificationLayout(true); // Show verification layout
                     showSendCodeLayout(false); // Hide send code layout
-                    showConnectionLayout(false); // Hide no connection layout
+                    showNoConnectionLayout(false); // Hide no connection layout
                     break;
 
                 default:
@@ -419,7 +417,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
             }
         } else {
 
-            showConnectionLayout(true); // Show no connection layout
+            showNoConnectionLayout(true); // Show no connection layout
             showSendCodeLayout(false); // Hide send code layout
         }
 
@@ -437,14 +435,13 @@ public class EmailVerificationActivity extends AppCompatActivity {
             if (InternetConnectivity.isConnectionFast(mContext)) {
                 // Connected
 
-                // Hide verification, Cannot Connect And send code layouts
-                showLogoLayout(false);
-                showVerificationLayout(false);
-                showSendCodeLayout(false);
-                showConnectionLayout(false);
+                showLogoLayout(false); // Hide logo layout
+                showVerificationLayout(false); // Hide verification layout
+                showSendCodeLayout(false); // Hide send code layout
+                showNoConnectionLayout(false); // Hide no connection layout
 
                 // Show ProgressDialog
-                showProgressDialog(
+                ViewsUtils.showProgressDialog(progressDialog,
                         DataUtils.getStringResource(
                                 mContext,
                                 R.string.title_mailing_email_verification_code),
@@ -458,8 +455,8 @@ public class EmailVerificationActivity extends AppCompatActivity {
                         response -> {
 
                             // Log response
-                            Log.d(TAG, "Send email verification code response: "
-                                    + response);
+                            // Log.d(TAG, "Send email verification code response: "
+                            //        + response);
 
                             // Hide ProgressDialog
                             ViewsUtils.dismissProgressDialog(progressDialog);
@@ -494,7 +491,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
                                                         R.string.msg_email_verification_message)
                                         );
 
-                                        // Clear verification code EditText in case user clicked
+                                        // Clear verification code EditText in case client clicked
                                         // resend on enter code page
                                         editVerificationCode.setText(null);
 
@@ -523,14 +520,13 @@ public class EmailVerificationActivity extends AppCompatActivity {
                                     // Toast Error message
                                     CustomToast.errorMessage(mContext, errorMsg, 0);
                                 }
-                            } catch (JSONException ig) {
-                                ig.printStackTrace();
+                            } catch (JSONException ignored) {
                             }
                         }, volleyError -> {
 
                     // Log response
-                    Log.e(TAG, "Send email verification code Error: "
-                            + volleyError.getMessage());
+                    // Log.e(TAG, "Send email verification code Error: "
+                    //        + volleyError.getMessage());
 
                     // Hide ProgressDialog
                     ViewsUtils.dismissProgressDialog(progressDialog);
@@ -544,7 +540,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
                             || volleyError instanceof TimeoutError) {
 
                         // Show no connection layout
-                        showConnectionLayout(true);
+                        showNoConnectionLayout(true);
 
                     } else {
 
@@ -552,6 +548,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
                         showSendCodeLayout(true);
                     }
 
+                    // Show connection error message
                     CustomToast.errorMessage(mContext, DataUtils.getStringResource(mContext,
                             R.string.error_network_connection_error_message_short),
                             R.drawable.ic_sad_cloud_100px_white);
@@ -568,6 +565,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
 
                         Map<String, String> params = new HashMap<>();
 
+                        // Put params
                         params.put(AccountUtils.FIELD_CLIENT_ID, clientId);
                         params.put(AccountUtils.FIELD_VERIFICATION_TYPE,
                                 AccountUtils.KEY_VERIFICATION_TYPE_EMAIL_ACCOUNT);
@@ -595,7 +593,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
             }
         } else {
             // Not Connected
-            showConnectionLayout(true); // Show no connection layout
+            showNoConnectionLayout(true); // Show no connection layout
         }
     }
 
@@ -614,10 +612,10 @@ public class EmailVerificationActivity extends AppCompatActivity {
                 showLogoLayout(false); // Hide logo layout
                 showVerificationLayout(false); // Show verification layout
                 showSendCodeLayout(false); // Hide send code layout
-                showConnectionLayout(false); // Hide no connection layout
+                showNoConnectionLayout(false); // Hide no connection layout
 
                 // Show ProgressDialog
-                showProgressDialog(
+                ViewsUtils.showProgressDialog(progressDialog,
                         DataUtils.getStringResource(
                                 mContext,
                                 R.string.title_verifying_email_address),
@@ -631,7 +629,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
                         response -> {
 
                             // log response
-                            Log.d(TAG, "Email verification Response: " + response);
+                            // Log.d(TAG, "Email verification Response: " + response);
 
                             // Hide ProgressDialog
                             ViewsUtils.dismissProgressDialog(progressDialog);
@@ -641,7 +639,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
                                 JSONObject jsonObject = new JSONObject(response);
                                 boolean error = jsonObject.getBoolean(VolleyUtils.KEY_ERROR);
 
-                                // Check for error node in json
+                                // Check for error
                                 if (!error) {
 
                                     // Get success message
@@ -658,7 +656,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
                                         CustomToast.infoMessage(
                                                 mContext,
                                                 DataUtils.getStringResource(mContext,
-                                                        R.string.msg_email_adress_verified),
+                                                        R.string.msg_email_address_verified),
                                                 false,
                                                 R.drawable.ic_baseline_email_24_white);
 
@@ -676,13 +674,12 @@ public class EmailVerificationActivity extends AppCompatActivity {
                                     // Toast Error message
                                     CustomToast.errorMessage(mContext, errorMsg, 0);
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            } catch (JSONException ignored) {
                             }
                         }, volleyError -> {
 
                     // Log response
-                    Log.e(TAG, "Email verification Error: " + volleyError.getMessage());
+                    // Log.e(TAG, "Email verification Error: " + volleyError.getMessage());
 
                     // Hide ProgressDialog
                     ViewsUtils.dismissProgressDialog(progressDialog);
@@ -699,7 +696,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
                     ) {
 
                         // Show no connection layout
-                        showConnectionLayout(true);
+                        showNoConnectionLayout(true);
 
                     } else {
 
@@ -759,7 +756,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
             // Not Connected
 
             // Show no connection layout
-            showConnectionLayout(true);
+            showNoConnectionLayout(true);
         }
     }
 
@@ -849,7 +846,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
      *
      * @param status - boolean - (Show / Hide layout)
      */
-    private void showConnectionLayout(final boolean status) {
+    private void showNoConnectionLayout(final boolean status) {
 
         if (status) {
 
@@ -868,27 +865,6 @@ public class EmailVerificationActivity extends AppCompatActivity {
 
             // Show Cannot Connect to the internet layout
             llCannotConnect.setVisibility(View.GONE);
-        }
-    }
-
-    /**
-     * Function to show progress dialog
-     *
-     * @param dialogTitle   - Dialog title
-     * @param dialogMessage - Dialog message
-     */
-    private void showProgressDialog(String dialogTitle, String dialogMessage) {
-
-        // Check if progress dialog is showing
-        if (!progressDialog.isShowing()) {
-
-            // Set progress dialog title
-            progressDialog.setTitle(dialogTitle);
-
-            // Set progress dialog message
-            progressDialog.setMessage(dialogMessage);
-
-            progressDialog.show(); // Show progress dialog
         }
     }
 }

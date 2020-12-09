@@ -71,14 +71,14 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
 
         mContext = this; // Get Context
 
-        // Progress Dialog
-        progressDialog = new ProgressDialog(mContext);
-        progressDialog.setCancelable(false);
+        // ProgressDialog
+        progressDialog = ViewsUtils.initProgressDialog(SignInSignupActivity.this,
+                false);
 
         sessionManager = new SessionManager(mContext); // SessionManager
         database = new SQLiteDB(mContext); // SQLite database
 
-        signupDetailsArray = new ArrayList<>();
+        signupDetailsArray = new ArrayList<>(); // SignUp details array list
 
         jbUserAccountInfo = new JB_ClientAccountInfo();
         jbUserAccountInfo.clear();
@@ -86,10 +86,10 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
         imageBack = findViewById(R.id.imageSignupBack);
         textTitle = findViewById(R.id.textSignupTitle);
 
-        setupTabLayoutAndViewPager();
+        setupTabLayoutAndViewPager(); // Set up TabLayout and ViewPager
 
-        // Select SignIn fragment
-        imageBack.setOnClickListener(v -> ViewsUtils.selectTabPosition(0, tabLayout));
+        imageBack.setOnClickListener(v ->
+                ViewsUtils.selectTabPosition(0, tabLayout)); // Select SignIn fragment
     }
 
     @Override
@@ -104,7 +104,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
     public void onResume() {
         super.onResume();
 
-        setupTabLayoutAndViewPager();
+        setupTabLayoutAndViewPager(); // Setup TabLayout and ViewPager
     }
 
     /**
@@ -148,14 +148,18 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
         viewPager.setAdapter(viewPagerAdapter);
     }
 
+    /**
+     * Function to set up TabLayout and ViewPager
+     */
     private void setupTabLayoutAndViewPager() {
         setupTabLayout(); // Set up TabLayout
         viewPager.setPagingEnabled(false); // Disabling paging on view pager
         viewPager.setOffscreenPageLimit(1); // Set ViewPager off screen limit
         setupViewPager(viewPager); // Setup ViewPager
 
-        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager); // Setup TabLayout with ViewPager
 
+        // TabLayout onTabSelectedListener
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -164,20 +168,26 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
 
                 switch (tabPosition) {
                     case 0:
+                        // Set tab title
                         textTitle.setText(DataUtils.getStringResource(mContext,
                                 R.string.label_sign_in_to_your_account));
                         imageBack.setVisibility(View.INVISIBLE); // Hide back button
                         break;
+
                     case 1:
+                        // Set tab title
                         textTitle.setText(DataUtils.getStringResource(mContext,
                                 R.string.label_create_personal_account));
                         imageBack.setVisibility(View.VISIBLE); // Show back button
                         break;
+
                     case 2:
+                        // Set tab title
                         textTitle.setText(DataUtils.getStringResource(mContext,
                                 R.string.label_create_business_account));
                         imageBack.setVisibility(View.VISIBLE); // Show back button
                         break;
+
                     default:
                         break;
                 }
@@ -204,8 +214,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
      */
     @Override
     public void setTabPosition(int position) {
-        // Switch tab position
-        ViewsUtils.selectTabPosition(position, tabLayout);
+        ViewsUtils.selectTabPosition(position, tabLayout); // Switch tab position
     }
 
     /**
@@ -309,7 +318,12 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
             // Connected
 
             // Show dialog
-            showProgressDialog();
+            ViewsUtils.showProgressDialog(progressDialog,
+                    DataUtils.getStringResource(mContext,
+                            R.string.title_signing_up),
+                    DataUtils.getStringResource(mContext,
+                            R.string.msg_signing_up)
+            );
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST,
                     NetworkUtils.URL_SIGNUP_CLIENT, response -> {
@@ -493,25 +507,6 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
 
             // Stop Progress Dialog
             ViewsUtils.dismissProgressDialog(progressDialog);
-        }
-    }
-
-    /**
-     * Function to show progress dialog
-     */
-    private void showProgressDialog() {
-        // Check if progress dialog is showing
-        if (!progressDialog.isShowing()) {
-
-            // Set progress dialog title
-            progressDialog.setTitle(DataUtils.getStringResource(mContext,
-                    R.string.title_signing_up));
-
-            // Set progress dialog message
-            progressDialog.setMessage(DataUtils.getStringResource(mContext,
-                    R.string.msg_signing_up));
-
-            progressDialog.show(); // Show progress dialog
         }
     }
 
