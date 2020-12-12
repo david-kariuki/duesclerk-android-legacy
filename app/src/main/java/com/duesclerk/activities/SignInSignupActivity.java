@@ -341,29 +341,34 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
                     if (!error) {
                         // Account has been created successfully
 
-                        // Get Json Object
-                        JSONObject signup = jsonObject.getJSONObject(VolleyUtils.KEY_SIGNUP);
+                        // Get Signup Object
+                        JSONObject objectSignUp = jsonObject.getJSONObject(VolleyUtils.KEY_SIGNUP);
+
                         String clientId, firstName, lastName, businessName, emailAddress,
-                                successMessage = "";
+                                accountType, successMessage = "";
 
                         // Get signup details
-                        clientId = signup.getString(AccountUtils.FIELD_CLIENT_ID);
-                        emailAddress = signup.getString(AccountUtils.FIELD_EMAIL_ADDRESS);
+                        clientId        = objectSignUp.getString(AccountUtils.FIELD_CLIENT_ID);
+                        emailAddress    = objectSignUp.getString(AccountUtils.FIELD_EMAIL_ADDRESS);
+                        accountType     = objectSignUp.getString(AccountUtils.FIELD_ACCOUNT_TYPE);
 
                         // Inserting row in users table
-                        if (database.storeClientAccountInformation(mContext, clientId, emailAddress,
-                                signupDetailsArray.get(0).getPassword())) {
+                        if (database.storeClientAccountInformation(clientId, emailAddress,
+                                signupDetailsArray.get(0).getPassword(), accountType)) {
 
                             // Create login sessionManager
                             sessionManager.setSignedIn(true);
 
-                            if (signupAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
+                            if (signupAccountType.equals(
+                                    AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
 
                                 // Get first name and last name
-                                firstName = signup.getString(AccountUtils.FIELD_FIRST_NAME);
-                                lastName = signup.getString(AccountUtils.FIELD_LAST_NAME);
+                                firstName = objectSignUp.getString(AccountUtils.FIELD_FIRST_NAME);
+                                lastName = objectSignUp.getString(AccountUtils.FIELD_LAST_NAME);
 
-                                if (!DataUtils.isEmptyString(firstName) && !DataUtils.isEmptyString(lastName)) {
+                                if (!DataUtils.isEmptyString(firstName)
+                                        && !DataUtils.isEmptyString(lastName)) {
+
                                     successMessage = DataUtils.getStringResource(
                                             mContext,
                                             R.string.msg_welcome_to,
@@ -376,7 +381,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
                                     AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
 
                                 // Get business name
-                                businessName = signup.getString(AccountUtils.FIELD_BUSINESS_NAME);
+                                businessName = objectSignUp.getString(AccountUtils.FIELD_BUSINESS_NAME);
 
                                 if (!DataUtils.isEmptyString(businessName)) {
                                     successMessage = DataUtils.getStringResource(
@@ -390,7 +395,9 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
                             }
 
                             // Toast welcome message
-                            if (!DataUtils.isEmptyString(Objects.requireNonNull(successMessage))) {
+                            if (!DataUtils.isEmptyString(
+                                    Objects.requireNonNull(successMessage))) {
+
                                 CustomToast.infoMessage(mContext, successMessage, false,
                                         0);
                             }

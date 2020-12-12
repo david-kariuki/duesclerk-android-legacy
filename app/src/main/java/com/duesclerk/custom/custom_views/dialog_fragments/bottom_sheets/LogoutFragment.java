@@ -52,10 +52,11 @@ public class LogoutFragment extends BottomSheetDialogFragment {
         TextView tvLogoutMessage = contentView.findViewById(R.id.textBSLogout_Message);
 
         // Check for client information
-        if (!DataUtils.isEmptyArrayList(database.getClientAccountInfo())) {
+        if (!DataUtils.isEmptyArrayList(database.getClientAccountInfo(null))) {
             // Set logout message
             tvLogoutMessage.setText(DataUtils.getStringResource(mContext,
-                    R.string.msg_logout, database.getClientAccountInfo().get(0).getEmailAddress()));
+                    R.string.msg_logout,
+                    database.getClientAccountInfo(null).get(0).getEmailAddress()));
         }
         // Dismiss dialog
         tvCancel.setOnClickListener(v -> dialog.dismiss());
@@ -68,18 +69,18 @@ public class LogoutFragment extends BottomSheetDialogFragment {
                 if (!database.isEmpty()) {
 
                     // Delete client details from SQLite database
-                    if (database.deleteClientAccountInfoByClientId((database.getClientAccountInfo().get(0)
-                            .getClientId()))) {
-
-                        sessionManager.setSignedIn(false); // Falsify session
-
-                        // Launch SignInSignUp activity
-                        startActivity(new Intent(getActivity(), SignInSignupActivity.class));
-
-                        // Close activity
-                        requireActivity().finish();
-                    }
+                    database.deleteClientAccountInfoByClientId(
+                            database.getClientAccountInfo(null).get(0)
+                            .getClientId());
                 }
+
+                sessionManager.setSignedIn(false); // Falsify session
+
+                // Launch SignInSignUp activity
+                startActivity(new Intent(getActivity(), SignInSignupActivity.class));
+
+                // Close activity
+                requireActivity().finish();
             }
 
             dialog.dismiss(); // Dismiss dialog

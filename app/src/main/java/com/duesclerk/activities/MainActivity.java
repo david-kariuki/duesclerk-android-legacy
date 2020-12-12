@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 sessionManager.setSignedIn(false);
                 if (!database.isEmpty()) {
                     database.deleteClientAccountInfoByClientId(
-                            database.getClientAccountInfo().get(0).getClientId());
+                            database.getClientAccountInfo(null).get(0).getClientId());
                 }
 
             Toast.makeText(mContext, "Deleted", Toast.LENGTH_SHORT).show();

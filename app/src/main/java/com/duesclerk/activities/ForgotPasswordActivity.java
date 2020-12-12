@@ -794,7 +794,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                     // Log.d(TAG, "Send email verification code response: "
                                     //        + response);
 
-                                    // Hide Progress Dialog
+                                    // Hide ProgressDialog
                                     ViewsUtils.dismissProgressDialog(progressDialog);
 
                                     try {
@@ -805,12 +805,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                         // Check For Error In Json
                                         if (!error) {
 
-                                            JSONObject emailVerification = jsonObject.getJSONObject(
-                                                    VolleyUtils.KEY_EMAIL_VERIFICATION);
+                                            JSONObject objectSendVerificationCode =
+                                                    jsonObject.getJSONObject(
+                                                    VolleyUtils.KEY_SEND_VERIFICATION_CODE);
 
                                             // Get verification code and success message
-                                            strVerificationCode = emailVerification.getString(
-                                                    AccountUtils.FIELD_VERIFICATION_CODE).trim();
+                                            strVerificationCode = objectSendVerificationCode
+                                                    .getString(
+                                                            AccountUtils.FIELD_VERIFICATION_CODE);
 
                                             // Check for verification code
                                             if (!DataUtils.isEmptyString(strVerificationCode)) {
@@ -1001,8 +1003,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                     // Check for error
                                     if (!error) {
 
+                                        // Get email verification object
+                                        JSONObject objectEmailVerification = jsonObject.getJSONObject(
+                                                VolleyUtils.KEY_EMAIL_VERIFICATION);
+
                                         // Get success message
-                                        String successMessage = jsonObject.getString(
+                                        String successMessage = objectEmailVerification.getString(
                                                 VolleyUtils.KEY_SUCCESS_MESSAGE);
 
                                         // Check if message was received
@@ -1182,7 +1188,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                 if (!error) {
 
                                     JSONObject objectPasswordReset = jsonObject.getJSONObject(
-                                            AccountUtils.KEY_PASSWORD_RESET);
+                                            VolleyUtils.KEY_PASSWORD_RESET);
 
                                     String successMessage =
                                             objectPasswordReset.getString(

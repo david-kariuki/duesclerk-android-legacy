@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -482,12 +483,13 @@ public class EmailVerificationActivity extends AppCompatActivity {
                                 // Check for error in Json
                                 if (!error) {
 
-                                    JSONObject emailVerification = jsonObject.getJSONObject(
-                                            VolleyUtils.KEY_EMAIL_VERIFICATION);
+                                    JSONObject objectSendVerificationCode =
+                                            jsonObject.getJSONObject(
+                                                    VolleyUtils.KEY_SEND_VERIFICATION_CODE);
 
                                     // Get verification code and success message
-                                    String strVerificationCode = emailVerification.getString(
-                                            AccountUtils.FIELD_VERIFICATION_CODE).trim();
+                                    String strVerificationCode = objectSendVerificationCode.
+                                            getString(AccountUtils.FIELD_VERIFICATION_CODE);
 
                                     // Check for verification code
                                     if (!DataUtils.isEmptyString(strVerificationCode)) {
@@ -641,8 +643,8 @@ public class EmailVerificationActivity extends AppCompatActivity {
                         NetworkUtils.URL_VERIFY_EMAIL_ADDRESS,
                         response -> {
 
-                            // log response
-                            // Log.d(TAG, "Email verification Response: " + response);
+                            // Log response
+                            Log.d(TAG, "Email verification response: " + response);
 
                             // Hide ProgressDialog
                             ViewsUtils.dismissProgressDialog(progressDialog);
@@ -655,12 +657,16 @@ public class EmailVerificationActivity extends AppCompatActivity {
                                 // Check for error
                                 if (!error) {
 
+                                    // Get email verification object
+                                    JSONObject objectEmailVerification = jsonObject.getJSONObject(
+                                                    VolleyUtils.KEY_EMAIL_VERIFICATION);
+
                                     // Get success message
-                                    String strSuccessMessage = jsonObject.getString(
+                                    String successMessage = objectEmailVerification.getString(
                                             VolleyUtils.KEY_SUCCESS_MESSAGE);
 
                                     // Check if message was received
-                                    if (!DataUtils.isEmptyString(strSuccessMessage)) {
+                                    if (!DataUtils.isEmptyString(successMessage)) {
 
                                         countDownResendCode.cancel(); // Stop resend code counter
                                         editVerificationCode.setText(null); // Clear Current code Input
@@ -692,7 +698,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
                         }, volleyError -> {
 
                     // Log response
-                    // Log.e(TAG, "Email verification Error: " + volleyError.getMessage());
+                    Log.e(TAG, "Email verification error: " + volleyError.getMessage());
 
                     // Hide ProgressDialog
                     ViewsUtils.dismissProgressDialog(progressDialog);

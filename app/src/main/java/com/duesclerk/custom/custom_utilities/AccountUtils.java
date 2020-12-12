@@ -32,8 +32,6 @@ public class AccountUtils {
     public static final String FIELD_NEW_PASSWORD   = "NewPassword";
     public static final String FIELD_CONFIRM_NEW_PASSWORD   = "ConfirmNewPassword";
 
-    // Password reset
-    public static final String KEY_PASSWORD_RESET = "PasswordReset";
     // Gender
     public static final String FIELD_GENDER         = "Gender";
     public static final String KEY_GENDER_MALE      = "Male";
@@ -49,7 +47,6 @@ public class AccountUtils {
     public static final String FIELD_EMAIL_VERIFIED                 = "EmailVerified";
     public static final String FIELD_VERIFICATION_TYPE              = "VerificationType";
     public static final String FIELD_VERIFICATION_CODE              = "VerificationCode";
-    public static final String KEY_EMAIL_VERIFICATION               = "EmailVerification";
     public static final String KEY_VERIFICATION_TYPE_EMAIL_ACCOUNT  = "VerificationEmailAccount";
     public static final String KEY_VERIFICATION_TYPE_PASSWORD_RESET = "VerificationPasswordReset";
 

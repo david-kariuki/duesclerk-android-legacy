@@ -207,18 +207,21 @@ public class FragmentSignIn extends Fragment {
                     JSONObject jsonObject = new JSONObject(response);
                     boolean error = jsonObject.getBoolean(VolleyUtils.KEY_ERROR);
 
-                    // Check for error node in json
+                    // Check for error in json
                     if (!error) {
-                        String accountId, emailAddress;
+                        String clientId, emailAddress, accountType;
 
-                        JSONObject signIn = jsonObject.getJSONObject(VolleyUtils.KEY_SIGNIN);
-                        accountId = signIn.getString(AccountUtils.FIELD_CLIENT_ID);
-                        emailAddress = signIn.getString(AccountUtils.FIELD_EMAIL_ADDRESS);
+                        // Get SignIn object
+                        JSONObject objectSignIn = jsonObject.getJSONObject(VolleyUtils.KEY_SIGNIN);
+
+                        clientId        = objectSignIn.getString(AccountUtils.FIELD_CLIENT_ID);
+                        emailAddress    = objectSignIn.getString(AccountUtils.FIELD_EMAIL_ADDRESS);
+                        accountType     = objectSignIn.getString(AccountUtils.FIELD_ACCOUNT_TYPE);
 
                         // Inserting row in users table
-                        if (database.storeClientAccountInformation(mContext, accountId,
+                        if (database.storeClientAccountInformation(clientId,
                                 emailAddress,
-                                password)) {
+                                password, accountType)) {
 
                             // User details stored
                             sessionManager.setSignedIn(true); // Create login session
