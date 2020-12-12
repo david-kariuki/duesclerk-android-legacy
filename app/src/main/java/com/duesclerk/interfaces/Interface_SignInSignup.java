@@ -14,16 +14,16 @@ public interface Interface_SignInSignup {
      *
      * @param firstName     - First name
      * @param lastName      - Last name
-     * @param phoneNumber   - Phone number
      * @param emailAddress  - Email address
      * @param countryCode   - Country code
      * @param countryAlpha2 - Country alpha2
      * @param password      - Password
      * @param gender        - Gender
      */
-    void passPersonalAccountSignupDetails(String firstName, String lastName, String phoneNumber,
-                                          String emailAddress, String countryCode,
-                                          String countryAlpha2, String password, String gender);
+    void passPersonalAccountSignupDetails(String firstName, String lastName, String emailAddress,
+                                          String countryCode, String countryAlpha2,
+                                          String password, String gender
+    );
 
     /**
      * Method to pass personal account signup details
@@ -31,14 +31,13 @@ public interface Interface_SignInSignup {
      * @param businessName  - Business name
      * @param countryCode   - Country code
      * @param countryAlpha2 - Country alpha2
-     * @param city          - City
-     * @param phoneNumber   - Phone number
      * @param emailAddress  - Email address
      * @param password      - Password
      */
     void passBusinessAccountSignupDetails(String businessName, String countryCode,
-                                          String countryAlpha2, String city, String phoneNumber,
-                                          String emailAddress, String password);
+                                          String countryAlpha2, String emailAddress,
+                                          String password
+    );
 
     /**
      * Method to exit activity

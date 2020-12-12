@@ -248,14 +248,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginEnd="0dp"
                         android:text="@string/action_sign_up"
                         android:textColor="@color/colorPrimaryDark" />
 
                     <ImageView
                         android:layout_width="@dimen/dimen_icon_size_small"
                         android:layout_height="@dimen/dimen_icon_size_small"
-                        android:layout_marginEnd="5dp"
+                        android:layout_marginEnd="10dp"
                         android:contentDescription="@string/content_description_icon_sign_in"
                         android:padding="@dimen/dimen_icon_padding_small"
                         android:rotation="180"

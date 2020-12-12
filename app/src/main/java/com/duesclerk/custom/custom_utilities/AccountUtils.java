@@ -15,7 +15,6 @@ public class AccountUtils {
     public static final String KEY_NAME             = "Name";
 
     // Contacts
-    public static final String FIELD_PHONE_NUMBER   = "PhoneNumber";
     public static final String FIELD_EMAIL_ADDRESS  = "EmailAddress";
 
     // Country
@@ -25,7 +24,6 @@ public class AccountUtils {
     public static final String FIELD_COUNTRY_ALPHA2 = "CountryAlpha2";
     public static final String FIELD_COUNTRY_ALPHA3 = "CountryAlpha3";
     public static final String FIELD_COUNTRY_FLAG   = "CountryFlag";
-    public static final String FIELD_CITY_NAME      = "CityName";
 
     // Password
     public static final String FIELD_PASSWORD       = "Password";

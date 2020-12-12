@@ -33,7 +33,7 @@ import java.util.Objects;
 public class FragmentPersonalSignup extends Fragment implements Interface_CountryPicker {
 
     private Context mContext;
-    private EditText editFirstName, editLastName, editPhoneNumber, editEmailAddress;
+    private EditText editFirstName, editLastName, editEmailAddress;
     private TextInputEditText editCountry, editPassword;
     private String countryCode, countryAlpha2, selectedGender;
     private ImageView imagePasswordToggle, imageCountryFlag;
@@ -60,7 +60,6 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
 
         editFirstName = view.findViewById(R.id.editSignUpActivity_FirstName);
         editLastName = view.findViewById(R.id.editSignUpActivity_LastName);
-        editPhoneNumber = view.findViewById(R.id.editSignUpActivity_PhoneNumber);
         editEmailAddress = view.findViewById(R.id.editSignUpActivity_EmailAddress);
         editCountry = view.findViewById(R.id.editSignUpActivity_Country);
         editPassword = view.findViewById(R.id.editSignUpActivity_Password);
@@ -87,8 +86,6 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
                 new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_SINGLE_NAME)});
         editLastName.setFilters(new InputFilter[]{InputFiltersUtils.filterNames,
                 new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_SINGLE_NAME)});
-        editPhoneNumber.setFilters(new InputFilter[]{InputFiltersUtils.filterPhoneNumber,
-                new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_PHONE_NUMBER)});
         editEmailAddress.setFilters(new InputFilter[]{InputFiltersUtils.filterEmailAddress,
                 new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_EMAIL_ADDRESS)});
 
@@ -159,7 +156,6 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
                 Objects.requireNonNull(interfaceSignUpSignIn).passPersonalAccountSignupDetails(
                         editFirstName.getText().toString(),
                         editLastName.getText().toString(),
-                        editPhoneNumber.getText().toString(),
                         editEmailAddress.getText().toString(),
                         countryCode, countryAlpha2,
                         Objects.requireNonNull(editPassword.getText()).toString(),
@@ -189,7 +185,6 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
                 true)
                 && InputFiltersUtils.checkPersonNameLengthNotify(mContext, editLastName,
                 false)
-                && InputFiltersUtils.checkPhoneNumberValidNotify(mContext, editPhoneNumber)
                 && InputFiltersUtils.checkEmailAddressValidNotify(mContext, editEmailAddress)
                 && InputFiltersUtils.checkCountryLengthNotify(mContext, editCountry)
                 && InputFiltersUtils.checkPasswordLengthNotify(mContext, editPassword)

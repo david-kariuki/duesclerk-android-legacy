@@ -222,7 +222,6 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
      *
      * @param firstName     - First name
      * @param lastName      - Last name
-     * @param phoneNumber   - Phone number
      * @param emailAddress  - Email address
      * @param countryCode   - Country code
      * @param countryAlpha2 - Country alpha2
@@ -232,9 +231,9 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
 
     @Override
     public void passPersonalAccountSignupDetails(String firstName, String lastName,
-                                                 String phoneNumber, String emailAddress,
-                                                 String countryCode, String countryAlpha2,
-                                                 String password, String gender) {
+                                                 String emailAddress, String countryCode,
+                                                 String countryAlpha2, String password,
+                                                 String gender) {
         // Clear java bean and ArrayList for re-use
         jbUserAccountInfo.clear();
         signupDetailsArray.clear();
@@ -242,7 +241,6 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
         // Add details
         jbUserAccountInfo.setFirstName(firstName);
         jbUserAccountInfo.setLastName(lastName);
-        jbUserAccountInfo.setPhoneNumber(phoneNumber);
         jbUserAccountInfo.setEmailAddress(emailAddress);
         jbUserAccountInfo.setCountryCode(countryCode);
         jbUserAccountInfo.setCountryAlpha2(countryAlpha2);
@@ -263,15 +261,12 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
      * @param businessName  - Business name
      * @param countryCode   - Country code
      * @param countryAlpha2 - Country alpha2
-     * @param city          - City
-     * @param phoneNumber   - Phone number
      * @param emailAddress  - Email address
      * @param password      - Password
      */
     @Override
     public void passBusinessAccountSignupDetails(String businessName, String countryCode,
-                                                 String countryAlpha2, String city,
-                                                 String phoneNumber, String emailAddress,
+                                                 String countryAlpha2, String emailAddress,
                                                  String password) {
         // Clear java bean and ArrayList for re-use
         jbUserAccountInfo.clear();
@@ -281,8 +276,6 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
         jbUserAccountInfo.setBusinessName(businessName);
         jbUserAccountInfo.setCountryCode(countryCode);
         jbUserAccountInfo.setCountryAlpha2(countryAlpha2);
-        jbUserAccountInfo.setCity(city);
-        jbUserAccountInfo.setPhoneNumber(phoneNumber);
         jbUserAccountInfo.setEmailAddress(emailAddress);
         jbUserAccountInfo.setPassword(password);
 
@@ -470,15 +463,11 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
                     if (signupAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
                         params.put(AccountUtils.FIELD_BUSINESS_NAME,
                                 signupDetailsArray.get(0).getBusinessName());
-                        params.put(AccountUtils.FIELD_CITY_NAME,
-                                signupDetailsArray.get(0).getCity());
                         params.put(AccountUtils.FIELD_ACCOUNT_TYPE,
                                 AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS);
                     }
 
                     // Other shared fields
-                    params.put(AccountUtils.FIELD_PHONE_NUMBER,
-                            signupDetailsArray.get(0).getPhoneNumber());
                     params.put(AccountUtils.FIELD_EMAIL_ADDRESS,
                             signupDetailsArray.get(0).getEmailAddress());
                     params.put(AccountUtils.FIELD_COUNTRY_CODE,

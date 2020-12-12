@@ -39,14 +39,10 @@
     <string name="hint_new_password">New password</string>
     <string name="hint_confirm_new_password">Confirm new password</string>
     <string name="hint_confirm_password">Confirm password</string>
-    <string name="hint_phone_number">Phone number</string>
     <string name="hint_country_name">Country</string>
-    <string name="hint_city_town">City/Town</string>
     <string name="hint_gender">Gender</string>
     <string name="hint_date_of_birth">Date of birth</string>
     <string name="hint_business_name">Business name</string>
-    <string name="hint_country_and_city">Country and city</string>
-    <string name="hint_phone_number_and_email_address">Phone number and email address</string>
     <string name="hint_first_and_last_name">First and last name</string>
     <string name="hint_gender_male">Male</string>
     <string name="hint_gender_female">Female</string>

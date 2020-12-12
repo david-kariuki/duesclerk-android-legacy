@@ -79,7 +79,7 @@
                             android:id="@+id/editSignUpActivity_FirstName"
                             style="@style/Style_SignInSignUpProfile_TextInputLayout"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:autofillHints=""
                             android:background="@null"
@@ -108,7 +108,6 @@
                         <ImageView
                             android:layout_width="@dimen/dimen_icon_size_small"
                             android:layout_height="@dimen/dimen_icon_size_small"
-                            android:layout_marginTop="5dp"
                             android:layout_marginEnd="10dp"
                             android:contentDescription="@string/content_description_icon_last_name"
                             android:padding="@dimen/dimen_icon_padding_small"
@@ -120,8 +119,7 @@
                             android:id="@+id/editSignUpActivity_LastName"
                             style="@style/Style_SignInSignUpProfile_TextInputLayout"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="5dp"
+                            android:layout_height="wrap_content"
                             android:autofillHints=""
                             android:background="@null"
                             android:hint="@string/hint_last_name"
@@ -149,47 +147,7 @@
                         style="@style/Style_SignInSignUp_Profile_Text_Labels"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/hint_phone_number_and_email_address" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/dimen_icon_size_small"
-                            android:layout_height="@dimen/dimen_icon_size_small"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:contentDescription="@string/content_description_icon_phone_number"
-                            android:padding="@dimen/dimen_icon_padding_small"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/ic_baseline_phone_24_primary" />
-
-                        <EditText
-                            android:id="@+id/editSignUpActivity_PhoneNumber"
-                            style="@style/Style_SignInSignUpProfile_TextInputLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="5dp"
-                            android:autofillHints=""
-                            android:background="@null"
-                            android:hint="@string/hint_phone_number"
-                            android:imeActionLabel="Next"
-                            android:inputType="phone" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_signup_signin_field_divider_height"
-                        android:layout_marginStart="49dp"
-                        android:layout_marginTop="@dimen/dimen_signup_signin_field_divider_margin_top"
-                        android:layout_marginEnd="10dp"
-                        android:background="@color/colorDividerGrey" />
+                        android:text="@string/hint_email_address" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -203,7 +161,6 @@
                         <ImageView
                             android:layout_width="@dimen/dimen_icon_size_small"
                             android:layout_height="@dimen/dimen_icon_size_small"
-                            android:layout_marginTop="5dp"
                             android:layout_marginEnd="10dp"
                             android:contentDescription="@string/content_description_icon_email_address"
                             android:padding="@dimen/dimen_icon_padding_small"
@@ -214,8 +171,7 @@
                             android:id="@+id/editSignUpActivity_EmailAddress"
                             style="@style/Style_SignInSignUpProfile_TextInputLayout"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="5dp"
+                            android:layout_height="wrap_content"
                             android:autofillHints=""
                             android:background="@null"
                             android:hint="@string/hint_email_address"
@@ -263,7 +219,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Style_SignInSignUpProfile_TextInputLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="55dp"
+                        android:layout_height="wrap_content"
                         android:background="@null"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
@@ -276,7 +232,7 @@
                             android:id="@+id/editSignUpActivity_Country"
                             style="@style/Style_SignInSignUp_Profile_TextInputEditText"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:background="@null"
                             android:cursorVisible="false"
                             android:focusable="false"
@@ -325,7 +281,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Style_SignInSignUpProfile_TextInputLayout"
                         android:layout_width="wrap_content"
-                        android:layout_height="55dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
                         android:layout_toStartOf="@id/imageSignupActivity_PasswordToggle"
                         android:layout_toEndOf="@+id/ImageView"
@@ -338,8 +294,10 @@
                             android:id="@+id/editSignUpActivity_Password"
                             style="@style/Style_SignInSignUp_Profile_TextInputEditText"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:background="@null"
+                            android:paddingTop="25dp"
+                            android:paddingBottom="0dp"
                             android:imeActionLabel="Done"
                             android:imeOptions="actionDone"
                             android:inputType="textPassword|textNoSuggestions"

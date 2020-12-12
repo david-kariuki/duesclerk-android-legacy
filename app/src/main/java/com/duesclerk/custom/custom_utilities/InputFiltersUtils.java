@@ -97,16 +97,6 @@ public class InputFiltersUtils {
         return null;
     };
 
-    // This filter ensures only digits input to the phone number field
-    public static InputFilter filterPhoneNumber = (source, start, end, dest, dstart, dend) -> {
-        for (int i = start; i < end; i++) {
-            if (!Character.isDigit(source.charAt(i))) {
-                return "";
-            }
-        }
-        return null;
-    };
-
     //  This filter ensures only letters and digits input to the verification code field
     public static InputFilter filterVerificationCodes = (source, start, end, dest, dstart, dend) ->
     {

@@ -63,10 +63,10 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
     private SwipeRefreshLayout.OnRefreshListener swipeRefreshListener;
     private ScrollView scrollView;
     private ProgressDialog progressDialog;
-    private CardView cardBusinessName, cardPersonsNames, cardCity, cardGender, cardAccountType,
+    private CardView cardBusinessName, cardPersonsNames, cardGender, cardAccountType,
             cardSignupDate;
-    private EditText editBusinessName, editFirstName, editLastName, editPhoneNumber,
-            editEmailAddress, editCountry, editCityName;
+    private EditText editBusinessName, editFirstName, editLastName,
+            editEmailAddress, editCountry;
     private TextView textGender, textAccountType, textSignupDate;
     private RadioGroup radioGroupGender;
     private RadioButton radioGenderMale, radioGenderFemale, radioGenderOther;
@@ -79,15 +79,15 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
     private ShimmerFrameLayout shimmerFrameLayout;
     private LinearLayout llClientProfileActivity, llClientProfileActivityFABS, llNoConnection;
     private String fetchedFirstName = "", fetchedLastName = "", fetchedBusinessName = "",
-            fetchedPhoneNumber = "", fetchedEmailAddress = "", fetchedCountryName,
+            fetchedEmailAddress = "", fetchedCountryName,
             fetchedCountryCode = "", fetchedCountryFlag = "", fetchedCountryAlpha2 = "",
-            fetchedCityName = "", fetchedGender = "";
+            fetchedGender = "";
     private boolean profileFetched = false, emailVerified = false, emailNotVerifiedDialogShown =
             false, fetchedClientProfile = false;
     private EditText newSelectedGender = null, newSelectedCountryCode = null,
             newSelectedCountryAlpha2 = null;
-    private String newFirstName = "", newLastName = "", newBusinessName = "", newPhoneNumber = "",
-            newEmailAddress = "", newCountryCode = "", newCountryAlpha2 = "", newCityName = "",
+    private String newFirstName = "", newLastName = "", newBusinessName = "",
+            newEmailAddress = "", newCountryCode = "", newCountryAlpha2 = "",
             newGender = "";
     private String accountType;
     private int CURRENT_TASK;
@@ -109,7 +109,6 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
         // CardViews
         cardBusinessName = findViewById(R.id.cardClientProfileActivity_BusinessName);
         cardPersonsNames = findViewById(R.id.cardClientProfileActivity_PersonsNames);
-        cardCity = findViewById(R.id.cardClientProfileActivity_CityTownName);
         cardGender = findViewById(R.id.cardClientProfileActivity_Gender);
         cardAccountType = findViewById(R.id.cardClientProfileActivity_AccountType);
         cardSignupDate = findViewById(R.id.cardClientProfileActivity_SignupDate);
@@ -117,10 +116,8 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
         editBusinessName = findViewById(R.id.editClientProfileActivity_BusinessName);
         editFirstName = findViewById(R.id.editClientProfileActivity_FirstName);
         editLastName = findViewById(R.id.editClientProfileActivity_LastName);
-        editPhoneNumber = findViewById(R.id.editClientProfileActivity_PhoneNumber);
         editEmailAddress = findViewById(R.id.editClientProfileActivity_EmailAddress);
         editCountry = findViewById(R.id.editClientProfileActivity_Country);
-        editCityName = findViewById(R.id.editClientProfileActivity_CityTown);
 
         // Radio group and radio buttons
         radioGroupGender = findViewById(R.id.radioGroupClientProfileActivity_Gender);
@@ -145,8 +142,6 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                 new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_SINGLE_NAME)});
         editLastName.setFilters(new InputFilter[]{InputFiltersUtils.filterNames,
                 new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_SINGLE_NAME)});
-        editPhoneNumber.setFilters(new InputFilter[]{InputFiltersUtils.filterPhoneNumber,
-                new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_PHONE_NUMBER)});
         editEmailAddress.setFilters(new InputFilter[]{InputFiltersUtils.filterEmailAddress,
                 new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_EMAIL_ADDRESS)});
 
@@ -154,10 +149,8 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
         editFirstName.addTextChangedListener(this);
         editLastName.addTextChangedListener(this);
         editBusinessName.addTextChangedListener(this);
-        editPhoneNumber.addTextChangedListener(this);
         editEmailAddress.addTextChangedListener(this);
         editCountry.addTextChangedListener(this);
-        editCityName.addTextChangedListener(this);
         newSelectedGender.addTextChangedListener(this);
         newSelectedCountryCode.addTextChangedListener(this);
         newSelectedCountryAlpha2.addTextChangedListener(this);
@@ -414,7 +407,6 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
             ViewsUtils.scrollUpScrollView(scrollView);
 
             // Revert previously set details in case they changed
-            editPhoneNumber.setText(fetchedPhoneNumber);
             editEmailAddress.setText(fetchedEmailAddress);
             String countryCodeAndName = DataUtils.getStringResource(mContext,
                     R.string.placeholder_in_brackets, fetchedCountryCode)
@@ -430,7 +422,6 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
         }
 
         // Enable field focus
-        enableEditTexts(enable, editPhoneNumber);
         enableEditTexts(enable, editEmailAddress);
 
         if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
@@ -462,13 +453,11 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
             // Business
 
             enableEditTexts(enable, editBusinessName);
-            enableEditTexts(enable, editCityName);
 
             editBusinessName.requestFocus(); // Focus on first name
 
             // Revert previously set details in case they changed
             editBusinessName.setText(fetchedBusinessName);
-            editCityName.setText(fetchedCityName);
         }
 
         swipeRefreshLayout.setEnabled(!enable); // Enable/Disable swipe refresh
@@ -504,7 +493,6 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
 
                 profileFetched = true; // Set profile fetched to true
                 fetchedEmailAddress = client.getString(AccountUtils.FIELD_EMAIL_ADDRESS);
-                fetchedPhoneNumber = client.getString(AccountUtils.FIELD_PHONE_NUMBER);
                 fetchedCountryName = client.getString(AccountUtils.FIELD_COUNTRY_NAME);
                 fetchedCountryCode = client.getString(AccountUtils.FIELD_COUNTRY_CODE);
                 fetchedCountryAlpha2 = client.getString(AccountUtils.FIELD_COUNTRY_ALPHA2);
@@ -515,7 +503,6 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
 
                 // Set profile details
                 editEmailAddress.setText(fetchedEmailAddress);
-                editPhoneNumber.setText(fetchedPhoneNumber);
                 String countryCodeAndName = DataUtils.getStringResource(
                         mContext,
                         R.string.placeholder_in_brackets,
@@ -545,7 +532,6 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
 
                     // Hide views
                     cardBusinessName.setVisibility(View.GONE);
-                    cardCity.setVisibility(View.GONE);
 
                     // Show views
                     cardPersonsNames.setVisibility(View.VISIBLE);
@@ -566,7 +552,6 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                     // Business account
 
                     fetchedBusinessName = client.getString(AccountUtils.FIELD_BUSINESS_NAME);
-                    fetchedCityName = client.getString(AccountUtils.FIELD_CITY_NAME);
 
                     // Hide views
                     cardPersonsNames.setVisibility(View.GONE);
@@ -574,11 +559,9 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
 
                     // Show views
                     cardBusinessName.setVisibility(View.VISIBLE);
-                    cardCity.setVisibility(View.VISIBLE);
 
                     // Set profile details
                     editBusinessName.setText(fetchedBusinessName);
-                    editCityName.setText(fetchedCityName);
                     textAccountType.setText(DataUtils.getStringResource(mContext,
                             R.string.hint_business_account));
                 }
@@ -716,7 +699,6 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
         if (isPersonal) {
             return ((!editFirstName.getText().toString().equals(fetchedFirstName))
                     || (!editLastName.getText().toString().equals(fetchedLastName))
-                    || (!editPhoneNumber.getText().toString().equals(fetchedPhoneNumber))
                     || (!editEmailAddress.getText().toString().equals(fetchedEmailAddress))
                     || (!newSelectedCountryCode.getText().toString().equals(fetchedCountryCode))
                     || (!newSelectedCountryAlpha2.getText().toString().equals(fetchedCountryAlpha2))
@@ -724,11 +706,9 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
         } else {
             return (
                     (!editBusinessName.getText().toString().equals(fetchedBusinessName))
-                            || (!editPhoneNumber.getText().toString().equals(fetchedPhoneNumber))
                             || (!editEmailAddress.getText().toString().equals(fetchedEmailAddress))
                             || (!newSelectedCountryCode.getText().toString().equals(fetchedCountryCode))
                             || (!newSelectedCountryAlpha2.getText().toString().equals(fetchedCountryAlpha2))
-                            || (!editCityName.getText().toString().equals(fetchedCityName))
             );
         }
     }
@@ -758,20 +738,15 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
         } else if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
             // Business account
 
-            // BusinessName and CityName
+            // BusinessName
             if (!editBusinessName.getText().toString().equals(fetchedBusinessName)) {
                 newBusinessName = editBusinessName.getText().toString();
             }
 
-            if (!editCityName.getText().toString().equals(fetchedCityName)) {
-                newCityName = editCityName.getText().toString();
-            }
         }
 
-        // PhoneNumber, EmailAddress, CountryCode and CountryAlpha2
-        if (!editPhoneNumber.getText().toString().equals(fetchedPhoneNumber)) {
-            newPhoneNumber = editPhoneNumber.getText().toString();
-        }
+        // EmailAddress, CountryCode and CountryAlpha2
+
 
         if (!editEmailAddress.getText().toString().equals(fetchedEmailAddress)) {
             newEmailAddress = editEmailAddress.getText().toString();
@@ -794,11 +769,9 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
         this.newFirstName = "";
         this.newLastName = "";
         this.newBusinessName = "";
-        this.newPhoneNumber = "";
         this.newEmailAddress = "";
         this.newCountryCode = "";
         this.newCountryAlpha2 = "";
-        this.newCityName = "";
         this.newGender = "";
     }
 
@@ -1109,15 +1082,9 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                             if (!DataUtils.isEmptyString(newBusinessName)) {
                                 params.put(AccountUtils.FIELD_BUSINESS_NAME, newBusinessName);
                             }
-                            if (!DataUtils.isEmptyString(newCityName)) {
-                                params.put(AccountUtils.FIELD_CITY_NAME, newCityName);
-                            }
                         }
 
                         // Check for changed values for shared details
-                        if (!DataUtils.isEmptyString(newPhoneNumber)) {
-                            params.put(AccountUtils.FIELD_PHONE_NUMBER, newPhoneNumber);
-                        }
                         if (!DataUtils.isEmptyString(newEmailAddress)) {
                             params.put(AccountUtils.FIELD_EMAIL_ADDRESS, newEmailAddress);
                         }

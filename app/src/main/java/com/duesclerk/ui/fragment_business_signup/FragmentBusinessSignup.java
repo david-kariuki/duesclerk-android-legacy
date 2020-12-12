@@ -32,7 +32,7 @@ import java.util.Objects;
 public class FragmentBusinessSignup extends Fragment implements Interface_CountryPicker {
 
     private Context mContext;
-    private EditText editBusinessName, editCountry, editCity, editPhoneNumber, editEmailAddress;
+    private EditText editBusinessName, editCountry, editEmailAddress;
     private TextInputEditText editPassword;
     private String countryCode, countryAlpha2;
     private CountryPickerFragment countryPickerFragment;
@@ -59,8 +59,6 @@ public class FragmentBusinessSignup extends Fragment implements Interface_Countr
 
         editBusinessName = view.findViewById(R.id.editSignUpActivity_BusinessName);
         editCountry = view.findViewById(R.id.editSignUpActivity_Country);
-        editCity = view.findViewById(R.id.editSignUpActivity_CityTown);
-        editPhoneNumber = view.findViewById(R.id.editSignUpActivity_PhoneNumber);
         editEmailAddress = view.findViewById(R.id.editSignUpActivity_EmailAddress);
         editPassword = view.findViewById(R.id.editSignUpActivity_Password);
 
@@ -73,8 +71,6 @@ public class FragmentBusinessSignup extends Fragment implements Interface_Countr
         LinearLayout llSignUp = view.findViewById(R.id.llSignUpActivity_SignUp);
 
         // Set Input Filters
-        editPhoneNumber.setFilters(new InputFilter[]{InputFiltersUtils.filterPhoneNumber,
-                new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_PHONE_NUMBER)});
         editEmailAddress.setFilters(new InputFilter[]{InputFiltersUtils.filterEmailAddress,
                 new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_EMAIL_ADDRESS)});
 
@@ -122,8 +118,6 @@ public class FragmentBusinessSignup extends Fragment implements Interface_Countr
                 Objects.requireNonNull(interfaceSignUpSignIn).passBusinessAccountSignupDetails(
                         editBusinessName.getText().toString(),
                         countryCode, countryAlpha2,
-                        editCity.getText().toString(),
-                        editPhoneNumber.getText().toString(),
                         editEmailAddress.getText().toString(),
                         Objects.requireNonNull(editPassword.getText()).toString());
             }
@@ -150,8 +144,6 @@ public class FragmentBusinessSignup extends Fragment implements Interface_Countr
     private boolean checkFieldLengths() {
         return (InputFiltersUtils.checkBusinessNameLengthNotify(mContext, editBusinessName)
                 && InputFiltersUtils.checkCountryLengthNotify(mContext, editCountry)
-                && InputFiltersUtils.checkCityLengthNotify(mContext, editCity)
-                && InputFiltersUtils.checkPhoneNumberValidNotify(mContext, editPhoneNumber)
                 && InputFiltersUtils.checkEmailAddressValidNotify(mContext, editEmailAddress)
                 && InputFiltersUtils.checkPasswordLengthNotify(mContext, editPassword));
     }
