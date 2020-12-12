@@ -3,26 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
     android:background="@color/colorWhite"
     android:gravity="center">
 
     <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="90dp"
+        android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
         android:background="@drawable/bg_forgot_password_circle_border_blue_white_fill"
         android:clipToPadding="false"
-        android:minWidth="93dp"
-        android:minHeight="93dp"
+        android:minWidth="90dp"
+        android:minHeight="90dp"
+        app:layout_constraintDimensionRatio="W,1:1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent=".13"
+        app:layout_constraintHeight_percent=".2"
         app:layout_constraintHorizontal_bias="-1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0"
-        app:layout_constraintWidth_percent=".3">
+        app:layout_constraintWidth_percent=".2">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -31,8 +31,8 @@
             android:layout_margin="12dp"
             android:background="@drawable/gradient_forgot_password_border_primary_dark_gradient_blue"
             android:clipToPadding="false"
-            android:minWidth="81dp"
-            android:minHeight="81dp">
+            android:minWidth="80dp"
+            android:minHeight="80dp">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -46,8 +46,8 @@
 
                 <ImageView
                     android:id="@+id/imageEmailVerification_Logo"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_centerInParent="true"
                     android:contentDescription="@string/content_description_email_verification"
                     android:padding="5dp"

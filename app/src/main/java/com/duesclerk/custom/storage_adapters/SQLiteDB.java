@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.duesclerk.custom.custom_utilities.AccountUtils;
+import com.duesclerk.custom.custom_utilities.DataUtils;
 import com.duesclerk.custom.java_beans.JB_ClientAccountInfo;
 
 import java.util.ArrayList;
@@ -80,7 +81,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
      * @param emailAddress - unique key
      * @param password     - text
      */
-    public boolean storeClientAccountInformation(Context context, String clientId,
+    public boolean storeClientAccountInformation(String clientId,
                                                  String emailAddress,
                                                  String password) {
         //try {
@@ -89,8 +90,8 @@ public class SQLiteDB extends SQLiteOpenHelper {
         // Check if record being inserted already exists
         if (!isEmpty()) {
             // Loop through database array
-            for (int i = 0; i < this.getClientAccountInfo().size(); i++) {
-                if (this.getClientAccountInfo().get(i).getClientId().equals(clientId)) {
+            for (int i = 0; i < this.getClientAccountInfo(null).size(); i++) {
+                if (this.getClientAccountInfo(null).get(i).getClientId().equals(clientId)) {
                     // Record exists
 
                     // Delete record and set exists to false if deleted otherwise true
@@ -113,7 +114,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
             storeToDatabase.insert(TABLE_CLIENT, null, contentValues);
             storeToDatabase.close(); // Closing Connection to the database
 
-            ArrayList<JB_ClientAccountInfo> clientDetails = this.getClientAccountInfo();
+            ArrayList<JB_ClientAccountInfo> clientDetails = this.getClientAccountInfo(null);
 
             // Load java bean with client data
             JB_ClientAccountInfo jbClientAccountInfo =
@@ -138,12 +139,24 @@ public class SQLiteDB extends SQLiteOpenHelper {
     /**
      * Function to get client data from database
      */
-    public ArrayList<JB_ClientAccountInfo> getClientAccountInfo() {
+    public ArrayList<JB_ClientAccountInfo> getClientAccountInfo(String clientId) {
         try {
             ArrayList<JB_ClientAccountInfo> client = new ArrayList<>();
             JB_ClientAccountInfo jbClient = new JB_ClientAccountInfo();
 
-            String selectQuery = "SELECT * FROM " + TABLE_CLIENT;
+            String selectQuery;
+            if (clientId == null) {
+
+                // Select all records
+                selectQuery = "SELECT * FROM " + TABLE_CLIENT;
+
+            } else {
+
+                // Select all records with specified ClientId
+                selectQuery = "SELECT * FROM " + TABLE_CLIENT + " WHERE "
+                        + AccountUtils.FIELD_CLIENT_ID + " = '" + clientId + "'";
+            }
+
             SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
             Cursor cursor = sqLiteDatabase.rawQuery(selectQuery, null);
 
@@ -179,7 +192,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
                     new String[]{clientId}); // Delete All Rows
             database.close(); // Closing Connection to the database
 
-            return this.isEmpty();
+            return DataUtils.isEmptyArrayList(this.getClientAccountInfo(clientId));
         } catch (Exception ignored) {
         }
 
@@ -211,7 +224,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
                 // Get client account information
                 ArrayList<JB_ClientAccountInfo> clientAccountInfo;
                 JB_ClientAccountInfo jbClientAccountInfo;
-                clientAccountInfo = sqLiteDB.getClientAccountInfo();
+                clientAccountInfo = sqLiteDB.getClientAccountInfo(null);
                 jbClientAccountInfo = this.loadClientAccountInfoDataJavaBean(clientAccountInfo);
 
                 switch (updateField) {
@@ -241,7 +254,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
                 updateDatabase.close();
 
                 // Get updated account info
-                clientAccountInfo = sqLiteDB.getClientAccountInfo();
+                clientAccountInfo = sqLiteDB.getClientAccountInfo(null);
                 jbClientAccountInfo = this.loadClientAccountInfoDataJavaBean(clientAccountInfo);
 
                 switch (updateField) {
@@ -267,7 +280,8 @@ public class SQLiteDB extends SQLiteOpenHelper {
     /**
      * Function to check if database is empty
      */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean isEmpty() {
-        return this.getClientAccountInfo().size() == 0;
+        return this.getClientAccountInfo(null).size() == 0;
     }
 }

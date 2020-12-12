@@ -32,7 +32,6 @@
                 android:text="@string/title_activity_email_verification"
                 android:textColor="@color/colorBlack"
                 android:textStyle="bold" />
-
         </LinearLayout>
 
         <com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout

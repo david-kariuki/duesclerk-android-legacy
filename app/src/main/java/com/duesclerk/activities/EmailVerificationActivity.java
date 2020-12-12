@@ -64,6 +64,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
     private int lastActiveLayout;
     private boolean isEmailSent, isResendEnabledHidden = false, isResendCountFinished = true;
     private CountDownTimer countDownResendCode;
+    private ScrollView scrollView;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -90,6 +91,8 @@ public class EmailVerificationActivity extends AppCompatActivity {
         textResendCodeDisabled = findViewById(R.id.textEmailVerification_ResendCode_Disabled);
         TextView textAlreadyHaveCode = findViewById(R.id.textEmailVerification_AlreadyHaveCode);
         textVerifyCodeMessage = findViewById(R.id.textEmailVerification_VerifyCode_Message);
+        TextView textCounterVerificationCode = findViewById(
+                R.id.textEmailVerification_CounterVerificationCode);
 
         // EditText
         editVerificationCode = findViewById(R.id.editEmailVerification_Code);
@@ -105,7 +108,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
         LinearLayout llVerifyCode = findViewById(R.id.llEmailVerification_VerifyCode);
         LinearLayout llCannotConnect_Retry = findViewById(R.id.llNoConnection_TryAgain);
 
-        ScrollView scrollView = findViewById(R.id.svEmailVerification); // ScrollView
+        scrollView = findViewById(R.id.scrollViewEmailVerificationActivity); // ScrollView
 
         database = new SQLiteDB(mContext); // Initialize database object
 
@@ -141,15 +144,15 @@ public class EmailVerificationActivity extends AppCompatActivity {
                 try {
 
                     // Strip texts
-                    timeString1 = timeString.replace(", 0 sec", "");
-                    timeString2 = timeString1.replace("0 min,", "");
-                    timeString3 = timeString2.replace("after 0 min", "");
+                    timeString = timeString.replace(", 0 sec", "");
+                    timeString = timeString.replace("0 min,", "");
+                    timeString = timeString.replace("after 0 min", "");
 
                 } catch (Exception ignored) {
                 }
 
                 // Set counter thread text with time
-                String resendAfterLabel = resendCode + timeString3;
+                String resendAfterLabel = resendCode + timeString;
                 textResendCodeDisabled.setText(resendAfterLabel);
 
                 // Update resend count finish status
@@ -177,6 +180,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
 
         };
 
+        // Check for countdown completion
         if (isResendCountFinished) {
 
             textResendCodeEnabled.setVisibility(View.VISIBLE);
@@ -215,14 +219,18 @@ public class EmailVerificationActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                int length = Objects.requireNonNull(editVerificationCode.getText()).length();
+                int codeLength = Objects.requireNonNull(editVerificationCode.getText()).length();
 
-                if (length == 6) {
+                // Set verification code length to counter
+                textCounterVerificationCode.setText(String.valueOf(codeLength));
+
+                if (codeLength == 6) {
                     ViewsUtils.hideKeyboard(EmailVerificationActivity.this); // Hide keyboard
                 }
             }
         });
 
+        // Resend code onClick listener
         textResendCodeEnabled.setOnClickListener(v -> {
 
             editVerificationCode.setText(null); // Clear current Input
@@ -232,24 +240,24 @@ public class EmailVerificationActivity extends AppCompatActivity {
             // Resend verification code
             sendEmailVerificationCode(
                     // Pass ClientId
-                    database.getClientAccountInfo().get(0).getClientId()
+                    database.getClientAccountInfo(null).get(0).getClientId()
             );
         });
 
+        // Already have code onClick listener
         textAlreadyHaveCode.setOnClickListener(v -> {
 
             showSendCodeLayout(false); // Hide send verification code layout
             showVerificationLayout(true); // Show verification layout
         });
 
-        // send verification code LinearLayout onClick
+        // Send verification code LinearLayout onClick
         llSendVerificationCode.setOnClickListener(v -> {
 
             // Resend verification code
             sendEmailVerificationCode(
                     // Pass clientId
-                    database.getClientAccountInfo().get(0).getClientId()
-            );
+                    database.getClientAccountInfo(null).get(0).getClientId());
         });
 
         // Verification code onTouchListener
@@ -264,9 +272,11 @@ public class EmailVerificationActivity extends AppCompatActivity {
         scrollView.setOnClickListener(v -> {
 
             editVerificationCode.clearFocus(); // Clear EditText focus
+
             ViewsUtils.hideKeyboard(EmailVerificationActivity.this); // Hide keyboard
         });
 
+        // Verify code onClick
         llVerifyCode.setOnClickListener(v -> {
 
             // Check code length
@@ -294,6 +304,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
             }
         });
 
+        // Connection retry onClick
         llCannotConnect_Retry.setOnClickListener(v -> {
 
             if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
@@ -394,6 +405,8 @@ public class EmailVerificationActivity extends AppCompatActivity {
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
             // Network Connected
 
+            ViewsUtils.scrollUpScrollView(scrollView); // Scroll up ScrollView
+
             switch (lastActiveLayout) {
 
                 case 0:
@@ -424,7 +437,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
     }
 
     /**
-     * Function to generate email verification code
+     * Function to send email verification code
      *
      * @param clientId - Clients ClientId
      */
@@ -718,7 +731,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
 
                         // Put Client Id
                         params.put(AccountUtils.FIELD_CLIENT_ID,
-                                database.getClientAccountInfo().get(0).getClientId());
+                                database.getClientAccountInfo(null).get(0).getClientId());
 
                         // Put verification code
                         params.put(AccountUtils.FIELD_VERIFICATION_CODE, verificationCode);

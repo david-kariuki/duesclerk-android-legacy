@@ -42,11 +42,13 @@ import java.util.Objects;
  * This functions perform:
  * Password toggle
  * Hide and show keyboard
- * Dismiss ProgressBar
  * Load urls to ImageViews
  * Expand and collapse ExpandableLayout
  * Switch TabLayout positions
  * Start/Stop SwipeRefreshLayout
+ * Initialize ProgressDialog
+ * Show ProgressDialog
+ * Dismiss ProgressDialog
  */
 public class ViewsUtils {
 
@@ -116,15 +118,6 @@ public class ViewsUtils {
             focusView.setFocusable(true);
             focusView.requestFocus();
         }
-    }
-
-    /**
-     * Function to hide progress dialog
-     *
-     * @param progressDialog - associated ProgressDialog
-     */
-    public static void dismissProgressDialog(ProgressDialog progressDialog) {
-        if (progressDialog.isShowing()) progressDialog.dismiss();
     }
 
     /**
@@ -407,15 +400,60 @@ public class ViewsUtils {
                 swipeRefreshLayout.setRefreshing(true); // Start refreshing
             }
         } else {
+
             // Stop SwipeRefreshLayout
             swipeRefreshLayout.setRefreshing(false);
         }
     }
 
+    /**
+     * Function to initialize ProgressDialog
+     *
+     * @param activity   - Owner activity
+     * @param cancelable - ProgressDialog cancelable value
+     * @return ProgressDialog
+     */
     public static ProgressDialog initProgressDialog(Activity activity,
-                                                    boolean cancelable){
+                                                    boolean cancelable) {
+
+        // Set ProgressDialog style
         ProgressDialog progressDialog = new ProgressDialog(activity, R.style.Style_ProgressDialog);
-        progressDialog.setCancelable(cancelable);
-        return progressDialog;
+        progressDialog.setCancelable(cancelable); // Set cancelable
+        return progressDialog; // Return ProgressDialog
+    }
+
+
+    /**
+     * Function to show progress dialog
+     *
+     * @param progressDialog - ProgressDialog to be displayed
+     * @param title          - ProgressBar title
+     * @param message        - ProgressBar message
+     */
+    public static void showProgressDialog(ProgressDialog progressDialog, String title,
+                                   String message) {
+
+        // Check if progress dialog is showing
+        if (!progressDialog.isShowing()) {
+
+            progressDialog.setTitle(title); // Set ProgressDialog title
+            progressDialog.setMessage(message); // Set ProgressDialog message
+            progressDialog.show(); // Show progress dialog
+        }
+    }
+
+
+    /**
+     * Function to hide progress dialog
+     *
+     * @param progressDialog - associated ProgressDialog
+     */
+    public static void dismissProgressDialog(ProgressDialog progressDialog) {
+
+        // Check if ProgressDialog is showing
+        if (progressDialog.isShowing()) {
+
+            progressDialog.dismiss(); // Dismiss ProgressDialog
+        }
     }
 }

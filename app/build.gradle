@@ -99,6 +99,9 @@ dependencies {
     // Verification code EditText
     implementation 'com.justkiddingbaby:vercodeedittext:1.0.5'
 
+    // State progress bar
+    implementation 'com.kofigyan.stateprogressbar:stateprogressbar:1.0.0'
+
     // Shimmer layout
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 

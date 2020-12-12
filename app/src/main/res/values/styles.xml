@@ -129,6 +129,9 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:background">@drawable/outline_rectangle_curved_fill_primary_dark
         </item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_centerHorizontal">true</item>
         <item name="android:layout_marginStart">10dp</item>
         <item name="android:layout_marginEnd">10dp</item>
         <item name="android:layout_marginTop">20dp</item>
@@ -158,7 +161,7 @@
     </style>
 
     <!--Custom LinearLayout button-->
-    <style name="Style_CustomButton_Text">
+    <style name="Style_CustomButton_Text" parent="@android:style/TextAppearance.Widget.TextView">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_marginStart">22dp</item>
@@ -171,7 +174,7 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="Style_CustomButton_Text_No_Margins">
+    <style name="Style_CustomButton_Text_No_Margins" parent="@android:style/TextAppearance.Widget.TextView">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_marginTop">8dp</item>
@@ -180,6 +183,21 @@
         <item name="textAllCaps">true</item>
         <item name="android:textSize">12sp</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Style_PasswordCounterText" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:lines">1</item>
+        <item name="android:ems">2</item>
+        <item name="android:hint">0</item>
+        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textColor">@color/colorPrimaryGrey</item>
     </style>
 
 </resources>

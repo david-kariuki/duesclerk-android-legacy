@@ -2,7 +2,7 @@ package com.duesclerk.custom.network;
 
 public class NetworkUtils {
 
-    //This class holds all network urls and network tags needed by perform network requests
+    // This class holds all network urls and network tags needed by perform network requests
     private static final String strProtocol = "https://";
     private static final String stroke = "/";
     private static final String strWebsiteMainDomain = strProtocol + "www.duesclerk.com" + stroke;
@@ -33,7 +33,7 @@ public class NetworkUtils {
             + "VerifyEmailAddress.php";
 
     // URL To Verify Email Address
-    public static final String URL_RESET_PASSWORD = backendAndroidFolder + "resetPassword.php";
+    public static final String URL_PASSWORD_RESET = backendAndroidFolder + "ResetPassword.php";
 
     // URL To Reset Password
 
@@ -41,9 +41,6 @@ public class NetworkUtils {
     /*
      * Volley Network Tags
      */
-
-    // Tag used to cancel Signup Request
-    public static final String TAG_UPLOAD_COVER_PICTURE_REQUEST = "TagRequestUploadCoverPicture";
 
     // Tag used to cancel SignUp Request
     public static final String TAG_SIGNUP_PERSONAL_STRING_REQUEST = "TagRequestSignUpPersonal";
@@ -67,5 +64,5 @@ public class NetworkUtils {
     public static final String TAG_VERIFY_EMAIL_STRING_REQUEST = "TagRequestVerifyEmailAddress";
 
     // Tag Used To Cancel Password Reset Request
-    public static final String TAG_PASSWORD_RESET_REQUEST = "TagRequestResetPassword";
+    public static final String TAG_PASSWORD_RESET_REQUEST = "TagRequestPasswordReset";
 }

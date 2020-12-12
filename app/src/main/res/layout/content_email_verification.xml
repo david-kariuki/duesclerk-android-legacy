@@ -12,7 +12,7 @@
     tools:showIn="@layout/activity_email_verification">
 
     <ScrollView
-        android:id="@+id/svEmailVerification"
+        android:id="@+id/scrollViewEmailVerificationActivity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
@@ -54,7 +54,7 @@
                     android:layout_height="match_parent"
                     android:visibility="gone">
 
-                    <include layout="@layout/layout_send_verification_code" />
+                    <include layout="@layout/layout_verify_account_send_verification_code" />
                 </LinearLayout>
 
                 <LinearLayout

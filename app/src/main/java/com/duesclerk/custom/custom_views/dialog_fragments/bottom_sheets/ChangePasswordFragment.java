@@ -9,7 +9,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -48,12 +47,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.duesclerk.custom.custom_utilities.ViewsUtils.showProgressDialog;
+
 @SuppressWarnings("rawtypes")
 @SuppressLint("ValidFragment")
 public class ChangePasswordFragment extends BottomSheetDialogFragment implements TextWatcher {
 
     // Get class simple name
-    private final String TAG = ChangePasswordFragment.class.getSimpleName();
+    // private final String TAG = ChangePasswordFragment.class.getSimpleName();
 
     private final Context mContext;
     private final SQLiteDB database;
@@ -99,7 +100,6 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
 
         // Progress Dialog
         progressDialog = ViewsUtils.initProgressDialog(requireActivity(), false);
-        progressDialog.setCancelable(false);
 
         // Add text watcher
         editCurrentPassword.addTextChangedListener(this);
@@ -128,7 +128,7 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
 
         llChangePassword.setOnClickListener(v -> {
             // Check password fields
-            if (checkPasswordFields()) {
+            if (checkPasswordChangeFields()) {
 
                 // Clear focus on EditTexts
                 editCurrentPassword.clearFocus();
@@ -137,8 +137,8 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
 
                 // Update password
                 updatePassword(
-                        database.getClientAccountInfo().get(0).getClientId(),
-                        database.getClientAccountInfo().get(0).getPassword(),
+                        database.getClientAccountInfo(null).get(0).getClientId(),
+                        database.getClientAccountInfo(null).get(0).getPassword(),
                         editNewPassword.getText().toString()
                 );
             }
@@ -191,7 +191,7 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
      * Checks password length
      * Checks if new password is equal to current and warns
      */
-    private boolean checkPasswordFields() {
+    private boolean checkPasswordChangeFields() {
         return (InputFiltersUtils.checkPasswordLengthNotify(mContext, editCurrentPassword)
                 && InputFiltersUtils.checkPasswordLengthNotify(mContext, editNewPassword)
                 && InputFiltersUtils.checkPasswordLengthNotify(mContext, editConfirmNewPassword)
@@ -202,48 +202,70 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
                 && matchCurrentPasswordWithSavedPassword());
     }
 
+    /**
+     * Function to match current password field value with SQLite stored password
+     */
     private boolean matchCurrentPasswordWithSavedPassword() {
-        boolean valueAcceptable = false;
+
+        boolean valueAcceptable = false; // Value acceptable status
+
         if (!editCurrentPassword.getText().toString().equals(
-                database.getClientAccountInfo().get(0).getPassword())) {
-            // Toast Error Message
+                database.getClientAccountInfo(null).get(0).getPassword())) {
+
+            // Toast error message
             CustomToast.errorMessage(mContext, DataUtils.getStringResource(mContext,
                     R.string.error_password_incorrect),
                     R.drawable.ic_baseline_lock_24_white);
-            // Enable Error Icon
+
+            // Enable error icon
             editCurrentPassword.setError(DataUtils.getStringResource(mContext,
                     R.string.error_password_incorrect));
+
         } else {
-            valueAcceptable = true;
+
+            valueAcceptable = true; // Set value acceptable to true
         }
-        return valueAcceptable;
+
+        return valueAcceptable; // Return status
     }
 
+    /**
+     * Function to update password on remote database
+     *
+     * @param clientId        - Clients id
+     * @param currentPassword - Current stored SQLite password
+     * @param newPassword     - New clients password
+     */
     private void updatePassword(final String clientId, final String currentPassword,
                                 final String newPassword) {
+
         // Check Internet Connection State
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
             if (InternetConnectivity.isConnectionFast(mContext)) {
                 // Connected
 
-                // Hide keyboard if showing
-                ViewsUtils.hideKeyboard(requireActivity());
+                ViewsUtils.hideKeyboard(requireActivity()); // Hide keyboard if showing
 
                 // Show dialog
-                showProgressDialog();
+                showProgressDialog(progressDialog,
+                        DataUtils.getStringResource(mContext,
+                                R.string.title_updating_password),
+                        DataUtils.getStringResource(mContext,
+                                R.string.msg_updating_password)
+                );
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,
                         NetworkUtils.URL_UPDATE_CLIENT_PROFILE_DETAILS, response -> {
 
                     // Log Response
-                    Log.d(TAG, "Update Password Response:" + response);
+                    // Log.d(TAG, "Update Password Response:" + response);
 
                     try {
+
                         JSONObject jsonObject = new JSONObject(response);
                         boolean error = jsonObject.getBoolean(VolleyUtils.KEY_ERROR);
 
-                        // Hide Dialog
-                        ViewsUtils.dismissProgressDialog(progressDialog);
+                        ViewsUtils.dismissProgressDialog(progressDialog); // Hide Dialog
 
                         // Check for error
                         if (!error) {
@@ -252,7 +274,7 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
                             // Update password in SQLite database and check if successful
                             if (database.updateClientAccountInformation(
                                     mContext,
-                                    database.getClientAccountInfo().get(0).getClientId(),
+                                    database.getClientAccountInfo(null).get(0).getClientId(),
                                     newPassword, AccountUtils.FIELD_PASSWORD)) {
                                 // Update successful
 
@@ -279,13 +301,12 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
                             ApplicationClass.getClassInstance().cancelPendingRequests(
                                     NetworkUtils.TAG_UPDATE_CLIENT_DETAILS_STRING_REQUEST);
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    } catch (Exception ignored) {
                     }
                 }, volleyError -> {
 
                     // Log Response
-                    Log.e(TAG, "Profile Response Error " + ":" + volleyError.getMessage());
+                    // Log.e(TAG, "Profile Response Error " + ":" + volleyError.getMessage());
 
                     // Hide Dialog
                     ViewsUtils.dismissProgressDialog(progressDialog);
@@ -379,25 +400,6 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
         }
     }
 
-    /**
-     * Function to show progress dialog
-     */
-    private void showProgressDialog() {
-        // Check if progress dialog is showing
-        if (!progressDialog.isShowing()) {
-
-            // Set progress dialog title
-            progressDialog.setTitle(DataUtils.getStringResource(mContext,
-                    R.string.title_updating_password));
-
-            // Set progress dialog message
-            progressDialog.setMessage(DataUtils.getStringResource(mContext,
-                    R.string.msg_updating_password));
-
-            progressDialog.show(); // Show progress dialog
-        }
-    }
-
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
     }
@@ -405,25 +407,34 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         if (Objects.requireNonNull(editCurrentPassword.getText()).toString().length() > 0) {
+
             // Show toggle password icon
             imagePasswordToggleCurrentPassword.setVisibility(View.VISIBLE); // Show toggle icon
+
         } else {
+
             // Hide toggle password icon
             imagePasswordToggleCurrentPassword.setVisibility(View.INVISIBLE); // Hide toggle icon
         }
 
         if (Objects.requireNonNull(editNewPassword.getText()).toString().length() > 0) {
+
             // Show toggle password icon
             imagePasswordToggleNewPassword.setVisibility(View.VISIBLE); // Show toggle icon
+
         } else {
+
             // Hide toggle password icon
             imagePasswordToggleNewPassword.setVisibility(View.INVISIBLE); // Hide toggle icon
         }
 
         if (Objects.requireNonNull(editConfirmNewPassword.getText()).toString().length() > 0) {
+
             // Show toggle password icon
             imagePasswordToggleConfirmNewPassword.setVisibility(View.VISIBLE); // Show toggle icon
+
         } else {
+
             // Hide toggle password icon
             imagePasswordToggleConfirmNewPassword.setVisibility(View.INVISIBLE); // Hide toggle icon
         }

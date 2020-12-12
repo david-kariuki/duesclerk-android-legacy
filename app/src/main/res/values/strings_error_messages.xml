@@ -20,6 +20,7 @@
     <string name="error_phone_number_invalid">The phone number you entered is invalid!</string>
     <string name="error_phone_number_invalid_short">Invalid phone number!</string>
     <string name="error_password_length">Your password should be %1$s characters or longer!</string>
+    <string name="error_verification_code_length">Verification codes should be %1$s characters long!</string>
     <string name="error_password_length_short">Password too short!</string>
     <string name="error_password_select_new">Please choose a different password other than the current
         one!</string>

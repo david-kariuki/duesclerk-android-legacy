@@ -69,7 +69,7 @@ public class EmailNotVerifiedFragment extends BottomSheetDialogFragment {
         // Set email not verified message
         textMessage.setText(DataUtils.getStringResource(mContext,
                 R.string.error_email_address_not_verified_with_placeholder,
-                database.getClientAccountInfo().get(0).getEmailAddress()));
+                database.getClientAccountInfo(null).get(0).getEmailAddress()));
 
         imageDismiss.setOnClickListener(v -> {
             dismiss(); // Dismiss

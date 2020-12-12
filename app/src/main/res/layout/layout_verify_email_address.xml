@@ -48,38 +48,71 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_rectangle_border_grey_no_fill"
-                android:gravity="center_horizontal"
                 android:orientation="vertical">
 
-                <com.jkb.vcedittext.VerificationCodeEditText
-                    android:id="@+id/editEmailVerification_Code"
-                    style="@style/TextAppearance.AppCompat.Title"
-                    android:layout_width="200dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="3dp"
-                    android:imeActionLabel="Done"
-                    android:inputType="textNoSuggestions"
-                    android:maxLength="6"
-                    android:minWidth="200dp"
-                    android:minEms="6"
-                    android:minLines="2"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="19sp"
-                    android:textStyle="bold"
-                    app:bottomLineHeight="1.2dp"
-                    app:bottomLineNormalColor="@color/colorGreyLight400"
-                    app:bottomLineSelectedColor="@color/colorGreyLight600"
-                    app:figures="6"
-                    app:selectedBackgroundColor="@color/colorGreyLight50"
-                    app:verCodeMargin="10dp" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/textEmailVerification_CounterVerificationCode"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.jkb.vcedittext.VerificationCodeEditText
+                            android:id="@+id/editEmailVerification_Code"
+                            style="@style/TextAppearance.AppCompat.Title"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:imeActionLabel="Done"
+                            android:inputType="textNoSuggestions"
+                            android:maxLength="6"
+                            android:minEms="6"
+                            android:minLines="1"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            app:bottomLineHeight="1.1dp"
+                            app:bottomLineNormalColor="@color/colorGreyLight400"
+                            app:bottomLineSelectedColor="@color/colorGreyLight600"
+                            app:figures="6"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintWidth_percent=".7"
+                            app:selectedBackgroundColor="@color/colorGreyLight50"
+                            app:verCodeMargin="10dp" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/textEmailVerification_CounterVerificationCode"
+                        style="@style/Style_PasswordCounterText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="-1" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:layout_width="210dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/colorPrimary" />
             </LinearLayout>
 
             <LinearLayout
@@ -95,7 +128,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginEnd="10dp"
-                    android:text="@string/text_forgot_password_did_not_receive_code"
+                    android:text="@string/action_did_not_receive_code"
                     android:textSize="13sp" />
 
                 <RelativeLayout

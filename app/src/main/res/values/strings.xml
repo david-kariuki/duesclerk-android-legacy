@@ -26,6 +26,7 @@
     <string name="title_updating_password">Updating password</string>
     <string name="title_mailing_email_verification_code">Sending verification code</string>
     <string name="title_verifying_email_address">Verifying email address</string>
+    <string name="title_resetting_password">Verifying email address</string>
 
     <!--Hints-->
     <string name="hint_first_name">First name</string>
@@ -94,7 +95,7 @@
     <string name="msg_profile_updated">Profile updated successfully.</string>
     <string name="msg_password_updated">Password updated successfully.</string>
     <string name="msg_mailing_email_verification_code">Mailing you a verification code! Please wait…</string>
-    <string name="msg_email_adress_verified">Your email address has been verified!</string>
+    <string name="msg_email_address_verified">Your email address has been verified!</string>
     <string name="msg_verification_code_sent">Verification code sent to your email.</string>
     <string name="msg_verifying_email_address">Verifying email address! Please wait…</string>
     <string name="msg_send_verification_code_message">"We\'re glad you're here.\n\nWe just need to confirm that the email you are using belongs to you.\nClick the button below to receive your email verification code."
@@ -121,9 +122,5 @@
 
     <!--Others-->
     <string name="placeholder_in_brackets">(%1$s)</string>
-    <string name="string_hello">Hello %1$s</string>
-    <string name="action_send_code">Send code</string>
-    <string name="action_already_have_code">I already have a code</string>
-
 
 </resources>
