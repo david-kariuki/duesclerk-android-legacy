@@ -72,6 +72,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="20dp"
+                android:id="@+id/textAccountSettings_SwitchAccount"
                 android:text="@string/action_switch_account_type"
                 android:textColor="@color/colorPrimaryRed"
                 android:textSize="@dimen/dimen_app_options_list_text_size" />

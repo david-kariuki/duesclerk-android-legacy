@@ -635,6 +635,9 @@
                             style="@style/Style_SignInSignUp_Profile_Text_Labels"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:singleLine="false"
+                            android:textAlignment="center"
                             android:hint="@string/hint_signup_date"
                             android:textColor="@color/colorPrimaryGrey"
                             android:textColorHint="@color/colorPrimaryGrey" />

@@ -14,6 +14,7 @@
     <style name="Style_SignInSignUp_Profile_TextInputEditText" parent="@android:style/TextAppearance.Widget.EditText">
         <item name="android:background">@color/colorTransparent</item>
         <item name="android:maxLines">1</item>
+        <item name="android:textAlignment">textStart</item>
         <item name="android:textSize">@dimen/dimen_signup_signin_edit_text_size</item>
         <item name="android:textColor">@color/colorBlack</item>
         <item name="android:textColorHint">@color/colorTextView</item>
