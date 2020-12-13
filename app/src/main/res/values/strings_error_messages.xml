@@ -1,8 +1,7 @@
 <resources>
 
     <!--Network error messages-->
-    <string name="error_network_connection_error_message_long">"Poor or no internet connection! Please
-        check your internet connection or try again."</string>
+    <string name="error_network_connection_error_message_long">"Poor or no internet connection!\nPlease check your internet connection or try again."</string>
     <string name="error_network_connection_error_message_short">"Can't connect at the moment!"</string>
 
     <!--Input fields errors-->
@@ -43,4 +42,5 @@
 
     <string name="error_profile_update_failed">Profile update failed!</string>
     <string name="error_password_update_failed">Password update failed!</string>
+    <string name="error_account_switching_failed">Account switching failed!</string>
 </resources>

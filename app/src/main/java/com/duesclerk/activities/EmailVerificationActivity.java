@@ -240,8 +240,8 @@ public class EmailVerificationActivity extends AppCompatActivity {
 
             // Resend verification code
             sendEmailVerificationCode(
-                    // Pass ClientId
-                    database.getClientAccountInfo(null).get(0).getClientId()
+                    // Pass UserId
+                    database.getUserAccountInfo(null).get(0).getUserId()
             );
         });
 
@@ -257,8 +257,8 @@ public class EmailVerificationActivity extends AppCompatActivity {
 
             // Resend verification code
             sendEmailVerificationCode(
-                    // Pass clientId
-                    database.getClientAccountInfo(null).get(0).getClientId());
+                    // Pass userId
+                    database.getUserAccountInfo(null).get(0).getUserId());
         });
 
         // Verification code onTouchListener
@@ -440,9 +440,9 @@ public class EmailVerificationActivity extends AppCompatActivity {
     /**
      * Function to send email verification code
      *
-     * @param clientId - Clients ClientId
+     * @param userId - Users UserId
      */
-    private void sendEmailVerificationCode(final String clientId) {
+    private void sendEmailVerificationCode(final String userId) {
 
         // Check Internet connection
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
@@ -506,7 +506,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
                                                         R.string.msg_email_verification_message)
                                         );
 
-                                        // Clear verification code EditText in case client clicked
+                                        // Clear verification code EditText in case user clicked
                                         // resend on enter code page
                                         editVerificationCode.setText(null);
 
@@ -581,7 +581,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
                         Map<String, String> params = new HashMap<>();
 
                         // Put params
-                        params.put(AccountUtils.FIELD_CLIENT_ID, clientId);
+                        params.put(AccountUtils.FIELD_USER_ID, userId);
                         params.put(AccountUtils.FIELD_VERIFICATION_TYPE,
                                 AccountUtils.KEY_VERIFICATION_TYPE_EMAIL_ACCOUNT);
 
@@ -613,7 +613,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
     }
 
     /**
-     * Function to verify clients email address
+     * Function to verify users email address
      *
      * @param verificationCode - Verification code sent on mail
      */
@@ -735,9 +735,9 @@ public class EmailVerificationActivity extends AppCompatActivity {
 
                         Map<String, String> params = new HashMap<>();
 
-                        // Put Client Id
-                        params.put(AccountUtils.FIELD_CLIENT_ID,
-                                database.getClientAccountInfo(null).get(0).getClientId());
+                        // Put User Id
+                        params.put(AccountUtils.FIELD_USER_ID,
+                                database.getUserAccountInfo(null).get(0).getUserId());
 
                         // Put verification code
                         params.put(AccountUtils.FIELD_VERIFICATION_CODE, verificationCode);

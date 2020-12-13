@@ -6,7 +6,7 @@ public class AccountUtils {
 
     // Ids
     public static final String KEY_RECORD_ID    = "Id";
-    public static final String FIELD_CLIENT_ID  = "ClientId";
+    public static final String FIELD_USER_ID = "UserId";
 
     // Names
     public static final String FIELD_FIRST_NAME     = "FirstName";
@@ -38,6 +38,7 @@ public class AccountUtils {
 
     // Account type
     public static final String FIELD_ACCOUNT_TYPE           = "AccountType";
+    public static final String FIELD_NEW_ACCOUNT_TYPE       = "NewAccountType";
     public static final String KEY_ACCOUNT_TYPE_PERSONAL    = "AccountTypePersonal";
     public static final String KEY_ACCOUNT_TYPE_BUSINESS    = "AccountTypeBusiness";
 

@@ -51,27 +51,27 @@ public class LogoutFragment extends BottomSheetDialogFragment {
         TextView tvLogout = contentView.findViewById(R.id.textBSLogout_Logout);
         TextView tvLogoutMessage = contentView.findViewById(R.id.textBSLogout_Message);
 
-        // Check for client information
-        if (!DataUtils.isEmptyArrayList(database.getClientAccountInfo(null))) {
+        // Check for user information
+        if (!DataUtils.isEmptyArrayList(database.getUserAccountInfo(null))) {
             // Set logout message
             tvLogoutMessage.setText(DataUtils.getStringResource(mContext,
                     R.string.msg_logout,
-                    database.getClientAccountInfo(null).get(0).getEmailAddress()));
+                    database.getUserAccountInfo(null).get(0).getEmailAddress()));
         }
         // Dismiss dialog
         tvCancel.setOnClickListener(v -> dialog.dismiss());
 
         tvLogout.setOnClickListener(v -> {
-            // Check if client is logged in
+            // Check if user is logged in
             if (sessionManager.isSignedIn()) {
 
-                // Check for client information
+                // Check for user information
                 if (!database.isEmpty()) {
 
-                    // Delete client details from SQLite database
-                    database.deleteClientAccountInfoByClientId(
-                            database.getClientAccountInfo(null).get(0)
-                            .getClientId());
+                    // Delete user details from SQLite database
+                    database.deleteUserAccountInfoByUserId(
+                            database.getUserAccountInfo(null).get(0)
+                            .getUserId());
                 }
 
                 sessionManager.setSignedIn(false); // Falsify session

@@ -5,6 +5,6 @@ public class TaskUtils {
     /*
      * Client profile
      */
-    public static final int TASK_FETCH_CLIENT_PROFILE = 1;
-    public static final int TASK_UPDATE_CLIENT_PROFILE = 2;
+    public static final int TASK_FETCH_USER_PROFILE = 1;
+    public static final int TASK_UPDATE_USER_PROFILE = 2;
 }

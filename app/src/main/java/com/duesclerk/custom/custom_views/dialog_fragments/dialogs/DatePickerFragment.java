@@ -18,7 +18,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.duesclerk.R;
 import com.duesclerk.custom.custom_utilities.DataUtils;
-import com.duesclerk.interfaces.Interface_UserAccountInformation;
+import com.duesclerk.interfaces.Interface_UserAccount_Information;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -31,7 +31,7 @@ public class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 
     // Interface to pass date
-    private final Interface_UserAccountInformation interfaceUserAccountInformation;
+    private final Interface_UserAccount_Information interfaceUserAccountInformation;
     private final LayoutInflater inflater;
     private final Context mContext;
     private final boolean restrictToMinAge;
@@ -41,7 +41,7 @@ public class DatePickerFragment extends DialogFragment
         this.mContext = context;
         this.restrictToMinAge = restrictToMinAge;
         this.dialogTitle = dialogTitle;
-        this.interfaceUserAccountInformation = (Interface_UserAccountInformation) context;
+        this.interfaceUserAccountInformation = (Interface_UserAccount_Information) context;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 

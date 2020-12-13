@@ -53,10 +53,10 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ClientProfileActivity extends AppCompatActivity implements Interface_CountryPicker,
+public class UserProfileActivity extends AppCompatActivity implements Interface_CountryPicker,
         TextWatcher {
 
-    // private final String TAG = ClientProfileActivity.class.getSimpleName();
+    // private final String TAG = UserProfileActivity.class.getSimpleName();
 
     private Context mContext; // Create Context object
     private MultiSwipeRefreshLayout swipeRefreshLayout;
@@ -77,13 +77,13 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
     private CountryPickerFragment countryPickerFragment;
     private EmailNotVerifiedFragment emailNotVerifiedFragment;
     private ShimmerFrameLayout shimmerFrameLayout;
-    private LinearLayout llClientProfileActivity, llClientProfileActivityFABS, llNoConnection;
+    private LinearLayout llUserProfileActivity, llUserProfileActivityFABS, llNoConnection;
     private String fetchedFirstName = "", fetchedLastName = "", fetchedBusinessName = "",
             fetchedEmailAddress = "", fetchedCountryName,
             fetchedCountryCode = "", fetchedCountryFlag = "", fetchedCountryAlpha2 = "",
             fetchedGender = "";
     private boolean profileFetched = false, emailVerified = false, emailNotVerifiedDialogShown =
-            false, fetchedClientProfile = false;
+            false, fetchedUserProfile = false;
     private EditText newSelectedGender = null, newSelectedCountryCode = null,
             newSelectedCountryAlpha2 = null;
     private String newFirstName = "", newLastName = "", newBusinessName = "",
@@ -95,7 +95,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_client_profile);
+        setContentView(R.layout.activity_user_profile);
 
         mContext = getApplicationContext(); // Get application context
 
@@ -103,35 +103,35 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
         scrollView = findViewById(R.id.scrollViewProfileActivity);
 
         // Progress Dialog
-        progressDialog = new ProgressDialog(ClientProfileActivity.this);
+        progressDialog = new ProgressDialog(UserProfileActivity.this);
         progressDialog.setCancelable(false);
 
         // CardViews
-        cardBusinessName = findViewById(R.id.cardClientProfileActivity_BusinessName);
-        cardPersonsNames = findViewById(R.id.cardClientProfileActivity_PersonsNames);
-        cardGender = findViewById(R.id.cardClientProfileActivity_Gender);
-        cardAccountType = findViewById(R.id.cardClientProfileActivity_AccountType);
-        cardSignupDate = findViewById(R.id.cardClientProfileActivity_SignupDate);
+        cardBusinessName = findViewById(R.id.cardUserProfileActivity_BusinessName);
+        cardPersonsNames = findViewById(R.id.cardUserProfileActivity_PersonsNames);
+        cardGender = findViewById(R.id.cardUserProfileActivity_Gender);
+        cardAccountType = findViewById(R.id.cardUserProfileActivity_AccountType);
+        cardSignupDate = findViewById(R.id.cardUserProfileActivity_SignupDate);
 
-        editBusinessName = findViewById(R.id.editClientProfileActivity_BusinessName);
-        editFirstName = findViewById(R.id.editClientProfileActivity_FirstName);
-        editLastName = findViewById(R.id.editClientProfileActivity_LastName);
-        editEmailAddress = findViewById(R.id.editClientProfileActivity_EmailAddress);
-        editCountry = findViewById(R.id.editClientProfileActivity_Country);
+        editBusinessName = findViewById(R.id.editUserProfileActivity_BusinessName);
+        editFirstName = findViewById(R.id.editUserProfileActivity_FirstName);
+        editLastName = findViewById(R.id.editUserProfileActivity_LastName);
+        editEmailAddress = findViewById(R.id.editUserProfileActivity_EmailAddress);
+        editCountry = findViewById(R.id.editUserProfileActivity_Country);
 
         // Radio group and radio buttons
-        radioGroupGender = findViewById(R.id.radioGroupClientProfileActivity_Gender);
+        radioGroupGender = findViewById(R.id.radioGroupUserProfileActivity_Gender);
         radioGenderMale = findViewById(R.id.radioProfileActivityGenderMale);
         radioGenderFemale = findViewById(R.id.radioProfileActivityGenderFemale);
         radioGenderOther = findViewById(R.id.radioProfileActivityGenderOther);
 
         // TextViews
-        TextView textGenderMale = findViewById(R.id.textClientProfileActivity_GenderMale);
-        TextView textGenderFemale = findViewById(R.id.textClientProfileActivity_GenderFemale);
-        TextView textGenderOther = findViewById(R.id.textClientProfileActivity_GenderOther);
-        textGender = findViewById(R.id.textClientProfileActivity_Gender);
-        textAccountType = findViewById(R.id.textClientProfileActivity_AccountType);
-        textSignupDate = findViewById(R.id.textClientProfileActivity_SignupDate);
+        TextView textGenderMale = findViewById(R.id.textUserProfileActivity_GenderMale);
+        TextView textGenderFemale = findViewById(R.id.textUserProfileActivity_GenderFemale);
+        TextView textGenderOther = findViewById(R.id.textUserProfileActivity_GenderOther);
+        textGender = findViewById(R.id.textUserProfileActivity_Gender);
+        textAccountType = findViewById(R.id.textUserProfileActivity_AccountType);
+        textSignupDate = findViewById(R.id.textUserProfileActivity_SignupDate);
 
         newSelectedGender = new EditText(mContext);
         newSelectedCountryCode = new EditText(mContext);
@@ -155,9 +155,9 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
         newSelectedCountryCode.addTextChangedListener(this);
         newSelectedCountryAlpha2.addTextChangedListener(this);
 
-        shimmerFrameLayout = findViewById(R.id.shimmerClientProfileActivity);
-        llClientProfileActivity = findViewById(R.id.llClientProfileActivity_Profile);
-        llClientProfileActivityFABS = findViewById(R.id.llClientProfileActivity_FABS);
+        shimmerFrameLayout = findViewById(R.id.shimmerUserProfileActivity);
+        llUserProfileActivity = findViewById(R.id.llUserProfileActivity_Profile);
+        llUserProfileActivityFABS = findViewById(R.id.llUserProfileActivity_FABS);
         llNoConnection = findViewById(R.id.llNoConnectionBar);
         LinearLayout llNoConnection_TryAgain = findViewById(R.id.llNoConnection_TryAgain);
 
@@ -166,10 +166,10 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
         fabSaveEdits = findViewById(R.id.fabMainActivity_SaveProfileEdits);
         fabCancelEdits = findViewById(R.id.fabMainActivity_CancelProfileEdits);
 
-        imageCountryFlag = findViewById(R.id.imageClientProfileActivity_CountryFlag);
+        imageCountryFlag = findViewById(R.id.imageUserProfileActivity_CountryFlag);
         imageEmailVerificationError =
-                findViewById(R.id.imageClientProfileActivity_EmailVerificationError);
-        ImageView imageExit = findViewById(R.id.imageClientProfileActivity_Exit);
+                findViewById(R.id.imageUserProfileActivity_EmailVerificationError);
+        ImageView imageExit = findViewById(R.id.imageUserProfileActivity_Exit);
 
         swipeRefreshLayout.setEnabled(true); // Enable SwipeRefresh
         swipeRefreshLayout.setSwipeableChildren(scrollView.getId()); // Set scrollable children
@@ -177,7 +177,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
         database = new SQLiteDB(mContext); // Initialize database object
 
         // Get accountType from SQLite database
-        accountType = database.getClientAccountInfo(null).get(0).getAccountType();
+        accountType = database.getUserAccountInfo(null).get(0).getAccountType();
 
         // CountryPicker
         countryPickerFragment = new CountryPickerFragment(this);
@@ -218,8 +218,8 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
             compareAndGetUpdatedValues(); // Compare new and old values for update
 
             // Update changed values
-            updateClientAccountInfo(database.getClientAccountInfo(null)
-                    .get(0).getClientId(), database.getClientAccountInfo(null)
+            updateUserAccountInfo(database.getUserAccountInfo(null)
+                    .get(0).getUserId(), database.getUserAccountInfo(null)
                     .get(0).getAccountType());
         });
 
@@ -232,9 +232,9 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
         swipeRefreshListener = () -> {
             if (!editingProfile) {
                 if (!database.isEmpty()) {
-                    fetchClientAccountInfo(database.getClientAccountInfo(null)
+                    fetchUserAccountInfo(database.getUserAccountInfo(null)
                                     .get(0).getEmailAddress(),
-                            database.getClientAccountInfo(null).
+                            database.getUserAccountInfo(null).
                                     get(0).getPassword());
                 }
             }
@@ -259,16 +259,16 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
 
         llNoConnection_TryAgain.setOnClickListener(v -> {
             if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
-                if (CURRENT_TASK == TaskUtils.TASK_FETCH_CLIENT_PROFILE) {
+                if (CURRENT_TASK == TaskUtils.TASK_FETCH_USER_PROFILE) {
 
                     // Start/Stop swipe SwipeRefresh
                     ViewsUtils.startSwipeRefreshLayout(true, swipeRefreshLayout,
                             swipeRefreshListener);
 
-                } else if (CURRENT_TASK == TaskUtils.TASK_UPDATE_CLIENT_PROFILE) {
+                } else if (CURRENT_TASK == TaskUtils.TASK_UPDATE_USER_PROFILE) {
 
                     if (editingProfile) {
-                        if (fieldValuesChanged(database.getClientAccountInfo(null)
+                        if (fieldValuesChanged(database.getUserAccountInfo(null)
                                 .get(0).getAccountType().equals(
                                         AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL))) {
                             fabSaveEdits.performClick();
@@ -292,7 +292,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
     public void onStart() {
         super.onStart();
 
-        loadClientProfile();
+        loadUserProfile();
     }
 
     @Override
@@ -303,12 +303,12 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
 
             // Cancel any pending requests
             ApplicationClass.getClassInstance()
-                    .cancelPendingRequests(NetworkUtils.TAG_UPDATE_CLIENT_DETAILS_STRING_REQUEST);
+                    .cancelPendingRequests(NetworkUtils.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
         } else {
 
             // Cancel any pending requests
             ApplicationClass.getClassInstance()
-                    .cancelPendingRequests(NetworkUtils.TAG_FETCH_CLIENT_PROFILE_STRING_REQUEST);
+                    .cancelPendingRequests(NetworkUtils.TAG_FETCH_USER_PROFILE_STRING_REQUEST);
         }
     }
 
@@ -326,13 +326,13 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
             if (!fetchedFirstName.equals("")) {
 
                 // Pass first name to bottom sheet
-                emailNotVerifiedFragment.setClientsName(fetchedFirstName);
+                emailNotVerifiedFragment.setUsersName(fetchedFirstName);
             }
         } else if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
             if (!fetchedBusinessName.equals("")) {
 
                 // Pass business name to bottom sheet
-                emailNotVerifiedFragment.setClientsName(fetchedBusinessName);
+                emailNotVerifiedFragment.setUsersName(fetchedBusinessName);
             }
         }
     }
@@ -340,12 +340,12 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
     /**
      * Function to set default views on activity start
      */
-    private void loadClientProfile() {
+    private void loadUserProfile() {
 
         fabEdit.setVisibility(View.GONE); // Hide edit button
 
         // Hide profile layout
-        llClientProfileActivity.setVisibility(View.GONE);
+        llUserProfileActivity.setVisibility(View.GONE);
 
         // Hide ShimmerFrameLayout
         ViewsUtils.showShimmerFrameLayout(true, shimmerFrameLayout);
@@ -401,7 +401,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
             }
 
             // Hide keyboard
-            ViewsUtils.hideKeyboard(ClientProfileActivity.this);
+            ViewsUtils.hideKeyboard(UserProfileActivity.this);
 
             // Scroll up ScrollView
             ViewsUtils.scrollUpScrollView(scrollView);
@@ -481,25 +481,25 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
     /**
      * Function to set fetched details to respective fields
      *
-     * @param client - JSONObject with client details
+     * @param user - JSONObject with user details
      */
-    private void setFetchedData(JSONObject client) {
+    private void setFetchedData(JSONObject user) {
 
         // Check if JSONObject is null
-        if (client != null) {
+        if (user != null) {
 
             // Get profile details
             try {
 
                 profileFetched = true; // Set profile fetched to true
-                fetchedEmailAddress = client.getString(AccountUtils.FIELD_EMAIL_ADDRESS);
-                fetchedCountryName = client.getString(AccountUtils.FIELD_COUNTRY_NAME);
-                fetchedCountryCode = client.getString(AccountUtils.FIELD_COUNTRY_CODE);
-                fetchedCountryAlpha2 = client.getString(AccountUtils.FIELD_COUNTRY_ALPHA2);
-                fetchedCountryFlag = client.getString(AccountUtils.FIELD_COUNTRY_FLAG);
-                emailVerified = Boolean.parseBoolean(client.getString(
+                fetchedEmailAddress = user.getString(AccountUtils.FIELD_EMAIL_ADDRESS);
+                fetchedCountryName = user.getString(AccountUtils.FIELD_COUNTRY_NAME);
+                fetchedCountryCode = user.getString(AccountUtils.FIELD_COUNTRY_CODE);
+                fetchedCountryAlpha2 = user.getString(AccountUtils.FIELD_COUNTRY_ALPHA2);
+                fetchedCountryFlag = user.getString(AccountUtils.FIELD_COUNTRY_FLAG);
+                emailVerified = Boolean.parseBoolean(user.getString(
                         AccountUtils.FIELD_EMAIL_VERIFIED));
-                fetchedClientProfile = true;
+                fetchedUserProfile = true;
 
                 // Set profile details
                 editEmailAddress.setText(fetchedEmailAddress);
@@ -507,7 +507,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                         mContext,
                         R.string.placeholder_in_brackets,
                         fetchedCountryCode)
-                        + " " + client.getString(AccountUtils.FIELD_COUNTRY_NAME);
+                        + " " + user.getString(AccountUtils.FIELD_COUNTRY_NAME);
 
                 // Set country details
                 editCountry.setText(countryCodeAndName);
@@ -517,7 +517,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                         DataUtils.getDrawableFromName(mContext, fetchedCountryFlag),
                         imageCountryFlag);
 
-                textSignupDate.setText(client.getString(AccountUtils.FIELD_SIGNUP_DATE_TIME));
+                textSignupDate.setText(user.getString(AccountUtils.FIELD_SIGNUP_DATE_TIME));
 
                 // Set to newly EditText to avoid showing save button during field check
                 newSelectedCountryCode.setText(fetchedCountryCode);
@@ -526,9 +526,9 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                 if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
                     // Business account
 
-                    fetchedFirstName = client.getString(AccountUtils.FIELD_FIRST_NAME);
-                    fetchedLastName = client.getString(AccountUtils.FIELD_LAST_NAME);
-                    fetchedGender = client.getString(AccountUtils.FIELD_GENDER);
+                    fetchedFirstName = user.getString(AccountUtils.FIELD_FIRST_NAME);
+                    fetchedLastName = user.getString(AccountUtils.FIELD_LAST_NAME);
+                    fetchedGender = user.getString(AccountUtils.FIELD_GENDER);
 
                     // Hide views
                     cardBusinessName.setVisibility(View.GONE);
@@ -551,7 +551,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                 } else if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
                     // Business account
 
-                    fetchedBusinessName = client.getString(AccountUtils.FIELD_BUSINESS_NAME);
+                    fetchedBusinessName = user.getString(AccountUtils.FIELD_BUSINESS_NAME);
 
                     // Hide views
                     cardPersonsNames.setVisibility(View.GONE);
@@ -572,7 +572,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                 ViewsUtils.showShimmerFrameLayout(false, shimmerFrameLayout);
 
                 // Show profile layout
-                llClientProfileActivity.setVisibility(View.VISIBLE);
+                llUserProfileActivity.setVisibility(View.VISIBLE);
 
                 ViewsUtils.scrollUpScrollView(scrollView); // Scroll up ScrollView
 
@@ -644,15 +644,15 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
             // Check if updating profile
             if (updatingProfile) {
 
-                // Set current task to updating client profile
-                CURRENT_TASK = TaskUtils.TASK_UPDATE_CLIENT_PROFILE;
+                // Set current task to updating user profile
+                CURRENT_TASK = TaskUtils.TASK_UPDATE_USER_PROFILE;
 
             } else {
 
-                // Set current task to fetching client profile
-                CURRENT_TASK = TaskUtils.TASK_FETCH_CLIENT_PROFILE;
+                // Set current task to fetching user profile
+                CURRENT_TASK = TaskUtils.TASK_FETCH_USER_PROFILE;
 
-                if (!fetchedClientProfile) {
+                if (!fetchedUserProfile) {
 
                     // Show ShimmerFrameLayout
                     ViewsUtils.showShimmerFrameLayout(true, shimmerFrameLayout);
@@ -661,9 +661,9 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                 fabEdit.setVisibility(View.GONE); // Hide save edits fab
             }
 
-            if (!fetchedClientProfile) {
+            if (!fetchedUserProfile) {
                 // Show profile layout
-                llClientProfileActivity.setVisibility(View.GONE);
+                llUserProfileActivity.setVisibility(View.GONE);
             }
 
             // Show no connection bar
@@ -778,10 +778,10 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
     /**
      * Function to fetch/retrieve user account information
      *
-     * @param strEmailAddress - Clients email address
-     * @param strPassword     - Clients password
+     * @param strEmailAddress - Users email address
+     * @param strPassword     - Users password
      */
-    private void fetchClientAccountInfo(String strEmailAddress, String strPassword) {
+    private void fetchUserAccountInfo(String strEmailAddress, String strPassword) {
 
         // Check Internet Connection State
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
@@ -792,16 +792,16 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                 respondToNetworkConnectionEvent(true, false);
 
                 // Hide FABS layout
-                llClientProfileActivityFABS.setVisibility(View.GONE);
+                llUserProfileActivityFABS.setVisibility(View.GONE);
 
-                // Hide client profile
-                llClientProfileActivity.setVisibility(View.GONE);
+                // Hide user profile
+                llUserProfileActivity.setVisibility(View.GONE);
 
                 // Show ShimmerFrameLayout
                 ViewsUtils.showShimmerFrameLayout(true, shimmerFrameLayout);
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                        NetworkUtils.URL_FETCH_CLIENT_PROFILE_DETAILS, response -> {
+                        NetworkUtils.URL_FETCH_USER_PROFILE_DETAILS, response -> {
 
                     // Log Response
                     // Log.d(TAG, "Profile Response:" + response);
@@ -811,26 +811,26 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                         boolean error = jsonObject.getBoolean(VolleyUtils.KEY_ERROR);
 
                         // Get JSONObject
-                        JSONObject objectClient = jsonObject.getJSONObject(
-                                VolleyUtils.KEY_CLIENT);
+                        JSONObject objectUser = jsonObject.getJSONObject(
+                                VolleyUtils.KEY_USER);
 
                         // Check for error
                         if (!error) {
 
                             // Show FABS layout
-                            llClientProfileActivityFABS.setVisibility(View.VISIBLE);
+                            llUserProfileActivityFABS.setVisibility(View.VISIBLE);
 
                             // Stop swipe SwipeRefresh
                             ViewsUtils.startSwipeRefreshLayout(false, swipeRefreshLayout,
                                     swipeRefreshListener);
 
-                            setFetchedData(objectClient); // Set fetched details
+                            setFetchedData(objectUser); // Set fetched details
                         } else {
                             // Error fetching details
 
                             // Cancel Pending Request
                             ApplicationClass.getClassInstance().cancelPendingRequests(
-                                    NetworkUtils.TAG_FETCH_CLIENT_PROFILE_STRING_REQUEST);
+                                    NetworkUtils.TAG_FETCH_USER_PROFILE_STRING_REQUEST);
                         }
                     } catch (Exception ignored) {
                     }
@@ -839,7 +839,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                     // Log.e(TAG, "Profile Response Error " + ":" + volleyError.getMessage());
 
                     // Show FABS layout
-                    llClientProfileActivityFABS.setVisibility(View.VISIBLE);
+                    llUserProfileActivityFABS.setVisibility(View.VISIBLE);
 
                     // Stop swipe SwipeRefresh
                     ViewsUtils.startSwipeRefreshLayout(false, swipeRefreshLayout,
@@ -851,7 +851,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
 
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(
-                                NetworkUtils.TAG_FETCH_CLIENT_PROFILE_STRING_REQUEST);
+                                NetworkUtils.TAG_FETCH_USER_PROFILE_STRING_REQUEST);
 
                         // Toast Network Error
                         if (volleyError.getMessage() != null) {
@@ -908,7 +908,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
 
                 // Adding request to request queue
                 ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                        NetworkUtils.TAG_FETCH_CLIENT_PROFILE_STRING_REQUEST);
+                        NetworkUtils.TAG_FETCH_USER_PROFILE_STRING_REQUEST);
             } else {
 
                 // Respond to network connection event
@@ -921,9 +921,9 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
     }
 
     /**
-     * Function to update client profile
+     * Function to update user profile
      */
-    private void updateClientAccountInfo(final String clientId, final String accountType) {
+    private void updateUserAccountInfo(final String userId, final String accountType) {
 
         // Check Internet Connection State
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
@@ -934,10 +934,10 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                 respondToNetworkConnectionEvent(true, true);
 
                 // Hide keyboard if showing
-                ViewsUtils.hideKeyboard(ClientProfileActivity.this);
+                ViewsUtils.hideKeyboard(UserProfileActivity.this);
 
                 // Hide FABS layout
-                llClientProfileActivityFABS.setVisibility(View.GONE);
+                llUserProfileActivityFABS.setVisibility(View.GONE);
 
                 // Show ProgressDialog
                 ViewsUtils.showProgressDialog(progressDialog,
@@ -948,7 +948,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                 );
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                        NetworkUtils.URL_UPDATE_CLIENT_PROFILE_DETAILS, response -> {
+                        NetworkUtils.URL_UPDATE_USER_PROFILE_DETAILS, response -> {
 
                     // Log Response
                     // Log.d(TAG, "Update Response:" + response);
@@ -962,10 +962,10 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
 
                         // Check for error
                         if (!error) {
-                            // Client profile updated successfully
+                            // User profile updated successfully
 
                             // Show FABS layout
-                            llClientProfileActivityFABS.setVisibility(View.VISIBLE);
+                            llUserProfileActivityFABS.setVisibility(View.VISIBLE);
 
                             // Variable to indicate update success for other fields apart
                             // from email address
@@ -975,9 +975,9 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                             if (!DataUtils.isEmptyString(newEmailAddress)) {
 
                                 // Update email address in SQLite database
-                                updated = database.updateClientAccountInformation(mContext,
-                                        database.getClientAccountInfo(null)
-                                                .get(0).getClientId(),
+                                updated = database.updateUserAccountInformation(mContext,
+                                        database.getUserAccountInfo(null)
+                                                .get(0).getUserId(),
                                         newEmailAddress,
                                         AccountUtils.FIELD_EMAIL_ADDRESS);
 
@@ -1014,7 +1014,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
 
                             // Cancel Pending Request
                             ApplicationClass.getClassInstance().cancelPendingRequests(
-                                    NetworkUtils.TAG_UPDATE_CLIENT_DETAILS_STRING_REQUEST);
+                                    NetworkUtils.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
 
                             enableProfileEdit(true); // Enable profile edit
                         }
@@ -1031,7 +1031,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                     enableProfileEdit(false); // Disable profile edit
 
                     // Show FABS layout
-                    llClientProfileActivityFABS.setVisibility(View.VISIBLE);
+                    llUserProfileActivityFABS.setVisibility(View.VISIBLE);
 
                     if (volleyError.getMessage() == null || volleyError instanceof NetworkError
                             || volleyError instanceof ServerError || volleyError instanceof
@@ -1039,7 +1039,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
 
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(
-                                NetworkUtils.TAG_UPDATE_CLIENT_DETAILS_STRING_REQUEST);
+                                NetworkUtils.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
 
                         // Toast Network Error
                         if (volleyError.getMessage() != null) {
@@ -1094,7 +1094,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
                             params.put(AccountUtils.FIELD_COUNTRY_ALPHA2, newCountryAlpha2);
                         }
 
-                        params.put(AccountUtils.FIELD_CLIENT_ID, clientId);
+                        params.put(AccountUtils.FIELD_USER_ID, userId);
                         params.put(AccountUtils.FIELD_ACCOUNT_TYPE, accountType);
 
                         return params; // Return params
@@ -1127,7 +1127,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Interfac
 
                 // Adding request to request queue
                 ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                        NetworkUtils.TAG_UPDATE_CLIENT_DETAILS_STRING_REQUEST);
+                        NetworkUtils.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
 
             } else {
 

@@ -32,7 +32,7 @@ public class EmailNotVerifiedFragment extends BottomSheetDialogFragment {
     private final Context mContext;
     private BottomSheetBehavior bottomSheetBehavior;
     private BottomSheetBehavior.BottomSheetCallback bottomSheetCallback;
-    private String clientsName;
+    private String usersName;
     private Animation animSwivel;
 
     public EmailNotVerifiedFragment(Context mContext) {
@@ -64,12 +64,12 @@ public class EmailNotVerifiedFragment extends BottomSheetDialogFragment {
         imageArm.startAnimation(animSwivel); // Start animation
 
         textGreetings.setText(DataUtils.getStringResource(mContext, R.string.string_hello,
-                clientsName));
+                usersName));
 
         // Set email not verified message
         textMessage.setText(DataUtils.getStringResource(mContext,
                 R.string.error_email_address_not_verified_with_placeholder,
-                database.getClientAccountInfo(null).get(0).getEmailAddress()));
+                database.getUserAccountInfo(null).get(0).getEmailAddress()));
 
         imageDismiss.setOnClickListener(v -> {
             dismiss(); // Dismiss
@@ -127,10 +127,10 @@ public class EmailNotVerifiedFragment extends BottomSheetDialogFragment {
     }
 
     /**
-     * Function to set greeting with clients firstName
-     * @param clientsName - Clients first Name or business name
+     * Function to set greeting with users firstName
+     * @param usersName - Users first Name or business name
      */
-    public void setClientsName(String clientsName){
-        this.clientsName = clientsName; // Set hello text
+    public void setUsersName(String usersName){
+        this.usersName = usersName; // Set hello text
     }
 }

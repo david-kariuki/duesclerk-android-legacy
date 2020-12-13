@@ -27,6 +27,7 @@
     <!--Grey-->
     <color name="colorPrimaryGrey">#9E9E9E</color>
     <color name="colorGreyLight50">#FAFAFA</color>
+    <color name="colorGreyLight100">#F5F5F5</color>
     <color name="colorGreyLight200">#EEEEEE</color>
     <color name="colorGreyLight300">#E0E0E0</color>
     <color name="colorGreyLight400">#BDBDBD</color>

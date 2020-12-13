@@ -17,29 +17,40 @@
         app:layout_constraintTop_toBottomOf="parent"
         android:layout_marginTop="30dp"
         android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        >
+        android:layout_marginEnd="30dp">
 
-        <com.duesclerk.custom.custom_views.image_views.CircleImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:src="@drawable/app_logo"
-            android:scaleType="centerCrop"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/imageSplashActivity_AppIcon"
-            android:layout_marginTop="80dp"
-            android:layout_marginBottom="20dp"
-            android:contentDescription="@string/content_description_app_icon"
-            />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/constraintLayout">
+
+            <com.duesclerk.custom.custom_views.image_views.CircleImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/app_logo"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent=".5"
+                app:layout_constraintDimensionRatio="H, 1:1"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/imageSplashActivity_AppIcon"
+                android:layout_marginTop="80dp"
+                android:layout_marginBottom="20dp"
+                android:contentDescription="@string/content_description_app_icon"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_below="@+id/imageSplashActivity_AppIcon"
+            android:layout_below="@+id/constraintLayout"
             android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             android:gravity="center">

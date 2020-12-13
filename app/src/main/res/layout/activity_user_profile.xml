@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ClientProfileActivity">
+    tools:context=".activities.UserProfileActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,13 +23,13 @@
                 android:layout_width="@dimen/dimen_icon_size_small"
                 android:layout_height="@dimen/dimen_icon_size_small"
                 style="@style/Style_Toolbar_Icon_Exit"
-                android:id="@+id/imageClientProfileActivity_Exit"
+                android:id="@+id/imageUserProfileActivity_Exit"
                 android:contentDescription="@string/content_description_icon_exit"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_activity_client_profile"
+                android:text="@string/title_activity_user_profile"
                 style="@style/Style_Toolbar_Title_Medium_Primary_Dark"/>
 
         </LinearLayout>
@@ -47,15 +47,15 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/llClientProfileActivity_Profile"
+                    android:id="@+id/llUserProfileActivity_Profile"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <include layout="@layout/content_client_profile" />
+                    <include layout="@layout/content_user_profile" />
                 </LinearLayout>
 
                 <com.facebook.shimmer.ShimmerFrameLayout
-                    android:id="@+id/shimmerClientProfileActivity"
+                    android:id="@+id/shimmerUserProfileActivity"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:visibility="gone">
@@ -67,7 +67,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/llClientProfileActivity_FABS"
+        android:id="@+id/llUserProfileActivity_FABS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end">

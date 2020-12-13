@@ -6,7 +6,7 @@
     <string name="title_activity_signin_signup">SignInSignUp</string>
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="title_activity_account_settings">Account Settings</string>
-    <string name="title_activity_client_profile">Profile</string>
+    <string name="title_activity_user_profile">Profile</string>
     <string name="title_activity_email_verification">Email verification</string>
     <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
 
@@ -25,6 +25,7 @@
     <string name="title_signing_in">Signing you in</string>
     <string name="title_updating_profile">Updating profile</string>
     <string name="title_updating_password">Updating password</string>
+    <string name="title_switching_account_type">Switching account type</string>
     <string name="title_mailing_email_verification_code">Sending verification code</string>
     <string name="title_verifying_email_address">Verifying email address</string>
     <string name="title_resetting_password">Verifying email address</string>
@@ -71,6 +72,7 @@
     <string name="action_try_again">Try again</string>
     <string name="action_change_password">Change Password</string>
     <string name="action_change">Change</string>
+    <string name="action_switch">Switch</string>
     <string name="action_switch_account_type">Switch to %1$s</string>
     <string name="action_resend_code">Resend code</string>
     <string name="action_next">Next</string>
@@ -97,10 +99,12 @@
     <string name="msg_signing_in">We are signing you in! Please wait…</string>
     <string name="msg_updating_profile">Updating your profile! Please wait…</string>
     <string name="msg_updating_password">Updating your password! Please wait…</string>
+    <string name="msg_switching_account_type">Switching to %1$s! Please wait…</string>
     <string name="msg_welcome_to">Welcome to %1$s.</string>
     <string name="msg_logout">Are you sure you want to log out %1$s?</string>
     <string name="msg_profile_updated">Profile updated successfully.</string>
     <string name="msg_password_updated">Password updated successfully.</string>
+    <string name="msg_account_switching_successful">Account switched successfully.</string>
     <string name="msg_mailing_email_verification_code">Mailing you a verification code! Please wait…</string>
     <string name="msg_email_address_verified">Your email address has been verified!</string>
     <string name="msg_verification_code_sent">Verification code sent to your email.</string>

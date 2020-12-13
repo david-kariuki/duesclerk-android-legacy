@@ -13,6 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.duesclerk.R;
 import com.duesclerk.custom.custom_utilities.DataUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
+import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.SwitchAccountTypeFragment;
 import com.duesclerk.custom.custom_views.view_pager.ViewPagerAdapter;
 import com.duesclerk.custom.storage_adapters.SQLiteDB;
 import com.duesclerk.custom.storage_adapters.SessionManager;
@@ -81,13 +82,18 @@ public class MainActivity extends AppCompatActivity {
         floatingActionButton.setOnLongClickListener( v -> {
                 sessionManager.setSignedIn(false);
                 if (!database.isEmpty()) {
-                    database.deleteClientAccountInfoByClientId(
-                            database.getClientAccountInfo(null).get(0).getClientId());
+                    database.deleteUserAccountInfoByUserId(
+                            database.getUserAccountInfo(null).get(0).getUserId());
                 }
 
             Toast.makeText(mContext, "Deleted", Toast.LENGTH_SHORT).show();
                 return false;
             });
+
+        // Show switch account type fragment
+        ViewsUtils.showBottomSheetDialogFragment(getSupportFragmentManager(),
+                new SwitchAccountTypeFragment(mContext, DataUtils.getStringResource(mContext,
+                        R.string.hint_business_account)), true);
 
         Objects.requireNonNull(tabLayout.getTabAt(2)).select();
     }

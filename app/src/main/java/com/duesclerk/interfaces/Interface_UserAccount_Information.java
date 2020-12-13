@@ -1,11 +1,9 @@
 package com.duesclerk.interfaces;
 
-import java.util.HashMap;
-
 /**
  * This interface shares data between activities or fragments that need user account information
  */
-public interface Interface_UserAccountInformation {
+public interface Interface_UserAccount_Information {
 
     /**
      * Interface to pass DatePickers selected date

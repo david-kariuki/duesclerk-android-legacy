@@ -13,7 +13,7 @@ public class VolleyUtils {
     public static final String KEY_SUCCESS_MESSAGE      = "SuccessMessage";
 
     // User Account
-    public static final String KEY_CLIENT               = "Client";
+    public static final String KEY_USER                 = "User";
     public static final String KEY_UPDATE_PROFILE       = "UpdateProfile";
 
     // SignIN and SignUp

@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.duesclerk.R;
-import com.duesclerk.activities.ClientProfileActivity;
+import com.duesclerk.activities.UserProfileActivity;
 import com.duesclerk.custom.custom_utilities.AccountUtils;
 import com.duesclerk.custom.custom_utilities.DataUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
@@ -50,10 +50,10 @@ public class CountryPickerFragment extends BottomSheetDialogFragment {
     private BottomSheetBehavior.BottomSheetCallback bottomSheetCallback;
     private ArrayList<JB_CountryData> countryListArray;
 
-    public CountryPickerFragment(ClientProfileActivity clientProfileActivity) {
-        this.mContext = clientProfileActivity.getApplicationContext();
-        this.interfaceCountryPicker = clientProfileActivity;
-        this.activity = clientProfileActivity;
+    public CountryPickerFragment(UserProfileActivity userProfileActivity) {
+        this.mContext = userProfileActivity.getApplicationContext();
+        this.interfaceCountryPicker = userProfileActivity;
+        this.activity = userProfileActivity;
     }
 
     /**

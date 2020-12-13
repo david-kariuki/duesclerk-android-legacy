@@ -27,7 +27,7 @@ import com.duesclerk.custom.custom_utilities.VolleyUtils;
 import com.duesclerk.custom.custom_views.toast.CustomToast;
 import com.duesclerk.custom.custom_views.view_pager.CustomViewPager;
 import com.duesclerk.custom.custom_views.view_pager.ViewPagerAdapter;
-import com.duesclerk.custom.java_beans.JB_ClientAccountInfo;
+import com.duesclerk.custom.java_beans.JB_UserAccountInfo;
 import com.duesclerk.custom.network.InternetConnectivity;
 import com.duesclerk.custom.network.NetworkUtils;
 import com.duesclerk.custom.storage_adapters.SQLiteDB;
@@ -52,7 +52,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
     private final String TAG = SignInSignupActivity.class.getSimpleName();
 
     // Java bean object to hold signup details
-    JB_ClientAccountInfo jbUserAccountInfo;
+    JB_UserAccountInfo jbUserAccountInfo;
     private TabLayout tabLayout;
     private CustomViewPager viewPager;
     private Context mContext;
@@ -61,7 +61,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
     private ProgressDialog progressDialog;
     private SessionManager sessionManager;
     private SQLiteDB database;
-    private ArrayList<JB_ClientAccountInfo> signupDetailsArray;
+    private ArrayList<JB_UserAccountInfo> signupDetailsArray;
     private ImageView imageBack;
 
     @Override
@@ -80,7 +80,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
 
         signupDetailsArray = new ArrayList<>(); // SignUp details array list
 
-        jbUserAccountInfo = new JB_ClientAccountInfo();
+        jbUserAccountInfo = new JB_UserAccountInfo();
         jbUserAccountInfo.clear();
 
         imageBack = findViewById(R.id.imageSignupBack);
@@ -302,7 +302,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
      * @param signupDetailsArray - ArrayList with signup details
      */
     private void signupUser(final String signupAccountType, final String signupTag,
-                            final ArrayList<JB_ClientAccountInfo> signupDetailsArray) {
+                            final ArrayList<JB_UserAccountInfo> signupDetailsArray) {
 
         // Hide Keyboard
         ViewsUtils.hideKeyboard(this);
@@ -319,7 +319,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
             );
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                    NetworkUtils.URL_SIGNUP_CLIENT, response -> {
+                    NetworkUtils.URL_SIGNUP_USER, response -> {
                 // Log Custom_Response
                 // Log.d(TAG, "SignUp Response: " + response);
 
@@ -337,16 +337,16 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
                         // Get Signup Object
                         JSONObject objectSignUp = jsonObject.getJSONObject(VolleyUtils.KEY_SIGNUP);
 
-                        String clientId, firstName, lastName, businessName, emailAddress,
+                        String userId, firstName, lastName, businessName, emailAddress,
                                 accountType, successMessage = "";
 
                         // Get signup details
-                        clientId        = objectSignUp.getString(AccountUtils.FIELD_CLIENT_ID);
+                        userId        = objectSignUp.getString(AccountUtils.FIELD_USER_ID);
                         emailAddress    = objectSignUp.getString(AccountUtils.FIELD_EMAIL_ADDRESS);
                         accountType     = objectSignUp.getString(AccountUtils.FIELD_ACCOUNT_TYPE);
 
                         // Inserting row in users table
-                        if (database.storeClientAccountInformation(clientId, emailAddress,
+                        if (database.storeUserAccountInformation(userId, emailAddress,
                                 signupDetailsArray.get(0).getPassword(), accountType)) {
 
                             // Create login sessionManager
@@ -439,7 +439,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
                 ApplicationClass.getClassInstance().cancelPendingRequests(signupTag);
 
                 ApplicationClass.getClassInstance().deleteUrlVolleyCache(
-                        NetworkUtils.URL_SIGNUP_CLIENT); // Clear url cache
+                        NetworkUtils.URL_SIGNUP_USER); // Clear url cache
             }
             ) {
                 @Override

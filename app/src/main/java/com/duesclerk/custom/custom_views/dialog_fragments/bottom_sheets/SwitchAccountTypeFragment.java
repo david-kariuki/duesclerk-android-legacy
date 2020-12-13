@@ -8,12 +8,15 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -39,6 +42,7 @@ import com.duesclerk.custom.storage_adapters.SQLiteDB;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
@@ -51,23 +55,31 @@ import static com.duesclerk.custom.custom_utilities.ViewsUtils.showProgressDialo
 
 @SuppressWarnings("rawtypes")
 @SuppressLint("ValidFragment")
-public class ChangePasswordFragment extends BottomSheetDialogFragment implements TextWatcher {
+public class SwitchAccountTypeFragment extends BottomSheetDialogFragment implements TextWatcher {
 
     // Get class simple name
-    // private final String TAG = ChangePasswordFragment.class.getSimpleName();
+    private final String TAG = SwitchAccountTypeFragment.class.getSimpleName();
 
     private final Context mContext;
     private final SQLiteDB database;
     private BottomSheetBehavior bottomSheetBehavior;
     private BottomSheetBehavior.BottomSheetCallback bottomSheetCallback;
-    private ImageView imagePasswordToggleCurrentPassword, imagePasswordToggleNewPassword,
-            imagePasswordToggleConfirmNewPassword;
-    private EditText editCurrentPassword, editNewPassword, editConfirmNewPassword;
+    private ImageView imagePasswordTogglePassword;
+    private EditText editFirstName, editLastName, editBusinessName;
+    private TextInputEditText editPassword;
     private ProgressDialog progressDialog;
+    private String accountType, switchLabel;
 
-    public ChangePasswordFragment(Context mContext) {
-        this.mContext = mContext; // Get context
-        this.database = new SQLiteDB(mContext); // Initialize database
+    /**
+     * Constructor
+     *
+     * @param context     - Context
+     * @param switchLabel - Switch label for bottom sheet title
+     */
+    public SwitchAccountTypeFragment(Context context, String switchLabel) {
+        this.mContext = context; // Get context
+        this.database = new SQLiteDB(context); // Initialize database
+        this.switchLabel = switchLabel; // Set switch label
     }
 
     @NonNull
@@ -76,70 +88,103 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
         final BottomSheetDialog dialog = (BottomSheetDialog)
                 super.onCreateDialog(savedInstanceState);
 
-        View contentView = View.inflate(getContext(), R.layout.bottom_sheet_change_password,
+        View contentView = View.inflate(getContext(), R.layout.bottom_sheet_switch_account_type,
                 null);
 
+        // TextView
+        TextView textTitle = contentView.findViewById(R.id.textSwitchAccountType_Title);
+
         // ImageViews
-        imagePasswordToggleCurrentPassword = contentView.findViewById(
-                R.id.imageBSChangePassword_PasswordToggle_CurrentPassword);
-        imagePasswordToggleNewPassword = contentView.findViewById(
-                R.id.imageBSChangePassword_PasswordToggle_NewPassword);
-        imagePasswordToggleConfirmNewPassword = contentView.findViewById(
-                R.id.imageBSChangePassword_PasswordToggle_ConfirmPassword);
+        imagePasswordTogglePassword = contentView.findViewById(
+                R.id.imageSwitchAccountType_Password);
 
         // EditTexts
-        editCurrentPassword = contentView.findViewById(R.id.editBSChangePassword_CurrentPassword);
-        editNewPassword = contentView.findViewById(R.id.editBSChangePassword_NewPassword);
-        editConfirmNewPassword =
-                contentView.findViewById(R.id.editBSChangePassword_ConfirmNewPassword);
+        editFirstName = contentView.findViewById(R.id.editSwitchAccountType_FirstName);
+        editLastName = contentView.findViewById(R.id.editSwitchAccountType_LastName);
+        editBusinessName = contentView.findViewById(R.id.editSwitchAccountType_BusinessName);
+        editPassword = contentView.findViewById(R.id.editSwitchAccountType_Password);
 
         // LinearLayouts
-        LinearLayout llChangePassword =
-                contentView.findViewById(R.id.llBSChangePassword_ChangePassword);
-        LinearLayout llCancel = contentView.findViewById(R.id.llBSChangePassword_Cancel);
+        LinearLayout llPersonNames = contentView.findViewById(
+                R.id.llSwitchAccountType_PersonNames);
+        LinearLayout llBusinessName = contentView.findViewById(
+                R.id.llSwitchAccountType_BusinessName);
+
+        LinearLayout llSwitchAccountType =
+                contentView.findViewById(R.id.llSwitchAccountType_SwitchAccountType);
+        LinearLayout llCancel = contentView.findViewById(R.id.llSwitchAccountType_Cancel);
 
         // Progress Dialog
         progressDialog = ViewsUtils.initProgressDialog(requireActivity(), false);
 
+        // Set Input Filters
+        editFirstName.setFilters(new InputFilter[]{InputFiltersUtils.filterNames,
+                new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_SINGLE_NAME)});
+        editLastName.setFilters(new InputFilter[]{InputFiltersUtils.filterNames,
+                new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_SINGLE_NAME)});
+
+        accountType = database.getUserAccountInfo(null)
+                .get(0).getAccountType();
+        String newAccountType = null;
+
+        String title = DataUtils.getStringResource(mContext, R.string.action_switch_account_type,
+                switchLabel);
+        textTitle.setText(title); // Set title
+
+        // Check account type
+        if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
+
+            llPersonNames.setVisibility(View.GONE); // Hide first and last names
+            llBusinessName.setVisibility(View.VISIBLE); // Show business name
+
+            // Set new account type
+            newAccountType = AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS;
+
+        } else if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
+
+            llBusinessName.setVisibility(View.GONE); // Hide business name
+            llPersonNames.setVisibility(View.VISIBLE); // Show first and last names
+
+            // Set new account type
+            newAccountType = AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL;
+        }
+
         // Add text watcher
-        editCurrentPassword.addTextChangedListener(this);
-        editNewPassword.addTextChangedListener(this);
-        editConfirmNewPassword.addTextChangedListener(this);
+        editPassword.addTextChangedListener(this);
+
+        // Password toggle OnClick
+        imagePasswordTogglePassword.setOnClickListener(view13 -> {
+            // Toggle password visibility
+            ViewsUtils.togglePasswordField(editPassword, imagePasswordTogglePassword);
+        });
+
+        // Password toggle onClick
+        imagePasswordTogglePassword.setOnClickListener(view13 -> {
+
+            // Toggle password visibility
+            ViewsUtils.togglePasswordField(editPassword, imagePasswordTogglePassword);
+        });
 
         // Dismiss dialog
         llCancel.setOnClickListener(v -> dismiss());
 
-        // Password toggle OnClick
-        imagePasswordToggleCurrentPassword.setOnClickListener(view13 -> {
-            // Toggle password visibility
-            ViewsUtils.togglePasswordField(editCurrentPassword, imagePasswordToggleCurrentPassword);
-        });
-
-        imagePasswordToggleNewPassword.setOnClickListener(view13 -> {
-            // Toggle password visibility
-            ViewsUtils.togglePasswordField(editNewPassword, imagePasswordToggleNewPassword);
-        });
-
-        imagePasswordToggleConfirmNewPassword.setOnClickListener(view13 -> {
-            // Toggle password visibility
-            ViewsUtils.togglePasswordField(editConfirmNewPassword,
-                    imagePasswordToggleConfirmNewPassword);
-        });
-
-        llChangePassword.setOnClickListener(v -> {
+        // Switch account type onClick
+        String finalNewAccountType = newAccountType;
+        llSwitchAccountType.setOnClickListener(v -> {
             // Check password fields
-            if (checkPasswordChangeFields()) {
+            if (checkFieldInputs()) {
 
                 // Clear focus on EditTexts
-                editCurrentPassword.clearFocus();
-                editNewPassword.clearFocus();
-                editConfirmNewPassword.clearFocus();
+                editFirstName.clearFocus();
+                editLastName.clearFocus();
+                editBusinessName.clearFocus();
+                editPassword.clearFocus();
 
                 // Update password
-                updatePassword(
+                switchAccountType(
                         database.getUserAccountInfo(null).get(0).getUserId(),
-                        database.getUserAccountInfo(null).get(0).getPassword(),
-                        editNewPassword.getText().toString()
+                        finalNewAccountType,
+                        database.getUserAccountInfo(null).get(0).getPassword()
                 );
             }
         });
@@ -187,57 +232,41 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
     }
 
     /**
-     * Function to check password fields lengths and values and notify with toast if error
-     * Checks password length
-     * Checks if new password is equal to current and warns
+     * Function to check names and password fields lengths and values and notify by toast on error
      */
-    private boolean checkPasswordChangeFields() {
-        return (InputFiltersUtils.checkPasswordLengthNotify(mContext, editCurrentPassword)
-                && InputFiltersUtils.checkPasswordLengthNotify(mContext, editNewPassword)
-                && InputFiltersUtils.checkPasswordLengthNotify(mContext, editConfirmNewPassword)
-                && InputFiltersUtils.comparePasswordChangeNotify(mContext, editCurrentPassword,
-                editNewPassword)
-                && InputFiltersUtils.compareNewPasswords(mContext, editNewPassword,
-                editConfirmNewPassword)
-                && matchCurrentPasswordWithSavedPassword());
-    }
+    private boolean checkFieldInputs() {
 
-    /**
-     * Function to match current password field value with SQLite stored password
-     */
-    private boolean matchCurrentPasswordWithSavedPassword() {
+        // Check account type
+        if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
+            // Personal account
 
-        boolean valueAcceptable = false; // Value acceptable status
+            return (InputFiltersUtils.checkPersonNameLengthNotify(mContext, editFirstName,
+                    true)
+                    && InputFiltersUtils.checkPersonNameLengthNotify(mContext, editLastName,
+                    false)
+                    && InputFiltersUtils.checkPasswordLengthNotify(mContext, editPassword)
+            );
 
-        if (!editCurrentPassword.getText().toString().equals(
-                database.getUserAccountInfo(null).get(0).getPassword())) {
+        } else if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
+            // Business account
 
-            // Toast error message
-            CustomToast.errorMessage(mContext, DataUtils.getStringResource(mContext,
-                    R.string.error_password_incorrect),
-                    R.drawable.ic_baseline_lock_24_white);
-
-            // Enable error icon
-            editCurrentPassword.setError(DataUtils.getStringResource(mContext,
-                    R.string.error_password_incorrect));
-
-        } else {
-
-            valueAcceptable = true; // Set value acceptable to true
+            return (InputFiltersUtils.checkBusinessNameLengthNotify(mContext, editBusinessName)
+                    && InputFiltersUtils.checkPasswordLengthNotify(mContext, editPassword)
+            );
         }
 
-        return valueAcceptable; // Return status
+        return false;
     }
 
     /**
      * Function to update password on remote database
      *
-     * @param userId        - Users id
-     * @param currentPassword - Current stored SQLite password
-     * @param newPassword     - New users password
+     * @param userId       - Users id
+     * @param newAccountType - Users account type
+     * @param password       - Current stored SQLite password
      */
-    private void updatePassword(final String userId, final String currentPassword,
-                                final String newPassword) {
+    private void switchAccountType(final String userId, final String newAccountType,
+                                   final String password) {
 
         // Check Internet Connection State
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
@@ -249,16 +278,16 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
                 // Show dialog
                 showProgressDialog(progressDialog,
                         DataUtils.getStringResource(mContext,
-                                R.string.title_updating_password),
+                                R.string.title_switching_account_type),
                         DataUtils.getStringResource(mContext,
-                                R.string.msg_updating_password)
+                                R.string.msg_switching_account_type, newAccountType)
                 );
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                        NetworkUtils.URL_UPDATE_USER_PROFILE_DETAILS, response -> {
+                        NetworkUtils.URL_SWITCH_ACCOUNT_TYPE, response -> {
 
                     // Log Response
-                    // Log.d(TAG, "Update Password Response:" + response);
+                    Log.d(TAG, "Switch account type response:" + response);
 
                     try {
 
@@ -275,14 +304,14 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
                             if (database.updateUserAccountInformation(
                                     mContext,
                                     database.getUserAccountInfo(null).get(0).getUserId(),
-                                    newPassword, AccountUtils.FIELD_PASSWORD)) {
+                                    newAccountType, AccountUtils.FIELD_ACCOUNT_TYPE)) {
                                 // Update successful
 
                                 // Show update successful message
                                 CustomToast.infoMessage(mContext,
                                         DataUtils.getStringResource(mContext,
-                                                R.string.msg_password_updated), false,
-                                        R.drawable.ic_baseline_person_24_white);
+                                                R.string.msg_account_switching_successful),
+                                        false, R.drawable.ic_baseline_person_24_white);
 
                                 dismiss(); // Dismiss dialog
                             }
@@ -292,24 +321,23 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
                             // Toast error message
                             CustomToast.errorMessage(
                                     mContext,
-                                    DataUtils.getStringResource(
-                                            mContext,
-                                            R.string.error_password_update_failed),
+                                    DataUtils.getStringResource(mContext,
+                                            R.string.error_account_switching_failed),
                                     R.drawable.ic_baseline_edit_24_white);
 
                             // Cancel Pending Request
                             ApplicationClass.getClassInstance().cancelPendingRequests(
-                                    NetworkUtils.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
+                                    NetworkUtils.TAG_SWITCH_ACCOUNT_TYPE_REQUEST);
                         }
                     } catch (Exception ignored) {
                     }
                 }, volleyError -> {
 
                     // Log Response
-                    // Log.e(TAG, "Profile Response Error " + ":" + volleyError.getMessage());
+                    Log.e(TAG, "Switch account type Response Error : "
+                            + volleyError.getMessage());
 
-                    // Hide Dialog
-                    ViewsUtils.dismissProgressDialog(progressDialog);
+                    ViewsUtils.dismissProgressDialog(progressDialog); // Hide Dialog
 
                     if (volleyError.getMessage() == null || volleyError instanceof NetworkError
                             || volleyError instanceof ServerError || volleyError instanceof
@@ -317,7 +345,7 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
 
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(
-                                NetworkUtils.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
+                                NetworkUtils.TAG_SWITCH_ACCOUNT_TYPE_REQUEST);
 
                         // Toast Network Error
                         if (volleyError.getMessage() != null) {
@@ -345,8 +373,8 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
 
                         // Put userId, current and new password to Map params
                         params.put(AccountUtils.FIELD_USER_ID, userId);
-                        params.put(AccountUtils.FIELD_PASSWORD, currentPassword);
-                        params.put(AccountUtils.FIELD_NEW_PASSWORD, newPassword);
+                        params.put(AccountUtils.FIELD_PASSWORD, password);
+                        params.put(AccountUtils.FIELD_NEW_ACCOUNT_TYPE, newAccountType);
 
                         return params; // Return params
                     }
@@ -378,7 +406,7 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
 
                 // Adding request to request queue
                 ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                        NetworkUtils.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
+                        NetworkUtils.TAG_SWITCH_ACCOUNT_TYPE_REQUEST);
 
             } else {
 
@@ -406,37 +434,15 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if (Objects.requireNonNull(editCurrentPassword.getText()).toString().length() > 0) {
+        if (Objects.requireNonNull(editPassword.getText()).toString().length() > 0) {
 
             // Show toggle password icon
-            imagePasswordToggleCurrentPassword.setVisibility(View.VISIBLE); // Show toggle icon
+            imagePasswordTogglePassword.setVisibility(View.VISIBLE); // Show toggle icon
 
         } else {
 
             // Hide toggle password icon
-            imagePasswordToggleCurrentPassword.setVisibility(View.INVISIBLE); // Hide toggle icon
-        }
-
-        if (Objects.requireNonNull(editNewPassword.getText()).toString().length() > 0) {
-
-            // Show toggle password icon
-            imagePasswordToggleNewPassword.setVisibility(View.VISIBLE); // Show toggle icon
-
-        } else {
-
-            // Hide toggle password icon
-            imagePasswordToggleNewPassword.setVisibility(View.INVISIBLE); // Hide toggle icon
-        }
-
-        if (Objects.requireNonNull(editConfirmNewPassword.getText()).toString().length() > 0) {
-
-            // Show toggle password icon
-            imagePasswordToggleConfirmNewPassword.setVisibility(View.VISIBLE); // Show toggle icon
-
-        } else {
-
-            // Hide toggle password icon
-            imagePasswordToggleConfirmNewPassword.setVisibility(View.INVISIBLE); // Hide toggle icon
+            imagePasswordTogglePassword.setVisibility(View.INVISIBLE); // Hide toggle icon
         }
     }
 

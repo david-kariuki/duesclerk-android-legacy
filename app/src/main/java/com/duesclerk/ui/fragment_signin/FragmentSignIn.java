@@ -209,17 +209,17 @@ public class FragmentSignIn extends Fragment {
 
                     // Check for error in json
                     if (!error) {
-                        String clientId, emailAddress, accountType;
+                        String userId, emailAddress, accountType;
 
                         // Get SignIn object
                         JSONObject objectSignIn = jsonObject.getJSONObject(VolleyUtils.KEY_SIGNIN);
 
-                        clientId        = objectSignIn.getString(AccountUtils.FIELD_CLIENT_ID);
+                        userId        = objectSignIn.getString(AccountUtils.FIELD_USER_ID);
                         emailAddress    = objectSignIn.getString(AccountUtils.FIELD_EMAIL_ADDRESS);
                         accountType     = objectSignIn.getString(AccountUtils.FIELD_ACCOUNT_TYPE);
 
                         // Inserting row in users table
-                        if (database.storeClientAccountInformation(clientId,
+                        if (database.storeUserAccountInformation(userId,
                                 emailAddress,
                                 password, accountType)) {
 

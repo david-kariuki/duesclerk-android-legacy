@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.duesclerk.custom.custom_utilities.AccountUtils;
 import com.duesclerk.custom.custom_utilities.DataUtils;
-import com.duesclerk.custom.java_beans.JB_ClientAccountInfo;
+import com.duesclerk.custom.java_beans.JB_UserAccountInfo;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -21,8 +21,8 @@ public class SQLiteDB extends SQLiteOpenHelper {
     // Database Name
     private static final String DATABASE_NAME = "db_duesclerk";
 
-    // client Table Name
-    private static final String TABLE_CLIENT = "Client";
+    // user Table Name
+    private static final String TABLE_USER = "User";
 
     /**
      * Constructor
@@ -37,58 +37,58 @@ public class SQLiteDB extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
-        String CREATE_TABLE_CLIENT;
-        CREATE_TABLE_CLIENT = "CREATE TABLE " + TABLE_CLIENT
+        String CREATE_TABLE_USER;
+        CREATE_TABLE_USER = "CREATE TABLE " + TABLE_USER
                 + "("
                 + AccountUtils.KEY_RECORD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + AccountUtils.FIELD_CLIENT_ID + " TEXT UNIQUE,"
+                + AccountUtils.FIELD_USER_ID + " TEXT UNIQUE,"
                 + AccountUtils.FIELD_EMAIL_ADDRESS + " TEXT UNIQUE,"
                 + AccountUtils.FIELD_PASSWORD + " TEXT,"
                 + AccountUtils.FIELD_ACCOUNT_TYPE + " TEXT"
                 + ")";
-        sqLiteDatabase.execSQL(CREATE_TABLE_CLIENT);
+        sqLiteDatabase.execSQL(CREATE_TABLE_USER);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
 
         // Drop old table if it exists
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_CLIENT);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
 
         onCreate(sqLiteDatabase); // Recreates Table
     }
 
     /**
-     * Function to load data into the client account information Java Bean
+     * Function to load data into the user account information Java Bean
      *
-     * @param clientAccountInfo - ArrayList with client account information Java Bean
+     * @param userAccountInfo - ArrayList with user account information Java Bean
      *
-     * @return JB_ClientAccountInfo - Client details java bean
+     * @return JB_UserAccountInfo - User details java bean
      */
-    private JB_ClientAccountInfo loadClientAccountInfoDataJavaBean(
-            ArrayList<JB_ClientAccountInfo> clientAccountInfo) {
+    private JB_UserAccountInfo loadUserAccountInfoDataJavaBean(
+            ArrayList<JB_UserAccountInfo> userAccountInfo) {
 
-        JB_ClientAccountInfo jbClientDetails = new JB_ClientAccountInfo();
+        JB_UserAccountInfo jbUserDetails = new JB_UserAccountInfo();
 
-        // Loop through client details array
-        for (int i = 0; i < clientAccountInfo.size(); i++) {
+        // Loop through user details array
+        for (int i = 0; i < userAccountInfo.size(); i++) {
 
-            jbClientDetails = clientAccountInfo.get(i); // Load client details java bean
+            jbUserDetails = userAccountInfo.get(i); // Load user details java bean
         }
 
-        return jbClientDetails; // Return client details java bean
+        return jbUserDetails; // Return user details java bean
     }
 
     /**
-     * Function to store client account information
+     * Function to store user account information
      *
-     * @param clientId     - primary key
+     * @param userId     - primary key
      * @param emailAddress - unique key
      * @param password     - text
      *
-     * @return boolean - true/false - (Client stored/not stored)
+     * @return boolean - true/false - (User stored/not stored)
      */
-    public boolean storeClientAccountInformation(String clientId,
+    public boolean storeUserAccountInformation(String userId,
                                                  String emailAddress,
                                                  String password,
                                                  String accountType) {
@@ -99,12 +99,12 @@ public class SQLiteDB extends SQLiteOpenHelper {
             // Check if record being inserted already exists
             if (!isEmpty()) {
                 // Loop through database array
-                for (int i = 0; i < this.getClientAccountInfo(null).size(); i++) {
-                    if (this.getClientAccountInfo(null).get(i).getClientId().equals(clientId)) {
+                for (int i = 0; i < this.getUserAccountInfo(null).size(); i++) {
+                    if (this.getUserAccountInfo(null).get(i).getUserId().equals(userId)) {
                         // Record exists
 
                         // Delete record and set exists to false if deleted otherwise true
-                        recordExist = !this.deleteClientAccountInfoByClientId(clientId);
+                        recordExist = !this.deleteUserAccountInfoByUserId(userId);
                     }
                 }
             }
@@ -115,30 +115,30 @@ public class SQLiteDB extends SQLiteOpenHelper {
                 SQLiteDatabase storeToDatabase = this.getWritableDatabase();
 
                 ContentValues contentValues = new ContentValues();
-                contentValues.put(AccountUtils.FIELD_CLIENT_ID, clientId); // ClientId
+                contentValues.put(AccountUtils.FIELD_USER_ID, userId); // UserId
                 contentValues.put(AccountUtils.FIELD_EMAIL_ADDRESS, emailAddress); // EmailAddress
                 contentValues.put(AccountUtils.FIELD_PASSWORD, password); // Password
                 contentValues.put(AccountUtils.FIELD_ACCOUNT_TYPE, accountType); // Account type
 
                 // Inserting Data
-                storeToDatabase.insert(TABLE_CLIENT, null, contentValues);
+                storeToDatabase.insert(TABLE_USER, null, contentValues);
                 storeToDatabase.close(); // Closing Connection to the database
 
-                ArrayList<JB_ClientAccountInfo> clientDetails = this.getClientAccountInfo(
+                ArrayList<JB_UserAccountInfo> userDetails = this.getUserAccountInfo(
                         null);
 
-                // Load java bean with client data
-                JB_ClientAccountInfo jbClientAccountInfo = this.loadClientAccountInfoDataJavaBean(
-                        clientDetails);
+                // Load java bean with user data
+                JB_UserAccountInfo jbUserAccountInfo = this.loadUserAccountInfoDataJavaBean(
+                        userDetails);
 
-                String storedClientId, storedEmailAddress, storedPassword, storedAccountType;
-                storedClientId = jbClientAccountInfo.getClientId();
-                storedEmailAddress = jbClientAccountInfo.getEmailAddress();
-                storedPassword = jbClientAccountInfo.getPassword();
-                storedAccountType = jbClientAccountInfo.getAccountType();
+                String storedUserId, storedEmailAddress, storedPassword, storedAccountType;
+                storedUserId = jbUserAccountInfo.getUserId();
+                storedEmailAddress = jbUserAccountInfo.getEmailAddress();
+                storedPassword = jbUserAccountInfo.getPassword();
+                storedAccountType = jbUserAccountInfo.getAccountType();
 
                 // Check For Change
-                return (storedClientId.equalsIgnoreCase(clientId)
+                return (storedUserId.equalsIgnoreCase(userId)
                         && storedEmailAddress.equalsIgnoreCase(emailAddress)
                         && storedPassword.equalsIgnoreCase(password)
                         && storedAccountType.equalsIgnoreCase(accountType)
@@ -151,29 +151,29 @@ public class SQLiteDB extends SQLiteOpenHelper {
     }
 
     /**
-     * Function to get client data from database
+     * Function to get user data from database
      *
-     * @param clientId - Clients id
+     * @param userId - Users id
      *
-     * @return ArrayList<JB_ClientAccountInfo> - Client details array
+     * @return ArrayList<JB_UserAccountInfo> - User details array
      */
-    public ArrayList<JB_ClientAccountInfo> getClientAccountInfo(String clientId) {
+    public ArrayList<JB_UserAccountInfo> getUserAccountInfo(String userId) {
 
         try {
-            ArrayList<JB_ClientAccountInfo> clientDetailsArray = new ArrayList<>();
-            JB_ClientAccountInfo jbClient = new JB_ClientAccountInfo();
+            ArrayList<JB_UserAccountInfo> userDetailsArray = new ArrayList<>();
+            JB_UserAccountInfo jbUser = new JB_UserAccountInfo();
 
             String selectQuery;
-            if (clientId == null) {
+            if (userId == null) {
 
                 // Select all records
-                selectQuery = "SELECT * FROM " + TABLE_CLIENT;
+                selectQuery = "SELECT * FROM " + TABLE_USER;
 
             } else {
 
-                // Select all records with specified ClientId
-                selectQuery = "SELECT * FROM " + TABLE_CLIENT + " WHERE "
-                        + AccountUtils.FIELD_CLIENT_ID + " = '" + clientId + "'";
+                // Select all records with specified UserId
+                selectQuery = "SELECT * FROM " + TABLE_USER + " WHERE "
+                        + AccountUtils.FIELD_USER_ID + " = '" + userId + "'";
             }
 
             SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
@@ -181,22 +181,22 @@ public class SQLiteDB extends SQLiteOpenHelper {
 
             // Loop through cursor
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                jbClient.setClientId(cursor.getString(cursor.getColumnIndex(
-                        AccountUtils.FIELD_CLIENT_ID)));
-                jbClient.setEmailAddress(cursor.getString(cursor.getColumnIndex(
+                jbUser.setUserId(cursor.getString(cursor.getColumnIndex(
+                        AccountUtils.FIELD_USER_ID)));
+                jbUser.setEmailAddress(cursor.getString(cursor.getColumnIndex(
                         AccountUtils.FIELD_EMAIL_ADDRESS)));
-                jbClient.setPassword(cursor.getString(cursor.getColumnIndex(
+                jbUser.setPassword(cursor.getString(cursor.getColumnIndex(
                         AccountUtils.FIELD_PASSWORD)));
-                jbClient.setAccountType(cursor.getString(cursor.getColumnIndex(
+                jbUser.setAccountType(cursor.getString(cursor.getColumnIndex(
                         AccountUtils.FIELD_ACCOUNT_TYPE)));
 
-                clientDetailsArray.add(jbClient); // Add java bean to ArrayList
+                userDetailsArray.add(jbUser); // Add java bean to ArrayList
             }
 
             cursor.close(); // Close access to cursor
             sqLiteDatabase.close(); // Closing Connection to the database
 
-            return clientDetailsArray; // Return the client details
+            return userDetailsArray; // Return the user details
 
         } catch (Exception ignored) {
         }
@@ -205,23 +205,23 @@ public class SQLiteDB extends SQLiteOpenHelper {
     }
 
     /**
-     * Function to delete and recreate all client table
+     * Function to delete and recreate all user table
      *
-     * @param clientId - primary key
+     * @param userId - primary key
      *
      * @return boolean - true/false - (If info deleted / not deleted)
      */
-    public boolean deleteClientAccountInfoByClientId(String clientId) {
+    public boolean deleteUserAccountInfoByUserId(String userId) {
 
         try {
             // Create SQLiteDatabase object
             SQLiteDatabase database = this.getWritableDatabase();
 
-            database.delete(TABLE_CLIENT, AccountUtils.FIELD_CLIENT_ID + "= ?",
-                    new String[]{clientId}); // Delete All Rows
+            database.delete(TABLE_USER, AccountUtils.FIELD_USER_ID + "= ?",
+                    new String[]{userId}); // Delete All Rows
             database.close(); // Closing Connection to the database
 
-            return DataUtils.isEmptyArrayList(this.getClientAccountInfo(clientId));
+            return DataUtils.isEmptyArrayList(this.getUserAccountInfo(userId));
 
         } catch (Exception ignored) {
         }
@@ -230,15 +230,15 @@ public class SQLiteDB extends SQLiteOpenHelper {
     }
 
     /**
-     * Function to update client account information
+     * Function to update user account information
      *
-     * @param clientId    - primary key
+     * @param userId    - primary key
      * @param newValue    - new value to be set
      * @param updateField - field in database to be updated
      *
      * @return boolean - true/false - (If updated / not updated)
      */
-    public boolean updateClientAccountInformation(Context context, String clientId,
+    public boolean updateUserAccountInformation(Context context, String userId,
                                                   String newValue, String updateField) {
 
         try {
@@ -251,11 +251,11 @@ public class SQLiteDB extends SQLiteOpenHelper {
             // Create class object
             SQLiteDB sqLiteDB = new SQLiteDB(context);
 
-            // Get client account information
-            ArrayList<JB_ClientAccountInfo> clientAccountInfo;
-            JB_ClientAccountInfo jbClientAccountInfo;
-            clientAccountInfo = sqLiteDB.getClientAccountInfo(null);
-            jbClientAccountInfo = this.loadClientAccountInfoDataJavaBean(clientAccountInfo);
+            // Get user account information
+            ArrayList<JB_UserAccountInfo> userAccountInfo;
+            JB_UserAccountInfo jbUserAccountInfo;
+            userAccountInfo = sqLiteDB.getUserAccountInfo(null);
+            jbUserAccountInfo = this.loadUserAccountInfoDataJavaBean(userAccountInfo);
 
             switch (updateField) {
 
@@ -263,41 +263,41 @@ public class SQLiteDB extends SQLiteOpenHelper {
                     // Email address
 
                     // Get EmailAddress old value
-                    oldValue = jbClientAccountInfo.getEmailAddress();
+                    oldValue = jbUserAccountInfo.getEmailAddress();
 
                     // Put EmailAddress new value to content values
                     contentValues.put(AccountUtils.FIELD_EMAIL_ADDRESS, newValue);
 
                     // Update fields
-                    updateDatabase.update(TABLE_CLIENT, contentValues,
-                            AccountUtils.FIELD_CLIENT_ID
-                                    + "='" + clientId + "'", null);
+                    updateDatabase.update(TABLE_USER, contentValues,
+                            AccountUtils.FIELD_USER_ID
+                                    + "='" + userId + "'", null);
                     break;
 
                 case AccountUtils.FIELD_PASSWORD:
                     // Password
 
                     // Get password old value
-                    oldValue = jbClientAccountInfo.getPassword();
+                    oldValue = jbUserAccountInfo.getPassword();
                     contentValues.put(AccountUtils.FIELD_PASSWORD, newValue);
 
                     // Update fields
-                    updateDatabase.update(TABLE_CLIENT, contentValues,
-                            AccountUtils.FIELD_CLIENT_ID
-                                    + "='" + clientId + "'", null);
+                    updateDatabase.update(TABLE_USER, contentValues,
+                            AccountUtils.FIELD_USER_ID
+                                    + "='" + userId + "'", null);
                     break;
 
                 case AccountUtils.FIELD_ACCOUNT_TYPE:
                     // Account type
 
                     // Get account type old value
-                    oldValue = jbClientAccountInfo.getAccountType();
+                    oldValue = jbUserAccountInfo.getAccountType();
                     contentValues.put(AccountUtils.FIELD_ACCOUNT_TYPE, newValue);
 
                     // Update fields
-                    updateDatabase.update(TABLE_CLIENT, contentValues,
-                            AccountUtils.FIELD_CLIENT_ID
-                                    + "='" + clientId + "'", null);
+                    updateDatabase.update(TABLE_USER, contentValues,
+                            AccountUtils.FIELD_USER_ID
+                                    + "='" + userId + "'", null);
                     break;
 
                 default:
@@ -307,21 +307,21 @@ public class SQLiteDB extends SQLiteOpenHelper {
             updateDatabase.close(); // Close database connection
 
             // Get updated account info
-            clientAccountInfo = sqLiteDB.getClientAccountInfo(null);
-            jbClientAccountInfo = this.loadClientAccountInfoDataJavaBean(clientAccountInfo);
+            userAccountInfo = sqLiteDB.getUserAccountInfo(null);
+            jbUserAccountInfo = this.loadUserAccountInfoDataJavaBean(userAccountInfo);
 
             switch (updateField) {
 
                 case AccountUtils.FIELD_EMAIL_ADDRESS:
-                    updatedFieldValue = jbClientAccountInfo.getEmailAddress();
+                    updatedFieldValue = jbUserAccountInfo.getEmailAddress();
                     break;
 
                 case AccountUtils.FIELD_PASSWORD:
-                    updatedFieldValue = jbClientAccountInfo.getPassword();
+                    updatedFieldValue = jbUserAccountInfo.getPassword();
                     break;
 
                 case AccountUtils.FIELD_ACCOUNT_TYPE:
-                    updatedFieldValue = jbClientAccountInfo.getAccountType();
+                    updatedFieldValue = jbUserAccountInfo.getAccountType();
                     break;
 
                 default:
@@ -341,6 +341,6 @@ public class SQLiteDB extends SQLiteOpenHelper {
      */
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean isEmpty() {
-        return this.getClientAccountInfo(null).size() == 0;
+        return this.getUserAccountInfo(null).size() == 0;
     }
 }

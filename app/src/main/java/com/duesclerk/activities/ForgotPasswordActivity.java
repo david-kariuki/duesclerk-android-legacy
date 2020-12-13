@@ -750,7 +750,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     /**
      * Function to send email verification code
      *
-     * @param emailAddress - Clients email address
+     * @param emailAddress - Users email address
      */
     private void sendEmailVerificationCode(final String emailAddress) {
 
@@ -820,7 +820,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                                 // Clear email EditText
                                                 editEmailAddress.setText(null);
 
-                                                // Clear verification code EditText in case client
+                                                // Clear verification code EditText in case user
                                                 // Clicked resend On enter code screen
                                                 editVerificationCode.setText(null);
 
@@ -949,9 +949,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     /**
-     * Function to verify clients email address
+     * Function to verify users email address
      *
-     * @param emailAddress     - Clients email address
+     * @param emailAddress     - Users email address
      * @param verificationCode - Verification code sent on mail
      */
     public void verifyEmailAddress(final String verificationCode, final String emailAddress) {
@@ -1137,8 +1137,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     /**
      * Function to generate email verification code
      *
-     * @param emailAddress - Clients email address
-     * @param newPassword  - Clients new password
+     * @param emailAddress - Users email address
+     * @param newPassword  - Users new password
      */
     public void resetPassword(final String emailAddress, final String newPassword) {
 
@@ -1194,14 +1194,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                             objectPasswordReset.getString(
                                                     VolleyUtils.KEY_SUCCESS_MESSAGE);
 
-                                    String clientId = objectPasswordReset.getString(
-                                            AccountUtils.FIELD_CLIENT_ID);
+                                    String userId = objectPasswordReset.getString(
+                                            AccountUtils.FIELD_USER_ID);
 
                                     // Check if all parameters have been received
                                     if (!DataUtils.isEmptyString(successMessage)) {
 
-                                        // Delete client from sqlite if exists
-                                        database.deleteClientAccountInfoByClientId(clientId);
+                                        // Delete user from sqlite if exists
+                                        database.deleteUserAccountInfoByUserId(userId);
 
                                         // Stop resend code counter
                                         countDownResendCode.cancel();

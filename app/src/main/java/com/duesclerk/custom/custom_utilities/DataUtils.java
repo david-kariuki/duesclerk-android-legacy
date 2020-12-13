@@ -14,13 +14,10 @@ import androidx.core.content.ContextCompat;
 
 import com.duesclerk.R;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.ByteArrayOutputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class DataUtils {
     /*
@@ -39,7 +36,6 @@ public class DataUtils {
      * Get data from drawable in byte array
      * Get SwipeRefreshLayout scheme colors
      * Filter network url
-     * Set count unit in thouands and millions
      * */
 
 
@@ -300,23 +296,7 @@ public class DataUtils {
     }
 
     /**
-     * Function to remove unwanted characters from url string
-     *
-     * @param string - url
-     */
-    public static String filterNetworkUrl(@NotNull String string) {
-        StringBuilder stringNoSpaces = null;
-        for (int i = 0; i < string.length(); i++) {
-            if (string.charAt(i) != ' ') {
-                //noinspection ConstantConditions
-                stringNoSpaces.append(string.charAt(i));
-            }
-        }
-        return Objects.requireNonNull(stringNoSpaces).toString();
-    }
-
-    /**
-     * Function to set count unit in thouands and millions
+     * Function to set count unit in thousands and millions
      *
      * @param number - number to set unit
      */

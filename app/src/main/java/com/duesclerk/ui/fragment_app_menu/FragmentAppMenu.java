@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.duesclerk.R;
 import com.duesclerk.activities.AccountSettings;
-import com.duesclerk.activities.ClientProfileActivity;
+import com.duesclerk.activities.UserProfileActivity;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
 import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.LogoutFragment;
 
@@ -49,7 +49,7 @@ public class FragmentAppMenu extends Fragment {
 
         // List options onClick
         llViewProfile.setOnClickListener(v ->
-                startActivity(new Intent(requireActivity(), ClientProfileActivity.class))
+                startActivity(new Intent(requireActivity(), UserProfileActivity.class))
         );
 
         // Account settings onClick
