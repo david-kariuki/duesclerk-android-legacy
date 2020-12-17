@@ -18,11 +18,10 @@ public interface Interface_SignInSignup {
      * @param countryCode   - Country code
      * @param countryAlpha2 - Country alpha2
      * @param password      - Password
-     * @param gender        - Gender
      */
     void passPersonalAccountSignupDetails(String firstName, String lastName, String emailAddress,
                                           String countryCode, String countryAlpha2,
-                                          String password, String gender
+                                          String password
     );
 
     /**

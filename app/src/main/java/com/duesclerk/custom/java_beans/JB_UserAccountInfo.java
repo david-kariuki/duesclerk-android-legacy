@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class JB_UserAccountInfo implements Serializable {
 
     private String userId, firstName, lastName, emailAddress, countryName, countryCode,
-            countryAlpha2, countryAlpha3, password, gender, businessName, signupDateTime,
+            countryAlpha2, countryAlpha3, password, businessName, signupDateTime,
             accountType;
     private boolean emailVerified;
 
@@ -38,12 +38,10 @@ public class JB_UserAccountInfo implements Serializable {
      * @param countryCode   - Country code
      * @param countryAlpha2 - Country alpha2
      * @param password      - Password
-     * @param gender        - Gender
      */
     public JB_UserAccountInfo(String userId, String firstName, String lastName,
                               String emailAddress, String countryCode,
-                              String countryAlpha2, String password, String gender,
-                              String accountType) {
+                              String countryAlpha2, String password, String accountType) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -51,7 +49,6 @@ public class JB_UserAccountInfo implements Serializable {
         this.countryCode = countryCode;
         this.countryAlpha2 = countryAlpha2;
         this.password = password;
-        this.gender = gender;
         this.accountType = accountType;
     }
 
@@ -89,7 +86,6 @@ public class JB_UserAccountInfo implements Serializable {
      * @param countryCode    - Country code
      * @param countryAlpha2  - Country alpha2
      * @param password       - Password
-     * @param gender         - Gender
      * @param businessName   - Business name
      * @param accountType    - Account type
      * @param emailVerified  - Email verified
@@ -98,7 +94,7 @@ public class JB_UserAccountInfo implements Serializable {
     public JB_UserAccountInfo(String userId, String firstName, String lastName,
                               String emailAddress, String countryName, String countryCode,
                               String countryAlpha2, String countryAlpha3, String password,
-                              String gender, String businessName, String accountType,
+                              String businessName, String accountType,
                               boolean emailVerified, String signupDateTime) {
         this.userId = userId;
         this.firstName = firstName;
@@ -109,7 +105,6 @@ public class JB_UserAccountInfo implements Serializable {
         this.countryAlpha2 = countryAlpha2;
         this.countryAlpha3 = countryAlpha3;
         this.password = password;
-        this.gender = gender;
         this.businessName = businessName;
         this.accountType = accountType;
         this.emailVerified = emailVerified;
@@ -243,20 +238,6 @@ public class JB_UserAccountInfo implements Serializable {
     }
 
     /**
-     * Function to get gender
-     */
-    public String getGender() {
-        return gender;
-    }
-
-    /**
-     * Function to set gender
-     */
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    /**
      * Function to get business name
      */
     public String getBusinessName() {
@@ -326,7 +307,6 @@ public class JB_UserAccountInfo implements Serializable {
         this.countryAlpha2 = null;
         this.countryAlpha3 = null;
         this.password = null;
-        this.gender = null;
         this.businessName = null;
         this.accountType = null;
         this.signupDateTime = null;
@@ -343,7 +323,6 @@ public class JB_UserAccountInfo implements Serializable {
                 && DataUtils.isEmptyString(countryName) && DataUtils.isEmptyString(countryCode)
                 && DataUtils.isEmptyString(countryAlpha2) && DataUtils.isEmptyString(countryAlpha3)
                 && DataUtils.isEmptyString(password)
-                && DataUtils.isEmptyString(gender)
                 && DataUtils.isEmptyString(businessName)
                 && DataUtils.isEmptyString(accountType)
                 && DataUtils.isEmptyString(signupDateTime)

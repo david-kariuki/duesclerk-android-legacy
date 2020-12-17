@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,7 +19,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.duesclerk.R;
-import com.duesclerk.custom.custom_utilities.AccountUtils;
 import com.duesclerk.custom.custom_utilities.InputFiltersUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
 import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.CountryPickerFragment;
@@ -35,7 +33,7 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
     private Context mContext;
     private EditText editFirstName, editLastName, editEmailAddress;
     private TextInputEditText editCountry, editPassword;
-    private String countryCode, countryAlpha2, selectedGender;
+    private String countryCode, countryAlpha2;
     private ImageView imagePasswordToggle, imageCountryFlag;
     private CountryPickerFragment countryPickerFragment;
 
@@ -64,19 +62,11 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
         editCountry = view.findViewById(R.id.editSignUpActivity_Country);
         editPassword = view.findViewById(R.id.editSignUpActivity_Password);
 
-        TextView textGenderMale = view.findViewById(R.id.textSignupActivity_GenderMale);
-        TextView textGenderFemale = view.findViewById(R.id.textSignupActivity_GenderFemale);
-        TextView textGenderOther = view.findViewById(R.id.textSignupActivity_GenderOther);
-
         imageCountryFlag = view.findViewById(R.id.imageSignupActivity_CountryFlag);
 
         imagePasswordToggle = view.findViewById(R.id.imageSignupActivity_PasswordToggle);
 
         TextView textCreateBusinessAccount = view.findViewById(R.id.textCreateBusinessAccount);
-
-        RadioButton radioGenderMale = view.findViewById(R.id.radioSignupActivityGenderMale);
-        RadioButton radioGenderFemale = view.findViewById(R.id.radioSignupActivityGenderFemale);
-        RadioButton radioGenderOther = view.findViewById(R.id.radioSignupActivityGenderOther);
 
         LinearLayout llSignIn = view.findViewById(R.id.llSignUpActivity_SignIn);
         LinearLayout llSignUp = view.findViewById(R.id.llSignUpActivity_SignUp);
@@ -96,29 +86,6 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
         editCountry.setOnClickListener(v ->
                 ViewsUtils.showBottomSheetDialogFragment(getParentFragmentManager(),
                         countryPickerFragment, true));
-
-        // Gender labels on click
-        textGenderMale.setOnClickListener(v -> radioGenderMale.setChecked(true));
-        textGenderFemale.setOnClickListener(v -> radioGenderFemale.setChecked(true));
-        textGenderOther.setOnClickListener(v -> radioGenderOther.setChecked(true));
-
-        radioGenderMale.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                selectedGender = AccountUtils.KEY_GENDER_MALE; // Set gender value
-            }
-        });
-
-        radioGenderFemale.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                selectedGender = AccountUtils.KEY_GENDER_FEMALE; // Set gender value
-            }
-        });
-
-        radioGenderOther.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                selectedGender = AccountUtils.KEY_GENDER_OTHER; // Set gender value
-            }
-        });
 
         editPassword.addTextChangedListener(new TextWatcher() {
             @Override
@@ -158,8 +125,7 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
                         editLastName.getText().toString(),
                         editEmailAddress.getText().toString(),
                         countryCode, countryAlpha2,
-                        Objects.requireNonNull(editPassword.getText()).toString(),
-                        selectedGender);
+                        Objects.requireNonNull(editPassword.getText()).toString());
             }
         });
 
@@ -187,8 +153,7 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
                 false)
                 && InputFiltersUtils.checkEmailAddressValidNotify(mContext, editEmailAddress)
                 && InputFiltersUtils.checkCountryLengthNotify(mContext, editCountry)
-                && InputFiltersUtils.checkPasswordLengthNotify(mContext, editPassword)
-                && InputFiltersUtils.checkGenderLengthNotify(mContext, selectedGender));
+                && InputFiltersUtils.checkPasswordLengthNotify(mContext, editPassword));
     }
 
     @Override

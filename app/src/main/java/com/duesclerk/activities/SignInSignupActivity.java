@@ -226,14 +226,12 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
      * @param countryCode   - Country code
      * @param countryAlpha2 - Country alpha2
      * @param password      - Password
-     * @param gender        - Gender
      */
 
     @Override
     public void passPersonalAccountSignupDetails(String firstName, String lastName,
                                                  String emailAddress, String countryCode,
-                                                 String countryAlpha2, String password,
-                                                 String gender) {
+                                                 String countryAlpha2, String password) {
         // Clear java bean and ArrayList for re-use
         jbUserAccountInfo.clear();
         signupDetailsArray.clear();
@@ -245,7 +243,6 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
         jbUserAccountInfo.setCountryCode(countryCode);
         jbUserAccountInfo.setCountryAlpha2(countryAlpha2);
         jbUserAccountInfo.setPassword(password);
-        jbUserAccountInfo.setGender(gender);
 
         // Add java bean to ArrayList
         signupDetailsArray.add(jbUserAccountInfo);
@@ -453,8 +450,6 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
                                 signupDetailsArray.get(0).getFirstName());
                         params.put(AccountUtils.FIELD_LAST_NAME,
                                 signupDetailsArray.get(0).getLastName());
-                        params.put(AccountUtils.FIELD_GENDER,
-                                signupDetailsArray.get(0).getGender());
                         params.put(AccountUtils.FIELD_ACCOUNT_TYPE,
                                 AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL);
                     }

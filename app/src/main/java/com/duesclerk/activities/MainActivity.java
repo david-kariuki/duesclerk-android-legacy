@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -79,16 +78,7 @@ public class MainActivity extends AppCompatActivity {
         SessionManager sessionManager = new SessionManager(mContext);
         SQLiteDB database = new SQLiteDB(mContext);
 
-        floatingActionButton.setOnLongClickListener( v -> {
-                sessionManager.setSignedIn(false);
-                if (!database.isEmpty()) {
-                    database.deleteUserAccountInfoByUserId(
-                            database.getUserAccountInfo(null).get(0).getUserId());
-                }
-
-            Toast.makeText(mContext, "Deleted", Toast.LENGTH_SHORT).show();
-                return false;
-            });
+        floatingActionButton.setOnLongClickListener(v -> false);
 
         // Show switch account type fragment
         ViewsUtils.showBottomSheetDialogFragment(getSupportFragmentManager(),

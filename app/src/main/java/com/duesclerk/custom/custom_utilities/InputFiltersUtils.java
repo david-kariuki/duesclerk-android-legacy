@@ -491,31 +491,6 @@ public class InputFiltersUtils {
     }
 
     /**
-     * Function to check gender length
-     *
-     * @param context - context used to show toast
-     * @param gender  - Character Sequence
-     * @return boolean
-     */
-    public static boolean checkGenderLengthNotify(@NonNull Context context,
-                                                  @NonNull String gender) {
-
-        if (!(gender.length() > 0)) {
-
-            // Toast error message
-            CustomToast.errorMessage(context, DataUtils.getStringResource(context,
-                    R.string.error_gender_null),
-                    R.drawable.ic_gender_neutral_100px_white);
-
-        } else {
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * Function to check date of birth length
      *
      * @param context  - context used to show toast

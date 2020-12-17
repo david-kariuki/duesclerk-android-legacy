@@ -28,7 +28,7 @@
             app:layout_constraintHorizontal_bias="-1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="-1.0"
+            app:layout_constraintVertical_bias="0"
             app:layout_constraintWidth_percent=".9">
 
             <androidx.cardview.widget.CardView
@@ -338,54 +338,6 @@
                         <View
                             style="@style/Style_Shimmer_EditText"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/dimen_shimmer_edit_text_height" />
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                style="@style/Style_SignInSignUp_Profile_CardView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="@dimen/dimen_signup_signin_card_corner_radius"
-                app:cardUseCompatPadding="true">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="vertical">
-
-                    <View
-                        style="@style/Style_Shimmer_TextView_Labels"
-                        android:layout_width="@dimen/dimen_shimmer_text_view_width"
-                        android:layout_height="@dimen/dimen_shimmer_text_view_height"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginBottom="5dp" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/dimen_icon_size_small"
-                            android:layout_height="@dimen/dimen_icon_size_small"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginEnd="10dp"
-                            android:contentDescription="@string/content_description_icon_gender"
-                            android:padding="@dimen/dimen_icon_padding_small"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/ic_toilet_100px_primary_grey" />
-
-                        <View
-                            style="@style/Style_Shimmer_EditText"
-                            android:layout_width="100dp"
                             android:layout_height="@dimen/dimen_shimmer_edit_text_height" />
                     </LinearLayout>
                 </LinearLayout>

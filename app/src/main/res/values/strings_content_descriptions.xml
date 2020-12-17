@@ -29,7 +29,6 @@
     <string name="content_description_icon_country">Country icon</string>
     <string name="content_description_icon_country_flag">Country flag icon</string>
     <string name="content_description_icon_city_name">Country icon</string>
-    <string name="content_description_icon_gender">Gender icon</string>
     <string name="content_description_icon_account_type">Account type icon</string>
     <string name="content_description_icon_signup_date">Signup date icon</string>
     <string name="content_description_icon_password">Password icon</string>

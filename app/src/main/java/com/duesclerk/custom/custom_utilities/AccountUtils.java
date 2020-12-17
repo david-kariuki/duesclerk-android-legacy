@@ -30,12 +30,6 @@ public class AccountUtils {
     public static final String FIELD_NEW_PASSWORD   = "NewPassword";
     public static final String FIELD_CONFIRM_NEW_PASSWORD   = "ConfirmNewPassword";
 
-    // Gender
-    public static final String FIELD_GENDER         = "Gender";
-    public static final String KEY_GENDER_MALE      = "Male";
-    public static final String KEY_GENDER_FEMALE    = "Female";
-    public static final String KEY_GENDER_OTHER     = "Other";
-
     // Account type
     public static final String FIELD_ACCOUNT_TYPE           = "AccountType";
     public static final String FIELD_NEW_ACCOUNT_TYPE       = "NewAccountType";

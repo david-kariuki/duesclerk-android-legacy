@@ -11,8 +11,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -63,13 +61,11 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
     private SwipeRefreshLayout.OnRefreshListener swipeRefreshListener;
     private ScrollView scrollView;
     private ProgressDialog progressDialog;
-    private CardView cardBusinessName, cardPersonsNames, cardGender, cardAccountType,
+    private CardView cardBusinessName, cardPersonsNames, cardAccountType,
             cardSignupDate;
     private EditText editBusinessName, editFirstName, editLastName,
             editEmailAddress, editCountry;
-    private TextView textGender, textAccountType, textSignupDate;
-    private RadioGroup radioGroupGender;
-    private RadioButton radioGenderMale, radioGenderFemale, radioGenderOther;
+    private TextView textAccountType, textSignupDate;
     private FloatingActionButton fabEdit, fabSaveEdits, fabCancelEdits;
     private ImageView imageCountryFlag, imageEmailVerificationError;
     private boolean editingProfile = false;
@@ -80,15 +76,13 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
     private LinearLayout llUserProfileActivity, llUserProfileActivityFABS, llNoConnection;
     private String fetchedFirstName = "", fetchedLastName = "", fetchedBusinessName = "",
             fetchedEmailAddress = "", fetchedCountryName,
-            fetchedCountryCode = "", fetchedCountryFlag = "", fetchedCountryAlpha2 = "",
-            fetchedGender = "";
+            fetchedCountryCode = "", fetchedCountryFlag = "", fetchedCountryAlpha2 = "";
     private boolean profileFetched = false, emailVerified = false, emailNotVerifiedDialogShown =
             false, fetchedUserProfile = false;
-    private EditText newSelectedGender = null, newSelectedCountryCode = null,
+    private EditText newSelectedCountryCode = null,
             newSelectedCountryAlpha2 = null;
     private String newFirstName = "", newLastName = "", newBusinessName = "",
-            newEmailAddress = "", newCountryCode = "", newCountryAlpha2 = "",
-            newGender = "";
+            newEmailAddress = "", newCountryCode = "", newCountryAlpha2 = "";
     private String accountType;
     private int CURRENT_TASK;
 
@@ -109,7 +103,6 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
         // CardViews
         cardBusinessName = findViewById(R.id.cardUserProfileActivity_BusinessName);
         cardPersonsNames = findViewById(R.id.cardUserProfileActivity_PersonsNames);
-        cardGender = findViewById(R.id.cardUserProfileActivity_Gender);
         cardAccountType = findViewById(R.id.cardUserProfileActivity_AccountType);
         cardSignupDate = findViewById(R.id.cardUserProfileActivity_SignupDate);
 
@@ -119,21 +112,11 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
         editEmailAddress = findViewById(R.id.editUserProfileActivity_EmailAddress);
         editCountry = findViewById(R.id.editUserProfileActivity_Country);
 
-        // Radio group and radio buttons
-        radioGroupGender = findViewById(R.id.radioGroupUserProfileActivity_Gender);
-        radioGenderMale = findViewById(R.id.radioProfileActivityGenderMale);
-        radioGenderFemale = findViewById(R.id.radioProfileActivityGenderFemale);
-        radioGenderOther = findViewById(R.id.radioProfileActivityGenderOther);
-
         // TextViews
-        TextView textGenderMale = findViewById(R.id.textUserProfileActivity_GenderMale);
-        TextView textGenderFemale = findViewById(R.id.textUserProfileActivity_GenderFemale);
-        TextView textGenderOther = findViewById(R.id.textUserProfileActivity_GenderOther);
-        textGender = findViewById(R.id.textUserProfileActivity_Gender);
         textAccountType = findViewById(R.id.textUserProfileActivity_AccountType);
         textSignupDate = findViewById(R.id.textUserProfileActivity_SignupDate);
 
-        newSelectedGender = new EditText(mContext);
+        // Initialize EditText objects
         newSelectedCountryCode = new EditText(mContext);
         newSelectedCountryAlpha2 = new EditText(mContext);
 
@@ -151,7 +134,6 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
         editBusinessName.addTextChangedListener(this);
         editEmailAddress.addTextChangedListener(this);
         editCountry.addTextChangedListener(this);
-        newSelectedGender.addTextChangedListener(this);
         newSelectedCountryCode.addTextChangedListener(this);
         newSelectedCountryAlpha2.addTextChangedListener(this);
 
@@ -186,29 +168,6 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
         // Initialize email not verified fragment and set first name or business name to it
         initEmailVerificationFragment(); // Initialize fragment
-
-        // Gender labels on click
-        textGenderMale.setOnClickListener(v -> radioGenderMale.setChecked(true));
-        textGenderFemale.setOnClickListener(v -> radioGenderFemale.setChecked(true));
-        textGenderOther.setOnClickListener(v -> radioGenderOther.setChecked(true));
-
-        radioGenderMale.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                newSelectedGender.setText(AccountUtils.KEY_GENDER_MALE); // Set gender value
-            }
-        });
-
-        radioGenderFemale.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                newSelectedGender.setText(AccountUtils.KEY_GENDER_FEMALE); // Set gender value
-            }
-        });
-
-        radioGenderOther.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                newSelectedGender.setText(AccountUtils.KEY_GENDER_OTHER); // Set gender value
-            }
-        });
 
         // FAB edit onClick
         fabEdit.setOnClickListener(v -> enableProfileEdit(true));
@@ -432,21 +391,11 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
             editFirstName.requestFocus(); // Focus on first name
 
-            if (enable) {
-
-                textGender.setVisibility(View.GONE); // Hide gender text
-                radioGroupGender.setVisibility(View.VISIBLE); // Show gender radio button
-
-            } else {
-
-                textGender.setVisibility(View.VISIBLE); // Show gender text
-                radioGroupGender.setVisibility(View.GONE); // Hide gender radio button
+            if (!enable) {
 
                 // Revert previously set details in case they changed
                 editFirstName.setText(fetchedFirstName);
                 editLastName.setText(fetchedLastName);
-                textGender.setText(fetchedGender);
-                newSelectedGender.setText(fetchedGender);
             }
 
         } else if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
@@ -528,23 +477,18 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
                     fetchedFirstName = user.getString(AccountUtils.FIELD_FIRST_NAME);
                     fetchedLastName = user.getString(AccountUtils.FIELD_LAST_NAME);
-                    fetchedGender = user.getString(AccountUtils.FIELD_GENDER);
 
                     // Hide views
                     cardBusinessName.setVisibility(View.GONE);
 
                     // Show views
                     cardPersonsNames.setVisibility(View.VISIBLE);
-                    cardGender.setVisibility(View.VISIBLE);
 
                     // Set profile details
                     editFirstName.setText(fetchedFirstName);
                     editLastName.setText(fetchedLastName);
 
-                    textGender.setText(fetchedGender);
-                    // Set to newly EditText to avoid showing save button during field check
-                    newSelectedGender.setText(fetchedGender);
-
+                    // Set account type
                     textAccountType.setText(DataUtils.getStringResource(mContext,
                             R.string.hint_personal_account));
 
@@ -555,7 +499,6 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
                     // Hide views
                     cardPersonsNames.setVisibility(View.GONE);
-                    cardGender.setVisibility(View.GONE);
 
                     // Show views
                     cardBusinessName.setVisibility(View.VISIBLE);
@@ -701,8 +644,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                     || (!editLastName.getText().toString().equals(fetchedLastName))
                     || (!editEmailAddress.getText().toString().equals(fetchedEmailAddress))
                     || (!newSelectedCountryCode.getText().toString().equals(fetchedCountryCode))
-                    || (!newSelectedCountryAlpha2.getText().toString().equals(fetchedCountryAlpha2))
-                    || (!newSelectedGender.getText().toString().equals(fetchedGender)));
+                    || (!newSelectedCountryAlpha2.getText().toString().equals(fetchedCountryAlpha2)));
         } else {
             return (
                     (!editBusinessName.getText().toString().equals(fetchedBusinessName))
@@ -729,10 +671,6 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
             if (!editLastName.getText().toString().equals(fetchedLastName)) {
                 newLastName = editLastName.getText().toString();
-            }
-
-            if (!newSelectedGender.getText().toString().equals(fetchedGender)) {
-                newGender = newSelectedGender.getText().toString();
             }
 
         } else if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
@@ -772,7 +710,6 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
         this.newEmailAddress = "";
         this.newCountryCode = "";
         this.newCountryAlpha2 = "";
-        this.newGender = "";
     }
 
     /**
@@ -1071,9 +1008,6 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                             }
                             if (!DataUtils.isEmptyString(newLastName)) {
                                 params.put(AccountUtils.FIELD_LAST_NAME, newLastName);
-                            }
-                            if (!DataUtils.isEmptyString(newGender)) {
-                                params.put(AccountUtils.FIELD_GENDER, newGender);
                             }
 
                         } else if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
