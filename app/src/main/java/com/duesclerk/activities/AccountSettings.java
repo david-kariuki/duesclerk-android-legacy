@@ -16,6 +16,7 @@ import com.duesclerk.custom.custom_utilities.BroadCastUtils;
 import com.duesclerk.custom.custom_utilities.DataUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
 import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.ChangePasswordFragment;
+import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.SwitchAccountTypeFragment;
 import com.duesclerk.custom.storage_adapters.SQLiteDB;
 
 public class AccountSettings extends AppCompatActivity {
@@ -41,26 +42,6 @@ public class AccountSettings extends AppCompatActivity {
 
         // ImageViews
         ImageView imageExit = findViewById(R.id.imageAccountSettings_Exit);
-
-        String accountType = database.getClientAccountInfo(null).get(0).getAccountType();
-
-        // Set switch account label
-        if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
-            // Personal account
-
-            // Set menu action label
-            textSwitchAccount.setText(DataUtils.getStringResource(mContext,
-                    R.string.action_switch_account_type,
-                    DataUtils.getStringResource(mContext, R.string.hint_business_account)));
-
-        } else if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
-            // Business account
-
-            // Set menu action label
-            textSwitchAccount.setText(DataUtils.getStringResource(mContext,
-                    R.string.action_switch_account_type,
-                    DataUtils.getStringResource(mContext, R.string.hint_personal_account)));
-        }
 
         // Change password fragment
         ChangePasswordFragment changePasswordFragment = new ChangePasswordFragment(mContext);

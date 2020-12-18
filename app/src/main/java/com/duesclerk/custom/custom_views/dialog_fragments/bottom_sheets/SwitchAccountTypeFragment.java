@@ -4,13 +4,13 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -31,6 +31,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.duesclerk.R;
 import com.duesclerk.custom.custom_utilities.AccountUtils;
 import com.duesclerk.custom.custom_utilities.ApplicationClass;
+import com.duesclerk.custom.custom_utilities.BroadCastUtils;
 import com.duesclerk.custom.custom_utilities.DataUtils;
 import com.duesclerk.custom.custom_utilities.InputFiltersUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
@@ -44,7 +45,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textfield.TextInputEditText;
 
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -58,17 +58,18 @@ import static com.duesclerk.custom.custom_utilities.ViewsUtils.showProgressDialo
 public class SwitchAccountTypeFragment extends BottomSheetDialogFragment implements TextWatcher {
 
     // Get class simple name
-    private final String TAG = SwitchAccountTypeFragment.class.getSimpleName();
+    // private final String TAG = SwitchAccountTypeFragment.class.getSimpleName();
 
     private final Context mContext;
     private final SQLiteDB database;
+    private final String switchLabel;
     private BottomSheetBehavior bottomSheetBehavior;
     private BottomSheetBehavior.BottomSheetCallback bottomSheetCallback;
     private ImageView imagePasswordTogglePassword;
     private EditText editFirstName, editLastName, editBusinessName;
     private TextInputEditText editPassword;
     private ProgressDialog progressDialog;
-    private String accountType, switchLabel;
+    private String accountType;
 
     /**
      * Constructor
@@ -158,13 +159,6 @@ public class SwitchAccountTypeFragment extends BottomSheetDialogFragment impleme
             ViewsUtils.togglePasswordField(editPassword, imagePasswordTogglePassword);
         });
 
-        // Password toggle onClick
-        imagePasswordTogglePassword.setOnClickListener(view13 -> {
-
-            // Toggle password visibility
-            ViewsUtils.togglePasswordField(editPassword, imagePasswordTogglePassword);
-        });
-
         // Dismiss dialog
         llCancel.setOnClickListener(v -> dismiss());
 
@@ -184,7 +178,7 @@ public class SwitchAccountTypeFragment extends BottomSheetDialogFragment impleme
                 switchAccountType(
                         database.getUserAccountInfo(null).get(0).getUserId(),
                         finalNewAccountType,
-                        database.getUserAccountInfo(null).get(0).getPassword()
+                        Objects.requireNonNull(editPassword.getText()).toString()
                 );
             }
         });
@@ -220,13 +214,9 @@ public class SwitchAccountTypeFragment extends BottomSheetDialogFragment impleme
     }
 
     @Override
-    public void onAttach(@NotNull Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
+
         this.bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         this.bottomSheetBehavior.addBottomSheetCallback(bottomSheetCallback);
     }
@@ -240,17 +230,17 @@ public class SwitchAccountTypeFragment extends BottomSheetDialogFragment impleme
         if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
             // Personal account
 
-            return (InputFiltersUtils.checkPersonNameLengthNotify(mContext, editFirstName,
-                    true)
-                    && InputFiltersUtils.checkPersonNameLengthNotify(mContext, editLastName,
-                    false)
+            return (InputFiltersUtils.checkBusinessNameLengthNotify(mContext, editBusinessName)
                     && InputFiltersUtils.checkPasswordLengthNotify(mContext, editPassword)
             );
 
         } else if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
             // Business account
 
-            return (InputFiltersUtils.checkBusinessNameLengthNotify(mContext, editBusinessName)
+            return (InputFiltersUtils.checkPersonNameLengthNotify(mContext, editFirstName,
+                    true)
+                    && InputFiltersUtils.checkPersonNameLengthNotify(mContext, editLastName,
+                    false)
                     && InputFiltersUtils.checkPasswordLengthNotify(mContext, editPassword)
             );
         }
@@ -261,7 +251,7 @@ public class SwitchAccountTypeFragment extends BottomSheetDialogFragment impleme
     /**
      * Function to update password on remote database
      *
-     * @param userId       - Users id
+     * @param userId         - Users id
      * @param newAccountType - Users account type
      * @param password       - Current stored SQLite password
      */
@@ -275,26 +265,37 @@ public class SwitchAccountTypeFragment extends BottomSheetDialogFragment impleme
 
                 ViewsUtils.hideKeyboard(requireActivity()); // Hide keyboard if showing
 
+                // Check account type
+                String switchingToValue = null;
+                if (newAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
+                    switchingToValue = DataUtils.getStringResource(mContext,
+                            R.string.hint_personal_account);
+
+                } else if (newAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
+                    switchingToValue = DataUtils.getStringResource(mContext,
+                            R.string.hint_business_account);
+                }
+
                 // Show dialog
                 showProgressDialog(progressDialog,
                         DataUtils.getStringResource(mContext,
                                 R.string.title_switching_account_type),
                         DataUtils.getStringResource(mContext,
-                                R.string.msg_switching_account_type, newAccountType)
+                                R.string.msg_switching_account_type, switchingToValue)
                 );
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,
                         NetworkUtils.URL_SWITCH_ACCOUNT_TYPE, response -> {
 
                     // Log Response
-                    Log.d(TAG, "Switch account type response:" + response);
+                    // Log.d(TAG, "Switch account type response:" + response);
+
+                    ViewsUtils.dismissProgressDialog(progressDialog); // Hide Dialog
 
                     try {
 
                         JSONObject jsonObject = new JSONObject(response);
                         boolean error = jsonObject.getBoolean(VolleyUtils.KEY_ERROR);
-
-                        ViewsUtils.dismissProgressDialog(progressDialog); // Hide Dialog
 
                         // Check for error
                         if (!error) {
@@ -313,16 +314,27 @@ public class SwitchAccountTypeFragment extends BottomSheetDialogFragment impleme
                                                 R.string.msg_account_switching_successful),
                                         false, R.drawable.ic_baseline_person_24_white);
 
-                                dismiss(); // Dismiss dialog
+                                try {
+
+                                    dismiss(); // Dismiss dialog
+                                } finally {
+
+                                    // Send broadcast to set switch account type action text
+                                    Intent intentBroadcast = new Intent(
+                                            BroadCastUtils.bcrActionSetSwitchAccountTypeActionText);
+                                    requireActivity().sendBroadcast(intentBroadcast);
+                                }
                             }
                         } else {
                             // Error updating details
 
+                            String errorMessage = jsonObject.getString(
+                                    VolleyUtils.KEY_ERROR_MESSAGE);
+
                             // Toast error message
                             CustomToast.errorMessage(
                                     mContext,
-                                    DataUtils.getStringResource(mContext,
-                                            R.string.error_account_switching_failed),
+                                    errorMessage,
                                     R.drawable.ic_baseline_edit_24_white);
 
                             // Cancel Pending Request
@@ -334,8 +346,8 @@ public class SwitchAccountTypeFragment extends BottomSheetDialogFragment impleme
                 }, volleyError -> {
 
                     // Log Response
-                    Log.e(TAG, "Switch account type Response Error : "
-                            + volleyError.getMessage());
+                    // Log.e(TAG, "Switch account type Response Error : "
+                    //         + volleyError.getMessage());
 
                     ViewsUtils.dismissProgressDialog(progressDialog); // Hide Dialog
 
@@ -370,6 +382,22 @@ public class SwitchAccountTypeFragment extends BottomSheetDialogFragment impleme
                     protected Map<String, String> getParams() {
                         @SuppressWarnings({"unchecked", "rawtypes"}) Map<String, String> params =
                                 new HashMap();
+
+                        // Check account type
+                        if (newAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
+
+                            // Put firstName and lastName
+                            params.put(AccountUtils.FIELD_FIRST_NAME,
+                                    editFirstName.getText().toString());
+                            params.put(AccountUtils.FIELD_LAST_NAME,
+                                    editLastName.getText().toString());
+
+                        } else if (newAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
+
+                            // Put businessName
+                            params.put(AccountUtils.FIELD_BUSINESS_NAME,
+                                    editBusinessName.getText().toString());
+                        }
 
                         // Put userId, current and new password to Map params
                         params.put(AccountUtils.FIELD_USER_ID, userId);
