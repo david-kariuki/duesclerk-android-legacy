@@ -31,8 +31,8 @@ import java.util.Objects;
 public class FragmentPersonalSignup extends Fragment implements Interface_CountryPicker {
 
     private Context mContext;
-    private EditText editFirstName, editLastName, editEmailAddress;
-    private TextInputEditText editCountry, editPassword;
+    private EditText editFirstName, editLastName, editEmailAddress, editCountry;
+    private TextInputEditText editPassword;
     private String countryCode, countryAlpha2;
     private ImageView imagePasswordToggle, imageCountryFlag;
     private CountryPickerFragment countryPickerFragment;

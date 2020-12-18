@@ -31,7 +31,7 @@
             app:layout_constraintHorizontal_bias="-1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="-1.0"
+            app:layout_constraintVertical_bias="0"
             app:layout_constraintWidth_percent=".9">
 
             <androidx.cardview.widget.CardView
@@ -76,17 +76,16 @@
 
                         <EditText
                             android:id="@+id/editUserProfileActivity_BusinessName"
-                            style="@style/Style_SignInSignUp_Profile_Text_Labels"
+                            style="@style/Style_SignInSignUpProfile_TextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="0dp"
                             android:autofillHints=""
                             android:background="@null"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
                             android:hint="@string/hint_business_name"
                             android:imeActionLabel="Next"
-                            android:inputType="textNoSuggestions|textCapWords" />
+                            android:inputType="textPersonName|textCapWords" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -438,6 +437,7 @@
                             android:textAlignment="center"
                             android:textColor="@color/colorPrimaryGrey"
                             android:textSize="12sp"
+                            android:layout_marginStart="0dp"
                             android:textColorHint="@color/colorPrimaryGrey" />
                     </LinearLayout>
                 </LinearLayout>

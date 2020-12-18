@@ -289,12 +289,13 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
                         } else {
                             // Error updating details
 
+                            String errorMessage = jsonObject.getString(
+                                    VolleyUtils.KEY_ERROR_MESSAGE);
+
                             // Toast error message
                             CustomToast.errorMessage(
                                     mContext,
-                                    DataUtils.getStringResource(
-                                            mContext,
-                                            R.string.error_password_update_failed),
+                                    errorMessage,
                                     R.drawable.ic_baseline_edit_24_white);
 
                             // Cancel Pending Request

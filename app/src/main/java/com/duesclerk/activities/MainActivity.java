@@ -12,10 +12,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.duesclerk.R;
 import com.duesclerk.custom.custom_utilities.DataUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
-import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.SwitchAccountTypeFragment;
 import com.duesclerk.custom.custom_views.view_pager.ViewPagerAdapter;
-import com.duesclerk.custom.storage_adapters.SQLiteDB;
-import com.duesclerk.custom.storage_adapters.SessionManager;
 import com.duesclerk.ui.fragment_app_menu.FragmentAppMenu;
 import com.duesclerk.ui.fragment_people_i_owe.FragmentPeople_I_Owe;
 import com.duesclerk.ui.fragment_peopleowingme.FragmentPeopleOwingMe;
@@ -75,15 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         floatingActionButton.setOnClickListener(v -> fabClickedAction()); // Fab on click
 
-        SessionManager sessionManager = new SessionManager(mContext);
-        SQLiteDB database = new SQLiteDB(mContext);
-
         floatingActionButton.setOnLongClickListener(v -> false);
-
-        // Show switch account type fragment
-        ViewsUtils.showBottomSheetDialogFragment(getSupportFragmentManager(),
-                new SwitchAccountTypeFragment(mContext, DataUtils.getStringResource(mContext,
-                        R.string.hint_business_account)), true);
 
         Objects.requireNonNull(tabLayout.getTabAt(2)).select();
     }

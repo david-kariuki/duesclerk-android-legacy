@@ -20,6 +20,7 @@ import com.vstechlab.easyfonts.EasyFonts;
 public class SplashActivity extends AppCompatActivity {
 
     private SessionManager sessionManager;
+    private Thread counterThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +48,8 @@ public class SplashActivity extends AppCompatActivity {
         textAppName.setTextColor(ContextCompat.getColor(mContext, R.color.colorBlack));
         textAppName.startAnimation(animSlideDown); // set animation
 
-        // Thread wait time
-        // Launch MainActivity
-        // Launch Signin and SignUp activity
-        // Exit activity
-        // Exit Activity
-        Thread counterThread = new Thread() {
+        // Counter thread
+        counterThread = new Thread() {
             @Override
             public void run() {
                 try {
@@ -81,6 +78,13 @@ public class SplashActivity extends AppCompatActivity {
         };
 
         counterThread.start(); // Start thread
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        counterThread.interrupt(); // Stop thread
     }
 
     @Override
