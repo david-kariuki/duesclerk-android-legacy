@@ -565,8 +565,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                     // Hide error icon
                     imageEmailVerificationError.setVisibility(View.INVISIBLE);
                 }
-            } catch (JSONException ignor) {
-                ignor.printStackTrace();
+            } catch (JSONException ignored) {
             }
         }
     }
@@ -764,6 +763,8 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                             setFetchedData(objectUser); // Set fetched details
                         } else {
                             // Error fetching details
+
+                            enableProfileEdit(false); // Disable profile edits
 
                             // Cancel Pending Request
                             ApplicationClass.getClassInstance().cancelPendingRequests(
