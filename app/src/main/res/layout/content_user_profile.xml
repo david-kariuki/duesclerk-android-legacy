@@ -51,7 +51,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/Style_SignInSignUp_Profile_Text_Labels"
+                        style="@style/Style_Text_Labels"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/hint_business_name" />
@@ -107,7 +107,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/Style_SignInSignUp_Profile_Text_Labels"
+                        style="@style/Style_Text_Labels"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/hint_first_and_last_name" />
@@ -201,7 +201,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/Style_SignInSignUp_Profile_Text_Labels"
+                        style="@style/Style_Text_Labels"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/hint_email_address" />
@@ -277,7 +277,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/Style_SignInSignUp_Profile_Text_Labels"
+                        style="@style/Style_Text_Labels"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/hint_country_name" />
@@ -312,7 +312,7 @@
 
                         <EditText
                             android:id="@+id/editUserProfileActivity_Country"
-                            style="@style/Style_SignInSignUp_Profile_Text_Labels"
+                            style="@style/Style_Text_Labels"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginStart="5dp"
@@ -348,7 +348,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/Style_SignInSignUp_Profile_Text_Labels"
+                        style="@style/Style_Text_Labels"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/hint_account_type" />
@@ -374,7 +374,7 @@
 
                         <TextView
                             android:id="@+id/textUserProfileActivity_AccountType"
-                            style="@style/Style_SignInSignUp_Profile_Text_Labels"
+                            style="@style/Style_Text_Labels"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="0dp"
@@ -401,7 +401,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/Style_SignInSignUp_Profile_Text_Labels"
+                        style="@style/Style_Text_Labels"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/hint_signup_date"
@@ -429,7 +429,7 @@
 
                         <TextView
                             android:id="@+id/textUserProfileActivity_SignupDate"
-                            style="@style/Style_SignInSignUp_Profile_Text_Labels"
+                            style="@style/Style_Text_Labels"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:hint="@string/hint_signup_date"

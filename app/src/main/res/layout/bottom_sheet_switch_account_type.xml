@@ -70,7 +70,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            style="@style/Style_SignInSignUp_Profile_Text_Labels"
+                            style="@style/Style_Text_Labels"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/hint_first_and_last_name" />
@@ -166,7 +166,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            style="@style/Style_SignInSignUp_Profile_Text_Labels"
+                            style="@style/Style_Text_Labels"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15dp"
@@ -225,7 +225,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            style="@style/Style_SignInSignUp_Profile_Text_Labels"
+                            style="@style/Style_Text_Labels"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
