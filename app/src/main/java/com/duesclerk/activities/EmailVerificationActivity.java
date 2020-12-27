@@ -26,15 +26,16 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.StringRequest;
 import com.duesclerk.R;
-import com.duesclerk.custom.custom_utilities.AccountUtils;
 import com.duesclerk.custom.custom_utilities.ApplicationClass;
 import com.duesclerk.custom.custom_utilities.DataUtils;
+import com.duesclerk.custom.custom_utilities.UserAccountUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
 import com.duesclerk.custom.custom_utilities.VolleyUtils;
 import com.duesclerk.custom.custom_views.toast.CustomToast;
 import com.duesclerk.custom.network.InternetConnectivity;
-import com.duesclerk.custom.network.NetworkUtils;
-import com.duesclerk.custom.storage_adapters.SQLiteDB;
+import com.duesclerk.custom.network.NetworkTags;
+import com.duesclerk.custom.network.NetworkUrls;
+import com.duesclerk.custom.storage_adapters.UserDatabase;
 import com.jkb.vcedittext.VerificationCodeEditText;
 
 import org.jetbrains.annotations.NotNull;
@@ -56,7 +57,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
     private LinearLayout llVerificationLayout;
     private LinearLayout llCannotConnect;
     private LinearLayout llSendVerificationLayout;
-    private SQLiteDB database;
+    private UserDatabase database;
     private TextView textVerifyCodeMessage;
     private TextView textResendCodeEnabled;
     private TextView textResendCodeDisabled;
@@ -80,7 +81,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
         Intent intent = new Intent();
 
         // Get business name or first name
-        String name = intent.getStringExtra(AccountUtils.KEY_NAME);
+        String name = intent.getStringExtra(UserAccountUtils.KEY_NAME);
 
         ImageView ivExit = findViewById(R.id.imageEmailActivation_Exit);
         imageLogo = findViewById(R.id.imageEmailVerification_Logo);
@@ -111,7 +112,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
 
         scrollView = findViewById(R.id.scrollViewEmailVerificationActivity); // ScrollView
 
-        database = new SQLiteDB(mContext); // Initialize database object
+        database = new UserDatabase(mContext); // Initialize database object
 
         // Initialize ProgressDialog
         progressDialog = ViewsUtils.initProgressDialog(
@@ -130,7 +131,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
                     isResendEnabledHidden = true; // Set isResendHidden Hidden To True
                 }
 
-                String resendCode, timeString, timeString1, timeString2, timeString3 = "";
+                String resendCode, timeString;
 
                 // Set message
                 resendCode = getResources().getString(R.string.action_resend_code);
@@ -309,7 +310,6 @@ public class EmailVerificationActivity extends AppCompatActivity {
         llCannotConnect_Retry.setOnClickListener(v -> {
 
             if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
-                if (InternetConnectivity.isConnectionFast(mContext)) {
                     // Connected
 
                     // Hide no connection layout
@@ -346,7 +346,6 @@ public class EmailVerificationActivity extends AppCompatActivity {
                         default:
                             break;
                     }
-                }
             } else {
                 // No connection
 
@@ -446,7 +445,6 @@ public class EmailVerificationActivity extends AppCompatActivity {
 
         // Check Internet connection
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
-            if (InternetConnectivity.isConnectionFast(mContext)) {
                 // Connected
 
                 showLogoLayout(false); // Hide logo layout
@@ -465,7 +463,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
                 );
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                        NetworkUtils.URL_SEND_EMAIL_VERIFICATION_CODE,
+                        NetworkUrls.UserURLS.URL_SEND_EMAIL_VERIFICATION_CODE,
                         response -> {
 
                             // Log response
@@ -489,7 +487,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
 
                                     // Get verification code and success message
                                     String strVerificationCode = objectSendVerificationCode.
-                                            getString(AccountUtils.FIELD_VERIFICATION_CODE);
+                                            getString(UserAccountUtils.FIELD_VERIFICATION_CODE);
 
                                     // Check for verification code
                                     if (!DataUtils.isEmptyString(strVerificationCode)) {
@@ -571,7 +569,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
                     // Cancel pending request
                     ApplicationClass
                             .getClassInstance().cancelPendingRequests(
-                            NetworkUtils.TAG_SEND_EMAIL_VERIFICATION_STRING_REQUEST
+                            NetworkTags.UserNetworkTags.TAG_SEND_EMAIL_VERIFICATION_STRING_REQUEST
                     );
                 }
                 ) {
@@ -581,9 +579,9 @@ public class EmailVerificationActivity extends AppCompatActivity {
                         Map<String, String> params = new HashMap<>();
 
                         // Put params
-                        params.put(AccountUtils.FIELD_USER_ID, userId);
-                        params.put(AccountUtils.FIELD_VERIFICATION_TYPE,
-                                AccountUtils.KEY_VERIFICATION_TYPE_EMAIL_ACCOUNT);
+                        params.put(UserAccountUtils.FIELD_USER_ID, userId);
+                        params.put(UserAccountUtils.FIELD_VERIFICATION_TYPE,
+                                UserAccountUtils.KEY_VERIFICATION_TYPE_EMAIL_ACCOUNT);
 
                         return params;
                     }
@@ -604,8 +602,8 @@ public class EmailVerificationActivity extends AppCompatActivity {
 
                 // Adding request to request queue
                 ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                        NetworkUtils.TAG_SEND_EMAIL_VERIFICATION_STRING_REQUEST);
-            }
+                        NetworkTags.UserNetworkTags.TAG_SEND_EMAIL_VERIFICATION_STRING_REQUEST);
+
         } else {
             // Not Connected
             showNoConnectionLayout(true); // Show no connection layout
@@ -621,7 +619,6 @@ public class EmailVerificationActivity extends AppCompatActivity {
 
         // Check Internet connection
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
-            if (InternetConnectivity.isConnectionFast(mContext)) {
                 // Connected
 
                 showLogoLayout(false); // Hide logo layout
@@ -640,7 +637,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
                 );
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                        NetworkUtils.URL_VERIFY_EMAIL_ADDRESS,
+                        NetworkUrls.UserURLS.URL_VERIFY_EMAIL_ADDRESS,
                         response -> {
 
                             // Log response
@@ -736,16 +733,16 @@ public class EmailVerificationActivity extends AppCompatActivity {
                         Map<String, String> params = new HashMap<>();
 
                         // Put User Id
-                        params.put(AccountUtils.FIELD_USER_ID,
+                        params.put(UserAccountUtils.FIELD_USER_ID,
                                 database.getUserAccountInfo(null).get(0).getUserId());
 
                         // Put verification code
-                        params.put(AccountUtils.FIELD_VERIFICATION_CODE, verificationCode);
+                        params.put(UserAccountUtils.FIELD_VERIFICATION_CODE, verificationCode);
 
                         // Put verification type
                         params.put(
-                                AccountUtils.FIELD_VERIFICATION_TYPE,
-                                AccountUtils.KEY_VERIFICATION_TYPE_EMAIL_ACCOUNT
+                                UserAccountUtils.FIELD_VERIFICATION_TYPE,
+                                UserAccountUtils.KEY_VERIFICATION_TYPE_EMAIL_ACCOUNT
                         );
 
                         return params;
@@ -768,9 +765,8 @@ public class EmailVerificationActivity extends AppCompatActivity {
 
                 // Adding Request to request queue
                 ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                        NetworkUtils.TAG_VERIFY_EMAIL_STRING_REQUEST);
+                        NetworkTags.UserNetworkTags.TAG_VERIFY_EMAIL_STRING_REQUEST);
 
-            }
         } else {
             // Not Connected
 

@@ -18,8 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.duesclerk.R;
 import com.duesclerk.activities.UserProfileActivity;
-import com.duesclerk.custom.custom_utilities.AccountUtils;
 import com.duesclerk.custom.custom_utilities.DataUtils;
+import com.duesclerk.custom.custom_utilities.UserAccountUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
 import com.duesclerk.custom.custom_views.recycler_view_adapters.RVLA_CountryPicker;
 import com.duesclerk.custom.custom_views.view_decorators.Decorator_CountryPicker;
@@ -122,7 +122,7 @@ public class CountryPickerFragment extends BottomSheetDialogFragment {
 
                 switch (event) {
                     case XmlPullParser.START_TAG:
-                        if (key.equals(AccountUtils.KEY_COUNTRY_ITEM)) {
+                        if (key.equals(UserAccountUtils.KEY_COUNTRY_ITEM)) {
                             pojoCountryData = new JB_CountryData(); // Initialize POJO
                         }
                         break;
@@ -133,22 +133,22 @@ public class CountryPickerFragment extends BottomSheetDialogFragment {
 
                     case XmlPullParser.END_TAG:
                         // Put Country Name
-                        if (key.equalsIgnoreCase(AccountUtils.FIELD_COUNTRY_NAME)) {
+                        if (key.equalsIgnoreCase(UserAccountUtils.FIELD_COUNTRY_NAME)) {
                             Objects.requireNonNull(pojoCountryData).setCountryName(tagValue);
                             // Put Country Code
-                        } else if (key.equalsIgnoreCase(AccountUtils.FIELD_COUNTRY_CODE)) {
+                        } else if (key.equalsIgnoreCase(UserAccountUtils.FIELD_COUNTRY_CODE)) {
                             Objects.requireNonNull(pojoCountryData).setCountryCode(tagValue);
                             // Put Country Alpha2
-                        } else if (key.equalsIgnoreCase(AccountUtils.FIELD_COUNTRY_ALPHA2)) {
+                        } else if (key.equalsIgnoreCase(UserAccountUtils.FIELD_COUNTRY_ALPHA2)) {
                             Objects.requireNonNull(pojoCountryData).setCountryAlpha2(tagValue);
                             // Put Country Alpha3
-                        } else if (key.equalsIgnoreCase(AccountUtils.FIELD_COUNTRY_ALPHA3)) {
+                        } else if (key.equalsIgnoreCase(UserAccountUtils.FIELD_COUNTRY_ALPHA3)) {
                             Objects.requireNonNull(pojoCountryData).setCountryAlpha3(tagValue);
                             // Put Country Flag without file extension
-                        } else if (key.equalsIgnoreCase(AccountUtils.FIELD_COUNTRY_FLAG)) {
+                        } else if (key.equalsIgnoreCase(UserAccountUtils.FIELD_COUNTRY_FLAG)) {
                             Objects.requireNonNull(pojoCountryData).setCountryFlag(tagValue.replace(".png",
                                     ""));
-                        } else if (key.equalsIgnoreCase(AccountUtils.KEY_COUNTRY_ITEM)) {
+                        } else if (key.equalsIgnoreCase(UserAccountUtils.KEY_COUNTRY_ITEM)) {
                             if (pojoCountryData != null) {
                                 countryListArray.add(pojoCountryData);
                             }
@@ -215,6 +215,7 @@ public class CountryPickerFragment extends BottomSheetDialogFragment {
 
         // Remove window title
         bottomSheetDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+
         // Set transparent background
         bottomSheetDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 

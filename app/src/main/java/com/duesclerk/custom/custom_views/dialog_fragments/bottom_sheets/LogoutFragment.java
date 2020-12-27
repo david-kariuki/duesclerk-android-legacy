@@ -16,8 +16,8 @@ import androidx.annotation.NonNull;
 import com.duesclerk.R;
 import com.duesclerk.activities.SignInSignupActivity;
 import com.duesclerk.custom.custom_utilities.DataUtils;
-import com.duesclerk.custom.storage_adapters.SQLiteDB;
 import com.duesclerk.custom.storage_adapters.SessionManager;
+import com.duesclerk.custom.storage_adapters.UserDatabase;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -29,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 public class LogoutFragment extends BottomSheetDialogFragment {
 
     private final Context mContext;
-    private final SQLiteDB database;
+    private final UserDatabase database;
     private final SessionManager sessionManager;
     private BottomSheetBehavior bottomSheetBehavior;
     private BottomSheetBehavior.BottomSheetCallback bottomSheetCallback;
@@ -37,7 +37,7 @@ public class LogoutFragment extends BottomSheetDialogFragment {
     public LogoutFragment(Context mContext) {
         this.mContext = mContext; // Get context
         this.sessionManager = new SessionManager(mContext); // Initialize SessionManager object
-        this.database = new SQLiteDB(mContext); // Initialize database
+        this.database = new UserDatabase(mContext); // Initialize database
     }
 
     @NonNull
@@ -109,7 +109,9 @@ public class LogoutFragment extends BottomSheetDialogFragment {
         // Set BottomSheet behaviour
         this.bottomSheetBehavior = BottomSheetBehavior.from((View) contentView.getParent());
 
-        ((View) contentView.getParent()).setBackgroundColor(Color.TRANSPARENT);
+        // Set dialog transparent background
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
         return dialog;
     }
 

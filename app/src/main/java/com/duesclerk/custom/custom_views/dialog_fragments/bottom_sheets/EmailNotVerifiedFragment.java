@@ -20,7 +20,7 @@ import androidx.annotation.NonNull;
 import com.duesclerk.R;
 import com.duesclerk.activities.EmailVerificationActivity;
 import com.duesclerk.custom.custom_utilities.DataUtils;
-import com.duesclerk.custom.storage_adapters.SQLiteDB;
+import com.duesclerk.custom.storage_adapters.UserDatabase;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -55,7 +55,7 @@ public class EmailNotVerifiedFragment extends BottomSheetDialogFragment {
         LinearLayout llVerifyEmailAddress =
                 contentView.findViewById(R.id.llBSEmailNotVerified_Verify);
 
-        SQLiteDB database = new SQLiteDB(mContext); // Initialize Database  object
+        UserDatabase database = new UserDatabase(mContext); // Initialize Database  object
 
         // Initialize Animation
         animSwivel = AnimationUtils.loadAnimation(mContext, R.anim.anim_swivel);

@@ -64,25 +64,25 @@ public class UploadMedia {
 
                                         // Cover picture
                                         if (pictureType.equals(ImagePickerActivity.TYPE_COVER_PICTURE)){
-                                            coverPictureId = jsonObject.getString(AccountUtils.KEY_PROFILE_PICTURE_ID);
-                                            coverPictureUrl = jsonObject.getString(AccountUtils.KEY_PROFILE_PICTURE_URL);
+                                            coverPictureId = jsonObject.getString(UserAccountUtils.KEY_PROFILE_PICTURE_ID);
+                                            coverPictureUrl = jsonObject.getString(UserAccountUtils.KEY_PROFILE_PICTURE_URL);
 
                                             if (!DataUtils.isEmptyString(coverPictureId) && !DataUtils.isEmptyString(coverPictureUrl)){
                                                 uploadResponse.put(KEY_PICTURE_UPLOADED, Boolean.toString(true));
-                                                uploadResponse.put(AccountUtils.KEY_COVER_PICTURE_ID, coverPictureId);
-                                                uploadResponse.put(AccountUtils.KEY_COVER_PICTURE_URL, coverPictureUrl);
+                                                uploadResponse.put(UserAccountUtils.KEY_COVER_PICTURE_ID, coverPictureId);
+                                                uploadResponse.put(UserAccountUtils.KEY_COVER_PICTURE_URL, coverPictureUrl);
                                             }
                                         }
 
                                         // Profile picture
                                         if (pictureType.equals(ImagePickerActivity.TYPE_PROFILE_PICTURE)){
-                                            profilePictureId = jsonObject.getString(AccountUtils.KEY_PROFILE_PICTURE_ID);
-                                            profilePictureUrl = jsonObject.getString(AccountUtils.KEY_PROFILE_PICTURE_URL);
+                                            profilePictureId = jsonObject.getString(UserAccountUtils.KEY_PROFILE_PICTURE_ID);
+                                            profilePictureUrl = jsonObject.getString(UserAccountUtils.KEY_PROFILE_PICTURE_URL);
 
                                             if (!DataUtils.isEmptyString(profilePictureId) && !DataUtils.isEmptyString(profilePictureUrl)){
                                                 uploadResponse.put(KEY_PICTURE_UPLOADED, Boolean.toString(true));
-                                                uploadResponse.put(AccountUtils.KEY_PROFILE_PICTURE_ID, profilePictureId);
-                                                uploadResponse.put(AccountUtils.KEY_PROFILE_PICTURE_URL, profilePictureUrl);
+                                                uploadResponse.put(UserAccountUtils.KEY_PROFILE_PICTURE_ID, profilePictureId);
+                                                uploadResponse.put(UserAccountUtils.KEY_PROFILE_PICTURE_URL, profilePictureUrl);
                                             }
                                         }
 

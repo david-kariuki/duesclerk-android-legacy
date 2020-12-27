@@ -27,11 +27,11 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.duesclerk.R;
-import com.duesclerk.custom.custom_utilities.AccountUtils;
 import com.duesclerk.custom.custom_utilities.ApplicationClass;
 import com.duesclerk.custom.custom_utilities.DataUtils;
 import com.duesclerk.custom.custom_utilities.InputFiltersUtils;
 import com.duesclerk.custom.custom_utilities.TaskUtils;
+import com.duesclerk.custom.custom_utilities.UserAccountUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
 import com.duesclerk.custom.custom_utilities.VolleyUtils;
 import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.CountryPickerFragment;
@@ -39,8 +39,9 @@ import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.EmailNot
 import com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout;
 import com.duesclerk.custom.custom_views.toast.CustomToast;
 import com.duesclerk.custom.network.InternetConnectivity;
-import com.duesclerk.custom.network.NetworkUtils;
-import com.duesclerk.custom.storage_adapters.SQLiteDB;
+import com.duesclerk.custom.network.NetworkTags;
+import com.duesclerk.custom.network.NetworkUrls;
+import com.duesclerk.custom.storage_adapters.UserDatabase;
 import com.duesclerk.interfaces.Interface_CountryPicker;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -69,7 +70,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
     private FloatingActionButton fabEdit, fabSaveEdits, fabCancelEdits;
     private ImageView imageCountryFlag, imageEmailVerificationError;
     private boolean editingProfile = false;
-    private SQLiteDB database;
+    private UserDatabase database;
     private CountryPickerFragment countryPickerFragment;
     private EmailNotVerifiedFragment emailNotVerifiedFragment;
     private ShimmerFrameLayout shimmerFrameLayout;
@@ -156,7 +157,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
         swipeRefreshLayout.setEnabled(true); // Enable SwipeRefresh
         swipeRefreshLayout.setSwipeableChildren(scrollView.getId()); // Set scrollable children
 
-        database = new SQLiteDB(mContext); // Initialize database object
+        database = new UserDatabase(mContext); // Initialize database object
 
         // Get accountType from SQLite database
         accountType = database.getUserAccountInfo(null).get(0).getAccountType();
@@ -229,7 +230,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                     if (editingProfile) {
                         if (fieldValuesChanged(database.getUserAccountInfo(null)
                                 .get(0).getAccountType().equals(
-                                        AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL))) {
+                                        UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL))) {
                             fabSaveEdits.performClick();
                         }
                     }
@@ -262,12 +263,14 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
             // Cancel any pending requests
             ApplicationClass.getClassInstance()
-                    .cancelPendingRequests(NetworkUtils.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
+                    .cancelPendingRequests(NetworkTags.UserNetworkTags.
+                            TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
         } else {
 
             // Cancel any pending requests
             ApplicationClass.getClassInstance()
-                    .cancelPendingRequests(NetworkUtils.TAG_FETCH_USER_PROFILE_STRING_REQUEST);
+                    .cancelPendingRequests(NetworkTags.UserNetworkTags.
+                            TAG_FETCH_USER_PROFILE_STRING_REQUEST);
         }
     }
 
@@ -281,13 +284,13 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
         emailNotVerifiedFragment.setCancelable(true);
         emailNotVerifiedFragment.setRetainInstance(true);
 
-        if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
+        if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
             if (!fetchedFirstName.equals("")) {
 
                 // Pass first name to bottom sheet
                 emailNotVerifiedFragment.setUsersName(fetchedFirstName);
             }
-        } else if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
+        } else if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
             if (!fetchedBusinessName.equals("")) {
 
                 // Pass business name to bottom sheet
@@ -383,7 +386,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
         // Enable field focus
         enableEditTexts(enable, editEmailAddress);
 
-        if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
+        if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
             // Personal
 
             enableEditTexts(enable, editFirstName);
@@ -398,7 +401,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                 editLastName.setText(fetchedLastName);
             }
 
-        } else if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
+        } else if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
             // Business
 
             enableEditTexts(enable, editBusinessName);
@@ -441,13 +444,13 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
             try {
 
                 profileFetched = true; // Set profile fetched to true
-                fetchedEmailAddress = user.getString(AccountUtils.FIELD_EMAIL_ADDRESS);
-                fetchedCountryName = user.getString(AccountUtils.FIELD_COUNTRY_NAME);
-                fetchedCountryCode = user.getString(AccountUtils.FIELD_COUNTRY_CODE);
-                fetchedCountryAlpha2 = user.getString(AccountUtils.FIELD_COUNTRY_ALPHA2);
-                fetchedCountryFlag = user.getString(AccountUtils.FIELD_COUNTRY_FLAG);
+                fetchedEmailAddress = user.getString(UserAccountUtils.FIELD_EMAIL_ADDRESS);
+                fetchedCountryName = user.getString(UserAccountUtils.FIELD_COUNTRY_NAME);
+                fetchedCountryCode = user.getString(UserAccountUtils.FIELD_COUNTRY_CODE);
+                fetchedCountryAlpha2 = user.getString(UserAccountUtils.FIELD_COUNTRY_ALPHA2);
+                fetchedCountryFlag = user.getString(UserAccountUtils.FIELD_COUNTRY_FLAG);
                 emailVerified = Boolean.parseBoolean(user.getString(
-                        AccountUtils.FIELD_EMAIL_VERIFIED));
+                        UserAccountUtils.FIELD_EMAIL_VERIFIED));
                 fetchedUserProfile = true;
 
                 // Set profile details
@@ -456,7 +459,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                         mContext,
                         R.string.placeholder_in_brackets,
                         fetchedCountryCode)
-                        + " " + user.getString(AccountUtils.FIELD_COUNTRY_NAME);
+                        + " " + user.getString(UserAccountUtils.FIELD_COUNTRY_NAME);
 
                 // Set country details
                 editCountry.setText(countryCodeAndName);
@@ -466,17 +469,17 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                         DataUtils.getDrawableFromName(mContext, fetchedCountryFlag),
                         imageCountryFlag);
 
-                textSignupDate.setText(user.getString(AccountUtils.FIELD_SIGNUP_DATE_TIME));
+                textSignupDate.setText(user.getString(UserAccountUtils.FIELD_SIGNUP_DATE_TIME));
 
                 // Set to newly EditText to avoid showing save button during field check
                 newSelectedCountryCode.setText(fetchedCountryCode);
                 newSelectedCountryAlpha2.setText(fetchedCountryAlpha2);
 
-                if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
+                if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
                     // Business account
 
-                    fetchedFirstName = user.getString(AccountUtils.FIELD_FIRST_NAME);
-                    fetchedLastName = user.getString(AccountUtils.FIELD_LAST_NAME);
+                    fetchedFirstName = user.getString(UserAccountUtils.FIELD_FIRST_NAME);
+                    fetchedLastName = user.getString(UserAccountUtils.FIELD_LAST_NAME);
 
                     // Hide views
                     cardBusinessName.setVisibility(View.GONE);
@@ -492,10 +495,10 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                     textAccountType.setText(DataUtils.getStringResource(mContext,
                             R.string.hint_personal_account));
 
-                } else if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
+                } else if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
                     // Business account
 
-                    fetchedBusinessName = user.getString(AccountUtils.FIELD_BUSINESS_NAME);
+                    fetchedBusinessName = user.getString(UserAccountUtils.FIELD_BUSINESS_NAME);
 
                     // Hide views
                     cardPersonsNames.setVisibility(View.GONE);
@@ -624,7 +627,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
     private void enableFabButtons() {
 
         // Check account type and hide edit fab
-        if (fieldValuesChanged(accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL))) {
+        if (fieldValuesChanged(accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL))) {
 
             fabSaveEdits.setVisibility(View.VISIBLE);  // Show save edits fab
         } else {
@@ -660,7 +663,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
     private void compareAndGetUpdatedValues() {
         // Check account type
 
-        if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
+        if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
             // Personal account
 
             // FirstName, LastName and Gender
@@ -672,7 +675,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                 newLastName = editLastName.getText().toString();
             }
 
-        } else if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
+        } else if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
             // Business account
 
             // BusinessName
@@ -721,7 +724,6 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
         // Check Internet Connection State
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
-            if (InternetConnectivity.isConnectionFast(mContext)) {
                 // Connected
 
                 // Respond to network connection event
@@ -737,7 +739,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                 ViewsUtils.showShimmerFrameLayout(true, shimmerFrameLayout);
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                        NetworkUtils.URL_FETCH_USER_PROFILE_DETAILS, response -> {
+                        NetworkUrls.UserURLS.URL_FETCH_USER_PROFILE_DETAILS, response -> {
 
                     // Log Response
                     // Log.d(TAG, "Profile Response:" + response);
@@ -768,7 +770,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
                             // Cancel Pending Request
                             ApplicationClass.getClassInstance().cancelPendingRequests(
-                                    NetworkUtils.TAG_FETCH_USER_PROFILE_STRING_REQUEST);
+                                    NetworkTags.UserNetworkTags.TAG_FETCH_USER_PROFILE_STRING_REQUEST);
                         }
                     } catch (Exception ignored) {
                     }
@@ -789,7 +791,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(
-                                NetworkUtils.TAG_FETCH_USER_PROFILE_STRING_REQUEST);
+                                NetworkTags.UserNetworkTags.TAG_FETCH_USER_PROFILE_STRING_REQUEST);
 
                         // Toast Network Error
                         if (volleyError.getMessage() != null) {
@@ -814,8 +816,8 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                     protected Map<String, String> getParams() {
                         @SuppressWarnings({"unchecked", "rawtypes"}) Map<String, String> params =
                                 new HashMap();
-                        params.put(AccountUtils.FIELD_EMAIL_ADDRESS, strEmailAddress);
-                        params.put(AccountUtils.FIELD_PASSWORD, strPassword);
+                        params.put(UserAccountUtils.FIELD_EMAIL_ADDRESS, strEmailAddress);
+                        params.put(UserAccountUtils.FIELD_PASSWORD, strPassword);
                         return params;
                     }
 
@@ -846,12 +848,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
                 // Adding request to request queue
                 ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                        NetworkUtils.TAG_FETCH_USER_PROFILE_STRING_REQUEST);
-            } else {
-
-                // Respond to network connection event
-                respondToNetworkConnectionEvent(false, false);
-            }
+                        NetworkTags.UserNetworkTags.TAG_FETCH_USER_PROFILE_STRING_REQUEST);
         } else {
             // Respond to network connection event
             respondToNetworkConnectionEvent(false, false);
@@ -865,7 +862,6 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
         // Check Internet Connection State
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
-            if (InternetConnectivity.isConnectionFast(mContext)) {
                 // Connected
 
                 // Respond to network connection event
@@ -886,7 +882,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                 );
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                        NetworkUtils.URL_UPDATE_USER_PROFILE_DETAILS, response -> {
+                        NetworkUrls.UserURLS.URL_UPDATE_USER_PROFILE_DETAILS, response -> {
 
                     // Log Response
                     // Log.d(TAG, "Update Response:" + response);
@@ -917,7 +913,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                                         database.getUserAccountInfo(null)
                                                 .get(0).getUserId(),
                                         newEmailAddress,
-                                        AccountUtils.FIELD_EMAIL_ADDRESS);
+                                        UserAccountUtils.FIELD_EMAIL_ADDRESS);
 
                                 // Allow email not verified bottom sheet to be shown again since
                                 // email verification was revoked after updating email address
@@ -952,7 +948,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
                             // Cancel Pending Request
                             ApplicationClass.getClassInstance().cancelPendingRequests(
-                                    NetworkUtils.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
+                                    NetworkTags.UserNetworkTags.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
 
                             enableProfileEdit(true); // Enable profile edit
                         }
@@ -977,7 +973,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(
-                                NetworkUtils.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
+                                NetworkTags.UserNetworkTags.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
 
                         // Toast Network Error
                         if (volleyError.getMessage() != null) {
@@ -1002,35 +998,35 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                     protected Map<String, String> getParams() {
                         @SuppressWarnings({"unchecked", "rawtypes"}) Map<String, String> params =
                                 new HashMap();
-                        if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
+                        if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
                             // Check for changed values for personal account
                             if (!DataUtils.isEmptyString(newFirstName)) {
-                                params.put(AccountUtils.FIELD_FIRST_NAME, newFirstName);
+                                params.put(UserAccountUtils.FIELD_FIRST_NAME, newFirstName);
                             }
                             if (!DataUtils.isEmptyString(newLastName)) {
-                                params.put(AccountUtils.FIELD_LAST_NAME, newLastName);
+                                params.put(UserAccountUtils.FIELD_LAST_NAME, newLastName);
                             }
 
-                        } else if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
+                        } else if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
                             // Check for changed values for business account
 
                             if (!DataUtils.isEmptyString(newBusinessName)) {
-                                params.put(AccountUtils.FIELD_BUSINESS_NAME, newBusinessName);
+                                params.put(UserAccountUtils.FIELD_BUSINESS_NAME, newBusinessName);
                             }
                         }
 
                         // Check for changed values for shared details
                         if (!DataUtils.isEmptyString(newEmailAddress)) {
-                            params.put(AccountUtils.FIELD_EMAIL_ADDRESS, newEmailAddress);
+                            params.put(UserAccountUtils.FIELD_EMAIL_ADDRESS, newEmailAddress);
                         }
                         if ((!DataUtils.isEmptyString(newCountryCode))
                                 && (!DataUtils.isEmptyString(newCountryAlpha2))) {
-                            params.put(AccountUtils.FIELD_COUNTRY_CODE, newCountryCode);
-                            params.put(AccountUtils.FIELD_COUNTRY_ALPHA2, newCountryAlpha2);
+                            params.put(UserAccountUtils.FIELD_COUNTRY_CODE, newCountryCode);
+                            params.put(UserAccountUtils.FIELD_COUNTRY_ALPHA2, newCountryAlpha2);
                         }
 
-                        params.put(AccountUtils.FIELD_USER_ID, userId);
-                        params.put(AccountUtils.FIELD_ACCOUNT_TYPE, accountType);
+                        params.put(UserAccountUtils.FIELD_USER_ID, userId);
+                        params.put(UserAccountUtils.FIELD_ACCOUNT_TYPE, accountType);
 
                         return params; // Return params
                     }
@@ -1062,13 +1058,8 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
                 // Adding request to request queue
                 ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                        NetworkUtils.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
+                        NetworkTags.UserNetworkTags.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
 
-            } else {
-
-                // Respond to network connection event
-                respondToNetworkConnectionEvent(false, true);
-            }
         } else {
 
             // Respond to network connection event

@@ -6,14 +6,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.duesclerk.custom.custom_utilities.AccountUtils;
 import com.duesclerk.custom.custom_utilities.DataUtils;
+import com.duesclerk.custom.custom_utilities.UserAccountUtils;
 import com.duesclerk.custom.java_beans.JB_UserAccountInfo;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class SQLiteDB extends SQLiteOpenHelper {
+public class UserDatabase extends SQLiteOpenHelper {
 
     // Database Version
     private static final int DATABASE_VERSION = 1;
@@ -29,7 +29,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
      *
      * @param context - Calling Activity context
      */
-    public SQLiteDB(Context context) {
+    public UserDatabase(Context context) {
 
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -40,11 +40,11 @@ public class SQLiteDB extends SQLiteOpenHelper {
         String CREATE_TABLE_USER;
         CREATE_TABLE_USER = "CREATE TABLE " + TABLE_USER
                 + "("
-                + AccountUtils.KEY_RECORD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + AccountUtils.FIELD_USER_ID + " TEXT UNIQUE,"
-                + AccountUtils.FIELD_EMAIL_ADDRESS + " TEXT UNIQUE,"
-                + AccountUtils.FIELD_PASSWORD + " TEXT,"
-                + AccountUtils.FIELD_ACCOUNT_TYPE + " TEXT"
+                + UserAccountUtils.KEY_RECORD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + UserAccountUtils.FIELD_USER_ID + " TEXT UNIQUE,"
+                + UserAccountUtils.FIELD_EMAIL_ADDRESS + " TEXT UNIQUE,"
+                + UserAccountUtils.FIELD_PASSWORD + " TEXT,"
+                + UserAccountUtils.FIELD_ACCOUNT_TYPE + " TEXT"
                 + ")";
         sqLiteDatabase.execSQL(CREATE_TABLE_USER);
     }
@@ -115,10 +115,10 @@ public class SQLiteDB extends SQLiteOpenHelper {
                 SQLiteDatabase storeToDatabase = this.getWritableDatabase();
 
                 ContentValues contentValues = new ContentValues();
-                contentValues.put(AccountUtils.FIELD_USER_ID, userId); // UserId
-                contentValues.put(AccountUtils.FIELD_EMAIL_ADDRESS, emailAddress); // EmailAddress
-                contentValues.put(AccountUtils.FIELD_PASSWORD, password); // Password
-                contentValues.put(AccountUtils.FIELD_ACCOUNT_TYPE, accountType); // Account type
+                contentValues.put(UserAccountUtils.FIELD_USER_ID, userId); // UserId
+                contentValues.put(UserAccountUtils.FIELD_EMAIL_ADDRESS, emailAddress); // EmailAddress
+                contentValues.put(UserAccountUtils.FIELD_PASSWORD, password); // Password
+                contentValues.put(UserAccountUtils.FIELD_ACCOUNT_TYPE, accountType); // Account type
 
                 // Inserting Data
                 storeToDatabase.insert(TABLE_USER, null, contentValues);
@@ -173,7 +173,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
 
                 // Select all records with specified UserId
                 selectQuery = "SELECT * FROM " + TABLE_USER + " WHERE "
-                        + AccountUtils.FIELD_USER_ID + " = '" + userId + "'";
+                        + UserAccountUtils.FIELD_USER_ID + " = '" + userId + "'";
             }
 
             SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
@@ -182,13 +182,13 @@ public class SQLiteDB extends SQLiteOpenHelper {
             // Loop through cursor
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 jbUser.setUserId(cursor.getString(cursor.getColumnIndex(
-                        AccountUtils.FIELD_USER_ID)));
+                        UserAccountUtils.FIELD_USER_ID)));
                 jbUser.setEmailAddress(cursor.getString(cursor.getColumnIndex(
-                        AccountUtils.FIELD_EMAIL_ADDRESS)));
+                        UserAccountUtils.FIELD_EMAIL_ADDRESS)));
                 jbUser.setPassword(cursor.getString(cursor.getColumnIndex(
-                        AccountUtils.FIELD_PASSWORD)));
+                        UserAccountUtils.FIELD_PASSWORD)));
                 jbUser.setAccountType(cursor.getString(cursor.getColumnIndex(
-                        AccountUtils.FIELD_ACCOUNT_TYPE)));
+                        UserAccountUtils.FIELD_ACCOUNT_TYPE)));
 
                 userDetailsArray.add(jbUser); // Add java bean to ArrayList
             }
@@ -217,7 +217,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
             // Create SQLiteDatabase object
             SQLiteDatabase database = this.getWritableDatabase();
 
-            database.delete(TABLE_USER, AccountUtils.FIELD_USER_ID + "= ?",
+            database.delete(TABLE_USER, UserAccountUtils.FIELD_USER_ID + "= ?",
                     new String[]{userId}); // Delete All Rows
             database.close(); // Closing Connection to the database
 
@@ -249,54 +249,54 @@ public class SQLiteDB extends SQLiteOpenHelper {
             ContentValues contentValues = new ContentValues();
 
             // Create class object
-            SQLiteDB sqLiteDB = new SQLiteDB(context);
+            UserDatabase userDatabase = new UserDatabase(context);
 
             // Get user account information
             ArrayList<JB_UserAccountInfo> userAccountInfo;
             JB_UserAccountInfo jbUserAccountInfo;
-            userAccountInfo = sqLiteDB.getUserAccountInfo(null);
+            userAccountInfo = userDatabase.getUserAccountInfo(null);
             jbUserAccountInfo = this.loadUserAccountInfoDataJavaBean(userAccountInfo);
 
             switch (updateField) {
 
-                case AccountUtils.FIELD_EMAIL_ADDRESS:
+                case UserAccountUtils.FIELD_EMAIL_ADDRESS:
                     // Email address
 
                     // Get EmailAddress old value
                     oldValue = jbUserAccountInfo.getEmailAddress();
 
                     // Put EmailAddress new value to content values
-                    contentValues.put(AccountUtils.FIELD_EMAIL_ADDRESS, newValue);
+                    contentValues.put(UserAccountUtils.FIELD_EMAIL_ADDRESS, newValue);
 
                     // Update fields
                     updateDatabase.update(TABLE_USER, contentValues,
-                            AccountUtils.FIELD_USER_ID
+                            UserAccountUtils.FIELD_USER_ID
                                     + "='" + userId + "'", null);
                     break;
 
-                case AccountUtils.FIELD_PASSWORD:
+                case UserAccountUtils.FIELD_PASSWORD:
                     // Password
 
                     // Get password old value
                     oldValue = jbUserAccountInfo.getPassword();
-                    contentValues.put(AccountUtils.FIELD_PASSWORD, newValue);
+                    contentValues.put(UserAccountUtils.FIELD_PASSWORD, newValue);
 
                     // Update fields
                     updateDatabase.update(TABLE_USER, contentValues,
-                            AccountUtils.FIELD_USER_ID
+                            UserAccountUtils.FIELD_USER_ID
                                     + "='" + userId + "'", null);
                     break;
 
-                case AccountUtils.FIELD_ACCOUNT_TYPE:
+                case UserAccountUtils.FIELD_ACCOUNT_TYPE:
                     // Account type
 
                     // Get account type old value
                     oldValue = jbUserAccountInfo.getAccountType();
-                    contentValues.put(AccountUtils.FIELD_ACCOUNT_TYPE, newValue);
+                    contentValues.put(UserAccountUtils.FIELD_ACCOUNT_TYPE, newValue);
 
                     // Update fields
                     updateDatabase.update(TABLE_USER, contentValues,
-                            AccountUtils.FIELD_USER_ID
+                            UserAccountUtils.FIELD_USER_ID
                                     + "='" + userId + "'", null);
                     break;
 
@@ -307,20 +307,20 @@ public class SQLiteDB extends SQLiteOpenHelper {
             updateDatabase.close(); // Close database connection
 
             // Get updated account info
-            userAccountInfo = sqLiteDB.getUserAccountInfo(null);
+            userAccountInfo = userDatabase.getUserAccountInfo(null);
             jbUserAccountInfo = this.loadUserAccountInfoDataJavaBean(userAccountInfo);
 
             switch (updateField) {
 
-                case AccountUtils.FIELD_EMAIL_ADDRESS:
+                case UserAccountUtils.FIELD_EMAIL_ADDRESS:
                     updatedFieldValue = jbUserAccountInfo.getEmailAddress();
                     break;
 
-                case AccountUtils.FIELD_PASSWORD:
+                case UserAccountUtils.FIELD_PASSWORD:
                     updatedFieldValue = jbUserAccountInfo.getPassword();
                     break;
 
-                case AccountUtils.FIELD_ACCOUNT_TYPE:
+                case UserAccountUtils.FIELD_ACCOUNT_TYPE:
                     updatedFieldValue = jbUserAccountInfo.getAccountType();
                     break;
 

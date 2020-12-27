@@ -29,17 +29,18 @@ import com.android.volley.toolbox.StringRequest;
 import com.duesclerk.R;
 import com.duesclerk.activities.ForgotPasswordActivity;
 import com.duesclerk.activities.MainActivity;
-import com.duesclerk.custom.custom_utilities.AccountUtils;
 import com.duesclerk.custom.custom_utilities.ApplicationClass;
 import com.duesclerk.custom.custom_utilities.DataUtils;
 import com.duesclerk.custom.custom_utilities.InputFiltersUtils;
+import com.duesclerk.custom.custom_utilities.UserAccountUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
 import com.duesclerk.custom.custom_utilities.VolleyUtils;
 import com.duesclerk.custom.custom_views.toast.CustomToast;
 import com.duesclerk.custom.network.InternetConnectivity;
-import com.duesclerk.custom.network.NetworkUtils;
-import com.duesclerk.custom.storage_adapters.SQLiteDB;
+import com.duesclerk.custom.network.NetworkTags;
+import com.duesclerk.custom.network.NetworkUrls;
 import com.duesclerk.custom.storage_adapters.SessionManager;
+import com.duesclerk.custom.storage_adapters.UserDatabase;
 import com.duesclerk.interfaces.Interface_SignInSignup;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -59,7 +60,7 @@ public class FragmentSignIn extends Fragment {
     private Context mContext;
     private ProgressDialog progressDialog;
     private TextInputEditText editEmailAddress, editPassword;
-    private SQLiteDB database;
+    private UserDatabase database;
     private SessionManager sessionManager;
     private ImageView imagePasswordToggle;
     private Interface_SignInSignup interfaceSignInSignup;
@@ -95,7 +96,7 @@ public class FragmentSignIn extends Fragment {
                 new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_EMAIL_ADDRESS)});
 
         // Initialize database
-        database = new SQLiteDB(getActivity());
+        database = new UserDatabase(getActivity());
 
         // Initialize sessionManager
         sessionManager = new SessionManager(requireActivity());
@@ -198,7 +199,7 @@ public class FragmentSignIn extends Fragment {
             );
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                    NetworkUtils.URL_SIGNIN_USER, response -> {
+                    NetworkUrls.UserURLS.URL_SIGNIN_USER, response -> {
                 // Log.d(TAG, "SignIn Response: " + response); // Log response
 
                 ViewsUtils.dismissProgressDialog(progressDialog); // Hide Progress Dialog
@@ -214,9 +215,9 @@ public class FragmentSignIn extends Fragment {
                         // Get SignIn object
                         JSONObject objectSignIn = jsonObject.getJSONObject(VolleyUtils.KEY_SIGNIN);
 
-                        userId        = objectSignIn.getString(AccountUtils.FIELD_USER_ID);
-                        emailAddress    = objectSignIn.getString(AccountUtils.FIELD_EMAIL_ADDRESS);
-                        accountType     = objectSignIn.getString(AccountUtils.FIELD_ACCOUNT_TYPE);
+                        userId        = objectSignIn.getString(UserAccountUtils.FIELD_USER_ID);
+                        emailAddress    = objectSignIn.getString(UserAccountUtils.FIELD_EMAIL_ADDRESS);
+                        accountType     = objectSignIn.getString(UserAccountUtils.FIELD_ACCOUNT_TYPE);
 
                         // Inserting row in users table
                         if (database.storeUserAccountInformation(userId,
@@ -256,16 +257,16 @@ public class FragmentSignIn extends Fragment {
                         R.drawable.ic_sad_cloud_100px_white);
 
                 ApplicationClass.getClassInstance().cancelPendingRequests(
-                        NetworkUtils.TAG_SIGNIN_STRING_REQUEST); // Cancel Pending Request
+                        NetworkTags.UserNetworkTags.TAG_SIGNIN_STRING_REQUEST); // Cancel Pending Request
                 ApplicationClass.getClassInstance().deleteUrlVolleyCache(
-                        NetworkUtils.URL_SIGNIN_USER); // Clear url cache
+                        NetworkUrls.UserURLS.URL_SIGNIN_USER); // Clear url cache
             }) {
                 @Override
                 protected Map<String, String> getParams() {
                     // Posting parameters to sign in url
                     Map<String, String> params = new HashMap<>();
-                    params.put(AccountUtils.FIELD_EMAIL_ADDRESS, signInEmailAddress);
-                    params.put(AccountUtils.FIELD_PASSWORD, password);
+                    params.put(UserAccountUtils.FIELD_EMAIL_ADDRESS, signInEmailAddress);
+                    params.put(UserAccountUtils.FIELD_PASSWORD, password);
                     return params;
                 }
             };
@@ -280,7 +281,7 @@ public class FragmentSignIn extends Fragment {
             // Set Request Priority
             ApplicationClass.getClassInstance().setPriority(Request.Priority.IMMEDIATE);
             ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                    NetworkUtils.TAG_SIGNIN_STRING_REQUEST); // Adding Request to request queue
+                    NetworkTags.UserNetworkTags.TAG_SIGNIN_STRING_REQUEST); // Adding Request to request queue
 
         } else {
             // Not Connected

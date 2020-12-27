@@ -29,17 +29,18 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.duesclerk.R;
-import com.duesclerk.custom.custom_utilities.AccountUtils;
 import com.duesclerk.custom.custom_utilities.ApplicationClass;
 import com.duesclerk.custom.custom_utilities.BroadCastUtils;
 import com.duesclerk.custom.custom_utilities.DataUtils;
 import com.duesclerk.custom.custom_utilities.InputFiltersUtils;
+import com.duesclerk.custom.custom_utilities.UserAccountUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
 import com.duesclerk.custom.custom_utilities.VolleyUtils;
 import com.duesclerk.custom.custom_views.toast.CustomToast;
 import com.duesclerk.custom.network.InternetConnectivity;
-import com.duesclerk.custom.network.NetworkUtils;
-import com.duesclerk.custom.storage_adapters.SQLiteDB;
+import com.duesclerk.custom.network.NetworkTags;
+import com.duesclerk.custom.network.NetworkUrls;
+import com.duesclerk.custom.storage_adapters.UserDatabase;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -61,7 +62,7 @@ public class SwitchAccountTypeFragment extends BottomSheetDialogFragment impleme
     // private final String TAG = SwitchAccountTypeFragment.class.getSimpleName();
 
     private final Context mContext;
-    private final SQLiteDB database;
+    private final UserDatabase database;
     private final String switchLabel;
     private BottomSheetBehavior bottomSheetBehavior;
     private BottomSheetBehavior.BottomSheetCallback bottomSheetCallback;
@@ -79,7 +80,7 @@ public class SwitchAccountTypeFragment extends BottomSheetDialogFragment impleme
      */
     public SwitchAccountTypeFragment(Context context, String switchLabel) {
         this.mContext = context; // Get context
-        this.database = new SQLiteDB(context); // Initialize database
+        this.database = new UserDatabase(context); // Initialize database
         this.switchLabel = switchLabel; // Set switch label
     }
 
@@ -133,21 +134,21 @@ public class SwitchAccountTypeFragment extends BottomSheetDialogFragment impleme
         textTitle.setText(title); // Set title
 
         // Check account type
-        if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
+        if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
 
             llPersonNames.setVisibility(View.GONE); // Hide first and last names
             llBusinessName.setVisibility(View.VISIBLE); // Show business name
 
             // Set new account type
-            newAccountType = AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS;
+            newAccountType = UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS;
 
-        } else if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
+        } else if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
 
             llBusinessName.setVisibility(View.GONE); // Hide business name
             llPersonNames.setVisibility(View.VISIBLE); // Show first and last names
 
             // Set new account type
-            newAccountType = AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL;
+            newAccountType = UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL;
         }
 
         // Add text watcher
@@ -227,14 +228,14 @@ public class SwitchAccountTypeFragment extends BottomSheetDialogFragment impleme
     private boolean checkFieldInputs() {
 
         // Check account type
-        if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
+        if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
             // Personal account
 
             return (InputFiltersUtils.checkBusinessNameLengthNotify(mContext, editBusinessName)
                     && InputFiltersUtils.checkPasswordLengthNotify(mContext, editPassword)
             );
 
-        } else if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
+        } else if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
             // Business account
 
             return (InputFiltersUtils.checkPersonNameLengthNotify(mContext, editFirstName,
@@ -260,18 +261,17 @@ public class SwitchAccountTypeFragment extends BottomSheetDialogFragment impleme
 
         // Check Internet Connection State
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
-            if (InternetConnectivity.isConnectionFast(mContext)) {
                 // Connected
 
                 ViewsUtils.hideKeyboard(requireActivity()); // Hide keyboard if showing
 
                 // Check account type
                 String switchingToValue = null;
-                if (newAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
+                if (newAccountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
                     switchingToValue = DataUtils.getStringResource(mContext,
                             R.string.hint_personal_account);
 
-                } else if (newAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
+                } else if (newAccountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
                     switchingToValue = DataUtils.getStringResource(mContext,
                             R.string.hint_business_account);
                 }
@@ -285,7 +285,7 @@ public class SwitchAccountTypeFragment extends BottomSheetDialogFragment impleme
                 );
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                        NetworkUtils.URL_SWITCH_ACCOUNT_TYPE, response -> {
+                        NetworkUrls.UserURLS.URL_SWITCH_ACCOUNT_TYPE, response -> {
 
                     // Log Response
                     // Log.d(TAG, "Switch account type response:" + response);
@@ -305,7 +305,7 @@ public class SwitchAccountTypeFragment extends BottomSheetDialogFragment impleme
                             if (database.updateUserAccountInformation(
                                     mContext,
                                     database.getUserAccountInfo(null).get(0).getUserId(),
-                                    newAccountType, AccountUtils.FIELD_ACCOUNT_TYPE)) {
+                                    newAccountType, UserAccountUtils.FIELD_ACCOUNT_TYPE)) {
                                 // Update successful
 
                                 // Show update successful message
@@ -339,7 +339,7 @@ public class SwitchAccountTypeFragment extends BottomSheetDialogFragment impleme
 
                             // Cancel Pending Request
                             ApplicationClass.getClassInstance().cancelPendingRequests(
-                                    NetworkUtils.TAG_SWITCH_ACCOUNT_TYPE_REQUEST);
+                                    NetworkTags.UserNetworkTags.TAG_SWITCH_ACCOUNT_TYPE_REQUEST);
                         }
                     } catch (Exception ignored) {
                     }
@@ -357,7 +357,7 @@ public class SwitchAccountTypeFragment extends BottomSheetDialogFragment impleme
 
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(
-                                NetworkUtils.TAG_SWITCH_ACCOUNT_TYPE_REQUEST);
+                                NetworkTags.UserNetworkTags.TAG_SWITCH_ACCOUNT_TYPE_REQUEST);
 
                         // Toast Network Error
                         if (volleyError.getMessage() != null) {
@@ -384,25 +384,25 @@ public class SwitchAccountTypeFragment extends BottomSheetDialogFragment impleme
                                 new HashMap();
 
                         // Check account type
-                        if (newAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
+                        if (newAccountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
 
                             // Put firstName and lastName
-                            params.put(AccountUtils.FIELD_FIRST_NAME,
+                            params.put(UserAccountUtils.FIELD_FIRST_NAME,
                                     editFirstName.getText().toString());
-                            params.put(AccountUtils.FIELD_LAST_NAME,
+                            params.put(UserAccountUtils.FIELD_LAST_NAME,
                                     editLastName.getText().toString());
 
-                        } else if (newAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
+                        } else if (newAccountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
 
                             // Put businessName
-                            params.put(AccountUtils.FIELD_BUSINESS_NAME,
+                            params.put(UserAccountUtils.FIELD_BUSINESS_NAME,
                                     editBusinessName.getText().toString());
                         }
 
                         // Put userId, current and new password to Map params
-                        params.put(AccountUtils.FIELD_USER_ID, userId);
-                        params.put(AccountUtils.FIELD_PASSWORD, password);
-                        params.put(AccountUtils.FIELD_NEW_ACCOUNT_TYPE, newAccountType);
+                        params.put(UserAccountUtils.FIELD_USER_ID, userId);
+                        params.put(UserAccountUtils.FIELD_PASSWORD, password);
+                        params.put(UserAccountUtils.FIELD_NEW_ACCOUNT_TYPE, newAccountType);
 
                         return params; // Return params
                     }
@@ -434,17 +434,8 @@ public class SwitchAccountTypeFragment extends BottomSheetDialogFragment impleme
 
                 // Adding request to request queue
                 ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                        NetworkUtils.TAG_SWITCH_ACCOUNT_TYPE_REQUEST);
+                        NetworkTags.UserNetworkTags.TAG_SWITCH_ACCOUNT_TYPE_REQUEST);
 
-            } else {
-
-                // Toast network connection message
-                CustomToast.errorMessage(
-                        mContext,
-                        DataUtils.getStringResource(mContext,
-                                R.string.error_network_connection_error_message_long),
-                        R.drawable.ic_sad_cloud_100px_white);
-            }
         } else {
 
             // Toast network connection message

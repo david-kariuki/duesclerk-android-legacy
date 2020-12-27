@@ -25,16 +25,17 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.StringRequest;
 import com.duesclerk.R;
-import com.duesclerk.custom.custom_utilities.AccountUtils;
 import com.duesclerk.custom.custom_utilities.ApplicationClass;
 import com.duesclerk.custom.custom_utilities.DataUtils;
 import com.duesclerk.custom.custom_utilities.InputFiltersUtils;
+import com.duesclerk.custom.custom_utilities.UserAccountUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
 import com.duesclerk.custom.custom_utilities.VolleyUtils;
 import com.duesclerk.custom.custom_views.toast.CustomToast;
 import com.duesclerk.custom.network.InternetConnectivity;
-import com.duesclerk.custom.network.NetworkUtils;
-import com.duesclerk.custom.storage_adapters.SQLiteDB;
+import com.duesclerk.custom.network.NetworkTags;
+import com.duesclerk.custom.network.NetworkUrls;
+import com.duesclerk.custom.storage_adapters.UserDatabase;
 import com.google.android.material.textfield.TextInputEditText;
 import com.jkb.vcedittext.VerificationCodeEditText;
 import com.kofigyan.stateprogressbar.StateProgressBar;
@@ -75,7 +76,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private TextView textResendCodeEnabled, textResendCodeDisabled, textSuccessMessage;
     private boolean isResendCountFinished = true;
     private CountDownTimer countDownResendCode;
-    private SQLiteDB database;
+    private UserDatabase database;
     private ScrollView scrollView;
 
     @Override
@@ -134,7 +135,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 false
         );
 
-        database = new SQLiteDB(mContext); // Initialize database object
+        database = new UserDatabase(mContext); // Initialize database object
 
         // Check if resend count has completed
         if (isResendCountFinished) {
@@ -422,7 +423,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             if (!DataUtils.isEmptyEditText(editEmailAddress)) {
 
                 // Put string
-                outState.putString(AccountUtils.FIELD_EMAIL_ADDRESS,
+                outState.putString(UserAccountUtils.FIELD_EMAIL_ADDRESS,
                         Objects.requireNonNull(editEmailAddress.getText()).toString());
             }
         }
@@ -434,7 +435,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             if (!DataUtils.isEmptyEditText(editVerificationCode)) {
 
                 // Put String
-                outState.putString(AccountUtils.FIELD_VERIFICATION_CODE,
+                outState.putString(UserAccountUtils.FIELD_VERIFICATION_CODE,
                         Objects.requireNonNull(editVerificationCode.getText()).toString());
             }
         }
@@ -446,7 +447,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             if (!DataUtils.isEmptyEditText(editNewPassword)) {
 
                 // Put string
-                outState.putString(AccountUtils.FIELD_NEW_PASSWORD,
+                outState.putString(UserAccountUtils.FIELD_NEW_PASSWORD,
                         Objects.requireNonNull(editNewPassword.getText()).toString());
             }
 
@@ -454,7 +455,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             if (!DataUtils.isEmptyEditText(editConfirmNewPassword)) {
 
                 // Put String
-                outState.putString(AccountUtils.FIELD_CONFIRM_NEW_PASSWORD,
+                outState.putString(UserAccountUtils.FIELD_CONFIRM_NEW_PASSWORD,
                         Objects.requireNonNull(editConfirmNewPassword.getText()).toString());
             }
         }
@@ -462,7 +463,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         outState.putInt(KEY_LAYOUT_NUMBER, lastVisibleLayoutNumber); // Put layout Number
 
         // Put Str email Address
-        outState.putString(AccountUtils.FIELD_EMAIL_ADDRESS, strEmailAddress);
+        outState.putString(UserAccountUtils.FIELD_EMAIL_ADDRESS, strEmailAddress);
     }
 
     @Override
@@ -472,20 +473,20 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         // Check if layout Is enter Email
         if (lastVisibleLayoutNumber == LAYOUT_ENTER_EMAIL) {
 
-            if (savedInstanceState.getString(AccountUtils.FIELD_EMAIL_ADDRESS) != null) {
+            if (savedInstanceState.getString(UserAccountUtils.FIELD_EMAIL_ADDRESS) != null) {
 
                 // Set email Address
                 editEmailAddress.setText(
-                        savedInstanceState.getString(AccountUtils.FIELD_EMAIL_ADDRESS));
+                        savedInstanceState.getString(UserAccountUtils.FIELD_EMAIL_ADDRESS));
 
                 // Update email Address
-                strEmailAddress = savedInstanceState.getString(AccountUtils.FIELD_EMAIL_ADDRESS);
+                strEmailAddress = savedInstanceState.getString(UserAccountUtils.FIELD_EMAIL_ADDRESS);
 
             } else {
 
                 // Set email Address
                 editEmailAddress.setText(
-                        savedInstanceState.getString(AccountUtils.FIELD_EMAIL_ADDRESS));
+                        savedInstanceState.getString(UserAccountUtils.FIELD_EMAIL_ADDRESS));
             }
         }
 
@@ -494,7 +495,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
             // Set verification code
             editVerificationCode.setText(
-                    savedInstanceState.getString(AccountUtils.FIELD_VERIFICATION_CODE));
+                    savedInstanceState.getString(UserAccountUtils.FIELD_VERIFICATION_CODE));
         }
 
         // Check if layout Is enter password
@@ -502,11 +503,11 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
             // Set new password
             editNewPassword.setText(
-                    savedInstanceState.getString(AccountUtils.FIELD_NEW_PASSWORD));
+                    savedInstanceState.getString(UserAccountUtils.FIELD_NEW_PASSWORD));
 
             // Set confirm new password
             editConfirmNewPassword.setText(
-                    savedInstanceState.getString(AccountUtils.FIELD_CONFIRM_NEW_PASSWORD));
+                    savedInstanceState.getString(UserAccountUtils.FIELD_CONFIRM_NEW_PASSWORD));
         }
 
         // Update last visible layout
@@ -760,7 +761,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
             // Check Internet Connection
             if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
-                if (InternetConnectivity.isConnectionFast(mContext)) {
                     // Connected
 
                     // Check if resend code counter is done
@@ -787,7 +787,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         );
 
                         StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                                NetworkUtils.URL_SEND_EMAIL_VERIFICATION_CODE,
+                                NetworkUrls.UserURLS.URL_SEND_EMAIL_VERIFICATION_CODE,
                                 response -> {
 
                                     // Log response
@@ -812,7 +812,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                             // Get verification code and success message
                                             strVerificationCode = objectSendVerificationCode
                                                     .getString(
-                                                            AccountUtils.FIELD_VERIFICATION_CODE);
+                                                            UserAccountUtils.FIELD_VERIFICATION_CODE);
 
                                             // Check for verification code
                                             if (!DataUtils.isEmptyString(strVerificationCode)) {
@@ -898,7 +898,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                             ApplicationClass
                                     .getClassInstance()
                                     .cancelPendingRequests(
-                                            NetworkUtils.TAG_SEND_EMAIL_VERIFICATION_STRING_REQUEST
+                                            NetworkTags.UserNetworkTags.TAG_SEND_EMAIL_VERIFICATION_STRING_REQUEST
                                     );
                         }
                         ) {
@@ -908,9 +908,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                 Map<String, String> params = new HashMap<>();
 
                                 // Put params
-                                params.put(AccountUtils.FIELD_EMAIL_ADDRESS, emailAddress);
-                                params.put(AccountUtils.FIELD_VERIFICATION_TYPE,
-                                        AccountUtils.KEY_VERIFICATION_TYPE_PASSWORD_RESET);
+                                params.put(UserAccountUtils.FIELD_EMAIL_ADDRESS, emailAddress);
+                                params.put(UserAccountUtils.FIELD_VERIFICATION_TYPE,
+                                        UserAccountUtils.KEY_VERIFICATION_TYPE_PASSWORD_RESET);
                                 return params;
                             }
                         };
@@ -930,9 +930,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                         // Adding request to request queue
                         ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                                NetworkUtils.TAG_SEND_EMAIL_VERIFICATION_STRING_REQUEST);
+                                NetworkTags.UserNetworkTags.TAG_SEND_EMAIL_VERIFICATION_STRING_REQUEST);
                     }
-                }
             } else {
                 // Not Connected
 
@@ -961,7 +960,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
             // Check Internet Connection
             if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
-                if (InternetConnectivity.isConnectionFast(mContext)) {
                     // Connected
 
                     showLogoLayout(false); // Hide logo layout
@@ -983,7 +981,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     );
 
                     StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                            NetworkUtils.URL_VERIFY_EMAIL_ADDRESS,
+                            NetworkUrls.UserURLS.URL_VERIFY_EMAIL_ADDRESS,
                             response -> {
 
                                 // Log response
@@ -1087,15 +1085,15 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                             Map<String, String> params = new HashMap<>(); // Params map
 
                             // Put verification code
-                            params.put(AccountUtils.FIELD_VERIFICATION_CODE, verificationCode);
+                            params.put(UserAccountUtils.FIELD_VERIFICATION_CODE, verificationCode);
 
                             // Put email address
-                            params.put(AccountUtils.FIELD_EMAIL_ADDRESS, emailAddress);
+                            params.put(UserAccountUtils.FIELD_EMAIL_ADDRESS, emailAddress);
 
                             // Put verification type
                             params.put(
-                                    AccountUtils.FIELD_VERIFICATION_TYPE,
-                                    AccountUtils.KEY_VERIFICATION_TYPE_PASSWORD_RESET
+                                    UserAccountUtils.FIELD_VERIFICATION_TYPE,
+                                    UserAccountUtils.KEY_VERIFICATION_TYPE_PASSWORD_RESET
                             );
 
                             return params;
@@ -1118,9 +1116,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                     // Adding Request to request queue
                     ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                            NetworkUtils.TAG_VERIFY_EMAIL_STRING_REQUEST);
+                            NetworkTags.UserNetworkTags.TAG_VERIFY_EMAIL_STRING_REQUEST);
 
-                } else {
+            } else {
                     // Not Connected
 
                     // Toast connection error message
@@ -1130,7 +1128,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                     R.string.error_network_connection_error_message_short),
                             R.drawable.ic_sad_cloud_100px_white);
                 }
-            }
         }
     }
 
@@ -1144,7 +1141,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         // Check Internet Connection
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
-            if (InternetConnectivity.isConnectionFast(mContext)) {
                 // Connected
 
                 showLogoLayout(false); // Hide logo layout
@@ -1167,7 +1163,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 );
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                        NetworkUtils.URL_PASSWORD_RESET,
+                        NetworkUrls.UserURLS.URL_PASSWORD_RESET,
                         response -> {
 
                             // log response
@@ -1195,7 +1191,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                                     VolleyUtils.KEY_SUCCESS_MESSAGE);
 
                                     String userId = objectPasswordReset.getString(
-                                            AccountUtils.FIELD_USER_ID);
+                                            UserAccountUtils.FIELD_USER_ID);
 
                                     // Check if all parameters have been received
                                     if (!DataUtils.isEmptyString(successMessage)) {
@@ -1274,7 +1270,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                     // Cancel Pending Request
                     ApplicationClass.getClassInstance()
-                            .cancelPendingRequests(NetworkUtils.TAG_PASSWORD_RESET_REQUEST);
+                            .cancelPendingRequests(NetworkTags.UserNetworkTags.TAG_PASSWORD_RESET_REQUEST);
                 }
                 ) {
                     @Override
@@ -1283,13 +1279,13 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         Map<String, String> params = new HashMap<>();
 
                         // Put email address and new password
-                        params.put(AccountUtils.FIELD_EMAIL_ADDRESS, emailAddress);
-                        params.put(AccountUtils.FIELD_NEW_PASSWORD, newPassword);
+                        params.put(UserAccountUtils.FIELD_EMAIL_ADDRESS, emailAddress);
+                        params.put(UserAccountUtils.FIELD_NEW_PASSWORD, newPassword);
 
                         // Put verification type
                         params.put(
-                                AccountUtils.FIELD_VERIFICATION_TYPE,
-                                AccountUtils.KEY_VERIFICATION_TYPE_PASSWORD_RESET
+                                UserAccountUtils.FIELD_VERIFICATION_TYPE,
+                                UserAccountUtils.KEY_VERIFICATION_TYPE_PASSWORD_RESET
                         );
                         return params;
                     }
@@ -1311,19 +1307,17 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                 // Adding Request to request queue
                 ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                        NetworkUtils.TAG_PASSWORD_RESET_REQUEST);
+                        NetworkTags.UserNetworkTags.TAG_PASSWORD_RESET_REQUEST);
 
+        } else {
+            // Not Connected
 
-            } else {
-                // Not Connected
-
-                // Toast connection error message
-                CustomToast.errorMessage(mContext,
-                        DataUtils.getStringResource(
-                                mContext,
-                                R.string.error_network_connection_error_message_short),
-                        R.drawable.ic_sad_cloud_100px_white);
-            }
+            // Toast connection error message
+            CustomToast.errorMessage(mContext,
+                    DataUtils.getStringResource(
+                            mContext,
+                            R.string.error_network_connection_error_message_short),
+                    R.drawable.ic_sad_cloud_100px_white);
         }
     }
 }

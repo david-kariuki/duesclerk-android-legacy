@@ -26,16 +26,17 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.duesclerk.R;
-import com.duesclerk.custom.custom_utilities.AccountUtils;
 import com.duesclerk.custom.custom_utilities.ApplicationClass;
 import com.duesclerk.custom.custom_utilities.DataUtils;
 import com.duesclerk.custom.custom_utilities.InputFiltersUtils;
+import com.duesclerk.custom.custom_utilities.UserAccountUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
 import com.duesclerk.custom.custom_utilities.VolleyUtils;
 import com.duesclerk.custom.custom_views.toast.CustomToast;
 import com.duesclerk.custom.network.InternetConnectivity;
-import com.duesclerk.custom.network.NetworkUtils;
-import com.duesclerk.custom.storage_adapters.SQLiteDB;
+import com.duesclerk.custom.network.NetworkTags;
+import com.duesclerk.custom.network.NetworkUrls;
+import com.duesclerk.custom.storage_adapters.UserDatabase;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -57,7 +58,7 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
     // private final String TAG = ChangePasswordFragment.class.getSimpleName();
 
     private final Context mContext;
-    private final SQLiteDB database;
+    private final UserDatabase database;
     private BottomSheetBehavior bottomSheetBehavior;
     private BottomSheetBehavior.BottomSheetCallback bottomSheetCallback;
     private ImageView imagePasswordToggleCurrentPassword, imagePasswordToggleNewPassword,
@@ -67,7 +68,7 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
 
     public ChangePasswordFragment(Context mContext) {
         this.mContext = mContext; // Get context
-        this.database = new SQLiteDB(mContext); // Initialize database
+        this.database = new UserDatabase(mContext); // Initialize database
     }
 
     @NonNull
@@ -168,9 +169,8 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
         // Set BottomSheet behaviour
         this.bottomSheetBehavior = BottomSheetBehavior.from((View) contentView.getParent());
 
-        // Set background to transparent
-        ((View) contentView.getParent()).setBackgroundColor(Color.TRANSPARENT);
-
+        // Set dialog transparent background
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         return dialog; // Return custom dialog
     }
 
@@ -232,7 +232,7 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
     /**
      * Function to update password on remote database
      *
-     * @param userId        - Users id
+     * @param userId          - Users id
      * @param currentPassword - Current stored SQLite password
      * @param newPassword     - New users password
      */
@@ -241,95 +241,94 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
 
         // Check Internet Connection State
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
-            if (InternetConnectivity.isConnectionFast(mContext)) {
-                // Connected
+            // Connected
 
-                ViewsUtils.hideKeyboard(requireActivity()); // Hide keyboard if showing
+            ViewsUtils.hideKeyboard(requireActivity()); // Hide keyboard if showing
 
-                // Show dialog
-                showProgressDialog(progressDialog,
-                        DataUtils.getStringResource(mContext,
-                                R.string.title_updating_password),
-                        DataUtils.getStringResource(mContext,
-                                R.string.msg_updating_password)
-                );
+            // Show dialog
+            showProgressDialog(progressDialog,
+                    DataUtils.getStringResource(mContext,
+                            R.string.title_updating_password),
+                    DataUtils.getStringResource(mContext,
+                            R.string.msg_updating_password)
+            );
 
-                StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                        NetworkUtils.URL_UPDATE_USER_PROFILE_DETAILS, response -> {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                    NetworkUrls.UserURLS.URL_UPDATE_USER_PROFILE_DETAILS, response -> {
 
-                    // Log Response
-                    // Log.d(TAG, "Update Password Response:" + response);
+                // Log Response
+                // Log.d(TAG, "Update Password Response:" + response);
 
-                    try {
+                try {
 
-                        JSONObject jsonObject = new JSONObject(response);
-                        boolean error = jsonObject.getBoolean(VolleyUtils.KEY_ERROR);
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean error = jsonObject.getBoolean(VolleyUtils.KEY_ERROR);
 
-                        ViewsUtils.dismissProgressDialog(progressDialog); // Hide Dialog
+                    ViewsUtils.dismissProgressDialog(progressDialog); // Hide Dialog
 
-                        // Check for error
-                        if (!error) {
-                            // User password updated successfully
+                    // Check for error
+                    if (!error) {
+                        // User password updated successfully
 
-                            // Update password in SQLite database and check if successful
-                            if (database.updateUserAccountInformation(
-                                    mContext,
-                                    database.getUserAccountInfo(null).get(0).getUserId(),
-                                    newPassword, AccountUtils.FIELD_PASSWORD)) {
-                                // Update successful
+                        // Update password in SQLite database and check if successful
+                        if (database.updateUserAccountInformation(
+                                mContext,
+                                database.getUserAccountInfo(null).get(0).getUserId(),
+                                newPassword, UserAccountUtils.FIELD_PASSWORD)) {
+                            // Update successful
 
-                                // Show update successful message
-                                CustomToast.infoMessage(mContext,
-                                        DataUtils.getStringResource(mContext,
-                                                R.string.msg_password_updated), false,
-                                        R.drawable.ic_baseline_person_24_white);
+                            // Show update successful message
+                            CustomToast.infoMessage(mContext,
+                                    DataUtils.getStringResource(mContext,
+                                            R.string.msg_password_updated), false,
+                                    R.drawable.ic_baseline_person_24_white);
 
-                                dismiss(); // Dismiss dialog
-                            }
-                        } else {
-                            // Error updating details
-
-                            String errorMessage = jsonObject.getString(
-                                    VolleyUtils.KEY_ERROR_MESSAGE);
-
-                            // Toast error message
-                            CustomToast.errorMessage(
-                                    mContext,
-                                    errorMessage,
-                                    R.drawable.ic_baseline_edit_24_white);
-
-                            // Cancel Pending Request
-                            ApplicationClass.getClassInstance().cancelPendingRequests(
-                                    NetworkUtils.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
+                            dismiss(); // Dismiss dialog
                         }
-                    } catch (Exception ignored) {
-                    }
-                }, volleyError -> {
+                    } else {
+                        // Error updating details
 
-                    // Log Response
-                    // Log.e(TAG, "Profile Response Error " + ":" + volleyError.getMessage());
+                        String errorMessage = jsonObject.getString(
+                                VolleyUtils.KEY_ERROR_MESSAGE);
 
-                    // Hide Dialog
-                    ViewsUtils.dismissProgressDialog(progressDialog);
-
-                    if (volleyError.getMessage() == null || volleyError instanceof NetworkError
-                            || volleyError instanceof ServerError || volleyError instanceof
-                            AuthFailureError || volleyError instanceof TimeoutError) {
+                        // Toast error message
+                        CustomToast.errorMessage(
+                                mContext,
+                                errorMessage,
+                                R.drawable.ic_baseline_edit_24_white);
 
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(
-                                NetworkUtils.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
+                                NetworkTags.UserNetworkTags.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
+                    }
+                } catch (Exception ignored) {
+                }
+            }, volleyError -> {
 
-                        // Toast Network Error
-                        if (volleyError.getMessage() != null) {
-                            CustomToast.errorMessage(mContext, volleyError.getMessage(), 0);
-                        }
+                // Log Response
+                // Log.e(TAG, "Profile Response Error " + ":" + volleyError.getMessage());
+
+                // Hide Dialog
+                ViewsUtils.dismissProgressDialog(progressDialog);
+
+                if (volleyError.getMessage() == null || volleyError instanceof NetworkError
+                        || volleyError instanceof ServerError || volleyError instanceof
+                        AuthFailureError || volleyError instanceof TimeoutError) {
+
+                    // Cancel Pending Request
+                    ApplicationClass.getClassInstance().cancelPendingRequests(
+                            NetworkTags.UserNetworkTags.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
+
+                    // Toast Network Error
+                    if (volleyError.getMessage() != null) {
+                        CustomToast.errorMessage(mContext, volleyError.getMessage(), 0);
                     }
-                }) {
-                    @Override
-                    protected void deliverResponse(String response) {
-                        super.deliverResponse(response);
-                    }
+                }
+            }) {
+                @Override
+                protected void deliverResponse(String response) {
+                    super.deliverResponse(response);
+                }
 
                     /*@Override
                     public Map<String, String> getHeaders() {
@@ -339,57 +338,48 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
                         return headers;
                     }*/
 
-                    @Override
-                    protected Map<String, String> getParams() {
-                        @SuppressWarnings({"unchecked", "rawtypes"}) Map<String, String> params =
-                                new HashMap();
+                @Override
+                protected Map<String, String> getParams() {
+                    @SuppressWarnings({"unchecked", "rawtypes"}) Map<String, String> params =
+                            new HashMap();
 
-                        // Put userId, current and new password to Map params
-                        params.put(AccountUtils.FIELD_USER_ID, userId);
-                        params.put(AccountUtils.FIELD_PASSWORD, currentPassword);
-                        params.put(AccountUtils.FIELD_NEW_PASSWORD, newPassword);
+                    // Put userId, current and new password to Map params
+                    params.put(UserAccountUtils.FIELD_USER_ID, userId);
+                    params.put(UserAccountUtils.FIELD_PASSWORD, currentPassword);
+                    params.put(UserAccountUtils.FIELD_NEW_PASSWORD, newPassword);
 
-                        return params; // Return params
-                    }
+                    return params; // Return params
+                }
 
-                    @Override
-                    protected VolleyError parseNetworkError(VolleyError volleyError) {
-                        return super.parseNetworkError(volleyError);
-                    }
+                @Override
+                protected VolleyError parseNetworkError(VolleyError volleyError) {
+                    return super.parseNetworkError(volleyError);
+                }
 
-                    @Override
-                    public void deliverError(VolleyError error) {
-                        super.deliverError(error);
-                    }
-                };
+                @Override
+                public void deliverError(VolleyError error) {
+                    super.deliverError(error);
+                }
+            };
 
-                // Set Request Priority
-                ApplicationClass.getClassInstance().setPriority(Request.Priority.HIGH);
+            // Set Request Priority
+            ApplicationClass.getClassInstance().setPriority(Request.Priority.HIGH);
 
-                // Set retry policy
-                stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                        DataUtils.getIntegerResource(mContext,
-                                R.integer.int_volley_account_request_initial_timeout_ms),
-                        DataUtils.getIntegerResource(mContext,
-                                R.integer.int_volley_account_request_max_timeout_retry),
-                        1.0f));
+            // Set retry policy
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    DataUtils.getIntegerResource(mContext,
+                            R.integer.int_volley_account_request_initial_timeout_ms),
+                    DataUtils.getIntegerResource(mContext,
+                            R.integer.int_volley_account_request_max_timeout_retry),
+                    1.0f));
 
-                // Set request caching to false
-                stringRequest.setShouldCache(false);
+            // Set request caching to false
+            stringRequest.setShouldCache(false);
 
-                // Adding request to request queue
-                ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                        NetworkUtils.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
+            // Adding request to request queue
+            ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
+                    NetworkTags.UserNetworkTags.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
 
-            } else {
-
-                // Toast network connection message
-                CustomToast.errorMessage(
-                        mContext,
-                        DataUtils.getStringResource(mContext,
-                                R.string.error_network_connection_error_message_long),
-                        R.drawable.ic_sad_cloud_100px_white);
-            }
         } else {
 
             // Toast network connection message

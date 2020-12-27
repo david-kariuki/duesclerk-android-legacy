@@ -11,13 +11,13 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.duesclerk.R;
-import com.duesclerk.custom.custom_utilities.AccountUtils;
 import com.duesclerk.custom.custom_utilities.BroadCastUtils;
 import com.duesclerk.custom.custom_utilities.DataUtils;
+import com.duesclerk.custom.custom_utilities.UserAccountUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
 import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.ChangePasswordFragment;
 import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.SwitchAccountTypeFragment;
-import com.duesclerk.custom.storage_adapters.SQLiteDB;
+import com.duesclerk.custom.storage_adapters.UserDatabase;
 
 public class AccountSettings extends AppCompatActivity {
 
@@ -111,19 +111,19 @@ public class AccountSettings extends AppCompatActivity {
      */
     private void setSwitchAccountTypeAction() {
 
-        SQLiteDB database = new SQLiteDB(mContext); // Create and initialize database object
+        UserDatabase database = new UserDatabase(mContext); // Create and initialize database object
 
         // Get account type
         String accountType = database.getUserAccountInfo(null).get(0).getAccountType();
 
         // Set switch account label
-        if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
+        if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
             // Personal account
 
             // Set switch label for bottom sheet title
             switchLabel = DataUtils.getStringResource(mContext, R.string.hint_business_account);
 
-        } else if (accountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
+        } else if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
             // Business account
 
             // Set switch label for bottom sheet title
