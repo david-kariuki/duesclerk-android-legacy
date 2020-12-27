@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="wrap_content"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bottom_sheet_header_curved"
     android:orientation="vertical">
 
     <LinearLayout
-        android:background="@drawable/bottom_sheet_top"
-        android:layout_height="wrap_content"
         android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,12 +17,12 @@
         app:layout_constraintWidth_percent=".9">
 
         <TextView
-            android:hint="@string/msg_logout"
             android:id="@+id/textBSLogout_Message"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:hint="@string/msg_logout"
             android:singleLine="false"
             android:textColor="@color/colorBlack"
             android:textColorHint="@color/colorBlack"
@@ -34,33 +34,33 @@
 
         <RelativeLayout
             android:id="@+id/relativeLayout2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textBSLogout_Message">
 
             <TextView
-                style="@style/Base.TextAppearance.AppCompat.Button"
                 android:id="@+id/textBSLogout_Cancel"
+                style="@style/Base.TextAppearance.AppCompat.Button"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_toStartOf="@+id/textBSLogout_Logout"
-                android:layout_width="wrap_content"
                 android:text="@string/action_cancel"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/dimen_bs_text_buttons_size"
                 android:textStyle="bold" />
 
             <TextView
-                style="@style/Base.TextAppearance.AppCompat.Button"
                 android:id="@+id/textBSLogout_Logout"
-                android:layout_alignParentEnd="true"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                style="@style/Base.TextAppearance.AppCompat.Button"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10dp"
                 android:text="@string/action_logout"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/dimen_bs_text_buttons_size"
@@ -69,8 +69,8 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/relativeLayout2">

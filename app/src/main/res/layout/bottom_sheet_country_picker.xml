@@ -1,77 +1,76 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--suppress AndroidElementNotAllowed -->
-<RelativeLayout
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:background="@color/colorWhite"
+<?xml version="1.0" encoding="utf-8"?><!--suppress AndroidElementNotAllowed -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bottom_sheet_header_curved"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/consLayoutCountryPicker_SearchView"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@drawable/gradient_country_picker_header"
-        android:gravity="center_vertical"
-        android:id="@+id/consLayoutCountryPicker_SearchView"
         android:elevation="@dimen/dimen_toolbar_elevation_medium"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <SearchView
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:id="@+id/searchViewCountryPicker"
-            android:searchIcon="@drawable/ic_baseline_search_24_primary_dark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="30dp"
+            android:background="@null"
             android:backgroundTint="@null"
             android:closeIcon="@drawable/ic_x_100px_white"
-            android:inputType="text"
-            android:background="@null"
-            android:imeOptions="actionSearch"
-            android:searchHintIcon="@drawable/ic_baseline_search_24_primary_dark"
             android:gravity="center_vertical"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
             android:queryHint="Search countries"
+            android:searchHintIcon="@drawable/ic_baseline_search_24_primary_dark"
+            android:searchIcon="@drawable/ic_baseline_search_24_primary_dark"
             android:theme="@style/AppSearchView"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="30dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewCountryPicker"
+        style="@style/Style_ScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recyclerViewCountryPicker"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/consLayoutCountryPicker_SearchView"
         android:layout_above="@id/llCountryPicker_Dismiss"
-        style="@style/Style_ScrollView" />
+        android:layout_below="@id/consLayoutCountryPicker_SearchView"
+        android:layout_marginTop="10dp" />
 
     <LinearLayout
+        android:id="@+id/llCountryPicker_Dismiss"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_bs_toolbar_height"
-        android:gravity="end"
-        android:id="@+id/llCountryPicker_Dismiss"
-        android:elevation="5dp"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/gradient_country_picker_footer"
-        android:layout_alignParentBottom="true">
+        android:elevation="5dp"
+        android:gravity="end">
 
         <TextView
+            android:id="@+id/textCountryPicker_Dismiss"
+            style="@style/Base.TextAppearance.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:textColor="@color/colorPrimaryDark"
-            style="@style/Base.TextAppearance.AppCompat.Button"
-            android:textStyle="bold"
-            android:text="@string/action_close"
             android:layout_gravity="center_vertical"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/action_close"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/dimen_bs_text_buttons_size"
-            android:id="@+id/textCountryPicker_Dismiss"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 
