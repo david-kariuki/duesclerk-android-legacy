@@ -26,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("rawtypes")
 @SuppressLint("ValidFragment")
-public class LogoutFragment extends BottomSheetDialogFragment {
+public class BottomSheetFragment_Logout extends BottomSheetDialogFragment {
 
     private final Context mContext;
     private final UserDatabase database;
@@ -34,7 +34,7 @@ public class LogoutFragment extends BottomSheetDialogFragment {
     private BottomSheetBehavior bottomSheetBehavior;
     private BottomSheetBehavior.BottomSheetCallback bottomSheetCallback;
 
-    public LogoutFragment(Context mContext) {
+    public BottomSheetFragment_Logout(Context mContext) {
         this.mContext = mContext; // Get context
         this.sessionManager = new SessionManager(mContext); // Initialize SessionManager object
         this.database = new UserDatabase(mContext); // Initialize database
@@ -62,6 +62,7 @@ public class LogoutFragment extends BottomSheetDialogFragment {
         tvCancel.setOnClickListener(v -> dialog.dismiss());
 
         tvLogout.setOnClickListener(v -> {
+
             // Check if user is logged in
             if (sessionManager.isSignedIn()) {
 

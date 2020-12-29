@@ -56,10 +56,10 @@ import static com.duesclerk.custom.custom_utilities.ViewsUtils.showProgressDialo
 
 @SuppressWarnings("rawtypes")
 @SuppressLint("ValidFragment")
-public class SwitchAccountTypeFragment extends BottomSheetDialogFragment implements TextWatcher {
+public class BottomSheetFragment_SwitchAccountType extends BottomSheetDialogFragment implements TextWatcher {
 
     // Get class simple name
-    // private final String TAG = SwitchAccountTypeFragment.class.getSimpleName();
+    // private final String TAG = BottomSheetFragment_SwitchAccountType.class.getSimpleName();
 
     private final Context mContext;
     private final UserDatabase database;
@@ -78,7 +78,7 @@ public class SwitchAccountTypeFragment extends BottomSheetDialogFragment impleme
      * @param context     - Context
      * @param switchLabel - Switch label for bottom sheet title
      */
-    public SwitchAccountTypeFragment(Context context, String switchLabel) {
+    public BottomSheetFragment_SwitchAccountType(Context context, String switchLabel) {
         this.mContext = context; // Get context
         this.database = new UserDatabase(context); // Initialize database
         this.switchLabel = switchLabel; // Set switch label

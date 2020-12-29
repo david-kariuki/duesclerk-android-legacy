@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.duesclerk.R;
 import com.duesclerk.custom.custom_utilities.DataUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
-import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.CountryPickerFragment;
+import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.BottomSheetFragment_CountryPicker;
 import com.duesclerk.custom.java_beans.JB_CountryData;
 
 import org.jetbrains.annotations.NotNull;
@@ -29,19 +29,19 @@ public class RVLA_CountryPicker extends RecyclerView.Adapter<RVLA_CountryPicker.
 
     private final Context mContext;
     private final ArrayList<JB_CountryData> filterList;
-    private final CountryPickerFragment countryPickerFragment;
+    private final BottomSheetFragment_CountryPicker bottomSheetFragmentCountryPicker;
     private ArrayList<JB_CountryData> countryData;
     private CustomFilter customFilter;
     private int lastPosition = 0;
     // ViewHolder view
     private View viewHolderView;
 
-    public RVLA_CountryPicker(CountryPickerFragment countryPickerFragment,
+    public RVLA_CountryPicker(BottomSheetFragment_CountryPicker bottomSheetFragmentCountryPicker,
                               ArrayList<JB_CountryData> countryData) {
-        this.mContext = countryPickerFragment.getContext();
+        this.mContext = bottomSheetFragmentCountryPicker.getContext();
         this.countryData = countryData;
         this.filterList = countryData;
-        this.countryPickerFragment = countryPickerFragment;
+        this.bottomSheetFragmentCountryPicker = bottomSheetFragmentCountryPicker;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class RVLA_CountryPicker extends RecyclerView.Adapter<RVLA_CountryPicker.
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(
                 R.layout.layout_recycler_view_adapter_country_picker, parent, false);
 
-        ViewsUtils.hideKeyboard(countryPickerFragment.requireActivity());
+        ViewsUtils.hideKeyboard(bottomSheetFragmentCountryPicker.requireActivity());
         return new RecyclerViewHolder(layoutView);
     }
 
@@ -81,7 +81,7 @@ public class RVLA_CountryPicker extends RecyclerView.Adapter<RVLA_CountryPicker.
                         + " " + this.countryData.get(position).getCountryName();
 
                 // Pass country data to interface
-                this.countryPickerFragment.passSelectedCountryDataToInterface(
+                this.bottomSheetFragmentCountryPicker.passSelectedCountryDataToInterface(
                         this.countryData.get(position).getCountryName(),
                         this.countryData.get(position).getCountryCode(),
                         countryCodeWithCountryName,

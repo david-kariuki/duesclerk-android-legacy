@@ -15,8 +15,8 @@ import com.duesclerk.custom.custom_utilities.BroadCastUtils;
 import com.duesclerk.custom.custom_utilities.DataUtils;
 import com.duesclerk.custom.custom_utilities.UserAccountUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
-import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.ChangePasswordFragment;
-import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.SwitchAccountTypeFragment;
+import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.BottomSheetFragment_ChangePassword;
+import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.BottomSheetFragment_SwitchAccountType;
 import com.duesclerk.custom.storage_adapters.UserDatabase;
 
 public class AccountSettings extends AppCompatActivity {
@@ -44,17 +44,17 @@ public class AccountSettings extends AppCompatActivity {
         ImageView imageExit = findViewById(R.id.imageAccountSettings_Exit);
 
         // Change password fragment
-        ChangePasswordFragment changePasswordFragment = new ChangePasswordFragment(mContext);
-        changePasswordFragment.setRetainInstance(true);
-        changePasswordFragment.setCancelable(false);
+        BottomSheetFragment_ChangePassword bottomSheetFragmentChangePassword = new BottomSheetFragment_ChangePassword(mContext);
+        bottomSheetFragmentChangePassword.setRetainInstance(true);
+        bottomSheetFragmentChangePassword.setCancelable(false);
 
         // Set switch account type action text
         setSwitchAccountTypeAction();
 
-        SwitchAccountTypeFragment switchAccountTypeFragment = new SwitchAccountTypeFragment(
+        BottomSheetFragment_SwitchAccountType bottomSheetFragmentSwitchAccountType = new BottomSheetFragment_SwitchAccountType(
                 mContext, switchLabel);
-        switchAccountTypeFragment.setRetainInstance(true);
-        switchAccountTypeFragment.setCancelable(false);
+        bottomSheetFragmentSwitchAccountType.setRetainInstance(true);
+        bottomSheetFragmentSwitchAccountType.setCancelable(false);
 
         // Receive Broadcast
         bcrSetActionText = new BroadcastReceiver() {
@@ -76,7 +76,7 @@ public class AccountSettings extends AppCompatActivity {
         llChangePassword.setOnClickListener(v ->
                 // Show change password fragment
                 ViewsUtils.showBottomSheetDialogFragment(getSupportFragmentManager(),
-                        changePasswordFragment, true));
+                        bottomSheetFragmentChangePassword, true));
 
         llSwitchAccountType.setOnClickListener(v -> {
 
@@ -85,7 +85,7 @@ public class AccountSettings extends AppCompatActivity {
 
                 // Show switch account type fragment
                 ViewsUtils.showBottomSheetDialogFragment(getSupportFragmentManager(),
-                        switchAccountTypeFragment, true);
+                        bottomSheetFragmentSwitchAccountType, true);
         });
     }
 

@@ -27,7 +27,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 @SuppressWarnings("rawtypes")
 @SuppressLint("ValidFragment")
-public class EmailNotVerifiedFragment extends BottomSheetDialogFragment {
+public class BottomSheetFragment_EmailNotVerified extends BottomSheetDialogFragment {
 
     private final Context mContext;
     private BottomSheetBehavior bottomSheetBehavior;
@@ -35,7 +35,7 @@ public class EmailNotVerifiedFragment extends BottomSheetDialogFragment {
     private String usersName;
     private Animation animSwivel;
 
-    public EmailNotVerifiedFragment(Context mContext) {
+    public BottomSheetFragment_EmailNotVerified(Context mContext) {
         this.mContext = mContext; // get context
     }
 

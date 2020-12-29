@@ -42,7 +42,7 @@ import java.util.Objects;
 
 @SuppressWarnings({"rawtypes"})
 @SuppressLint("ValidFragment")
-public class CountryPickerFragment extends BottomSheetDialogFragment {
+public class BottomSheetFragment_CountryPicker extends BottomSheetDialogFragment {
     private final Context mContext;
     private final Interface_CountryPicker interfaceCountryPicker;
     private final Activity activity;
@@ -50,7 +50,7 @@ public class CountryPickerFragment extends BottomSheetDialogFragment {
     private BottomSheetBehavior.BottomSheetCallback bottomSheetCallback;
     private ArrayList<JB_CountryData> countryListArray;
 
-    public CountryPickerFragment(UserProfileActivity userProfileActivity) {
+    public BottomSheetFragment_CountryPicker(UserProfileActivity userProfileActivity) {
         this.mContext = userProfileActivity.getApplicationContext();
         this.interfaceCountryPicker = userProfileActivity;
         this.activity = userProfileActivity;
@@ -61,7 +61,7 @@ public class CountryPickerFragment extends BottomSheetDialogFragment {
      *
      * @param fragmentPersonalSignup - Personal signup fragment
      */
-    public CountryPickerFragment(FragmentPersonalSignup fragmentPersonalSignup) {
+    public BottomSheetFragment_CountryPicker(FragmentPersonalSignup fragmentPersonalSignup) {
         this.mContext = fragmentPersonalSignup.requireActivity();
         this.interfaceCountryPicker = fragmentPersonalSignup;
         this.activity = fragmentPersonalSignup.requireActivity();
@@ -72,7 +72,7 @@ public class CountryPickerFragment extends BottomSheetDialogFragment {
      *
      * @param fragmentBusinessSignup - Business signup fragment
      */
-    public CountryPickerFragment(FragmentBusinessSignup fragmentBusinessSignup) {
+    public BottomSheetFragment_CountryPicker(FragmentBusinessSignup fragmentBusinessSignup) {
         this.mContext = fragmentBusinessSignup.requireActivity();
         this.interfaceCountryPicker = fragmentBusinessSignup;
         this.activity = fragmentBusinessSignup.requireActivity();

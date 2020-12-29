@@ -34,8 +34,8 @@ import com.duesclerk.custom.custom_utilities.TaskUtils;
 import com.duesclerk.custom.custom_utilities.UserAccountUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
 import com.duesclerk.custom.custom_utilities.VolleyUtils;
-import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.CountryPickerFragment;
-import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.EmailNotVerifiedFragment;
+import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.BottomSheetFragment_CountryPicker;
+import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.BottomSheetFragment_EmailNotVerified;
 import com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout;
 import com.duesclerk.custom.custom_views.toast.CustomToast;
 import com.duesclerk.custom.network.InternetConnectivity;
@@ -71,8 +71,8 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
     private ImageView imageCountryFlag, imageEmailVerificationError;
     private boolean editingProfile = false;
     private UserDatabase database;
-    private CountryPickerFragment countryPickerFragment;
-    private EmailNotVerifiedFragment emailNotVerifiedFragment;
+    private BottomSheetFragment_CountryPicker bottomSheetFragmentCountryPicker;
+    private BottomSheetFragment_EmailNotVerified bottomSheetFragmentEmailNotVerified;
     private ShimmerFrameLayout shimmerFrameLayout;
     private LinearLayout llUserProfileActivity, llUserProfileActivityFABS, llNoConnection;
     private String fetchedFirstName = "", fetchedLastName = "", fetchedBusinessName = "",
@@ -163,9 +163,9 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
         accountType = database.getUserAccountInfo(null).get(0).getAccountType();
 
         // CountryPicker
-        countryPickerFragment = new CountryPickerFragment(this);
-        countryPickerFragment.setCancelable(true);
-        countryPickerFragment.setRetainInstance(true);
+        bottomSheetFragmentCountryPicker = new BottomSheetFragment_CountryPicker(this);
+        bottomSheetFragmentCountryPicker.setCancelable(true);
+        bottomSheetFragmentCountryPicker.setRetainInstance(true);
 
         // Initialize email not verified fragment and set first name or business name to it
         initEmailVerificationFragment(); // Initialize fragment
@@ -205,7 +205,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
         // Edit country onClick
         editCountry.setOnClickListener(v -> ViewsUtils.showBottomSheetDialogFragment(
-                getSupportFragmentManager(), countryPickerFragment, true));
+                getSupportFragmentManager(), bottomSheetFragmentCountryPicker, true));
 
         imageEmailVerificationError.setOnClickListener(v -> {
             if ((!fetchedFirstName.equals("") || !fetchedBusinessName.equals(""))
@@ -213,7 +213,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
                 // Start email not verified bottom sheet
                 ViewsUtils.showBottomSheetDialogFragment(getSupportFragmentManager(),
-                        emailNotVerifiedFragment, true);
+                        bottomSheetFragmentEmailNotVerified, true);
             }
         });
 
@@ -280,21 +280,21 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
     private void initEmailVerificationFragment() {
 
         // Email not verified
-        emailNotVerifiedFragment = new EmailNotVerifiedFragment(this);
-        emailNotVerifiedFragment.setCancelable(true);
-        emailNotVerifiedFragment.setRetainInstance(true);
+        bottomSheetFragmentEmailNotVerified = new BottomSheetFragment_EmailNotVerified(this);
+        bottomSheetFragmentEmailNotVerified.setCancelable(true);
+        bottomSheetFragmentEmailNotVerified.setRetainInstance(true);
 
         if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
             if (!fetchedFirstName.equals("")) {
 
                 // Pass first name to bottom sheet
-                emailNotVerifiedFragment.setUsersName(fetchedFirstName);
+                bottomSheetFragmentEmailNotVerified.setUsersName(fetchedFirstName);
             }
         } else if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
             if (!fetchedBusinessName.equals("")) {
 
                 // Pass business name to bottom sheet
-                emailNotVerifiedFragment.setUsersName(fetchedBusinessName);
+                bottomSheetFragmentEmailNotVerified.setUsersName(fetchedBusinessName);
             }
         }
     }
@@ -552,7 +552,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
                                     // Start Email Not Verified BottomSheet
                                     ViewsUtils.showBottomSheetDialogFragment(getSupportFragmentManager(),
-                                            emailNotVerifiedFragment, true);
+                                            bottomSheetFragmentEmailNotVerified, true);
                                 }
                             }
                         }

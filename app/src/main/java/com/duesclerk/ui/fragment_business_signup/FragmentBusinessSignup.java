@@ -22,7 +22,7 @@ import androidx.fragment.app.Fragment;
 import com.duesclerk.R;
 import com.duesclerk.custom.custom_utilities.InputFiltersUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
-import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.CountryPickerFragment;
+import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.BottomSheetFragment_CountryPicker;
 import com.duesclerk.interfaces.Interface_CountryPicker;
 import com.duesclerk.interfaces.Interface_SignInSignup;
 import com.google.android.material.textfield.TextInputEditText;
@@ -35,7 +35,7 @@ public class FragmentBusinessSignup extends Fragment implements Interface_Countr
     private EditText editBusinessName, editCountry, editEmailAddress;
     private TextInputEditText editPassword;
     private String countryCode, countryAlpha2;
-    private CountryPickerFragment countryPickerFragment;
+    private BottomSheetFragment_CountryPicker bottomSheetFragmentCountryPicker;
     private ImageView imageCountryFlag, imagePasswordToggle;
 
     public static FragmentBusinessSignup newInstance() {
@@ -53,9 +53,9 @@ public class FragmentBusinessSignup extends Fragment implements Interface_Countr
         Interface_SignInSignup interfaceSignUpSignIn = (Interface_SignInSignup) getActivity();
 
         // BottomSheetDialogFragments
-        countryPickerFragment = new CountryPickerFragment(this);
-        countryPickerFragment.setRetainInstance(true);
-        countryPickerFragment.setCancelable(true);
+        bottomSheetFragmentCountryPicker = new BottomSheetFragment_CountryPicker(this);
+        bottomSheetFragmentCountryPicker.setRetainInstance(true);
+        bottomSheetFragmentCountryPicker.setCancelable(true);
 
         editBusinessName = view.findViewById(R.id.editSignUpActivity_BusinessName);
         editCountry = view.findViewById(R.id.editSignUpActivity_Country);
@@ -106,7 +106,7 @@ public class FragmentBusinessSignup extends Fragment implements Interface_Countr
 
         editCountry.setOnClickListener(v ->
                 ViewsUtils.showBottomSheetDialogFragment(getParentFragmentManager(),
-                        countryPickerFragment, true));
+                        bottomSheetFragmentCountryPicker, true));
 
         // Select SignIn tab
         llSignIn.setOnClickListener(v ->

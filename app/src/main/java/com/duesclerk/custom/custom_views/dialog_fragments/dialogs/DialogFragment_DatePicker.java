@@ -27,7 +27,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-public class DatePickerFragment extends DialogFragment
+public class DialogFragment_DatePicker extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 
     // Interface to pass date
@@ -37,7 +37,7 @@ public class DatePickerFragment extends DialogFragment
     private final boolean restrictToMinAge;
     private final String dialogTitle;
 
-    public DatePickerFragment(Context context, boolean restrictToMinAge, String dialogTitle) {
+    public DialogFragment_DatePicker(Context context, boolean restrictToMinAge, String dialogTitle) {
         this.mContext = context;
         this.restrictToMinAge = restrictToMinAge;
         this.dialogTitle = dialogTitle;

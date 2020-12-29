@@ -52,10 +52,10 @@ import static com.duesclerk.custom.custom_utilities.ViewsUtils.showProgressDialo
 
 @SuppressWarnings("rawtypes")
 @SuppressLint("ValidFragment")
-public class ChangePasswordFragment extends BottomSheetDialogFragment implements TextWatcher {
+public class BottomSheetFragment_ChangePassword extends BottomSheetDialogFragment implements TextWatcher {
 
     // Get class simple name
-    // private final String TAG = ChangePasswordFragment.class.getSimpleName();
+    // private final String TAG = BottomSheetFragment_ChangePassword.class.getSimpleName();
 
     private final Context mContext;
     private final UserDatabase database;
@@ -66,7 +66,7 @@ public class ChangePasswordFragment extends BottomSheetDialogFragment implements
     private EditText editCurrentPassword, editNewPassword, editConfirmNewPassword;
     private ProgressDialog progressDialog;
 
-    public ChangePasswordFragment(Context mContext) {
+    public BottomSheetFragment_ChangePassword(Context mContext) {
         this.mContext = mContext; // Get context
         this.database = new UserDatabase(mContext); // Initialize database
     }

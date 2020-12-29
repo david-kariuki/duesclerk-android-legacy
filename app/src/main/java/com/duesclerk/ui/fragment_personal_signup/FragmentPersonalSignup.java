@@ -21,7 +21,7 @@ import androidx.fragment.app.Fragment;
 import com.duesclerk.R;
 import com.duesclerk.custom.custom_utilities.InputFiltersUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
-import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.CountryPickerFragment;
+import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.BottomSheetFragment_CountryPicker;
 import com.duesclerk.interfaces.Interface_CountryPicker;
 import com.duesclerk.interfaces.Interface_SignInSignup;
 import com.google.android.material.textfield.TextInputEditText;
@@ -35,7 +35,7 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
     private TextInputEditText editPassword;
     private String countryCode, countryAlpha2;
     private ImageView imagePasswordToggle, imageCountryFlag;
-    private CountryPickerFragment countryPickerFragment;
+    private BottomSheetFragment_CountryPicker bottomSheetFragmentCountryPicker;
 
     public static FragmentPersonalSignup newInstance() {
         return new FragmentPersonalSignup();
@@ -52,9 +52,9 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
         Interface_SignInSignup interfaceSignUpSignIn = (Interface_SignInSignup) getActivity();
 
         // BottomSheetDialogFragments
-        countryPickerFragment = new CountryPickerFragment(this);
-        countryPickerFragment.setRetainInstance(true);
-        countryPickerFragment.setCancelable(true);
+        bottomSheetFragmentCountryPicker = new BottomSheetFragment_CountryPicker(this);
+        bottomSheetFragmentCountryPicker.setRetainInstance(true);
+        bottomSheetFragmentCountryPicker.setCancelable(true);
 
         editFirstName = view.findViewById(R.id.editSignUpActivity_FirstName);
         editLastName = view.findViewById(R.id.editSignUpActivity_LastName);
@@ -85,7 +85,7 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
 
         editCountry.setOnClickListener(v ->
                 ViewsUtils.showBottomSheetDialogFragment(getParentFragmentManager(),
-                        countryPickerFragment, true));
+                        bottomSheetFragmentCountryPicker, true));
 
         editPassword.addTextChangedListener(new TextWatcher() {
             @Override
