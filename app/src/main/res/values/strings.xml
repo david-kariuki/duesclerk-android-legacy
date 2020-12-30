@@ -26,6 +26,7 @@
     <string name="title_updating_profile">Updating profile</string>
     <string name="title_updating_password">Updating password</string>
     <string name="title_switching_account_type">Switching account type</string>
+    <string name="title_adding_contact">Adding contact</string>
     <string name="title_mailing_email_verification_code">Sending verification code</string>
     <string name="title_verifying_email_address">Verifying email address</string>
     <string name="title_resetting_password">Verifying email address</string>
@@ -43,6 +44,7 @@
     <string name="hint_country_name">Country</string>
     <string name="hint_date_of_birth">Date of birth</string>
     <string name="hint_business_name">Business name</string>
+    <string name="hint_phone_number">Phone number</string>
     <string name="hint_first_and_last_name">First and last name</string>
     <string name="hint_account_type">Account type</string>
     <string name="hint_signup_date">Signup date</string>
@@ -78,6 +80,8 @@
     <string name="string_hello">Hello %1$s</string>
     <string name="action_send_code">Send code</string>
     <string name="action_did_not_receive_code">I did not receive my code!</string>
+    <string name="action_add_contact">Add contact</string>
+    <string name="action_goto_settings">GOTO SETTINGS</string>
 
     <!--Labels-->
     <string name="label_create_personal_account">Create A Personal Account</string>
@@ -88,6 +92,8 @@
     <string name="label_verification">Verification</string>
     <string name="label_enter_email_address">Enter email address</string>
     <string name="label_create_password">Create Password</string>
+    <string name="label_add_contact_or_person">Add contact or person</string>
+    <string name="label_grant_permissions">Grant Permissions</string>
 
     <!--Messages-->
     <string name="msg_company_tag_line">Manage your dues with ease.</string>
@@ -96,11 +102,13 @@
     <string name="msg_updating_profile">Updating your profile! Please wait…</string>
     <string name="msg_updating_password">Updating your password! Please wait…</string>
     <string name="msg_switching_account_type">Switching to %1$s! Please wait…</string>
+    <string name="msg_adding_contact">Adding %1$ss\' contact! Please wait…</string>
     <string name="msg_welcome_to">Welcome to %1$s.</string>
     <string name="msg_logout">Are you sure you want to log out %1$s?</string>
     <string name="msg_profile_updated">Profile updated successfully.</string>
     <string name="msg_password_updated">Password updated successfully.</string>
     <string name="msg_account_switching_successful">Account switched successfully.</string>
+    <string name="msg_contact_adding_successful">%1$s has been added successfully.</string>
     <string name="msg_mailing_email_verification_code">Mailing you a verification code! Please wait…</string>
     <string name="msg_email_address_verified">Your email address has been verified!</string>
     <string name="msg_verification_code_sent">Verification code sent to your email.</string>
@@ -114,8 +122,23 @@
     <string name="msg_enter_email_address_associated_with_account">Please enter the email address associated\nwith your account</string>
     <string name="msg_we_will_email_you_a_code">We will email you a code to reset your password</string>
     <string name="msg_enter_verification_code_to_verify_account">Please enter the code below to verify your account.</string>
+    <string name="msg_grant_permission_message">This application needs %1$s permission to %2$s. You can grant them in the app settings.</string>
+    <string name="msg_contacts_empty">You have not added any contacts yet.\nAll your saved contacts will be shown here.\nYou can add new ones.</string>
+
+    <!--Permissions tags and purpose messages-->
+    <string name="msg_grant_permission_title">Grant %1$s Permissions.</string>
+    <string name="permission_tag_contacts">Contacts</string>
+    <string name="permission_tag_storage">Storage</string>
+    <string name="permission_purpose_contact">read contacts</string>
 
     <!--Others-->
     <string name="placeholder_in_brackets">(%1$s)</string>
+
+    <!--Symbols-->
+    <string name="symbol_asterisk">*</string>
+    <string name="hint_optional">(Optional)</string>
+    <string name="hint_persons_address">Persons address</string>
+    <string name="hint_full_name">Full name</string>
+    <string name="hint_contact_type">Contact type</string>
 
 </resources>

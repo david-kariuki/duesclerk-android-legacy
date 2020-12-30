@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+                tabPosition = tab.getPosition(); // Get current tab position
             }
         });
 
@@ -291,6 +292,13 @@ public class MainActivity extends AppCompatActivity {
             default:
                 break;
         }
+    }
+
+    /**
+     * Function to get current TabLayout position
+     */
+    public int getCurrentTabPosition() {
+        return tabPosition; // Return TabLayout position
     }
 
     /**

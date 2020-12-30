@@ -14,6 +14,7 @@ import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -26,7 +27,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.duesclerk.R;
 import com.duesclerk.custom.custom_views.custom_glide.GlideApp;
-import com.duesclerk.custom.custom_views.dialog_fragments.dialogs.DatePickerFragment;
+import com.duesclerk.custom.custom_views.dialog_fragments.dialogs.DialogFragment_DatePicker;
 import com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -265,9 +266,35 @@ public class ViewsUtils {
     }
 
     /**
+     * Function to how DialogFragment
+     *
+     * @param fragmentManager - to manage fragment
+     * @param dialogFragment  - associated DialogFragment
+     * @param show            - boolean(show-true/false) - to show or hide
+     *                        DialogFragment
+     */
+    public static void showDialogFragment(FragmentManager fragmentManager,
+                                          DialogFragment dialogFragment, final boolean show) {
+        // Check if set to show
+        if (show) {
+            try {
+                if (!dialogFragment.isAdded() && !dialogFragment.isRemoving()) {
+                    // Show BottomSheetDialogFragment
+                    dialogFragment.show(fragmentManager, dialogFragment.getTag());
+                }
+            } catch (Exception ignored) {
+            }
+        } else {
+            if (dialogFragment.isAdded()) {
+                dialogFragment.dismiss(); // Dismiss BottomSheet
+            }
+        }
+    }
+
+    /**
      * Function to show BottomSheetDialogFragment
      *
-     * @param fragmentManager           - to show BottomSheetDialogFragment
+     * @param fragmentManager           - to manage fragment
      * @param bottomSheetDialogFragment - associated BottomSheetDialogFragment
      * @param show                      - boolean(show-true/false) - to show or hide
      *                                  BottomSheetDialogFragment
@@ -275,6 +302,8 @@ public class ViewsUtils {
     public static void showBottomSheetDialogFragment(
             FragmentManager fragmentManager, BottomSheetDialogFragment bottomSheetDialogFragment,
             final boolean show) {
+
+        // Check if set to show
         if (show) {
             try {
                 if (!bottomSheetDialogFragment.isAdded()
@@ -292,25 +321,25 @@ public class ViewsUtils {
     }
 
     /**
-     * Function to show DatePickerFragment
+     * Function to show DialogFragment_DatePicker
      *
-     * @param fragmentManager    - to show DatePickerFragment
-     * @param datePickerFragment - associated DatePickerFragment
-     * @param show               - boolean(show-true/false) - to show or hide DatePickerFragment
+     * @param fragmentManager    - to show DialogFragment_DatePicker
+     * @param dialogFragmentDatePicker - associated DialogFragment_DatePicker
+     * @param show               - boolean(show-true/false) - to show or hide DialogFragment_DatePicker
      */
     public static void showDatePickerFragment(FragmentManager fragmentManager,
-                                              DatePickerFragment datePickerFragment, boolean show) {
+                                              DialogFragment_DatePicker dialogFragmentDatePicker, boolean show) {
         if (show) {
             try {
-                if (!datePickerFragment.isAdded() && !datePickerFragment.isRemoving()) {
+                if (!dialogFragmentDatePicker.isAdded() && !dialogFragmentDatePicker.isRemoving()) {
                     // Show BottomSheetDialogFragment
-                    datePickerFragment.show(fragmentManager, datePickerFragment.getTag());
+                    dialogFragmentDatePicker.show(fragmentManager, dialogFragmentDatePicker.getTag());
                 }
             } catch (Exception ignored) {
             }
         } else {
-            if (datePickerFragment.isAdded()) {
-                datePickerFragment.dismiss(); // Dismiss BottomSheet
+            if (dialogFragmentDatePicker.isAdded()) {
+                dialogFragmentDatePicker.dismiss(); // Dismiss BottomSheet
             }
         }
     }
@@ -411,6 +440,7 @@ public class ViewsUtils {
      *
      * @param activity   - Owner activity
      * @param cancelable - ProgressDialog cancelable value
+     *
      * @return ProgressDialog
      */
     public static ProgressDialog initProgressDialog(Activity activity,
@@ -431,7 +461,7 @@ public class ViewsUtils {
      * @param message        - ProgressBar message
      */
     public static void showProgressDialog(ProgressDialog progressDialog, String title,
-                                   String message) {
+                                          String message) {
 
         // Check if progress dialog is showing
         if (!progressDialog.isShowing()) {

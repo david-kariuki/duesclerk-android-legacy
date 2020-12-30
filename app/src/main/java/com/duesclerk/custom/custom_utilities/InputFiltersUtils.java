@@ -197,6 +197,7 @@ public class InputFiltersUtils {
      * @param context     - Context to get string resources
      * @param editText    - Associated EditText
      * @param isFirstName - Boolean to get first name or last name resources
+     *
      * @return boolean
      */
     public static boolean checkPersonNameLengthNotify(Context context, @NonNull EditText editText,
@@ -263,6 +264,37 @@ public class InputFiltersUtils {
      *
      * @param context  - context used to show toast
      * @param editText - Character Sequence
+     *
+     * @return boolean
+     */
+    public static boolean checkFullNameLengthNotify(Context context,
+                                                    @NonNull EditText editText) {
+
+        if (Objects.requireNonNull(editText.getText()).length() == 0) {
+
+            // Toast error message
+            CustomToast.errorMessage(context, DataUtils.getStringResource(context,
+                    R.string.error_full_name_null),
+                    R.drawable.ic_baseline_person_24_white);
+
+            // Enable error icon
+            editText.setError(DataUtils.getStringResource(context,
+                    R.string.error_full_name_null));
+
+        } else {
+
+            return true; // Return true on value acceptable
+        }
+
+        return false; // Return false on value not acceptable
+    }
+
+    /**
+     * Function to check business name length
+     *
+     * @param context  - context used to show toast
+     * @param editText - Character Sequence
+     *
      * @return boolean
      */
     public static boolean checkBusinessNameLengthNotify(Context context,
@@ -291,8 +323,36 @@ public class InputFiltersUtils {
     /**
      * Function to check email address length and format validity
      *
+     * @param context      - context used to show toast
+     * @param emailAddress - String email address
+     *
+     * @return boolean
+     */
+    public static boolean checkEmailAddressValidNotify(@NonNull Context context,
+                                                       @NonNull String emailAddress) {
+
+        if (emailAddress.length() > InputFiltersUtils.LENGTH_MAX_EMAIL_ADDRESS
+                || (!Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches())) {
+
+            // Toast error message
+            CustomToast.errorMessage(context, DataUtils.getStringResource(context,
+                    R.string.error_email_address_invalid), R.drawable.ic_baseline_email_24_white);
+
+        } else {
+
+            return true; // Return true on value acceptable
+        }
+
+        return false; // Return false on value not acceptable
+    }
+
+
+    /**
+     * Function to check email address length and format validity
+     *
      * @param context  - context used to show toast
      * @param editText - Character Sequence
+     *
      * @return boolean
      */
     public static boolean checkEmailAddressValidNotify(@NonNull Context context,
@@ -323,8 +383,36 @@ public class InputFiltersUtils {
     /**
      * Function to check phone number length and format validity
      *
+     * @param context     - Context used to show toast
+     * @param phoneNumber - String phone number
+     *
+     * @return boolean
+     */
+    public static boolean checkPhoneNumberValidNotify(@NonNull Context context,
+                                                      @NonNull String phoneNumber) {
+
+        if (phoneNumber.length() < InputFiltersUtils.LENGTH_MIN_PHONE_NUMBER
+                || (!Patterns.PHONE.matcher(phoneNumber).matches())) {
+
+            // Toast error message
+            CustomToast.errorMessage(context, DataUtils.getStringResource(context,
+                    R.string.error_phone_number_invalid),
+                    R.drawable.ic_baseline_phone_24_white);
+
+        } else {
+
+            return true; // Return true on value acceptable
+        }
+
+        return false; // Return false on value not acceptable
+    }
+
+    /**
+     * Function to check phone number length and format validity
+     *
      * @param context  - context used to show toast
      * @param editText - Character Sequence
+     *
      * @return boolean
      */
     public static boolean checkPhoneNumberValidNotify(@NonNull Context context,
@@ -357,6 +445,7 @@ public class InputFiltersUtils {
      *
      * @param context  - context used to show toast
      * @param editText - Character Sequence
+     *
      * @return boolean
      */
     public static boolean checkPasswordLengthNotify(@NonNull Context context,
@@ -387,6 +476,7 @@ public class InputFiltersUtils {
      *
      * @param context             - context used to show toast
      * @param editCurrentPassword - Character Sequence
+     *
      * @return boolean
      */
     public static boolean comparePasswordChangeNotify(@NonNull Context context,
@@ -442,6 +532,7 @@ public class InputFiltersUtils {
      *
      * @param context  - context used to show toast
      * @param editText - Character Sequence
+     *
      * @return boolean
      */
     public static boolean checkCountryLengthNotify(@NonNull Context context,
@@ -468,6 +559,7 @@ public class InputFiltersUtils {
      *
      * @param context  - context used to show toast
      * @param editText - Character Sequence
+     *
      * @return boolean
      */
     public static boolean checkCityLengthNotify(@NonNull Context context,
@@ -495,6 +587,7 @@ public class InputFiltersUtils {
      *
      * @param context  - context used to show toast
      * @param editText - Character Sequence
+     *
      * @return boolean
      */
     public static boolean checkDateOfBirthLengthNotify(@NonNull Context context,
@@ -522,6 +615,7 @@ public class InputFiltersUtils {
      *
      * @param context  - context used to show toast
      * @param editText - Character Sequence
+     *
      * @return boolean
      */
     public static boolean checkVerificationLengthNotify(Context context,

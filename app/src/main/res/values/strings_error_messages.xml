@@ -9,6 +9,7 @@
     <string name="error_periods_cannot_be_repeated_in">Periods cannot be repeated in %1$s!</string>
     <string name="error_first_name_null">First name cannot be empty!</string>
     <string name="error_first_name_length">First names should be %1$d character or longer!</string>
+    <string name="error_full_name_null">Full name cannot be empty!</string>
     <string name="error_business_name_null">Business name cannot be empty!</string>
     <string name="error_first_name_length_short">First name too short!</string>
     <string name="error_last_name_null">Last name cannot be empty!</string>
@@ -26,6 +27,7 @@
     <string name="error_password_incorrect">The password you have entered is incorrect!</string>
     <string name="error_new_password_mismatch">Your new passwords do not match!</string>
     <string name="error_country_null">Please select your country to continue!</string>
+    <string name="error_contact_type_null">Please select contact type to continue!</string>
     <string name="error_city_null">City cannot be empty!</string>
     <string name="error_gender_null">Please select your gender to continue!</string>
     <string name="error_date_of_birth_null">Please select your date of birth to continue!</string>
