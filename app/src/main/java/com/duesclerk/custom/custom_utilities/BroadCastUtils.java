@@ -10,6 +10,12 @@ public class BroadCastUtils {
     public static final String bcrActionSetSwitchAccountTypeActionText
             = "SwitchAccountTypeActionText";
 
+    // Reload broadcasts
+    public static final String bcrActionReloadPeopleOwingMe
+            = "ReloadPeopleOwingMe";
+    public static final String bcrActionReloadPeopleIOwe
+            = "ReloadPeopleIOwe";
+
     public static void registerRefreshBroadCasts(Activity activity,
                                            BroadcastReceiver broadcastReceiver,
                                            String broadCastAction) {
