@@ -7,7 +7,7 @@
     <dimen name="dimen_fab_margin_top">15dp</dimen>
     <dimen name="dimen_fab_margin_start">15dp</dimen>
     <dimen name="dimen_fab_margin_end">@dimen/dimen_fab_margin_start</dimen>
-    <dimen name="dimen_fab_margin_bottom">10dp</dimen>
+    <dimen name="dimen_fab_margin_bottom">16dp</dimen>
 
     <!--ImageView size dimensions-->
     <dimen name="dimen_icon_size_small">29dp</dimen>
@@ -31,6 +31,7 @@
     <dimen name="dimen_bs_toolbar_height">35dp</dimen>
     <dimen name="dimen_bs_text_buttons_size">13sp</dimen>
     <dimen name="dimen_bs_toolbar_elevation">5dp</dimen>
+    <dimen name="dimen_bs_outlines_radius">25dp</dimen>
 
     <!--SignUp and SignIn Dimensions-->
     <dimen name="dimen_signup_signin_edit_text_size">14sp</dimen>
@@ -42,7 +43,7 @@
     <dimen name="dimen_signup_signin_field_divider_height">0.5dp</dimen>
     <dimen name="dimen_signup_signin_field_divider_margin_top">6dp</dimen>
     <dimen name="dimen_outlines_corners">25dp</dimen>
-    <dimen name="dimen_outlines_radius">8dp</dimen>
+    <dimen name="dimen_outlines_radius">10dp</dimen>
 
     <!--App Options Activity-->
     <dimen name="dimen_app_options_list_item_height">50dp</dimen>

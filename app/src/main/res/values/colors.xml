@@ -40,7 +40,7 @@
     <color name="colorPrimaryRed">#ec2f21</color>
 
     <!--Transparent-->
-    <color name="colorTransparent">@android:color/transparent</color>
+    <color name="colorTransparent">#00000000</color>
 
     <!--App Option-->
 
