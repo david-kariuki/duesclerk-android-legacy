@@ -7,4 +7,5 @@
         android:centerColor="@color/colorAccent" android:angle="0"
         android:endColor="@color/colorWhite" />
 
+    <size android:height="@dimen/dimen_toolbar_divider_height"/>
 </shape>

@@ -11,7 +11,7 @@
         android:id="@+id/consLayoutCountryPicker_SearchView"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@drawable/gradient_country_picker_header"
+        android:background="@drawable/gradient_white_white_primary_dark"
         android:elevation="@dimen/dimen_toolbar_elevation_medium"
         android:gravity="center_vertical"
         android:orientation="horizontal">

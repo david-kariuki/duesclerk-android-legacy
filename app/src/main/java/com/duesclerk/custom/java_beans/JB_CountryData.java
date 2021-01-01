@@ -7,7 +7,7 @@ public class JB_CountryData implements Serializable {
     private String countryName, countryCode, countryAlpha2, countryAlpha3, countryFlag;
 
     /**
-    * Empty constructor
+    * Default constructor
     */
     public JB_CountryData() {
     }

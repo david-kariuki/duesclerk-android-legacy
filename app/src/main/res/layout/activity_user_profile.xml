@@ -35,7 +35,7 @@
         </LinearLayout>
 
         <com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout
-            android:id="@+id/swipeProfileActivity"
+            android:id="@+id/swipeRefreshProfileActivity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"

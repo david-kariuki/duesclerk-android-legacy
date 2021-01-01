@@ -29,8 +29,8 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/dimen_icon_size_large"
-                    android:layout_height="@dimen/dimen_icon_size_large"
+                    android:layout_width="@dimen/dimen_icon_size_medium"
+                    android:layout_height="@dimen/dimen_icon_size_medium"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="20dp"
                     android:padding="@dimen/dimen_icon_padding_medium"
@@ -50,8 +50,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_app_options_list_divider_height"
-                android:background="@drawable/gradient_app_options_divider" />
+                android:layout_height="@dimen/dimen_list_divider_height"
+                android:background="@drawable/gradient_divider_white_accent_white" />
         </LinearLayout>
 
         <LinearLayout
@@ -66,8 +66,8 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/dimen_icon_size_large"
-                    android:layout_height="@dimen/dimen_icon_size_large"
+                    android:layout_width="@dimen/dimen_icon_size_medium"
+                    android:layout_height="@dimen/dimen_icon_size_medium"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="20dp"
                     android:padding="@dimen/dimen_icon_padding_medium"
@@ -87,8 +87,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_app_options_list_divider_height"
-                android:background="@drawable/gradient_app_options_divider" />
+                android:layout_height="@dimen/dimen_list_divider_height"
+                android:background="@drawable/gradient_divider_white_accent_white" />
         </LinearLayout>
 
         <LinearLayout
@@ -104,8 +104,8 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/dimen_icon_size_large"
-                    android:layout_height="@dimen/dimen_icon_size_large"
+                    android:layout_width="@dimen/dimen_icon_size_medium"
+                    android:layout_height="@dimen/dimen_icon_size_medium"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="20dp"
                     android:padding="@dimen/dimen_icon_padding_medium"
@@ -125,8 +125,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_app_options_list_divider_height"
-                android:background="@drawable/gradient_app_options_divider" />
+                android:layout_height="@dimen/dimen_list_divider_height"
+                android:background="@drawable/gradient_divider_white_accent_white" />
         </LinearLayout>
 
         <LinearLayout
@@ -142,8 +142,8 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/dimen_icon_size_large"
-                    android:layout_height="@dimen/dimen_icon_size_large"
+                    android:layout_width="@dimen/dimen_icon_size_medium"
+                    android:layout_height="@dimen/dimen_icon_size_medium"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="20dp"
                     android:padding="@dimen/dimen_icon_padding_medium"
@@ -163,8 +163,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_app_options_list_divider_height"
-                android:background="@drawable/gradient_app_options_divider" />
+                android:layout_height="@dimen/dimen_list_divider_height"
+                android:background="@drawable/gradient_divider_white_accent_white" />
         </LinearLayout>
 
         <LinearLayout
@@ -180,8 +180,8 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/dimen_icon_size_large"
-                    android:layout_height="@dimen/dimen_icon_size_large"
+                    android:layout_width="@dimen/dimen_icon_size_medium"
+                    android:layout_height="@dimen/dimen_icon_size_medium"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="20dp"
                     android:padding="@dimen/dimen_icon_padding_medium"
@@ -202,8 +202,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_app_options_list_divider_height"
-                android:background="@drawable/gradient_app_options_divider" />
+                android:layout_height="@dimen/dimen_list_divider_height"
+                android:background="@drawable/gradient_divider_white_accent_white" />
         </LinearLayout>
 
         <LinearLayout
@@ -214,8 +214,8 @@
             android:visibility="gone">
 
             <ImageView
-                android:layout_width="@dimen/dimen_icon_size_large"
-                android:layout_height="@dimen/dimen_icon_size_large"
+                android:layout_width="@dimen/dimen_icon_size_medium"
+                android:layout_height="@dimen/dimen_icon_size_medium"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="20dp"
                 android:padding="@dimen/dimen_icon_padding_medium"
@@ -242,8 +242,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_app_options_list_divider_height"
-                android:background="@drawable/gradient_app_options_divider" />
+                android:layout_height="@dimen/dimen_list_divider_height"
+                android:background="@drawable/gradient_divider_white_accent_white" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -251,8 +251,8 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/dimen_icon_size_large"
-                    android:layout_height="@dimen/dimen_icon_size_large"
+                    android:layout_width="@dimen/dimen_icon_size_medium"
+                    android:layout_height="@dimen/dimen_icon_size_medium"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="20dp"
                     android:padding="@dimen/dimen_icon_padding_medium"
