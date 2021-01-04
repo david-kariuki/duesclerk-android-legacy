@@ -409,29 +409,36 @@ public class ViewsUtils {
      * @param refresh              - Refresh state
      * @param swipeRefreshListener - Associated SwipeRefreshLayout
      */
-    public static void startSwipeRefreshLayout(boolean refresh,
-                                               MultiSwipeRefreshLayout swipeRefreshLayout,
-                                               SwipeRefreshLayout.OnRefreshListener swipeRefreshListener) {
-        // Set color scheme
-        swipeRefreshLayout.setColorSchemeColors(DataUtils.getSwipeRefreshColorSchemeResources());
+    public static void showSwipeRefreshLayout(boolean refresh,
+                                              MultiSwipeRefreshLayout swipeRefreshLayout,
+                                              SwipeRefreshLayout.OnRefreshListener swipeRefreshListener) {
 
-        if (refresh) {
-            // Check if layout is already refreshing
-            if (!swipeRefreshLayout.isRefreshing()) {
+        try {
 
-                swipeRefreshListener.onRefresh(); // Call onRefresh listener
-                swipeRefreshLayout.setRefreshing(true); // Start refreshing
 
+            // Set color scheme
+            swipeRefreshLayout.setColorSchemeColors(DataUtils.getSwipeRefreshColorSchemeResources());
+
+            if (refresh) {
+                // Check if layout is already refreshing
+                if (!swipeRefreshLayout.isRefreshing()) {
+
+                    swipeRefreshListener.onRefresh(); // Call onRefresh listener
+                    swipeRefreshLayout.setRefreshing(true); // Start refreshing
+
+                } else {
+
+                    swipeRefreshLayout.setRefreshing(false); // Stop refreshing
+                    swipeRefreshListener.onRefresh(); // Call onRefresh listener
+                    swipeRefreshLayout.setRefreshing(true); // Start refreshing
+                }
             } else {
 
-                swipeRefreshLayout.setRefreshing(false); // Stop refreshing
-                swipeRefreshListener.onRefresh(); // Call onRefresh listener
-                swipeRefreshLayout.setRefreshing(true); // Start refreshing
+                // Stop SwipeRefreshLayout
+                swipeRefreshLayout.setRefreshing(false);
             }
-        } else {
-
-            // Stop SwipeRefreshLayout
-            swipeRefreshLayout.setRefreshing(false);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

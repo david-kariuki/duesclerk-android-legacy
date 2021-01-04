@@ -311,19 +311,25 @@ public class BottomSheetFragment_ChangePassword extends BottomSheetDialogFragmen
                 // Hide Dialog
                 ViewsUtils.dismissProgressDialog(progressDialog);
 
+                // Check request response
                 if (volleyError.getMessage() == null || volleyError instanceof NetworkError
                         || volleyError instanceof ServerError || volleyError instanceof
                         AuthFailureError || volleyError instanceof TimeoutError) {
 
-                    // Cancel Pending Request
-                    ApplicationClass.getClassInstance().cancelPendingRequests(
-                            NetworkTags.UserNetworkTags.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
+                    CustomToast.errorMessage(mContext, DataUtils.getStringResource(mContext,
+                            R.string.error_network_connection_error_message_short),
+                            R.drawable.ic_sad_cloud_100px_white);
 
-                    // Toast Network Error
-                    if (volleyError.getMessage() != null) {
-                        CustomToast.errorMessage(mContext, volleyError.getMessage(), 0);
-                    }
+                } else {
+
+                    // Toast Connection Error Message
+                    CustomToast.errorMessage(mContext, volleyError.getMessage(),
+                            R.drawable.ic_sad_cloud_100px_white);
                 }
+
+                // Clear url cache
+                ApplicationClass.getClassInstance().deleteUrlVolleyCache(
+                        NetworkUrls.UserURLS.URL_UPDATE_USER_PROFILE_DETAILS);
             }) {
                 @Override
                 protected void deliverResponse(String response) {

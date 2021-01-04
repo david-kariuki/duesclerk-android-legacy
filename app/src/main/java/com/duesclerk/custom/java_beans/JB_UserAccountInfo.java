@@ -12,7 +12,9 @@ public class JB_UserAccountInfo implements Serializable {
             accountType;
     private boolean emailVerified;
 
-    // Empty constructor for objects
+    /**
+     * Default constructor
+     */
     public JB_UserAccountInfo() {
     }
 

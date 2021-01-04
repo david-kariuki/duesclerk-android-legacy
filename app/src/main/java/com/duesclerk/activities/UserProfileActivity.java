@@ -94,7 +94,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
         mContext = getApplicationContext(); // Get application context
 
-        swipeRefreshLayout = findViewById(R.id.swipeProfileActivity);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshProfileActivity);
         scrollView = findViewById(R.id.scrollViewProfileActivity);
 
         // Progress Dialog
@@ -200,12 +200,20 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
             }
         };
 
-        // Set refresh listener
+        // Set refresh listener to MultiSwipeRefreshLayout
         swipeRefreshLayout.setOnRefreshListener(swipeRefreshListener);
 
         // Edit country onClick
-        editCountry.setOnClickListener(v -> ViewsUtils.showBottomSheetDialogFragment(
-                getSupportFragmentManager(), bottomSheetFragmentCountryPicker, true));
+        editCountry.setOnClickListener(v -> {
+
+            // Check if editing is enabled
+            if (editingProfile) {
+                // Editing enabled
+
+                ViewsUtils.showBottomSheetDialogFragment(
+                        getSupportFragmentManager(), bottomSheetFragmentCountryPicker, true);
+            }
+        });
 
         imageEmailVerificationError.setOnClickListener(v -> {
             if ((!fetchedFirstName.equals("") || !fetchedBusinessName.equals(""))
@@ -221,8 +229,8 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
             if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
                 if (CURRENT_TASK == TaskUtils.TASK_FETCH_USER_PROFILE) {
 
-                    // Start/Stop swipe SwipeRefresh
-                    ViewsUtils.startSwipeRefreshLayout(true, swipeRefreshLayout,
+                    // Show SwipeRefreshLayout
+                    ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout,
                             swipeRefreshListener);
 
                 } else if (CURRENT_TASK == TaskUtils.TASK_UPDATE_USER_PROFILE) {
@@ -312,8 +320,8 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
         // Hide ShimmerFrameLayout
         ViewsUtils.showShimmerFrameLayout(true, shimmerFrameLayout);
 
-        // Start/Stop swipe SwipeRefresh
-        ViewsUtils.startSwipeRefreshLayout(true, swipeRefreshLayout,
+        // Show swipe SwipeRefresh
+        ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout,
                 swipeRefreshListener);
 
         // Check for network connection and stop refreshing animation on no connection
@@ -583,7 +591,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
         if (!connected) {
 
             // Stop swipe SwipeRefresh
-            ViewsUtils.startSwipeRefreshLayout(false, swipeRefreshLayout,
+            ViewsUtils.showSwipeRefreshLayout(false, swipeRefreshLayout,
                     swipeRefreshListener);
 
             // Check if updating profile
@@ -607,7 +615,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
             }
 
             if (!fetchedUserProfile) {
-                // Show profile layout
+                // Hide profile layout
                 llUserProfileActivity.setVisibility(View.GONE);
             }
 
@@ -724,85 +732,91 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
         // Check Internet Connection State
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
-                // Connected
+            // Connected
 
-                // Respond to network connection event
-                respondToNetworkConnectionEvent(true, false);
+            // Respond to network connection event
+            respondToNetworkConnectionEvent(true, false);
 
-                // Hide FABS layout
-                llUserProfileActivityFABS.setVisibility(View.GONE);
+            // Hide FABS layout
+            llUserProfileActivityFABS.setVisibility(View.GONE);
 
-                // Hide user profile
-                llUserProfileActivity.setVisibility(View.GONE);
+            // Hide user profile
+            llUserProfileActivity.setVisibility(View.GONE);
 
-                // Show ShimmerFrameLayout
-                ViewsUtils.showShimmerFrameLayout(true, shimmerFrameLayout);
+            // Show ShimmerFrameLayout
+            ViewsUtils.showShimmerFrameLayout(true, shimmerFrameLayout);
 
-                StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                        NetworkUrls.UserURLS.URL_FETCH_USER_PROFILE_DETAILS, response -> {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                    NetworkUrls.UserURLS.URL_FETCH_USER_PROFILE_DETAILS, response -> {
 
-                    // Log Response
-                    // Log.d(TAG, "Profile Response:" + response);
+                // Log Response
+                // Log.d(TAG, "Profile Response:" + response);
 
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        boolean error = jsonObject.getBoolean(VolleyUtils.KEY_ERROR);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean error = jsonObject.getBoolean(VolleyUtils.KEY_ERROR);
 
-                        // Get JSONObject
-                        JSONObject objectUser = jsonObject.getJSONObject(
-                                VolleyUtils.KEY_USER);
+                    // Get JSONObject
+                    JSONObject objectUser = jsonObject.getJSONObject(
+                            VolleyUtils.KEY_USER);
 
-                        // Check for error
-                        if (!error) {
+                    // Check for error
+                    if (!error) {
 
-                            // Show FABS layout
-                            llUserProfileActivityFABS.setVisibility(View.VISIBLE);
+                        // Show FABS layout
+                        llUserProfileActivityFABS.setVisibility(View.VISIBLE);
 
-                            // Stop swipe SwipeRefresh
-                            ViewsUtils.startSwipeRefreshLayout(false, swipeRefreshLayout,
-                                    swipeRefreshListener);
+                        // Stop swipe SwipeRefresh
+                        ViewsUtils.showSwipeRefreshLayout(false, swipeRefreshLayout,
+                                swipeRefreshListener);
 
-                            setFetchedData(objectUser); // Set fetched details
-                        } else {
-                            // Error fetching details
+                        setFetchedData(objectUser); // Set fetched details
+                    } else {
+                        // Error fetching details
 
-                            enableProfileEdit(false); // Disable profile edits
-
-                            // Cancel Pending Request
-                            ApplicationClass.getClassInstance().cancelPendingRequests(
-                                    NetworkTags.UserNetworkTags.TAG_FETCH_USER_PROFILE_STRING_REQUEST);
-                        }
-                    } catch (Exception ignored) {
-                    }
-                }, volleyError -> {
-                    // Log Response
-                    // Log.e(TAG, "Profile Response Error " + ":" + volleyError.getMessage());
-
-                    // Show FABS layout
-                    llUserProfileActivityFABS.setVisibility(View.VISIBLE);
-
-                    // Stop swipe SwipeRefresh
-                    ViewsUtils.startSwipeRefreshLayout(false, swipeRefreshLayout,
-                            swipeRefreshListener);
-
-                    if (volleyError.getMessage() == null || volleyError instanceof NetworkError
-                            || volleyError instanceof ServerError || volleyError instanceof
-                            AuthFailureError || volleyError instanceof TimeoutError) {
+                        enableProfileEdit(false); // Disable profile edits
 
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(
                                 NetworkTags.UserNetworkTags.TAG_FETCH_USER_PROFILE_STRING_REQUEST);
+                    }
+                } catch (Exception ignored) {
+                }
+            }, volleyError -> {
+                // Log Response
+                // Log.e(TAG, "Profile Response Error " + ":" + volleyError.getMessage());
 
-                        // Toast Network Error
-                        if (volleyError.getMessage() != null) {
-                            CustomToast.errorMessage(mContext, volleyError.getMessage(), 0);
-                        }
-                    }
-                }) {
-                    @Override
-                    protected void deliverResponse(String response) {
-                        super.deliverResponse(response);
-                    }
+                // Show FABS layout
+                llUserProfileActivityFABS.setVisibility(View.VISIBLE);
+
+                // Stop swipe SwipeRefresh
+                ViewsUtils.showSwipeRefreshLayout(false, swipeRefreshLayout,
+                        swipeRefreshListener);
+
+                // Check request response
+                if (volleyError.getMessage() == null || volleyError instanceof NetworkError
+                        || volleyError instanceof ServerError || volleyError instanceof
+                        AuthFailureError || volleyError instanceof TimeoutError) {
+
+                    CustomToast.errorMessage(mContext, DataUtils.getStringResource(mContext,
+                            R.string.error_network_connection_error_message_short),
+                            R.drawable.ic_sad_cloud_100px_white);
+
+                } else {
+
+                    // Toast Connection Error Message
+                    CustomToast.errorMessage(mContext, volleyError.getMessage(),
+                            R.drawable.ic_sad_cloud_100px_white);
+                }
+
+                // Clear url cache
+                ApplicationClass.getClassInstance().deleteUrlVolleyCache(
+                        NetworkUrls.UserURLS.URL_FETCH_USER_PROFILE_DETAILS);
+            }) {
+                @Override
+                protected void deliverResponse(String response) {
+                    super.deliverResponse(response);
+                }
 
                     /*@Override
                     public Map<String, String> getHeaders() {
@@ -812,43 +826,43 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                         return headers;
                     }*/
 
-                    @Override
-                    protected Map<String, String> getParams() {
-                        @SuppressWarnings({"unchecked", "rawtypes"}) Map<String, String> params =
-                                new HashMap();
-                        params.put(UserAccountUtils.FIELD_EMAIL_ADDRESS, strEmailAddress);
-                        params.put(UserAccountUtils.FIELD_PASSWORD, strPassword);
-                        return params;
-                    }
+                @Override
+                protected Map<String, String> getParams() {
+                    @SuppressWarnings({"unchecked", "rawtypes"}) Map<String, String> params =
+                            new HashMap();
+                    params.put(UserAccountUtils.FIELD_EMAIL_ADDRESS, strEmailAddress);
+                    params.put(UserAccountUtils.FIELD_PASSWORD, strPassword);
+                    return params;
+                }
 
-                    @Override
-                    protected VolleyError parseNetworkError(VolleyError volleyError) {
-                        return super.parseNetworkError(volleyError);
-                    }
+                @Override
+                protected VolleyError parseNetworkError(VolleyError volleyError) {
+                    return super.parseNetworkError(volleyError);
+                }
 
-                    @Override
-                    public void deliverError(VolleyError error) {
-                        super.deliverError(error);
-                    }
-                };
+                @Override
+                public void deliverError(VolleyError error) {
+                    super.deliverError(error);
+                }
+            };
 
-                // Set Request Priority
-                ApplicationClass.getClassInstance().setPriority(Request.Priority.HIGH);
+            // Set Request Priority
+            ApplicationClass.getClassInstance().setPriority(Request.Priority.HIGH);
 
-                // Set retry policy
-                stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                        DataUtils.getIntegerResource(mContext,
-                                R.integer.int_volley_account_request_initial_timeout_ms),
-                        DataUtils.getIntegerResource(mContext,
-                                R.integer.int_volley_account_request_max_timeout_retry),
-                        1.0f));
+            // Set retry policy
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    DataUtils.getIntegerResource(mContext,
+                            R.integer.int_volley_account_request_initial_timeout_ms),
+                    DataUtils.getIntegerResource(mContext,
+                            R.integer.int_volley_account_request_max_timeout_retry),
+                    1.0f));
 
-                // Set request caching to false
-                stringRequest.setShouldCache(false);
+            // Set request caching to false
+            stringRequest.setShouldCache(false);
 
-                // Adding request to request queue
-                ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                        NetworkTags.UserNetworkTags.TAG_FETCH_USER_PROFILE_STRING_REQUEST);
+            // Adding request to request queue
+            ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
+                    NetworkTags.UserNetworkTags.TAG_FETCH_USER_PROFILE_STRING_REQUEST);
         } else {
             // Respond to network connection event
             respondToNetworkConnectionEvent(false, false);
@@ -862,129 +876,135 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
         // Check Internet Connection State
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
-                // Connected
+            // Connected
 
-                // Respond to network connection event
-                respondToNetworkConnectionEvent(true, true);
+            // Respond to network connection event
+            respondToNetworkConnectionEvent(true, true);
 
-                // Hide keyboard if showing
-                ViewsUtils.hideKeyboard(UserProfileActivity.this);
+            // Hide keyboard if showing
+            ViewsUtils.hideKeyboard(UserProfileActivity.this);
 
-                // Hide FABS layout
-                llUserProfileActivityFABS.setVisibility(View.GONE);
+            // Hide FABS layout
+            llUserProfileActivityFABS.setVisibility(View.GONE);
 
-                // Show ProgressDialog
-                ViewsUtils.showProgressDialog(progressDialog,
-                        DataUtils.getStringResource(mContext,
-                                R.string.title_updating_profile),
-                        DataUtils.getStringResource(mContext,
-                                R.string.msg_updating_profile)
-                );
+            // Show ProgressDialog
+            ViewsUtils.showProgressDialog(progressDialog,
+                    DataUtils.getStringResource(mContext,
+                            R.string.title_updating_profile),
+                    DataUtils.getStringResource(mContext,
+                            R.string.msg_updating_profile)
+            );
 
-                StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                        NetworkUrls.UserURLS.URL_UPDATE_USER_PROFILE_DETAILS, response -> {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                    NetworkUrls.UserURLS.URL_UPDATE_USER_PROFILE_DETAILS, response -> {
 
-                    // Log Response
-                    // Log.d(TAG, "Update Response:" + response);
+                // Log Response
+                // Log.d(TAG, "Update Response:" + response);
 
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        boolean error = jsonObject.getBoolean(VolleyUtils.KEY_ERROR);
-
-                        // Hide ProgressDialog
-                        ViewsUtils.dismissProgressDialog(progressDialog);
-
-                        // Check for error
-                        if (!error) {
-                            // User profile updated successfully
-
-                            // Show FABS layout
-                            llUserProfileActivityFABS.setVisibility(View.VISIBLE);
-
-                            // Variable to indicate update success for other fields apart
-                            // from email address
-                            boolean updated = true;
-
-                            // Check if updated fields was email address
-                            if (!DataUtils.isEmptyString(newEmailAddress)) {
-
-                                // Update email address in SQLite database
-                                updated = database.updateUserAccountInformation(mContext,
-                                        database.getUserAccountInfo(null)
-                                                .get(0).getUserId(),
-                                        newEmailAddress,
-                                        UserAccountUtils.FIELD_EMAIL_ADDRESS);
-
-                                // Allow email not verified bottom sheet to be shown again since
-                                // email verification was revoked after updating email address
-                                emailNotVerifiedDialogShown = false;
-                            }
-
-                            if (updated) {
-                                // Update complete
-
-                                enableProfileEdit(false); // Disable profile edit
-
-                                // Show update successful message
-                                CustomToast.infoMessage(mContext,
-                                        DataUtils.getStringResource(mContext,
-                                                R.string.msg_profile_updated), false,
-                                        R.drawable.ic_baseline_person_24_white);
-
-                                // Start SwipeRefreshLayout
-                                ViewsUtils.startSwipeRefreshLayout(true, swipeRefreshLayout,
-                                        swipeRefreshListener);
-                            }
-                        } else {
-                            // Error updating details
-
-                            // Toast error message
-                            CustomToast.errorMessage(
-                                    mContext,
-                                    DataUtils.getStringResource(
-                                            mContext,
-                                            R.string.error_profile_update_failed),
-                                    R.drawable.ic_baseline_edit_24_white);
-
-                            // Cancel Pending Request
-                            ApplicationClass.getClassInstance().cancelPendingRequests(
-                                    NetworkTags.UserNetworkTags.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
-
-                            enableProfileEdit(true); // Enable profile edit
-                        }
-                    } catch (Exception ignored) {
-                    }
-                }, volleyError -> {
-
-                    // Log Response
-                    // Log.e(TAG, "Update Response Error " + ":" + volleyError.getMessage());
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean error = jsonObject.getBoolean(VolleyUtils.KEY_ERROR);
 
                     // Hide ProgressDialog
                     ViewsUtils.dismissProgressDialog(progressDialog);
 
-                    enableProfileEdit(false); // Disable profile edit
+                    // Check for error
+                    if (!error) {
+                        // User profile updated successfully
 
-                    // Show FABS layout
-                    llUserProfileActivityFABS.setVisibility(View.VISIBLE);
+                        // Show FABS layout
+                        llUserProfileActivityFABS.setVisibility(View.VISIBLE);
 
-                    if (volleyError.getMessage() == null || volleyError instanceof NetworkError
-                            || volleyError instanceof ServerError || volleyError instanceof
-                            AuthFailureError || volleyError instanceof TimeoutError) {
+                        // Variable to indicate update success for other fields apart
+                        // from email address
+                        boolean updated = true;
+
+                        // Check if updated fields was email address
+                        if (!DataUtils.isEmptyString(newEmailAddress)) {
+
+                            // Update email address in SQLite database
+                            updated = database.updateUserAccountInformation(mContext,
+                                    database.getUserAccountInfo(null)
+                                            .get(0).getUserId(),
+                                    newEmailAddress,
+                                    UserAccountUtils.FIELD_EMAIL_ADDRESS);
+
+                            // Allow email not verified bottom sheet to be shown again since
+                            // email verification was revoked after updating email address
+                            emailNotVerifiedDialogShown = false;
+                        }
+
+                        if (updated) {
+                            // Update complete
+
+                            enableProfileEdit(false); // Disable profile edit
+
+                            // Show update successful message
+                            CustomToast.infoMessage(mContext,
+                                    DataUtils.getStringResource(mContext,
+                                            R.string.msg_profile_updated), false,
+                                    R.drawable.ic_baseline_person_24_white);
+
+                            // Start SwipeRefreshLayout
+                            ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout,
+                                    swipeRefreshListener);
+                        }
+                    } else {
+                        // Error updating details
+
+                        // Toast error message
+                        CustomToast.errorMessage(
+                                mContext,
+                                DataUtils.getStringResource(
+                                        mContext,
+                                        R.string.error_profile_update_failed),
+                                R.drawable.ic_baseline_edit_24_white);
 
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(
                                 NetworkTags.UserNetworkTags.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
 
-                        // Toast Network Error
-                        if (volleyError.getMessage() != null) {
-                            CustomToast.errorMessage(mContext, volleyError.getMessage(), 0);
-                        }
+                        enableProfileEdit(true); // Enable profile edit
                     }
-                }) {
-                    @Override
-                    protected void deliverResponse(String response) {
-                        super.deliverResponse(response);
-                    }
+                } catch (Exception ignored) {
+                }
+            }, volleyError -> {
+
+                // Log Response
+                // Log.e(TAG, "Update Response Error " + ":" + volleyError.getMessage());
+
+                // Hide ProgressDialog
+                ViewsUtils.dismissProgressDialog(progressDialog);
+
+                enableProfileEdit(false); // Disable profile edit
+
+                // Show FABS layout
+                llUserProfileActivityFABS.setVisibility(View.VISIBLE);
+
+                // Check request response
+                if (volleyError.getMessage() == null || volleyError instanceof NetworkError
+                        || volleyError instanceof ServerError || volleyError instanceof
+                        AuthFailureError || volleyError instanceof TimeoutError) {
+
+                    CustomToast.errorMessage(mContext, DataUtils.getStringResource(mContext,
+                            R.string.error_network_connection_error_message_short),
+                            R.drawable.ic_sad_cloud_100px_white);
+
+                } else {
+
+                    // Toast Connection Error Message
+                    CustomToast.errorMessage(mContext, volleyError.getMessage(),
+                            R.drawable.ic_sad_cloud_100px_white);
+                }
+
+                // Clear url cache
+                ApplicationClass.getClassInstance().deleteUrlVolleyCache(
+                        NetworkUrls.UserURLS.URL_UPDATE_USER_PROFILE_DETAILS);
+            }) {
+                @Override
+                protected void deliverResponse(String response) {
+                    super.deliverResponse(response);
+                }
 
                     /*@Override
                     public Map<String, String> getHeaders() {
@@ -994,71 +1014,71 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                         return headers;
                     }*/
 
-                    @Override
-                    protected Map<String, String> getParams() {
-                        @SuppressWarnings({"unchecked", "rawtypes"}) Map<String, String> params =
-                                new HashMap();
-                        if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
-                            // Check for changed values for personal account
-                            if (!DataUtils.isEmptyString(newFirstName)) {
-                                params.put(UserAccountUtils.FIELD_FIRST_NAME, newFirstName);
-                            }
-                            if (!DataUtils.isEmptyString(newLastName)) {
-                                params.put(UserAccountUtils.FIELD_LAST_NAME, newLastName);
-                            }
-
-                        } else if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
-                            // Check for changed values for business account
-
-                            if (!DataUtils.isEmptyString(newBusinessName)) {
-                                params.put(UserAccountUtils.FIELD_BUSINESS_NAME, newBusinessName);
-                            }
+                @Override
+                protected Map<String, String> getParams() {
+                    @SuppressWarnings({"unchecked", "rawtypes"}) Map<String, String> params =
+                            new HashMap();
+                    if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
+                        // Check for changed values for personal account
+                        if (!DataUtils.isEmptyString(newFirstName)) {
+                            params.put(UserAccountUtils.FIELD_FIRST_NAME, newFirstName);
+                        }
+                        if (!DataUtils.isEmptyString(newLastName)) {
+                            params.put(UserAccountUtils.FIELD_LAST_NAME, newLastName);
                         }
 
-                        // Check for changed values for shared details
-                        if (!DataUtils.isEmptyString(newEmailAddress)) {
-                            params.put(UserAccountUtils.FIELD_EMAIL_ADDRESS, newEmailAddress);
+                    } else if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
+                        // Check for changed values for business account
+
+                        if (!DataUtils.isEmptyString(newBusinessName)) {
+                            params.put(UserAccountUtils.FIELD_BUSINESS_NAME, newBusinessName);
                         }
-                        if ((!DataUtils.isEmptyString(newCountryCode))
-                                && (!DataUtils.isEmptyString(newCountryAlpha2))) {
-                            params.put(UserAccountUtils.FIELD_COUNTRY_CODE, newCountryCode);
-                            params.put(UserAccountUtils.FIELD_COUNTRY_ALPHA2, newCountryAlpha2);
-                        }
-
-                        params.put(UserAccountUtils.FIELD_USER_ID, userId);
-                        params.put(UserAccountUtils.FIELD_ACCOUNT_TYPE, accountType);
-
-                        return params; // Return params
                     }
 
-                    @Override
-                    protected VolleyError parseNetworkError(VolleyError volleyError) {
-                        return super.parseNetworkError(volleyError);
+                    // Check for changed values for shared details
+                    if (!DataUtils.isEmptyString(newEmailAddress)) {
+                        params.put(UserAccountUtils.FIELD_EMAIL_ADDRESS, newEmailAddress);
+                    }
+                    if ((!DataUtils.isEmptyString(newCountryCode))
+                            && (!DataUtils.isEmptyString(newCountryAlpha2))) {
+                        params.put(UserAccountUtils.FIELD_COUNTRY_CODE, newCountryCode);
+                        params.put(UserAccountUtils.FIELD_COUNTRY_ALPHA2, newCountryAlpha2);
                     }
 
-                    @Override
-                    public void deliverError(VolleyError error) {
-                        super.deliverError(error);
-                    }
-                };
+                    params.put(UserAccountUtils.FIELD_USER_ID, userId);
+                    params.put(UserAccountUtils.FIELD_ACCOUNT_TYPE, accountType);
 
-                // Set Request Priority
-                ApplicationClass.getClassInstance().setPriority(Request.Priority.HIGH);
+                    return params; // Return params
+                }
 
-                // Set retry policy
-                stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                        DataUtils.getIntegerResource(mContext,
-                                R.integer.int_volley_account_request_initial_timeout_ms),
-                        DataUtils.getIntegerResource(mContext,
-                                R.integer.int_volley_account_request_max_timeout_retry),
-                        1.0f));
+                @Override
+                protected VolleyError parseNetworkError(VolleyError volleyError) {
+                    return super.parseNetworkError(volleyError);
+                }
 
-                // Set request caching to false
-                stringRequest.setShouldCache(false);
+                @Override
+                public void deliverError(VolleyError error) {
+                    super.deliverError(error);
+                }
+            };
 
-                // Adding request to request queue
-                ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                        NetworkTags.UserNetworkTags.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
+            // Set Request Priority
+            ApplicationClass.getClassInstance().setPriority(Request.Priority.HIGH);
+
+            // Set retry policy
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    DataUtils.getIntegerResource(mContext,
+                            R.integer.int_volley_account_request_initial_timeout_ms),
+                    DataUtils.getIntegerResource(mContext,
+                            R.integer.int_volley_account_request_max_timeout_retry),
+                    1.0f));
+
+            // Set request caching to false
+            stringRequest.setShouldCache(false);
+
+            // Adding request to request queue
+            ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
+                    NetworkTags.UserNetworkTags.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
 
         } else {
 

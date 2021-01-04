@@ -351,19 +351,25 @@ public class BottomSheetFragment_SwitchAccountType extends BottomSheetDialogFrag
 
                     ViewsUtils.dismissProgressDialog(progressDialog); // Hide Dialog
 
+                    // Check request response
                     if (volleyError.getMessage() == null || volleyError instanceof NetworkError
                             || volleyError instanceof ServerError || volleyError instanceof
                             AuthFailureError || volleyError instanceof TimeoutError) {
 
-                        // Cancel Pending Request
-                        ApplicationClass.getClassInstance().cancelPendingRequests(
-                                NetworkTags.UserNetworkTags.TAG_SWITCH_ACCOUNT_TYPE_REQUEST);
+                        CustomToast.errorMessage(mContext, DataUtils.getStringResource(mContext,
+                                R.string.error_network_connection_error_message_short),
+                                R.drawable.ic_sad_cloud_100px_white);
 
-                        // Toast Network Error
-                        if (volleyError.getMessage() != null) {
-                            CustomToast.errorMessage(mContext, volleyError.getMessage(), 0);
-                        }
+                    } else {
+
+                        // Toast Connection Error Message
+                        CustomToast.errorMessage(mContext, volleyError.getMessage(),
+                                R.drawable.ic_sad_cloud_100px_white);
                     }
+
+                    // Clear url cache
+                    ApplicationClass.getClassInstance().deleteUrlVolleyCache(
+                            NetworkUrls.UserURLS.URL_SWITCH_ACCOUNT_TYPE);
                 }) {
                     @Override
                     protected void deliverResponse(String response) {

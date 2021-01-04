@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/constraintLayout">
 
-            <com.duesclerk.custom.custom_views.image_views.CircleImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:src="@drawable/app_logo"
@@ -79,8 +79,5 @@
                 />
         </LinearLayout>
 
-
-
     </RelativeLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

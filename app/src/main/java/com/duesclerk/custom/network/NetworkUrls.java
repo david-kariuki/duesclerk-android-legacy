@@ -7,13 +7,17 @@ public class NetworkUrls {
     // Domain and Url constants
     private static final String PROTOCOL            = "https://";
     private static final String URL_SEPARATOR       = "/"; // Url separator
-    private static final String WEBSITE_URL         = PROTOCOL + "www.duesclerk.com"
-            + URL_SEPARATOR;
-    private static final String FOLDER_ANDROID      = WEBSITE_URL + "android" + URL_SEPARATOR;
-    private static final String FOLDER_APP          = FOLDER_ANDROID + "app" + URL_SEPARATOR;
-    private static final String FOLDER_VENDOR_NAME  = FOLDER_APP + "duesclerk" + URL_SEPARATOR;
-    private static final String FOLDER_CONTROLLERS  = FOLDER_VENDOR_NAME + "controllers"
-            + URL_SEPARATOR;
+    private static final String WEBSITE_URL         = (PROTOCOL + "www.duesclerk.com"
+            + URL_SEPARATOR).trim();
+    private static final String FOLDER_ANDROID      = (WEBSITE_URL + "android" + URL_SEPARATOR)
+            .trim();
+    private static final String FOLDER_APP          =
+            (FOLDER_ANDROID + "application" + URL_SEPARATOR)
+            .trim();
+    private static final String FOLDER_VENDOR_NAME  = (FOLDER_APP + "duesclerk" + URL_SEPARATOR)
+            .trim();
+    private static final String FOLDER_CONTROLLERS  = (FOLDER_VENDOR_NAME + "controllers"
+            + URL_SEPARATOR).trim();
 
     /**
      * Class with user network urls
@@ -63,6 +67,11 @@ public class NetworkUrls {
                 + URL_SEPARATOR;
 
         // URL to add contact
-        public static final String URL_ADD_CONTACT = FOLDER_CONTROLLERS_CONTACTS + "addContact.php";
+        public static final String URL_ADD_CONTACT = FOLDER_CONTROLLERS_CONTACTS +
+                "addUserContact.php";
+
+        // URL to fetch users contacts
+        public static final String URL_FETCH_USER_CONTACTS = FOLDER_CONTROLLERS_CONTACTS +
+                "fetchUserContacts.php";
     }
 }

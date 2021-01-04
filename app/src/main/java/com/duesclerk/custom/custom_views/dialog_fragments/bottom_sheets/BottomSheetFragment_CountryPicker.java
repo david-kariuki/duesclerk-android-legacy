@@ -22,7 +22,7 @@ import com.duesclerk.custom.custom_utilities.DataUtils;
 import com.duesclerk.custom.custom_utilities.UserAccountUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
 import com.duesclerk.custom.custom_views.recycler_view_adapters.RVLA_CountryPicker;
-import com.duesclerk.custom.custom_views.view_decorators.Decorator_CountryPicker;
+import com.duesclerk.custom.custom_views.view_decorators.Decorators;
 import com.duesclerk.custom.java_beans.JB_CountryData;
 import com.duesclerk.interfaces.Interface_CountryPicker;
 import com.duesclerk.ui.fragment_business_signup.FragmentBusinessSignup;
@@ -43,6 +43,7 @@ import java.util.Objects;
 @SuppressWarnings({"rawtypes"})
 @SuppressLint("ValidFragment")
 public class BottomSheetFragment_CountryPicker extends BottomSheetDialogFragment {
+
     private final Context mContext;
     private final Interface_CountryPicker interfaceCountryPicker;
     private final Activity activity;
@@ -50,7 +51,13 @@ public class BottomSheetFragment_CountryPicker extends BottomSheetDialogFragment
     private BottomSheetBehavior.BottomSheetCallback bottomSheetCallback;
     private ArrayList<JB_CountryData> countryListArray;
 
+    /**
+     * Constructor for UserProfileActivity
+     *
+     * @param userProfileActivity - UserProfileActivity
+     */
     public BottomSheetFragment_CountryPicker(UserProfileActivity userProfileActivity) {
+
         this.mContext = userProfileActivity.getApplicationContext();
         this.interfaceCountryPicker = userProfileActivity;
         this.activity = userProfileActivity;
@@ -62,6 +69,7 @@ public class BottomSheetFragment_CountryPicker extends BottomSheetDialogFragment
      * @param fragmentPersonalSignup - Personal signup fragment
      */
     public BottomSheetFragment_CountryPicker(FragmentPersonalSignup fragmentPersonalSignup) {
+
         this.mContext = fragmentPersonalSignup.requireActivity();
         this.interfaceCountryPicker = fragmentPersonalSignup;
         this.activity = fragmentPersonalSignup.requireActivity();
@@ -73,6 +81,7 @@ public class BottomSheetFragment_CountryPicker extends BottomSheetDialogFragment
      * @param fragmentBusinessSignup - Business signup fragment
      */
     public BottomSheetFragment_CountryPicker(FragmentBusinessSignup fragmentBusinessSignup) {
+
         this.mContext = fragmentBusinessSignup.requireActivity();
         this.interfaceCountryPicker = fragmentBusinessSignup;
         this.activity = fragmentBusinessSignup.requireActivity();
@@ -81,6 +90,7 @@ public class BottomSheetFragment_CountryPicker extends BottomSheetDialogFragment
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+
         final BottomSheetDialog bottomSheetDialog = (BottomSheetDialog)
                 super.onCreateDialog(savedInstanceState);
 
@@ -89,11 +99,12 @@ public class BottomSheetFragment_CountryPicker extends BottomSheetDialogFragment
         TextView textClose = contentView.findViewById(R.id.textCountryPicker_Dismiss);
         RecyclerView recyclerView = contentView.findViewById(R.id.recyclerViewCountryPicker);
         SearchView searchView = contentView.findViewById(R.id.searchViewCountryPicker);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL,
                 false);
 
         // Initialize And Set Item Decorator
-        Decorator_CountryPicker decoratorCountryPicker = new Decorator_CountryPicker(mContext);
+        Decorators decoratorCountryPicker = new Decorators(BottomSheetFragment_CountryPicker.this);
         recyclerView.addItemDecoration(decoratorCountryPicker);
 
         recyclerView.setLayoutManager(layoutManager);
@@ -102,6 +113,7 @@ public class BottomSheetFragment_CountryPicker extends BottomSheetDialogFragment
 
         // Get Country Data Array From Xml Parser
         try {
+
             countryListArray = new ArrayList<>();
             JB_CountryData pojoCountryData = null;
 
@@ -166,6 +178,13 @@ public class BottomSheetFragment_CountryPicker extends BottomSheetDialogFragment
         // RecyclerView adapter
         RVLA_CountryPicker rvlaCountryPicker = new RVLA_CountryPicker(this,
                 getExtractedCountryData());
+
+        // Check for adapter observers
+        if (!rvlaCountryPicker.hasObservers()) {
+
+            rvlaCountryPicker.setHasStableIds(true); // Set has stable ids
+        }
+
         recyclerView.setAdapter(rvlaCountryPicker);
 
         int searchViewId = searchView.getContext().getResources().getIdentifier(

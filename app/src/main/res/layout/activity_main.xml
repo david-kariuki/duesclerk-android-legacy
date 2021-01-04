@@ -63,9 +63,10 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabMainActivity"
+        android:id="@+id/fabMainActivity_AddContact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_gravity="bottom|end"
         android:layout_marginTop="@dimen/dimen_fab_margin_top"
         android:layout_marginStart="@dimen/dimen_fab_margin_start"

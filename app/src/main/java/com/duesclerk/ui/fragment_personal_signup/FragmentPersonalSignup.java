@@ -45,6 +45,7 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.activity_personal_signup, container, false);
 
         mContext = getContext(); // Context
@@ -72,10 +73,14 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
         LinearLayout llSignUp = view.findViewById(R.id.llSignUpActivity_SignUp);
 
         // Set Input Filters
-        editFirstName.setFilters(new InputFilter[]{InputFiltersUtils.filterNames,
-                new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_SINGLE_NAME)});
-        editLastName.setFilters(new InputFilter[]{InputFiltersUtils.filterNames,
-                new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_SINGLE_NAME)});
+        editFirstName.setFilters(new InputFilter[]{
+                InputFiltersUtils.filterNames,
+                new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_SINGLE_NAME)
+        });
+        editLastName.setFilters(new InputFilter[]{
+                InputFiltersUtils.filterNames,
+                new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_SINGLE_NAME)
+        });
         editEmailAddress.setFilters(new InputFilter[]{InputFiltersUtils.filterEmailAddress,
                 new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_EMAIL_ADDRESS)});
 
@@ -96,9 +101,12 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (Objects.requireNonNull(editPassword.getText()).toString().length() > 0) {
                     // Show toggle password icon
+
                     imagePasswordToggle.setVisibility(View.VISIBLE); // Show toggle icon
+
                 } else {
                     // Hide toggle password icon
+
                     imagePasswordToggle.setVisibility(View.INVISIBLE); // Hide toggle icon
                 }
             }
@@ -109,6 +117,7 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
         });
 
         imagePasswordToggle.setOnClickListener(view13 -> {
+
             // Toggle password visibility
             ViewsUtils.togglePasswordField(editPassword, imagePasswordToggle);
         });

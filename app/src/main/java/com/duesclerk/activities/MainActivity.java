@@ -12,10 +12,12 @@ import androidx.viewpager.widget.ViewPager;
 import com.duesclerk.R;
 import com.duesclerk.custom.custom_utilities.DataUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
+import com.duesclerk.custom.custom_views.dialog_fragments.dialogs.DialogFragment_AddContact;
 import com.duesclerk.custom.custom_views.view_pager.ViewPagerAdapter;
+import com.duesclerk.interfaces.Interface_MainActivity;
 import com.duesclerk.ui.fragment_app_menu.FragmentAppMenu;
-import com.duesclerk.ui.fragment_people_i_owe.FragmentPeople_I_Owe;
-import com.duesclerk.ui.fragment_peopleowingme.FragmentPeopleOwingMe;
+import com.duesclerk.ui.fragment_contacts.fragment_people_i_owe.FragmentPeople_I_Owe;
+import com.duesclerk.ui.fragment_contacts.fragment_peopleowingme.FragmentPeopleOwingMe;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -23,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Interface_MainActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private Context mContext;
     private ImageView imageTabPeopleOwingMe, imageTabPeopleIOwe, imageTabAppMenu;
     private TextView textTabPeopleOwingMe, textTabPeopleIOwe, textTabAppMenu;
-    private FloatingActionButton floatingActionButton;
+    private FloatingActionButton fabAddContact;
     private int tabPosition = 0;
 
     @Override
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         mContext = this; // Get Context
 
-        floatingActionButton = findViewById(R.id.fabMainActivity);
+        fabAddContact = findViewById(R.id.fabMainActivity_AddContact);
 
         setupTabLayout(); // Set up TabLayout
         viewPager.setOffscreenPageLimit(2); // Set ViewPager off screen limit
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+
                 tabPosition = tab.getPosition(); // Get current tab position
                 viewPager.setCurrentItem(tabPosition, true); // Set current position
                 switchTabSelection(tabPosition, true); // Switch tab selection
@@ -58,12 +61,14 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+
                 tabPosition = tab.getPosition(); // Get current tab position
                 switchTabSelection(tabPosition, false); // Switch tab selection
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+
                 tabPosition = tab.getPosition(); // Get current tab position
             }
         });
@@ -71,11 +76,16 @@ public class MainActivity extends AppCompatActivity {
         // Add page change listener
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-        floatingActionButton.setOnClickListener(v -> fabClickedAction()); // Fab on click
+        // Add contact onClick
+        fabAddContact.setOnClickListener(v -> {
 
-        floatingActionButton.setOnLongClickListener(v -> false);
+            // Show add person DialogFragment
+            ViewsUtils.showDialogFragment(getSupportFragmentManager(),
+                    new DialogFragment_AddContact(mContext, tabPosition), true);
+        });
 
-        Objects.requireNonNull(tabLayout.getTabAt(2)).select();
+        // Select TabLayout position
+        Objects.requireNonNull(tabLayout.getTabAt(0)).select();
     }
 
     /**
@@ -264,32 +274,12 @@ public class MainActivity extends AppCompatActivity {
             case 1:
                 // Those I Owe fragment
                 // Owing Me fragment
-                floatingActionButton.setVisibility(View.VISIBLE); // Toggle visibility
+                fabAddContact.setVisibility(View.VISIBLE); // Toggle visibility
                 break;
             case 2:
             default:
                 // Menu fragment
-                floatingActionButton.setVisibility(View.GONE); // Toggle visibility
-                break;
-        }
-    }
-
-    /**
-     * Function to switch fab click action
-     */
-    private void fabClickedAction() {
-        switch (tabPosition) {
-            case 0:
-                // Owing Me fragment
-
-                break;
-            case 1:
-                // Those I Owe fragment
-                break;
-            case 2:
-                // Menu fragment
-                break;
-            default:
+                fabAddContact.setVisibility(View.GONE); // Toggle visibility
                 break;
         }
     }
@@ -306,13 +296,37 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     public void onBackPressed() {
+
         if (tabPosition != 0) {
+
             this.runOnUiThread(() -> {
+
                 TabLayout.Tab tab = tabLayout.getTabAt(0);
                 Objects.requireNonNull(tab).select();
             });
+
         } else {
+
             finish(); // Exit Activity
         }
+    }
+
+    @Override
+    public void showAddContactFAB(boolean show) {
+
+        if (show) {
+
+            this.fabAddContact.setVisibility(View.VISIBLE); // Show fab button
+
+        } else {
+
+            this.fabAddContact.setVisibility(View.GONE); // Hide fab button
+        }
+    }
+
+    @Override
+    public void showAddContactDialogFragment(boolean show) {
+
+        fabAddContact.performClick(); // Click add contact FAB
     }
 }

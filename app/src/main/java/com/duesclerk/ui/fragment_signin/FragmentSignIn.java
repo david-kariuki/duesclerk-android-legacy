@@ -215,9 +215,9 @@ public class FragmentSignIn extends Fragment {
                         // Get SignIn object
                         JSONObject objectSignIn = jsonObject.getJSONObject(VolleyUtils.KEY_SIGNIN);
 
-                        userId        = objectSignIn.getString(UserAccountUtils.FIELD_USER_ID);
-                        emailAddress    = objectSignIn.getString(UserAccountUtils.FIELD_EMAIL_ADDRESS);
-                        accountType     = objectSignIn.getString(UserAccountUtils.FIELD_ACCOUNT_TYPE);
+                        userId = objectSignIn.getString(UserAccountUtils.FIELD_USER_ID);
+                        emailAddress = objectSignIn.getString(UserAccountUtils.FIELD_EMAIL_ADDRESS);
+                        accountType = objectSignIn.getString(UserAccountUtils.FIELD_ACCOUNT_TYPE);
 
                         // Inserting row in users table
                         if (database.storeUserAccountInformation(userId,
@@ -243,23 +243,29 @@ public class FragmentSignIn extends Fragment {
 
                 // Log.e(TAG, "SignIn Error: " + volleyError.getMessage()); // Log response
 
-                // Check response
+                // Check request response
                 if (volleyError.getMessage() == null || volleyError instanceof NetworkError
                         || volleyError instanceof ServerError || volleyError instanceof
                         AuthFailureError || volleyError instanceof TimeoutError) {
-                    CustomToast.errorMessage(mContext, volleyError.getMessage(),
-                            R.drawable.ic_sad_cloud_100px_white); // Toast Connection Error Message
-                    // CustomToast.errorMessage(mContext, ViewsAndFieldsUtils.getString(mContext,
-                    // R.string.error_network_request_error_message),
-                    // R.drawable.ic_sad_cloud_100px_white); // Toast Connection Error Message
-                } else CustomToast.errorMessage(mContext, DataUtils.getStringResource(mContext,
-                        R.string.error_network_connection_error_message_long),
-                        R.drawable.ic_sad_cloud_100px_white);
 
+                    CustomToast.errorMessage(mContext, DataUtils.getStringResource(mContext,
+                            R.string.error_network_connection_error_message_short),
+                            R.drawable.ic_sad_cloud_100px_white);
+
+                } else {
+
+                    // Toast Connection Error Message
+                    CustomToast.errorMessage(mContext, volleyError.getMessage(),
+                            R.drawable.ic_sad_cloud_100px_white);
+                }
+
+                // Cancel Pending Request
                 ApplicationClass.getClassInstance().cancelPendingRequests(
-                        NetworkTags.UserNetworkTags.TAG_SIGNIN_STRING_REQUEST); // Cancel Pending Request
+                        NetworkTags.UserNetworkTags.TAG_SIGNIN_STRING_REQUEST);
+
+                // Clear url cache
                 ApplicationClass.getClassInstance().deleteUrlVolleyCache(
-                        NetworkUrls.UserURLS.URL_SIGNIN_USER); // Clear url cache
+                        NetworkUrls.UserURLS.URL_SIGNIN_USER);
             }) {
                 @Override
                 protected Map<String, String> getParams() {

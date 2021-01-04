@@ -123,7 +123,7 @@
     <string name="msg_we_will_email_you_a_code">We will email you a code to reset your password</string>
     <string name="msg_enter_verification_code_to_verify_account">Please enter the code below to verify your account.</string>
     <string name="msg_grant_permission_message">This application needs %1$s permission to %2$s. You can grant them in the app settings.</string>
-    <string name="msg_contacts_empty">You have not added any contacts yet.\nAll your saved contacts will be shown here.\nYou can add new ones.</string>
+    <string name="msg_contacts_empty">You have not added any contacts yet.\nAll your saved contacts will be shown here.\n\nYou can add new ones.</string>
 
     <!--Permissions tags and purpose messages-->
     <string name="msg_grant_permission_title">Grant %1$s Permissions.</string>

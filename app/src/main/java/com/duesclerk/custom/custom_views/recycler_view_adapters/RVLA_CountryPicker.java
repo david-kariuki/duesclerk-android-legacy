@@ -36,8 +36,15 @@ public class RVLA_CountryPicker extends RecyclerView.Adapter<RVLA_CountryPicker.
     // ViewHolder view
     private View viewHolderView;
 
+    /**
+     * Class constructor
+     *
+     * @param bottomSheetFragmentCountryPicker - BottomSheet fragment
+     * @param countryData                      - ArrayList with contacts
+     */
     public RVLA_CountryPicker(BottomSheetFragment_CountryPicker bottomSheetFragmentCountryPicker,
                               ArrayList<JB_CountryData> countryData) {
+
         this.mContext = bottomSheetFragmentCountryPicker.getContext();
         this.countryData = countryData;
         this.filterList = countryData;
@@ -47,15 +54,18 @@ public class RVLA_CountryPicker extends RecyclerView.Adapter<RVLA_CountryPicker.
     @Override
     public @NotNull RecyclerViewHolder onCreateViewHolder(ViewGroup parent,
                                                           int viewType) {
+
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.layout_recycler_view_adapter_country_picker, parent, false);
+                R.layout.recycler_view_adapter_country_picker, parent, false);
 
         ViewsUtils.hideKeyboard(bottomSheetFragmentCountryPicker.requireActivity());
-        return new RecyclerViewHolder(layoutView);
+
+        return new RecyclerViewHolder(layoutView); // Return view holder
     }
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, final int position) {
+
         // Get country drawable from country name
         int countryFlagID = DataUtils.getDrawableFromName(this.mContext,
                 this.countryData.get(position).getCountryFlag());
@@ -70,6 +80,7 @@ public class RVLA_CountryPicker extends RecyclerView.Adapter<RVLA_CountryPicker.
         // Load country flags to ImageView
         ViewsUtils.loadImageView(this.mContext, countryFlagID, holder.imageViewCountryFlags);
 
+        // Check for ViewHolder
         if (viewHolderView != null) {
             // List item OnClick
             holder.consCountryItem.setOnClickListener(v -> {
@@ -89,33 +100,42 @@ public class RVLA_CountryPicker extends RecyclerView.Adapter<RVLA_CountryPicker.
                         this.countryData.get(position).getCountryAlpha3(), countryFlagID);
             });
         }
-        setAnimation(holder.itemView, position);
+
+        setAnimation(holder.itemView, position); // Set animation
     }
 
     @Override
     public long getItemId(int position) {
+
         return position;
     }
 
     @Override
     public int getItemCount() {
-        int itemCount = 0;
+
+        int itemCount = 0; // Item count
+
         // Check if array is null
         if (this.countryData.size() != 0) {
+
             itemCount = this.countryData.size(); // Get item count
         }
-        return itemCount;
+
+        return itemCount; // Return item count
     }
 
     @Override
     public void onViewDetachedFromWindow(final @NotNull
-                                         RecyclerViewHolder holder) {
+                                                 RecyclerViewHolder holder) {
+
         super.onViewDetachedFromWindow(holder);
-        holder.clearAnimation();
+
+        holder.clearAnimation(); // Clear animation
     }
 
     // Animating single element
     private void setAnimation(View viewToAnimate, int position) {
+
         if (position > this.lastPosition) {
             Animation animation = AnimationUtils.loadAnimation(this.mContext,
                     android.R.anim.slide_in_left);
@@ -126,14 +146,17 @@ public class RVLA_CountryPicker extends RecyclerView.Adapter<RVLA_CountryPicker.
 
     @Override
     public Filter getFilter() {
+
         if (customFilter == null) {
             customFilter = new CustomFilter();
         }
-        return customFilter;
+
+        return customFilter; // Return filter
     }
 
     public class RecyclerViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
+
         TextView textCountryName, textCountryCode, textCountryAlpha2, textCountryAlpha3;
         ImageView imageViewCountryFlags;
         ConstraintLayout consCountryItem;
@@ -150,7 +173,11 @@ public class RVLA_CountryPicker extends RecyclerView.Adapter<RVLA_CountryPicker.
             consCountryItem = convertView.findViewById(R.id.consCountryPicker_CountryItem);
         }
 
+        /**
+         * Function to clear list animation
+         */
         public void clearAnimation() {
+
             viewHolderView.clearAnimation();
         }
 
@@ -159,7 +186,9 @@ public class RVLA_CountryPicker extends RecyclerView.Adapter<RVLA_CountryPicker.
         }
     }
 
-    // Custom filter class
+    /**
+     * Custom filter class
+     */
     @SuppressWarnings("unchecked")
     class CustomFilter extends Filter {
         @Override
@@ -198,7 +227,5 @@ public class RVLA_CountryPicker extends RecyclerView.Adapter<RVLA_CountryPicker.
             countryData = (ArrayList<JB_CountryData>) results.values;
             notifyDataSetChanged();
         }
-
     }
-
 }

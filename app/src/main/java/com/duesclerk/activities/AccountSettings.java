@@ -56,7 +56,7 @@ public class AccountSettings extends AppCompatActivity {
         bottomSheetFragmentSwitchAccountType.setRetainInstance(true);
         bottomSheetFragmentSwitchAccountType.setCancelable(false);
 
-        // Receive Broadcast
+        // Broadcast receiver
         bcrSetActionText = new BroadcastReceiver() {
             @Override
             public void onReceive(Context arg0, Intent intent) {

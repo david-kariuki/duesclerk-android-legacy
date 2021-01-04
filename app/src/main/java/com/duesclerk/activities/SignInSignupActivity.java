@@ -19,9 +19,9 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.StringRequest;
 import com.duesclerk.R;
-import com.duesclerk.custom.custom_utilities.AccountUtils;
 import com.duesclerk.custom.custom_utilities.ApplicationClass;
 import com.duesclerk.custom.custom_utilities.DataUtils;
+import com.duesclerk.custom.custom_utilities.UserAccountUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
 import com.duesclerk.custom.custom_utilities.VolleyUtils;
 import com.duesclerk.custom.custom_views.toast.CustomToast;
@@ -29,9 +29,10 @@ import com.duesclerk.custom.custom_views.view_pager.CustomViewPager;
 import com.duesclerk.custom.custom_views.view_pager.ViewPagerAdapter;
 import com.duesclerk.custom.java_beans.JB_UserAccountInfo;
 import com.duesclerk.custom.network.InternetConnectivity;
-import com.duesclerk.custom.network.NetworkUtils;
-import com.duesclerk.custom.storage_adapters.SQLiteDB;
+import com.duesclerk.custom.network.NetworkTags;
+import com.duesclerk.custom.network.NetworkUrls;
 import com.duesclerk.custom.storage_adapters.SessionManager;
+import com.duesclerk.custom.storage_adapters.UserDatabase;
 import com.duesclerk.interfaces.Interface_SignInSignup;
 import com.duesclerk.ui.fragment_business_signup.FragmentBusinessSignup;
 import com.duesclerk.ui.fragment_personal_signup.FragmentPersonalSignup;
@@ -60,7 +61,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
     private TextView textTitle;
     private ProgressDialog progressDialog;
     private SessionManager sessionManager;
-    private SQLiteDB database;
+    private UserDatabase database;
     private ArrayList<JB_UserAccountInfo> signupDetailsArray;
     private ImageView imageBack;
 
@@ -76,7 +77,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
                 false);
 
         sessionManager = new SessionManager(mContext); // SessionManager
-        database = new SQLiteDB(mContext); // SQLite database
+        database = new UserDatabase(mContext); // SQLite database
 
         signupDetailsArray = new ArrayList<>(); // SignUp details array list
 
@@ -248,8 +249,8 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
         signupDetailsArray.add(jbUserAccountInfo);
 
         // Pass account type and signup details hashMap
-        signupUser(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL,
-                NetworkUtils.TAG_SIGNUP_PERSONAL_STRING_REQUEST, signupDetailsArray);
+        signupUser(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL,
+                NetworkTags.UserNetworkTags.TAG_SIGNUP_PERSONAL_STRING_REQUEST, signupDetailsArray);
     }
 
     /**
@@ -280,8 +281,8 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
         signupDetailsArray.add(jbUserAccountInfo);
 
         // Pass account type and signup details hashMap
-        signupUser(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS,
-                NetworkUtils.TAG_SIGNUP_BUSINESS_STRING_REQUEST, signupDetailsArray);
+        signupUser(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS,
+                NetworkTags.UserNetworkTags.TAG_SIGNUP_BUSINESS_STRING_REQUEST, signupDetailsArray);
     }
 
     /**
@@ -316,7 +317,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
             );
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                    NetworkUtils.URL_SIGNUP_USER, response -> {
+                    NetworkUrls.UserURLS.URL_SIGNUP_USER, response -> {
                 // Log Custom_Response
                 // Log.d(TAG, "SignUp Response: " + response);
 
@@ -338,9 +339,9 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
                                 accountType, successMessage = "";
 
                         // Get signup details
-                        userId        = objectSignUp.getString(AccountUtils.FIELD_USER_ID);
-                        emailAddress    = objectSignUp.getString(AccountUtils.FIELD_EMAIL_ADDRESS);
-                        accountType     = objectSignUp.getString(AccountUtils.FIELD_ACCOUNT_TYPE);
+                        userId        = objectSignUp.getString(UserAccountUtils.FIELD_USER_ID);
+                        emailAddress    = objectSignUp.getString(UserAccountUtils.FIELD_EMAIL_ADDRESS);
+                        accountType     = objectSignUp.getString(UserAccountUtils.FIELD_ACCOUNT_TYPE);
 
                         // Inserting row in users table
                         if (database.storeUserAccountInformation(userId, emailAddress,
@@ -350,11 +351,11 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
                             sessionManager.setSignedIn(true);
 
                             if (signupAccountType.equals(
-                                    AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
+                                    UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
 
                                 // Get first name and last name
-                                firstName = objectSignUp.getString(AccountUtils.FIELD_FIRST_NAME);
-                                lastName = objectSignUp.getString(AccountUtils.FIELD_LAST_NAME);
+                                firstName = objectSignUp.getString(UserAccountUtils.FIELD_FIRST_NAME);
+                                lastName = objectSignUp.getString(UserAccountUtils.FIELD_LAST_NAME);
 
                                 if (!DataUtils.isEmptyString(firstName)
                                         && !DataUtils.isEmptyString(lastName)) {
@@ -368,10 +369,10 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
                                                     + ", " + (firstName + " " + lastName));
                                 }
                             } else if (signupAccountType.equals(
-                                    AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
+                                    UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
 
                                 // Get business name
-                                businessName = objectSignUp.getString(AccountUtils.FIELD_BUSINESS_NAME);
+                                businessName = objectSignUp.getString(UserAccountUtils.FIELD_BUSINESS_NAME);
 
                                 if (!DataUtils.isEmptyString(businessName)) {
                                     successMessage = DataUtils.getStringResource(
@@ -415,28 +416,29 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
                 // Stop Progress Dialog
                 ViewsUtils.dismissProgressDialog(progressDialog);
 
-                // Check for the network exceptions below
-                // networkErrorMessage, serverErrorMessage, authFailureErrorMessage,
-                // parseErrorMessage, noConnectionErrorMessage, timeoutErrorMessage
+                // Check request response
                 if (volleyError.getMessage() == null || volleyError instanceof NetworkError
                         || volleyError instanceof ServerError || volleyError instanceof
                         AuthFailureError || volleyError instanceof TimeoutError) {
 
-                    // Toast Connection Error Message
                     CustomToast.errorMessage(mContext, DataUtils.getStringResource(mContext,
                             R.string.error_network_connection_error_message_short),
                             R.drawable.ic_sad_cloud_100px_white);
+
                 } else {
+
                     // Toast Connection Error Message
                     CustomToast.errorMessage(mContext, volleyError.getMessage(),
                             R.drawable.ic_sad_cloud_100px_white);
                 }
 
                 // Cancel Pending Request
-                ApplicationClass.getClassInstance().cancelPendingRequests(signupTag);
+                ApplicationClass.getClassInstance().cancelPendingRequests(
+                        NetworkTags.UserNetworkTags.TAG_SIGNIN_STRING_REQUEST);
 
+                // Clear url cache
                 ApplicationClass.getClassInstance().deleteUrlVolleyCache(
-                        NetworkUtils.URL_SIGNUP_USER); // Clear url cache
+                        NetworkUrls.UserURLS.URL_SIGNIN_USER);
             }
             ) {
                 @Override
@@ -445,31 +447,31 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
                     Map<String, String> params = new HashMap<>();
 
                     // Personal account related fields
-                    if (signupAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
-                        params.put(AccountUtils.FIELD_FIRST_NAME,
+                    if (signupAccountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
+                        params.put(UserAccountUtils.FIELD_FIRST_NAME,
                                 signupDetailsArray.get(0).getFirstName());
-                        params.put(AccountUtils.FIELD_LAST_NAME,
+                        params.put(UserAccountUtils.FIELD_LAST_NAME,
                                 signupDetailsArray.get(0).getLastName());
-                        params.put(AccountUtils.FIELD_ACCOUNT_TYPE,
-                                AccountUtils.KEY_ACCOUNT_TYPE_PERSONAL);
+                        params.put(UserAccountUtils.FIELD_ACCOUNT_TYPE,
+                                UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL);
                     }
 
                     // Business account related fields
-                    if (signupAccountType.equals(AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
-                        params.put(AccountUtils.FIELD_BUSINESS_NAME,
+                    if (signupAccountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
+                        params.put(UserAccountUtils.FIELD_BUSINESS_NAME,
                                 signupDetailsArray.get(0).getBusinessName());
-                        params.put(AccountUtils.FIELD_ACCOUNT_TYPE,
-                                AccountUtils.KEY_ACCOUNT_TYPE_BUSINESS);
+                        params.put(UserAccountUtils.FIELD_ACCOUNT_TYPE,
+                                UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS);
                     }
 
                     // Other shared fields
-                    params.put(AccountUtils.FIELD_EMAIL_ADDRESS,
+                    params.put(UserAccountUtils.FIELD_EMAIL_ADDRESS,
                             signupDetailsArray.get(0).getEmailAddress());
-                    params.put(AccountUtils.FIELD_COUNTRY_CODE,
+                    params.put(UserAccountUtils.FIELD_COUNTRY_CODE,
                             signupDetailsArray.get(0).getCountryCode());
-                    params.put(AccountUtils.FIELD_COUNTRY_ALPHA2,
+                    params.put(UserAccountUtils.FIELD_COUNTRY_ALPHA2,
                             signupDetailsArray.get(0).getCountryAlpha2());
-                    params.put(AccountUtils.FIELD_PASSWORD,
+                    params.put(UserAccountUtils.FIELD_PASSWORD,
                             signupDetailsArray.get(0).getPassword());
                     return params;
                 }
@@ -488,7 +490,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
 
             // Adding request to request queue
             ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                    NetworkUtils.TAG_SIGNUP_PERSONAL_STRING_REQUEST);
+                    NetworkTags.UserNetworkTags.TAG_SIGNUP_PERSONAL_STRING_REQUEST);
 
         } else {
             // Not Connected
