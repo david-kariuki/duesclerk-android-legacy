@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Content description-->
+    <string name="content_description_icon">Icon</string>
     <string name="content_description_app_icon">Application icon</string>
     <string name="content_description_icon_exit">Exit icon</string>
+    <string name="content_description_icon_contact">Contact icon</string>
     <string name="content_description_email_verification">Email verification</string>
     <string name="content_description_no_connection">No internet connection</string>
     <string name="content_description_icon_greetings">Greetings icon</string>

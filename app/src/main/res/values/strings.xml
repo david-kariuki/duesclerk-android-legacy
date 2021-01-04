@@ -51,6 +51,11 @@
     <string name="hint_feedback">Feedback</string>
     <string name="hint_personal_account">Personal Account</string>
     <string name="hint_business_account">Business Account</string>
+    <string name="hint_full_name">Full name</string>
+    <string name="hint_persons_address">Persons address</string>
+    <string name="hint_contacts_type">Contacts type</string>
+    <string name="hint_optional">(Optional)</string>
+    <string name="hint_contacts_total_amount">Total amount</string>
 
     <!--Actions-->
     <string name="action_sign_in">Sign In</string>
@@ -136,9 +141,9 @@
 
     <!--Symbols-->
     <string name="symbol_asterisk">*</string>
-    <string name="hint_optional">(Optional)</string>
-    <string name="hint_persons_address">Persons address</string>
-    <string name="hint_full_name">Full name</string>
-    <string name="hint_contact_type">Contact type</string>
+    <string name="symbol_full_colon">:</string>
+
+    <!--Number-->
+    <string name="number_decimal_zero">0.0</string>
 
 </resources>

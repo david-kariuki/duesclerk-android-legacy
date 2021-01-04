@@ -1,7 +1,6 @@
 package com.duesclerk.custom.custom_utilities;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.util.TypedValue;
@@ -9,12 +8,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.duesclerk.R;
 
-import java.io.ByteArrayOutputStream;
+import org.json.JSONArray;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -26,6 +25,7 @@ public class DataUtils {
      * Check if String is empty.
      * Check if EditText is empty.
      * Check if Uri is empty.
+     * Check if JSONArray is empty.
      * Check if ArrayList is empty.
      * Convert dp(int/float) to pixels
      * Get string resources with/without placeholders
@@ -45,7 +45,8 @@ public class DataUtils {
      * @param string - associated string
      */
     public static boolean isEmptyString(String string) {
-        return string.equals("");
+
+        return ((string == null) || string.equals(""));
     }
 
     /**
@@ -54,6 +55,7 @@ public class DataUtils {
      * @param editText - associated EditText
      */
     public static boolean isEmptyEditText(EditText editText) {
+
         return (editText.getText().toString().length() == 0);
     }
 
@@ -63,7 +65,18 @@ public class DataUtils {
      * @param uri - associated Uri String
      */
     public static boolean isEmptyUri(Uri uri) {
+
         return (uri == null);
+    }
+
+    /**
+     * Function to check if JSONArray is empty
+     *
+     * @param jsonArray - associated JSONArray
+     */
+    public static boolean isEmptyJSONArray(JSONArray jsonArray) {
+
+        return (jsonArray == null);
     }
 
     /**
@@ -72,6 +85,7 @@ public class DataUtils {
      * @param arrayList - associated ArrayList
      */
     public static boolean isEmptyArrayList(@SuppressWarnings("rawtypes") ArrayList arrayList) {
+
         return (arrayList == null || arrayList.isEmpty() || arrayList.get(0) == null);
     }
 
@@ -82,6 +96,7 @@ public class DataUtils {
      * @param dp      - dp to be converted to pixels
      */
     public static int convertDpToPixels(Context context, int dp) {
+
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
                 context.getResources().getDisplayMetrics());
     }
@@ -93,6 +108,7 @@ public class DataUtils {
      * @param dp      - dp to be converted to pixels
      */
     public static int convertDpToPixels(Context context, double dp) {
+
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (float) dp,
                 context.getResources().getDisplayMetrics());
     }
@@ -104,6 +120,7 @@ public class DataUtils {
      * @param stringId - string resource id
      */
     public static String getStringResource(Context context, int stringId) {
+
         return context.getResources().getString(stringId);
     }
 
@@ -115,6 +132,7 @@ public class DataUtils {
      * @param placeholder - placeholder for string resource
      */
     public static String getStringResource(Context context, int stringId, String placeholder) {
+
         return context.getResources().getString(stringId, placeholder);
     }
 
@@ -126,27 +144,6 @@ public class DataUtils {
      * @param args     - placeholders strings
      */
     public static String getStringResource(Context context, int stringId, Object... args) {
-        /*Object[] newArgs = new Object[args.length];
-
-        Object argValue;
-        for (int i = 0; i < args.length; i++) {
-            argValue = args[i];
-
-            if (argValue.getClass() == Integer.class) {
-                // Argument is of type integer
-                newArgs[i] = getStringResource(context, (Integer) argValue);
-                Log.e("Type", "Integer : " + newArgs[i]);
-
-            }
-
-            if (argValue.getClass() == String.class) {
-                // Argument is of type string
-
-                // Add value to new arguments string array
-                newArgs[i] = (String) argValue;
-                Log.e("Type", "String : " + newArgs[i]);
-            }
-        }*/
 
         // Return string with placeholders
         return context.getResources().getString(stringId, args);
@@ -160,6 +157,7 @@ public class DataUtils {
      * @param args     - placeholders ids
      */
     public static String getStringResource(Context context, int stringId, Integer... args) {
+
         // Create new Object array with same size as args length
         Object[] newArgs = new Object[args.length];
 
@@ -182,6 +180,7 @@ public class DataUtils {
      */
     @SuppressWarnings("EqualsBetweenInconvertibleTypes")
     public static String getStringResource(Context context, int stringId, String... args) {
+
         // Create new Object array with same size as args length
         Object[] newArgs = new Object[args.length];
 
@@ -206,6 +205,8 @@ public class DataUtils {
      * @param colorId - color resource id
      */
     public static int getColorResource(Context context, int colorId) {
+
+        // Check for SDK version
         if (Build.VERSION.SDK_INT <= 23) {
             //noinspection deprecation
             return context.getResources().getColor(colorId);
@@ -221,6 +222,7 @@ public class DataUtils {
      * @param integerId - integer resource id
      */
     public static int getIntegerResource(Context context, int integerId) {
+
         return context.getResources().getInteger(integerId);
     }
 
@@ -231,24 +233,8 @@ public class DataUtils {
      * @param animId  - animId
      */
     public static Animation getAnimation(Context context, int animId) {
-        return AnimationUtils.loadAnimation(context, animId);
-    }
 
-    /**
-     * Function to get drawable id from drawable name or concatenating drawable name to get
-     * another drawable
-     *
-     * @param context       - for getting resources and package name
-     * @param drawableName  - drawable id
-     * @param extraNamePart - extra string to concatenate to drawable name
-     */
-    public static int getDrawableFromName(Context context, String drawableName,
-                                          @Nullable String extraNamePart) {
-        if (extraNamePart == null) extraNamePart = "";
-        return context.getResources().getIdentifier(
-                (drawableName + extraNamePart),
-                "drawable",
-                context.getPackageName());
+        return AnimationUtils.loadAnimation(context, animId);
     }
 
     /**
@@ -259,21 +245,12 @@ public class DataUtils {
      * @param drawableName - drawable id
      */
     public static int getDrawableFromName(Context context, String drawableName) {
+
+        // Return drawable id
         return context.getResources().getIdentifier(
                 (drawableName),
                 "drawable",
                 context.getPackageName());
-    }
-
-    /**
-     * Function to get data from drawable in byte array
-     *
-     * @param bitmap - Associated bitmap
-     */
-    public static byte[] getFileDataFromDrawable(Bitmap bitmap) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        return byteArrayOutputStream.toByteArray();
     }
 
     /**
@@ -291,8 +268,7 @@ public class DataUtils {
                 R.color.colorBlue700
         };
 
-        return colorSchemeResources.clone();
-
+        return colorSchemeResources.clone(); // Clone and return ColorScheme array
     }
 
     /**
@@ -301,28 +277,39 @@ public class DataUtils {
      * @param number - number to set unit
      */
     public static String getNumberUnit(int number) {
+
         String labelledString;
+
         // 1000 to less than 100,000
         if ((number >= 10000) && (number < 100000)) {
+
             String string = roundDouble((double) number / 1000, 1) + "K";
             labelledString = string.replace(".0", "");
             return labelledString;
-            // 100,000 to less than 1,000,000
+
         } else if ((number >= 100000) && (number < 1000000)) {
+            // 100,000 to less than 1,000,000
+
             String string = roundDouble((double) number / 1000, 0) + "K";
             labelledString = string.replace(".0", "");
             return labelledString;
-            // 1000,000 to less than 100,000,000
+
         } else if ((number >= 1000000) && (number < 100000000)) {
+            // 1000,000 to less than 100,000,000
+
             String string = roundDouble((double) number / 1000000, 1) + "M";
             labelledString = string.replace(".0", "");
             return labelledString;
+
         } else if ((number >= 10000000) && (number < 1000000000)) {
+            // 10,000,000 to less than 100,000,000
+
             String string = roundDouble((double) number / 1000000, 0) + "M";
             labelledString = string.replace(".0", "");
             return labelledString;
         }
-        return String.valueOf(number);
+
+        return String.valueOf(number); // Return number unit
     }
 
     /**
@@ -331,8 +318,11 @@ public class DataUtils {
      * @param value - double value
      */
     public static double roundDouble(double value, int decimalPoints) {
-        BigDecimal bd = new BigDecimal(Double.toString(value));
-        bd = bd.setScale(decimalPoints, RoundingMode.DOWN);
-        return bd.doubleValue();
+
+        // Get BigDecimal
+        BigDecimal bigDecimal = new BigDecimal(Double.toString(value));
+        bigDecimal = bigDecimal.setScale(decimalPoints, RoundingMode.DOWN);
+
+        return bigDecimal.doubleValue(); // Return rounded double value
     }
 }

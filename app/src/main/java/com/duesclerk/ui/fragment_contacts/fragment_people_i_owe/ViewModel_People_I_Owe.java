@@ -1,4 +1,4 @@
-package com.duesclerk.ui.fragment_people_i_owe;
+package com.duesclerk.ui.fragment_contacts.fragment_people_i_owe;
 
 import androidx.lifecycle.ViewModel;
 

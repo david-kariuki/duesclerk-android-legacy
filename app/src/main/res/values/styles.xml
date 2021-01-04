@@ -54,6 +54,34 @@
         <item name="fastScrollVerticalThumbDrawable">@color/colorPrimaryDark</item>
         <item name="android:overScrollMode">never</item>
         <item name="layout_behavior">@string/appbar_scrolling_view_behavior</item>
+        <item name="android:fadeScrollbars">true</item>
+    </style>
+
+    <!--ScrollView style-->
+    <style name="Style_RecyclerView" parent="Widget.Design.ScrimInsetsFrameLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:drawingCacheQuality">high</item>
+        <item name="android:animationCache">true</item>
+        <item name="android:alwaysDrawnWithCache">true</item>
+        <item name="android:nestedScrollingEnabled">true</item>
+        <item name="android:layout_marginStart">2dp</item>
+        <item name="android:layout_marginEnd">2dp</item>
+        <item name="android:overScrollMode">never</item>
+        <item name="android:fadeScrollbars">true</item>
+        <item name="android:scrollbarThumbVertical">@color/colorPrimary</item>
+        <item name="android:fillViewport">true</item>
+        <item name="android:scrollbarSize">1dp</item>
+        <item name="android:scrollbars">vertical</item>>
+        <item name="android:fadingEdge">vertical</item>>
+        <item name="android:fadingEdgeLength">10dp</item>
+        <item name="android:scrollbarStyle">insideOverlay</item>
+        <item name="android:scrollbarThumbHorizontal">@color/colorPrimaryDark</item>
+        <item name="android:scrollbarTrackVertical">@color/colorBlackTrans_high</item>
+        <item name="android:colorEdgeEffect">@color/colorBlackTrans_medium</item>
+        <item name="android:background">@color/colorWhite</item>
+        <item name="fastScrollVerticalThumbDrawable">@color/colorPrimaryDark</item>
+        <item name="layout_behavior">@string/appbar_scrolling_view_behavior</item>
     </style>
 
     <!--TextViews with intent -->

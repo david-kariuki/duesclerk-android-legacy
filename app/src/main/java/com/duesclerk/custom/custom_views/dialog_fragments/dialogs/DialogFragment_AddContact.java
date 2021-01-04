@@ -11,7 +11,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -64,14 +63,14 @@ import java.util.Map;
 public class DialogFragment_AddContact extends DialogFragment {
 
     // Get class simple name
-    private final String TAG = DialogFragment_AddContact.class.getSimpleName();
+    // private final String TAG = DialogFragment_AddContact.class.getSimpleName();
 
     private final LayoutInflater inflater;
     private final Context mContext;
+    private final int mainActivityTabPosition;
     private EditText editContactsFullName, editContactsPhoneNumber, editEmailAddress, editContactAddress;
     private String contactsEmailAddress, contactsAddress, contactType;
     private ProgressDialog progressDialog;
-    private final int mainActivityTabPosition;
 
     /**
      * Class constructor
@@ -801,10 +800,6 @@ public class DialogFragment_AddContact extends DialogFragment {
 
                         try {
 
-                            dismiss(); // Dismiss dialog
-
-                        } finally {
-
                             // Send broadcast to set switch account type action text
                             Intent intentBroadcast = null;
                             if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME)) {
@@ -815,10 +810,14 @@ public class DialogFragment_AddContact extends DialogFragment {
                             } else if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_I_OWE)) {
 
                                 intentBroadcast = new Intent(
-                                        BroadCastUtils.bcrActionReloadPeopleOwingMe);
+                                        BroadCastUtils.bcrActionReloadPeopleIOwe);
                             }
 
                             requireActivity().sendBroadcast(intentBroadcast); // Send broadcast
+
+                        } finally {
+
+                            dismiss(); // Dismiss dialog
                         }
                     } else {
                         // Error updating details
@@ -841,24 +840,30 @@ public class DialogFragment_AddContact extends DialogFragment {
             }, volleyError -> {
 
                 // Log Response
-                Log.e(TAG, "Add contact response error : "
-                        + volleyError.getMessage());
+                // Log.e(TAG, "Add contact response error : "
+                //      + volleyError.getMessage());
 
                 ViewsUtils.dismissProgressDialog(progressDialog); // Hide Dialog
 
+                // Check request response
                 if (volleyError.getMessage() == null || volleyError instanceof NetworkError
                         || volleyError instanceof ServerError || volleyError instanceof
                         AuthFailureError || volleyError instanceof TimeoutError) {
 
-                    // Cancel Pending Request
-                    ApplicationClass.getClassInstance().cancelPendingRequests(
-                            NetworkTags.ContactsNetworkTags.TAG_ADD_CONTACT_STRING_REQUEST);
+                    CustomToast.errorMessage(mContext, DataUtils.getStringResource(mContext,
+                            R.string.error_network_connection_error_message_short),
+                            R.drawable.ic_sad_cloud_100px_white);
 
-                    // Toast Network Error
-                    if (volleyError.getMessage() != null) {
-                        CustomToast.errorMessage(mContext, volleyError.getMessage(), 0);
-                    }
+                } else {
+
+                    // Toast Connection Error Message
+                    CustomToast.errorMessage(mContext, volleyError.getMessage(),
+                            R.drawable.ic_sad_cloud_100px_white);
                 }
+
+                // Clear url cache
+                ApplicationClass.getClassInstance().deleteUrlVolleyCache(
+                        NetworkUrls.ContactURLS.URL_ADD_CONTACT);
             }) {
                 @Override
                 protected void deliverResponse(String response) {
@@ -886,7 +891,7 @@ public class DialogFragment_AddContact extends DialogFragment {
                     params.put(ContactUtils.FIELD_CONTACTS_PHONE_NUMBER, contactsPhoneNumber);
 
                     // Put contact type
-                    params.put(ContactUtils.FIELD_CONTACT_TYPE, contactType);
+                    params.put(ContactUtils.FIELD_CONTACTS_TYPE, contactType);
 
                     // Check for set email address
                     if (!DataUtils.isEmptyEditText(editEmailAddress)) {
@@ -900,7 +905,7 @@ public class DialogFragment_AddContact extends DialogFragment {
                         params.put(ContactUtils.FIELD_CONTACTS_ADDRESS, contactsAddress);
                     }
 
-                    Log.e(TAG, params.toString());
+                    // Log.e(TAG, params.toString());
                     return params; // Return params
                 }
 

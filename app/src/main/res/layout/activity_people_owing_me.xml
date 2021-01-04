@@ -6,6 +6,34 @@
     android:background="@color/colorActivityBackground"
     tools:context="com.duesclerk.ui.PeopleOwingMe">
 
-    <include layout="@layout/content_people_owing_me" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:layout_gravity="top"
+            android:id="@+id/swipeRefreshPeopleOwingMe">
+
+            <include layout="@layout/content_people_owing_me" />
+
+        </com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="top"
+            android:id="@+id/llContacts_NoContacts">
+
+            <include layout="@layout/layout_no_contacts"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <include layout="@layout/layout_no_connection_bar" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

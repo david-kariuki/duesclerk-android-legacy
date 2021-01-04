@@ -4,15 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment_people_i_owe.FragmentPeople_I_Owe">
+    tools:context=".ui.fragment_contacts.fragment_people_i_owe.FragmentPeople_I_Owe">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title_fragment_people_i_owe"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewPeopleIOwe"
+        style="@style/Style_RecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:alwaysDrawnWithCache="true"
+        android:animationCache="true"
+        android:background="@color/colorWhite"
+        android:drawingCacheQuality="high"
+        android:fadeScrollbars="true"
+        android:fillViewport="true"
+        android:nestedScrollingEnabled="false"
+        android:overScrollMode="never"
+        android:scrollbarSize="1dp"
+        android:scrollbarThumbVertical="@color/colorPrimary"
+        android:scrollbars="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

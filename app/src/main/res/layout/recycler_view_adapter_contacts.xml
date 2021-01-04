@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/consCountryPicker_ContactItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="2dp"
+    android:background="@color/colorWhite"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    tools:ignore="HardcodedText">
+
+    <!--Country Flag-->
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageContact_ContactPhoto"
+        android:layout_width="@dimen/dimen_icon_size_large"
+        android:layout_height="@dimen/dimen_icon_size_large"
+        android:layout_marginStart="10dp"
+        android:contentDescription="@string/content_description_icon_country_flag"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_placeholder_user_grey"
+        app:border_color="@color/colorPrimary"
+        app:border_width=".5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="H,1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageContact_ContactPhoto"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="start"
+            android:layout_toStartOf="@+id/imageContact_ForwardArrow"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <!--Contacts full name-->
+                <TextView
+                    android:id="@+id/textContact_ContactsFullName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:hint="@string/hint_full_name"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack"
+                    android:textColorHint="@color/colorBlack"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+
+                <!--Contacts phone number-->
+                <TextView
+                    android:id="@+id/textContact_ContactsPhoneNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="marquee"
+                    android:hint="@string/hint_phone_number"
+                    android:maxEms="8"
+                    android:minEms="1"
+                    android:singleLine="true"
+                    android:textColor="@color/colorPrimaryGrey"
+                    android:textSize="13sp" />
+
+                <!--Contacts email address-->
+                <TextView
+                    android:id="@+id/textContact_ContactsEmailAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:hint="@string/hint_email_address"
+                    android:singleLine="true"
+                    android:textColor="@color/colorPrimaryGrey"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <!--Amount-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginStart="10dp"
+                        android:ellipsize="marquee"
+                        android:hint="@string/hint_contacts_total_amount"
+                        android:maxEms="8"
+                        android:minEms="1"
+                        android:singleLine="true"
+                        android:textColor="@color/colorPrimaryGrey"
+                        android:textSize="13sp" />
+
+                    <!--Full colon-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginStart="5dp"
+                        android:ellipsize="marquee"
+                        android:hint="@string/symbol_full_colon"
+                        android:maxEms="1"
+                        android:singleLine="true"
+                        android:textColor="@color/colorPrimaryGrey"
+                        android:textSize="13sp" />
+
+                    <!--Amount-->
+                    <TextView
+                        android:id="@+id/textContact_ContactsTotalAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginStart="5dp"
+                        android:ellipsize="marquee"
+                        android:hint="@string/number_decimal_zero"
+                        android:maxEms="8"
+                        android:minEms="1"
+                        android:singleLine="true"
+                        android:textColor="@color/colorPrimaryGrey"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageContact_ForwardArrow"
+            android:layout_width="@dimen/dimen_icon_size_small"
+            android:layout_height="@dimen/dimen_icon_size_small"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="end"
+            android:contentDescription="@string/content_description_icon"
+            android:padding="@dimen/dimen_icon_padding_medium"
+            android:src="@drawable/ic_baseline_arrow_forward_ios_24_primary_grey" />
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

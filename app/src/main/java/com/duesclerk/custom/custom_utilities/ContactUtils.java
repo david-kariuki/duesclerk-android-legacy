@@ -7,9 +7,12 @@ public class ContactUtils {
     public static final String FIELD_CONTACTS_PHONE_NUMBER = "ContactsPhoneNumber";
     public static final String FIELD_CONTACTS_EMAIL_ADDRESS = "ContactsEmailAddress";
     public static final String FIELD_CONTACTS_ADDRESS = "ContactsAddress";
-    public static final String FIELD_CONTACT_TYPE = "ContactsType";
+    public static final String FIELD_CONTACTS_TYPE = "ContactsType";
 
     // Contact type
     public static final String KEY_CONTACT_TYPE_PEOPLE_OWING_ME = "ContactTypePeopleOwingMe";
     public static final String KEY_CONTACT_TYPE_PEOPLE_I_OWE = "ContactTypePeopleIOwe";
+
+    // Contacts
+    public static final String KEY_CONTACTS = "Contacts";
 }

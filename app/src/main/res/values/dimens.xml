@@ -11,7 +11,8 @@
 
     <!--ImageView size dimensions-->
     <dimen name="dimen_icon_size_small">29dp</dimen>
-    <dimen name="dimen_icon_size_large">35dp</dimen>
+    <dimen name="dimen_icon_size_medium">35dp</dimen>
+    <dimen name="dimen_icon_size_large">45dp</dimen>
 
     <!--ImageView padding dimensions-->
     <dimen name="dimen_icon_padding_small">5dp</dimen>
@@ -47,7 +48,6 @@
 
     <!--App Options Activity-->
     <dimen name="dimen_app_options_list_item_height">50dp</dimen>
-    <dimen name="dimen_app_options_list_divider_height">.3dp</dimen>
     <dimen name="dimen_app_options_list_text_size">14sp</dimen>
 
     <!--Shimmer layout dimensions-->
@@ -62,4 +62,5 @@
     <dimen name="dimen_email_verification_link_text_size">13sp</dimen>
     <dimen name="dimen_email_verification_button_height">45dp</dimen>
 
+    <dimen name="dimen_list_divider_height">.3dp</dimen>
 </resources>

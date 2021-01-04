@@ -1,11 +1,11 @@
 package com.duesclerk.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.duesclerk.R;
-import com.duesclerk.ui.fragment_people_i_owe.FragmentPeople_I_Owe;
+import com.duesclerk.ui.fragment_contacts.fragment_people_i_owe.FragmentPeople_I_Owe;
 
 public class People_I_Owe extends AppCompatActivity {
 
