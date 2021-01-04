@@ -60,8 +60,9 @@ public class AccountSettings extends AppCompatActivity {
         bcrSetActionText = new BroadcastReceiver() {
             @Override
             public void onReceive(Context arg0, Intent intent) {
-                String action = intent.getAction();
-                assert action != null;
+
+                String action = intent.getAction(); // Get action
+
                 if (action.equals(BroadCastUtils.bcrActionSetSwitchAccountTypeActionText)) {
 
                     // Set switch account type action text
