@@ -235,13 +235,13 @@ public class DialogFragment_AddContact extends DialogFragment {
 
             // Get dialog inputs from savedInstanceState
             String savedContactsFullName =
-                    savedInstanceState.getString(ContactUtils.FIELD_CONTACTS_FULL_NAME);
+                    savedInstanceState.getString(ContactUtils.FIELD_CONTACT_FULL_NAME);
             String savedContactsPhoneNumber =
-                    savedInstanceState.getString(ContactUtils.FIELD_CONTACTS_PHONE_NUMBER);
+                    savedInstanceState.getString(ContactUtils.FIELD_CONTACT_PHONE_NUMBER);
             String savedContactsEmailAddress =
-                    savedInstanceState.getString(ContactUtils.FIELD_CONTACTS_EMAIL_ADDRESS);
+                    savedInstanceState.getString(ContactUtils.FIELD_CONTACT_EMAIL_ADDRESS);
             String savedContactsAddress =
-                    savedInstanceState.getString(ContactUtils.FIELD_CONTACTS_ADDRESS);
+                    savedInstanceState.getString(ContactUtils.FIELD_CONTACT_ADDRESS);
 
             // Check for values and set to EditTexts
             if (!DataUtils.isEmptyString(savedContactsFullName)) {
@@ -276,28 +276,28 @@ public class DialogFragment_AddContact extends DialogFragment {
         if (!DataUtils.isEmptyEditText(editContactsFullName)) {
 
             // Get and put contacts full name
-            outState.putString(ContactUtils.FIELD_CONTACTS_FULL_NAME,
+            outState.putString(ContactUtils.FIELD_CONTACT_FULL_NAME,
                     editContactsFullName.getText().toString());
         }
 
         if (!DataUtils.isEmptyEditText(editContactsPhoneNumber)) {
 
             // Get and put contacts phone number
-            outState.putString(ContactUtils.FIELD_CONTACTS_PHONE_NUMBER,
+            outState.putString(ContactUtils.FIELD_CONTACT_PHONE_NUMBER,
                     editContactsPhoneNumber.getText().toString());
         }
 
         if (!DataUtils.isEmptyEditText(editEmailAddress)) {
 
             // Get and put contacts email address
-            outState.putString(ContactUtils.FIELD_CONTACTS_EMAIL_ADDRESS,
+            outState.putString(ContactUtils.FIELD_CONTACT_EMAIL_ADDRESS,
                     editEmailAddress.getText().toString());
         }
 
         if (!DataUtils.isEmptyEditText(editContactAddress)) {
 
             // Get and put contacts address
-            outState.putString(ContactUtils.FIELD_CONTACTS_ADDRESS,
+            outState.putString(ContactUtils.FIELD_CONTACT_ADDRESS,
                     editContactAddress.getText().toString());
         }
     }
@@ -887,22 +887,22 @@ public class DialogFragment_AddContact extends DialogFragment {
                     params.put(UserAccountUtils.FIELD_USER_ID, userId);
 
                     // Put contact info to Map params
-                    params.put(ContactUtils.FIELD_CONTACTS_FULL_NAME, contactsFullName);
-                    params.put(ContactUtils.FIELD_CONTACTS_PHONE_NUMBER, contactsPhoneNumber);
+                    params.put(ContactUtils.FIELD_CONTACT_FULL_NAME, contactsFullName);
+                    params.put(ContactUtils.FIELD_CONTACT_PHONE_NUMBER, contactsPhoneNumber);
 
                     // Put contact type
-                    params.put(ContactUtils.FIELD_CONTACTS_TYPE, contactType);
+                    params.put(ContactUtils.FIELD_CONTACT_TYPE, contactType);
 
                     // Check for set email address
                     if (!DataUtils.isEmptyEditText(editEmailAddress)) {
 
-                        params.put(ContactUtils.FIELD_CONTACTS_EMAIL_ADDRESS, contactsEmailAddress);
+                        params.put(ContactUtils.FIELD_CONTACT_EMAIL_ADDRESS, contactsEmailAddress);
                     }
 
                     // Check for set contact address
                     if (!DataUtils.isEmptyEditText(editContactAddress)) {
 
-                        params.put(ContactUtils.FIELD_CONTACTS_ADDRESS, contactsAddress);
+                        params.put(ContactUtils.FIELD_CONTACT_ADDRESS, contactsAddress);
                     }
 
                     // Log.e(TAG, params.toString());

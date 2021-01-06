@@ -102,7 +102,7 @@ public class FetchContactsClass {
 
                         // Get JSONArray From JSONObject
                         JSONArray jsonArray = jsonObject.getJSONArray(
-                                ContactUtils.KEY_CONTACTS);
+                                ContactUtils.KEY_CONTACT);
 
                         // Split JSONArray to get (People owing me) and (People I owe) contacts
                         sortJSONArray(jsonArray);
@@ -248,13 +248,13 @@ public class FetchContactsClass {
                     String contactsFullName, contactsPhoneNumber, contactsEmailAddress, contactsAddress,
                             contactsType;
 
-                    contactsFullName = jsonObject.getString(ContactUtils.FIELD_CONTACTS_FULL_NAME);
+                    contactsFullName = jsonObject.getString(ContactUtils.FIELD_CONTACT_FULL_NAME);
                     contactsPhoneNumber = jsonObject
-                            .getString(ContactUtils.FIELD_CONTACTS_PHONE_NUMBER);
+                            .getString(ContactUtils.FIELD_CONTACT_PHONE_NUMBER);
                     contactsEmailAddress = jsonObject
-                            .getString(ContactUtils.FIELD_CONTACTS_EMAIL_ADDRESS);
-                    contactsAddress = jsonObject.getString(ContactUtils.FIELD_CONTACTS_ADDRESS);
-                    contactsType = jsonObject.getString(ContactUtils.FIELD_CONTACTS_TYPE);
+                            .getString(ContactUtils.FIELD_CONTACT_EMAIL_ADDRESS);
+                    contactsAddress = jsonObject.getString(ContactUtils.FIELD_CONTACT_ADDRESS);
+                    contactsType = jsonObject.getString(ContactUtils.FIELD_CONTACT_TYPE);
 
                     // Set data to java bean
                     jbContacts.setContactsFullName(contactsFullName);

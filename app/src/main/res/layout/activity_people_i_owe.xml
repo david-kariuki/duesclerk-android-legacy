@@ -41,7 +41,7 @@
                     android:iconifiedByDefault="false"
                     android:imeOptions="actionSearch"
                     android:inputType="text"
-                    android:queryHint="Search contacts"
+                    android:queryHint="@string/hint_search_contacts"
                     android:searchHintIcon="@drawable/ic_baseline_search_24_primary_dark"
                     android:searchIcon="@drawable/ic_baseline_search_24_primary_dark"
                     android:theme="@style/AppSearchView"

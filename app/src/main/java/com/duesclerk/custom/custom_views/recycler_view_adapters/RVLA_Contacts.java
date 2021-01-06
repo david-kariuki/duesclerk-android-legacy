@@ -1,6 +1,7 @@
 package com.duesclerk.custom.custom_views.recycler_view_adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.duesclerk.R;
+import com.duesclerk.activities.DebtsActivity;
+import com.duesclerk.custom.custom_utilities.ContactUtils;
 import com.duesclerk.custom.custom_utilities.DataUtils;
+import com.duesclerk.custom.custom_utilities.UserAccountUtils;
 import com.duesclerk.custom.java_beans.JB_Contacts;
 
 import org.jetbrains.annotations.NotNull;
@@ -30,6 +34,7 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
     private ArrayList<JB_Contacts> contacts;
     private int lastPosition = 0;
     private ContactsFilter contactsFilter;
+    private String userId;
 
     private View viewHolderView; // ViewHolder view
 
@@ -38,13 +43,15 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
      *
      * @param context  - Class context
      * @param contacts - ArrayList with contacts
+     * @param userId   - Users id
      */
     public RVLA_Contacts(Context context,
-                         ArrayList<JB_Contacts> contacts) {
+                         ArrayList<JB_Contacts> contacts, String userId) {
 
         this.mContext = context;
         this.contacts = contacts;
         this.filterList = contacts;
+        this.userId = userId;
     }
 
     @Override
@@ -84,6 +91,18 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
             // List item OnClick
             holder.consContactItem.setOnClickListener(v -> {
 
+                // Start Debts activity
+                Intent intent = new Intent(v.getContext(), DebtsActivity.class);
+
+                // Pass contacts id
+                intent.putExtra(ContactUtils.FIELD_CONTACT_ID,
+                        this.contacts.get(position).getContactsId());
+
+                // Pass user id
+                intent.putExtra(UserAccountUtils.FIELD_USER_ID,
+                        this.contacts.get(position).getContactsId());
+
+                v.getContext().startActivity(intent);
             });
         }
 
