@@ -21,11 +21,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:focusedByDefault="true"
-                android:focusableInTouchMode="true"
-                android:focusable="true"
                 android:descendantFocusability="beforeDescendants"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:focusedByDefault="true"
+                android:orientation="vertical"
                 tools:targetApi="o">
 
                 <SearchView
@@ -44,7 +44,8 @@
                     android:queryHint="Search contacts"
                     android:searchHintIcon="@drawable/ic_baseline_search_24_primary_dark"
                     android:searchIcon="@drawable/ic_baseline_search_24_primary_dark"
-                    android:theme="@style/AppSearchView" />
+                    android:theme="@style/AppSearchView"
+                    android:visibility="gone" />
 
                 <include layout="@layout/content_people_i_owe" />
 

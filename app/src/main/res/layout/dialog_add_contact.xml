@@ -369,7 +369,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginEnd="0dp"
-                                        android:text="@string/hint_persons_address" />
+                                        android:text="@string/hint_address" />
 
                                     <TextView
                                         style="@style/Style_Text_Labels"
@@ -406,7 +406,7 @@
                                         android:layout_height="match_parent"
                                         android:autofillHints=""
                                         android:background="@null"
-                                        android:hint="@string/hint_persons_address"
+                                        android:hint="@string/hint_address"
                                         android:imeActionLabel="Next"
                                         android:inputType="textPersonName|textCapWords" />
                                 </LinearLayout>

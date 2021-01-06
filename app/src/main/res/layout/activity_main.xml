@@ -16,7 +16,7 @@
             android:id="@+id/tabLayoutMainActivity"
             style="@style/Style_Toolbar_Container_Medium"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             android:layout_marginStart="0dp"
             android:layout_marginEnd="0dp"
             android:background="@color/colorActivityBackground"

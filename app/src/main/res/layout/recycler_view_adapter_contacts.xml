@@ -112,7 +112,7 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical">
 
-                    <!--Amount-->
+                    <!--Contacts amount label-->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -139,7 +139,7 @@
                         android:textColor="@color/colorPrimaryGrey"
                         android:textSize="13sp" />
 
-                    <!--Amount-->
+                    <!--Contacts total amount-->
                     <TextView
                         android:id="@+id/textContact_ContactsTotalAmount"
                         android:layout_width="wrap_content"
