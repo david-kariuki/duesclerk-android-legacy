@@ -27,7 +27,7 @@ import com.duesclerk.custom.network.NetworkTags;
 import com.duesclerk.custom.network.NetworkUrls;
 import com.duesclerk.interfaces.Interface_Contacts;
 import com.duesclerk.ui.fragment_contacts.fragment_people_i_owe.FragmentPeople_I_Owe;
-import com.duesclerk.ui.fragment_contacts.fragment_peopleowingme.FragmentPeopleOwingMe;
+import com.duesclerk.ui.fragment_contacts.fragment_people_owing_me.FragmentPeopleOwingMe;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

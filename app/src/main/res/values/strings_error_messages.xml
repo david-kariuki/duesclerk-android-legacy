@@ -29,7 +29,6 @@
     <string name="error_country_null">Please select your country to continue!</string>
     <string name="error_contact_type_null">Please select contact type to continue!</string>
     <string name="error_city_null">City cannot be empty!</string>
-    <string name="error_gender_null">Please select your gender to continue!</string>
     <string name="error_date_of_birth_null">Please select your date of birth to continue!</string>
 
     <!--Email verification-->
@@ -43,6 +42,4 @@
         is not verified!</string>
 
     <string name="error_profile_update_failed">Profile update failed!</string>
-    <string name="error_password_update_failed">Password update failed!</string>
-    <string name="error_account_switching_failed">Account switching failed!</string>
 </resources>

@@ -50,7 +50,6 @@
             app:layout_constraintWidth_percent=".9">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardSwitchAccountType_PersonsNames"
                 style="@style/Style_SignInSignUp_Profile_CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -220,7 +219,6 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/llSwitchAccountType_Password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -299,7 +297,6 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardSwitchAccountType_BusinessName"
                 style="@style/Style_SignInSignUp_Profile_CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

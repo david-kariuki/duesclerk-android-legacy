@@ -29,9 +29,9 @@ public class RVLA_CountryPicker extends RecyclerView.Adapter<RVLA_CountryPicker.
 
     private final Context mContext;
     private final ArrayList<JB_CountryData> filterList;
-    private final BottomSheetFragment_CountryPicker bottomSheetFragmentCountryPicker;
     private ArrayList<JB_CountryData> countryData;
-    private CustomFilter customFilter;
+    private final BottomSheetFragment_CountryPicker bottomSheetFragmentCountryPicker;
+    private CountriesFilter countriesFilter;
     private int lastPosition = 0;
     // ViewHolder view
     private View viewHolderView;
@@ -147,11 +147,12 @@ public class RVLA_CountryPicker extends RecyclerView.Adapter<RVLA_CountryPicker.
     @Override
     public Filter getFilter() {
 
-        if (customFilter == null) {
-            customFilter = new CustomFilter();
+        if (countriesFilter == null) {
+
+            countriesFilter = new CountriesFilter();
         }
 
-        return customFilter; // Return filter
+        return countriesFilter; // Return filter
     }
 
     public class RecyclerViewHolder extends RecyclerView.ViewHolder
@@ -187,15 +188,18 @@ public class RVLA_CountryPicker extends RecyclerView.Adapter<RVLA_CountryPicker.
     }
 
     /**
-     * Custom filter class
+     * Countries filter class
      */
     @SuppressWarnings("unchecked")
-    class CustomFilter extends Filter {
+    class CountriesFilter extends Filter {
+
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
+
             FilterResults results = new FilterResults();
 
             if (constraint != null && constraint.length() > 0) {
+
                 // Constraint to uppercase
                 constraint = constraint.toString().toUpperCase();
 
@@ -203,29 +207,37 @@ public class RVLA_CountryPicker extends RecyclerView.Adapter<RVLA_CountryPicker.
 
                 // Get specific items
                 for (int i = 0; i < filterList.size(); i++) {
+
                     if (filterList.get(i).getCountryName().toUpperCase().contains(constraint)) {
-                        JB_CountryData pojoCountryData = new JB_CountryData(
+
+                        JB_CountryData jbCountryData = new JB_CountryData(
                                 filterList.get(i).getCountryName(),
                                 filterList.get(i).getCountryCode(),
                                 filterList.get(i).getCountryAlpha2(),
                                 filterList.get(i).getCountryAlpha3(),
                                 filterList.get(i).getCountryFlag());
-                        filters.add(pojoCountryData);
+
+                        filters.add(jbCountryData); // Add java bean to ArrayList
                     }
                 }
+
                 results.count = filters.size(); // Update FilterResults count
                 results.values = filters; // Update FilterResults values
+
             } else {
+
                 results.count = filterList.size(); // Update FilterResults count
                 results.values = filterList; // Update FilterResults values
             }
+
             return results;
         }
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            countryData = (ArrayList<JB_CountryData>) results.values;
-            notifyDataSetChanged();
+
+            countryData = (ArrayList<JB_CountryData>) results.values;// Set values to ArrayList
+            notifyDataSetChanged(); // Notify data set changed
         }
     }
 }

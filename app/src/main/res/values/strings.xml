@@ -133,7 +133,6 @@
     <!--Permissions tags and purpose messages-->
     <string name="msg_grant_permission_title">Grant %1$s Permissions.</string>
     <string name="permission_tag_contacts">Contacts</string>
-    <string name="permission_tag_storage">Storage</string>
     <string name="permission_purpose_contact">read contacts</string>
 
     <!--Others-->

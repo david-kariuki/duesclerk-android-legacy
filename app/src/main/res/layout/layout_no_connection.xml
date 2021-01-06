@@ -39,7 +39,6 @@
                     android:src="@drawable/ic_broken_link_primary_grey" />
 
                 <TextView
-                    android:id="@+id/tvCannotConnect_NoConnection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"

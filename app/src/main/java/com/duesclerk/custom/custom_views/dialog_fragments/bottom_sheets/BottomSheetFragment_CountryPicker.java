@@ -133,17 +133,22 @@ public class BottomSheetFragment_CountryPicker extends BottomSheetDialogFragment
                 key = xmlPullParser.getName();
 
                 switch (event) {
+
                     case XmlPullParser.START_TAG:
+
                         if (key.equals(UserAccountUtils.KEY_COUNTRY_ITEM)) {
                             pojoCountryData = new JB_CountryData(); // Initialize POJO
                         }
                         break;
-                    case XmlPullParser.TEXT:
+
+                        case XmlPullParser.TEXT:
+
                         // Get Parser Text
                         tagValue = xmlPullParser.getText();
                         break;
 
                     case XmlPullParser.END_TAG:
+
                         // Put Country Name
                         if (key.equalsIgnoreCase(UserAccountUtils.FIELD_COUNTRY_NAME)) {
                             Objects.requireNonNull(pojoCountryData).setCountryName(tagValue);
@@ -166,12 +171,16 @@ public class BottomSheetFragment_CountryPicker extends BottomSheetDialogFragment
                             }
                         }
                         break;
-                    default:
+
+                        default:
                         break;
                 }
+
                 event = xmlPullParser.next();
             }
+
             inputStream.close(); // Close input stream
+
         } catch (IOException | XmlPullParserException ignored) {
         }
 
@@ -187,13 +196,19 @@ public class BottomSheetFragment_CountryPicker extends BottomSheetDialogFragment
 
         recyclerView.setAdapter(rvlaCountryPicker);
 
+        // Get SearchView id
         int searchViewId = searchView.getContext().getResources().getIdentifier(
                 "android:id/search_src_text", null, null);
+
+        // Get SearchView text
         TextView textView = searchView.findViewById(searchViewId);
+
+        // Set SearchView text color
         textView.setTextColor(DataUtils.getColorResource(mContext, R.color.colorBlack));
 
-        // Requesting SearchView Focus
+        // Disable iconified
         searchView.setIconifiedByDefault(false);
+
         // Focus SearchView and show keyboard
         ViewsUtils.showKeyboardWithFocus(requireActivity(), searchView);
 

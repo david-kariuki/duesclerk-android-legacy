@@ -6,7 +6,6 @@
     <string name="content_description_icon_exit">Exit icon</string>
     <string name="content_description_icon_contact">Contact icon</string>
     <string name="content_description_email_verification">Email verification</string>
-    <string name="content_description_no_connection">No internet connection</string>
     <string name="content_description_icon_greetings">Greetings icon</string>
     <string name="content_description_icon_dismiss_dialog">Dismiss dialog icon</string>
     <string name="content_description_icon_people_i_owe">People I Owe tab</string>

@@ -36,7 +36,6 @@
                 app:layout_constraintDimensionRatio="H, 1:1"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:id="@+id/imageSplashActivity_AppIcon"
                 android:layout_marginTop="80dp"
                 android:layout_marginBottom="20dp"
                 android:contentDescription="@string/content_description_app_icon"

@@ -34,6 +34,7 @@
             app:tabTextColor="@color/colorBlack" />
 
         <include layout="@layout/content_main" />
+
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
