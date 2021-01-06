@@ -17,7 +17,7 @@ import com.duesclerk.custom.custom_views.view_pager.ViewPagerAdapter;
 import com.duesclerk.interfaces.Interface_MainActivity;
 import com.duesclerk.ui.fragment_app_menu.FragmentAppMenu;
 import com.duesclerk.ui.fragment_contacts.fragment_people_i_owe.FragmentPeople_I_Owe;
-import com.duesclerk.ui.fragment_contacts.fragment_peopleowingme.FragmentPeopleOwingMe;
+import com.duesclerk.ui.fragment_contacts.fragment_people_owing_me.FragmentPeopleOwingMe;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -314,13 +314,18 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
     @Override
     public void showAddContactFAB(boolean show) {
 
-        if (show) {
+        // Check for current TabLayout position
+        if (tabPosition != 2) {
+            // Not on menu fragment
 
-            this.fabAddContact.setVisibility(View.VISIBLE); // Show fab button
+            if (show) {
 
-        } else {
+                this.fabAddContact.setVisibility(View.VISIBLE); // Show fab button
 
-            this.fabAddContact.setVisibility(View.GONE); // Hide fab button
+            } else {
+
+                this.fabAddContact.setVisibility(View.GONE); // Hide fab button
+            }
         }
     }
 

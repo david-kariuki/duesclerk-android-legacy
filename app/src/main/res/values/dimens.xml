@@ -54,7 +54,7 @@
     <dimen name="dimen_shimmer_text_view_width">120dp</dimen>
     <dimen name="dimen_shimmer_text_view_height">12dp</dimen>
     <dimen name="dimen_shimmer_edit_text_height">25dp</dimen>
-    <dimen name="dimen_fab_elevation">6dp</dimen>
+    <dimen name="dimen_fab_elevation_small">5dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
     <!--Verification Activity Text Size-->

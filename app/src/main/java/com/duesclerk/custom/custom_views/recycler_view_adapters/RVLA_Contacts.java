@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,23 +22,29 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerViewHolder> {
+public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerViewHolder>
+        implements Filterable {
 
     private final Context mContext;
-    private final ArrayList<JB_Contacts> contacts;
+    private final ArrayList<JB_Contacts> filterList;
+    private ArrayList<JB_Contacts> contacts;
     private int lastPosition = 0;
+    private ContactsFilter contactsFilter;
 
     private View viewHolderView; // ViewHolder view
 
     /**
      * Class constructor
      *
-     * @param context - Class context
+     * @param context  - Class context
+     * @param contacts - ArrayList with contacts
      */
     public RVLA_Contacts(Context context,
                          ArrayList<JB_Contacts> contacts) {
+
         this.mContext = context;
         this.contacts = contacts;
+        this.filterList = contacts;
     }
 
     @Override
@@ -122,7 +130,19 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
         }
     }
 
+    @Override
+    public Filter getFilter() {
 
+        if (contactsFilter == null) {
+            contactsFilter = new ContactsFilter();
+        }
+
+        return contactsFilter; // Return filter
+    }
+
+    /**
+     * ViewHolder class
+     */
     public class RecyclerViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
@@ -156,6 +176,61 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
 
         @Override
         public void onClick(View v) {
+        }
+    }
+
+    /**
+     * Contacts filter class
+     */
+    @SuppressWarnings("unchecked")
+    class ContactsFilter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            FilterResults results = new FilterResults();
+
+            if (constraint != null && constraint.length() > 0) {
+
+                // Constraint to uppercase
+                constraint = constraint.toString().toUpperCase();
+
+                ArrayList<JB_Contacts> filters = new ArrayList<>();
+
+                // Get specific items
+                for (int i = 0; i < filterList.size(); i++) {
+
+                    if (filterList.get(i).getContactsFullName().toUpperCase()
+                            .contains(constraint)) {
+
+                        JB_Contacts jbContacts = new JB_Contacts(
+                                filterList.get(i).getContactsFullName(),
+                                filterList.get(i).getContactsPhoneNumber(),
+                                filterList.get(i).getContactsEmailAddress(),
+                                filterList.get(i).getContactsAddress(),
+                                filterList.get(i).getContactsType());
+
+                        filters.add(jbContacts); // Add java bean to ArrayList
+                    }
+                }
+
+                results.count = filters.size(); // Update FilterResults count
+                results.values = filters; // Update FilterResults values
+
+            } else {
+
+                results.count = filterList.size(); // Update FilterResults count
+                results.values = filterList; // Update FilterResults values
+            }
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+
+            contacts = (ArrayList<JB_Contacts>) results.values; // Set values to ArrayList
+            notifyDataSetChanged(); // Notify data set changed
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.duesclerk.ui.fragment_contacts.fragment_peopleowingme;
+package com.duesclerk.ui.fragment_contacts.fragment_people_owing_me;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -48,6 +50,8 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
     private FetchContactsClass fetchContactsClass;
     private boolean isReload = false;
     private boolean animateSwipeRefresh = false;
+    private SearchView searchView;
+    private RVLA_Contacts rvlaContacts;
 
     public static FragmentPeopleOwingMe newInstance() {
         return new FragmentPeopleOwingMe();
@@ -78,6 +82,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
         LinearLayout llNoConnection_TryAgain = view.findViewById(R.id.llNoConnection_TryAgain);
         llNoContacts = view.findViewById(R.id.llContacts_NoContacts);
         LinearLayout llAddContact = view.findViewById(R.id.llNoContacts_AddContact);
+        searchView = view.findViewById(R.id.searchViewContacts);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL,
                 false);
@@ -158,6 +163,23 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
             }
         };
 
+        setupSearchView(); // Setup SearchView
+
+        // Add query text listener
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String arg0) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+
+                // Filter text input
+                rvlaContacts.getFilter().filter(query);
+                return false;
+            }
+        });
 
         // Start/Stop swipe SwipeRefresh
         ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout, swipeRefreshListener);
@@ -200,6 +222,24 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
         BroadCastUtils.unRegisterRefreshBroadCast(requireActivity(), bcrReloadContacts);
     }
 
+    /**
+     * Function to setup SearchView
+     */
+    private void setupSearchView() {
+
+        // Get SearchView id
+        int searchViewId = searchView.getContext().getResources().getIdentifier(
+                "android:id/search_src_text", null, null);
+
+        // Get SearchView text
+        TextView textView = searchView.findViewById(searchViewId);
+
+        // Set SearchView text color
+        textView.setTextColor(DataUtils.getColorResource(mContext, R.color.colorBlack));
+
+        searchView.setIconifiedByDefault(false); // Disable iconified
+        searchView.clearFocus(); // Clear SearchView focus
+    }
 
     /**
      * Function to load contacts into RecyclerView
@@ -215,7 +255,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
             showSwipeRefreshLayout(true); // Show main layout
 
             // Creating RecyclerView adapter object
-            RVLA_Contacts rvlaContacts = new RVLA_Contacts(requireActivity(), contacts);
+            rvlaContacts = new RVLA_Contacts(requireActivity(), contacts);
 
             // Check for adapter observers
             if (!rvlaContacts.hasObservers()) {

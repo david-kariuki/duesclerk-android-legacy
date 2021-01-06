@@ -13,7 +13,7 @@ public interface Interface_MainActivity {
     void showAddContactFAB(boolean show);
 
     /**
-     * Interface to hide add contact fab button
+     * Interface to show / hide add contact fab button
      *
      * @param show - Boolean - show/hide dialog fragment
      */
