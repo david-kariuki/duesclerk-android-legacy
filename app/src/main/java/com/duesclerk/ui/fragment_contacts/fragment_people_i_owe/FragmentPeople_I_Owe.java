@@ -210,10 +210,12 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
 
         // Register broadcast
         BroadCastUtils.registerRefreshBroadCasts(requireActivity(), bcrReloadContacts,
-                BroadCastUtils.bcrActionReloadPeopleIOwe);
+                BroadCastUtils.bcrActionReloadPeopleOwingMe);
 
-        // Start SwipeRefreshLayout
-        ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout, swipeRefreshListener);
+        if (DataUtils.isEmptyArrayList(fetchedContacts)) {
+            // Start SwipeRefreshLayout
+            ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout, swipeRefreshListener);
+        }
     }
 
     @Override
@@ -258,7 +260,8 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
             showSwipeRefreshLayout(true); // Show main layout
 
             // Creating RecyclerView adapter object
-            rvlaContacts = new RVLA_Contacts(requireActivity(), contacts);
+            rvlaContacts = new RVLA_Contacts(requireActivity(), contacts,
+                    database.getUserAccountInfo(null).get(0).getUserId());
 
             // Check for adapter observers
             if (!rvlaContacts.hasObservers()) {
