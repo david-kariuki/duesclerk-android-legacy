@@ -102,7 +102,7 @@ public class FetchContactsClass {
 
                         // Get JSONArray From JSONObject
                         JSONArray jsonArray = jsonObject.getJSONArray(
-                                ContactUtils.KEY_CONTACT);
+                                ContactUtils.KEY_CONTACTS);
 
                         // Split JSONArray to get (People owing me) and (People I owe) contacts
                         sortJSONArray(jsonArray);

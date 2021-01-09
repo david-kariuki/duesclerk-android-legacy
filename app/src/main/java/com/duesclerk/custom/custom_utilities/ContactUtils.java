@@ -15,5 +15,5 @@ public class ContactUtils {
     public static final String KEY_CONTACT_TYPE_PEOPLE_I_OWE = "ContactTypePeopleIOwe";
 
     // Contact
-    public static final String KEY_CONTACT = "Contact";
+    public static final String KEY_CONTACTS = "Contacts";
 }

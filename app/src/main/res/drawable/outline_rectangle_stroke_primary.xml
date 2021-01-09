@@ -4,10 +4,8 @@
     android:visible="true">
 
     <stroke
-        android:width="@dimen/dimen_outlines_stroke_width_medium"
-        android:color="@color/colorPrimaryDark"
-        android:dashWidth="3dp"
-        android:dashGap="5dp" />
+        android:width="@dimen/dimen_outlines_stroke_width_small"
+        android:color="@color/colorPrimary" />
     <corners android:radius="@dimen/dimen_outlines_radius" />
 
 </shape>

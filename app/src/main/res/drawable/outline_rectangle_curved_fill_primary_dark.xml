@@ -2,5 +2,8 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle"
     android:tint="@color/colorPrimaryDark">
-    <corners android:radius="@dimen/dimen_outlines_radius" />
+
+    <corners
+        android:width="@dimen/dimen_outlines_stroke_width_medium"
+        android:radius="@dimen/dimen_outlines_radius" />
 </shape>
