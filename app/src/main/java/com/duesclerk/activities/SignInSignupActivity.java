@@ -250,7 +250,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
 
         // Pass account type and signup details hashMap
         signupUser(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL,
-                NetworkTags.UserNetworkTags.TAG_SIGNUP_PERSONAL_STRING_REQUEST, signupDetailsArray);
+                NetworkTags.User.TAG_SIGNUP_PERSONAL_STRING_REQUEST, signupDetailsArray);
     }
 
     /**
@@ -282,7 +282,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
 
         // Pass account type and signup details hashMap
         signupUser(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS,
-                NetworkTags.UserNetworkTags.TAG_SIGNUP_BUSINESS_STRING_REQUEST, signupDetailsArray);
+                NetworkTags.User.TAG_SIGNUP_BUSINESS_STRING_REQUEST, signupDetailsArray);
     }
 
     /**
@@ -434,7 +434,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
 
                 // Cancel Pending Request
                 ApplicationClass.getClassInstance().cancelPendingRequests(
-                        NetworkTags.UserNetworkTags.TAG_SIGNIN_STRING_REQUEST);
+                        NetworkTags.User.TAG_SIGNIN_STRING_REQUEST);
 
                 // Clear url cache
                 ApplicationClass.getClassInstance().deleteUrlVolleyCache(
@@ -490,7 +490,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
 
             // Adding request to request queue
             ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                    NetworkTags.UserNetworkTags.TAG_SIGNUP_PERSONAL_STRING_REQUEST);
+                    NetworkTags.User.TAG_SIGNUP_PERSONAL_STRING_REQUEST);
 
         } else {
             // Not Connected

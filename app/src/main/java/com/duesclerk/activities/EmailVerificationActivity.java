@@ -569,7 +569,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
                     // Cancel pending request
                     ApplicationClass
                             .getClassInstance().cancelPendingRequests(
-                            NetworkTags.UserNetworkTags.TAG_SEND_EMAIL_VERIFICATION_STRING_REQUEST
+                            NetworkTags.User.TAG_SEND_EMAIL_VERIFICATION_STRING_REQUEST
                     );
                 }
                 ) {
@@ -602,7 +602,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
 
                 // Adding request to request queue
                 ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                        NetworkTags.UserNetworkTags.TAG_SEND_EMAIL_VERIFICATION_STRING_REQUEST);
+                        NetworkTags.User.TAG_SEND_EMAIL_VERIFICATION_STRING_REQUEST);
 
         } else {
             // Not Connected
@@ -765,7 +765,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
 
                 // Adding Request to request queue
                 ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                        NetworkTags.UserNetworkTags.TAG_VERIFY_EMAIL_STRING_REQUEST);
+                        NetworkTags.User.TAG_VERIFY_EMAIL_STRING_REQUEST);
 
         } else {
             // Not Connected

@@ -2,8 +2,8 @@ package com.duesclerk.custom.java_beans;
 
 public class JB_Contacts {
 
-    String contactsFullName, contactsPhoneNumber, contactsEmailAddress, contactsAddress,
-            contactsType;
+    String contactId, contactFullName, contactPhoneNumber, contactEmailAddress, contactAddress,
+            contactType;
 
     /**
      * Default constructor
@@ -14,109 +14,127 @@ public class JB_Contacts {
     /**
      * JavaBean constructor
      *
-     * @param contactsFullName     - Contacts full name
-     * @param contactsPhoneNumber  - Contacts email address
-     * @param contactsEmailAddress - Contacts email address
-     * @param contactsAddress      - Contacts address
-     * @param contactsType         - Contacts type
+     * @param contactFullName     - Contact full name
+     * @param contactPhoneNumber  - Contact email address
+     * @param contactEmailAddress - Contact email address
+     * @param contactAddress      - Contact address
+     * @param contactType         - Contact type
      */
-    public JB_Contacts(final String contactsFullName, final String contactsPhoneNumber,
-                       final String contactsEmailAddress, final String contactsAddress,
-                       final String contactsType) {
+    public JB_Contacts(final String contactFullName, final String contactPhoneNumber,
+                       final String contactEmailAddress, final String contactAddress,
+                       final String contactType) {
 
-        this.contactsFullName = contactsFullName;
-        this.contactsPhoneNumber = contactsPhoneNumber;
-        this.contactsEmailAddress = contactsEmailAddress;
-        this.contactsAddress = contactsAddress;
-        this.contactsType = contactsType;
+        this.contactFullName = contactFullName;
+        this.contactPhoneNumber = contactPhoneNumber;
+        this.contactEmailAddress = contactEmailAddress;
+        this.contactAddress = contactAddress;
+        this.contactType = contactType;
 
     }
 
     /**
-     * Function to get contacts full name
+     * Function to get contact Id
      */
-    public String getContactsFullName() {
+    public String getContactId() {
 
-        return contactsFullName; // Return contacts full name
+        return contactId; // Return contact full name
     }
 
     /**
-     * Function to set contacts full name
+     * Function to set contact Id
      *
-     * @param contactsFullName - Contacts full name
+     * @param contactId - Contact Id
      */
-    public void setContactsFullName(String contactsFullName) {
+    public void setContactId(String contactId) {
 
-        this.contactsFullName = contactsFullName; // Set contacts full name
+        this.contactId = contactId; // Set contact full name
     }
 
     /**
-     * Function to get contacts phone number
+     * Function to get contact full name
      */
-    public String getContactsPhoneNumber() {
+    public String getContactFullName() {
 
-        return contactsPhoneNumber; // Return contacts phone number
+        return contactFullName; // Return contact full name
     }
 
     /**
-     * Function to set contacts phone number
+     * Function to set contact full name
      *
-     * @param contactsPhoneNumber - Contacts phone number
+     * @param contactFullName - Contact full name
      */
-    public void setContactsPhoneNumber(String contactsPhoneNumber) {
+    public void setContactFullName(String contactFullName) {
 
-        this.contactsPhoneNumber = contactsPhoneNumber; // Set contacts phone number
+        this.contactFullName = contactFullName; // Set contact full name
     }
 
     /**
-     * Function to get contacts email address
+     * Function to get contact phone number
      */
-    public String getContactsEmailAddress() {
+    public String getContactPhoneNumber() {
 
-        return contactsEmailAddress; // Return contacts email address
+        return contactPhoneNumber; // Return contact phone number
     }
 
     /**
-     * Function to set contacts email address
+     * Function to set contact phone number
      *
-     * @param contactsEmailAddress - Contacts email address
+     * @param contactPhoneNumber - Contact phone number
      */
-    public void setContactsEmailAddress(String contactsEmailAddress) {
+    public void setContactPhoneNumber(String contactPhoneNumber) {
 
-        this.contactsEmailAddress = contactsEmailAddress; // Set contacts email address
+        this.contactPhoneNumber = contactPhoneNumber; // Set contact phone number
     }
 
     /**
-     * Function to get contacts address
+     * Function to get contact email address
      */
-    public String getContactsAddress() {
+    public String getContactEmailAddress() {
 
-        return contactsAddress; // Return contacts address
+        return contactEmailAddress; // Return contact email address
     }
 
     /**
-     * Function to set contacts address
+     * Function to set contact email address
      *
-     * @param contactsAddress - Contacts address
+     * @param contactEmailAddress - Contact email address
      */
-    public void setContactsAddress(String contactsAddress) {
-        this.contactsAddress = contactsAddress; // Set contacts address
+    public void setContactEmailAddress(String contactEmailAddress) {
+
+        this.contactEmailAddress = contactEmailAddress; // Set contact email address
     }
 
     /**
-     * Function to get contacts type
+     * Function to get contact address
      */
-    public String getContactsType() {
+    public String getContactAddress() {
 
-        return contactsType; // Return contacts type
+        return contactAddress; // Return contact address
     }
 
     /**
-     * Function to set contacts type
+     * Function to set contact address
      *
-     * @param contactsType - Contacts type
+     * @param contactAddress - Contact address
      */
-    public void setContactsType(String contactsType) {
-        this.contactsType = contactsType; // Set contacts type
+    public void setContactAddress(String contactAddress) {
+        this.contactAddress = contactAddress; // Set contact address
+    }
+
+    /**
+     * Function to get contact type
+     */
+    public String getContactType() {
+
+        return contactType; // Return contact type
+    }
+
+    /**
+     * Function to set contact type
+     *
+     * @param contactType - Contact type
+     */
+    public void setContactType(String contactType) {
+        this.contactType = contactType; // Set contact type
     }
 }

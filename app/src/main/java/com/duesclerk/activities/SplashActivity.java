@@ -52,32 +52,53 @@ public class SplashActivity extends AppCompatActivity {
         counterThread = new Thread() {
             @Override
             public void run() {
+
                 try {
+
                     int wait = 0; // Thread wait time
+
                     while (wait < 3500) {
+
                         sleep(100);
                         wait += 100;
                     }
 
                     if (sessionManager.isSignedIn()) {
+
                         // Launch MainActivity
                         startActivity(new Intent(SplashActivity.this,
                                 MainActivity.class));
+
                     } else {
+
                         // Launch Signin and SignUp activity
                         startActivity(new Intent(SplashActivity.this,
                                 SignInSignupActivity.class));
                     }
 
                     SplashActivity.this.finish(); // Exit activity
+
                 } catch (Exception ignored) {
                 } finally {
+
                     SplashActivity.this.finish(); // Exit Activity
                 }
             }
         };
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
 
         counterThread.start(); // Start thread
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        counterThread.interrupt(); // Interrupt thread on activity exit
     }
 
     @Override
@@ -85,11 +106,5 @@ public class SplashActivity extends AppCompatActivity {
         super.onBackPressed();
 
         counterThread.interrupt(); // Stop thread
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //counterThread.interrupt(); // Interrupt thread on activity exit
     }
 }

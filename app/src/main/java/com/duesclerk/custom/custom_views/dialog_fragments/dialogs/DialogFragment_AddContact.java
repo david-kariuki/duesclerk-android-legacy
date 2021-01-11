@@ -833,7 +833,7 @@ public class DialogFragment_AddContact extends DialogFragment {
 
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(
-                                NetworkTags.ContactsNetworkTags.TAG_ADD_CONTACT_STRING_REQUEST);
+                                NetworkTags.Contacts.TAG_ADD_CONTACT_STRING_REQUEST);
                     }
                 } catch (Exception ignored) {
                 }
@@ -937,7 +937,7 @@ public class DialogFragment_AddContact extends DialogFragment {
 
             // Adding request to request queue
             ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                    NetworkTags.ContactsNetworkTags.TAG_ADD_CONTACT_STRING_REQUEST);
+                    NetworkTags.Contacts.TAG_ADD_CONTACT_STRING_REQUEST);
 
         } else {
 

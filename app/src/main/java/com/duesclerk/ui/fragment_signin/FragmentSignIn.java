@@ -261,7 +261,7 @@ public class FragmentSignIn extends Fragment {
 
                 // Cancel Pending Request
                 ApplicationClass.getClassInstance().cancelPendingRequests(
-                        NetworkTags.UserNetworkTags.TAG_SIGNIN_STRING_REQUEST);
+                        NetworkTags.User.TAG_SIGNIN_STRING_REQUEST);
 
                 // Clear url cache
                 ApplicationClass.getClassInstance().deleteUrlVolleyCache(
@@ -287,7 +287,7 @@ public class FragmentSignIn extends Fragment {
             // Set Request Priority
             ApplicationClass.getClassInstance().setPriority(Request.Priority.IMMEDIATE);
             ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                    NetworkTags.UserNetworkTags.TAG_SIGNIN_STRING_REQUEST); // Adding Request to request queue
+                    NetworkTags.User.TAG_SIGNIN_STRING_REQUEST); // Adding Request to request queue
 
         } else {
             // Not Connected

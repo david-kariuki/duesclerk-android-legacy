@@ -16,10 +16,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.duesclerk.R;
-import com.duesclerk.activities.DebtsActivity;
+import com.duesclerk.activities.ContactActivity;
 import com.duesclerk.custom.custom_utilities.ContactUtils;
 import com.duesclerk.custom.custom_utilities.DataUtils;
-import com.duesclerk.custom.custom_utilities.UserAccountUtils;
 import com.duesclerk.custom.java_beans.JB_Contacts;
 
 import org.jetbrains.annotations.NotNull;
@@ -34,7 +33,6 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
     private ArrayList<JB_Contacts> contacts;
     private int lastPosition = 0;
     private ContactsFilter contactsFilter;
-    private String userId;
 
     private View viewHolderView; // ViewHolder view
 
@@ -42,16 +40,14 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
      * Class constructor
      *
      * @param context  - Class context
-     * @param contacts - ArrayList with contacts
-     * @param userId   - Users id
+     * @param contacts - ArrayList with contact
      */
     public RVLA_Contacts(Context context,
-                         ArrayList<JB_Contacts> contacts, String userId) {
+                         ArrayList<JB_Contacts> contacts) {
 
         this.mContext = context;
         this.contacts = contacts;
         this.filterList = contacts;
-        this.userId = userId;
     }
 
     @Override
@@ -67,22 +63,22 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, final int position) {
 
-        // Set country data to TextView
-        holder.textContactsFullName.setText(this.contacts.get(position).getContactsFullName());
-        holder.textContactsPhoneNumber.setText(this.contacts.get(position)
-                .getContactsPhoneNumber());
+        // Set contact data to TextViews
+        holder.textContactFullName.setText(this.contacts.get(position).getContactFullName());
+        holder.textContactPhoneNumber.setText(this.contacts.get(position)
+                .getContactPhoneNumber());
 
-        // Get contacts email address
-        String contactsEmailAddress = this.contacts.get(position).getContactsEmailAddress();
+        // Get contact email address
+        String contactEmailAddress = this.contacts.get(position).getContactEmailAddress();
 
         // Check for email address
-        if (!DataUtils.isEmptyString(contactsEmailAddress)) {
+        if (!DataUtils.isEmptyString(contactEmailAddress)) {
 
-            // Show contacts email address
-            holder.textContactsEmailAddress.setVisibility(View.VISIBLE);
+            // Show contact email address
+            holder.textContactEmailAddress.setVisibility(View.VISIBLE);
 
-            // Set contacts email address
-            holder.textContactsEmailAddress.setText(contactsEmailAddress);
+            // Set contact email address
+            holder.textContactEmailAddress.setText(contactEmailAddress);
         }
 
         // Check for ViewHolder
@@ -92,15 +88,11 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
             holder.consContactItem.setOnClickListener(v -> {
 
                 // Start Debts activity
-                Intent intent = new Intent(v.getContext(), DebtsActivity.class);
+                Intent intent = new Intent(v.getContext(), ContactActivity.class);
 
-                // Pass contacts id
+                // Pass contact id
                 intent.putExtra(ContactUtils.FIELD_CONTACT_ID,
-                        this.contacts.get(position).getContactsId());
-
-                // Pass user id
-                intent.putExtra(UserAccountUtils.FIELD_USER_ID,
-                        this.contacts.get(position).getContactsId());
+                        this.contacts.get(position).getContactId());
 
                 v.getContext().startActivity(intent);
             });
@@ -165,9 +157,9 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
     public class RecyclerViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
-        TextView textContactsFullName, textContactsPhoneNumber, textContactsEmailAddress,
-                textContactsTotalAmount;
-        ImageView imageContactsPicture;
+        TextView textContactFullName, textContactPhoneNumber, textContactEmailAddress,
+                textContactTotalAmount;
+        ImageView imageContactPicture;
         ConstraintLayout consContactItem;
 
         RecyclerViewHolder(View convertView) {
@@ -175,14 +167,14 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
             super(convertView);
             viewHolderView = convertView;
 
-            textContactsFullName = convertView.findViewById(R.id.textContact_ContactsFullName);
-            textContactsPhoneNumber = convertView.findViewById(R.id.textContact_ContactsPhoneNumber);
-            textContactsEmailAddress = convertView.findViewById(R.id.textContact_ContactsEmailAddress);
-            textContactsTotalAmount = convertView.findViewById(R.id.textContact_ContactsTotalAmount);
-            consContactItem = convertView.findViewById(R.id.consCountryPicker_ContactItem);
+            textContactFullName = convertView.findViewById(R.id.textContact_ContactFullName);
+            textContactPhoneNumber = convertView.findViewById(R.id.textContact_ContactPhoneNumber);
+            textContactEmailAddress = convertView.findViewById(R.id.textContact_ContactEmailAddress);
+            textContactTotalAmount = convertView.findViewById(R.id.textContact_ContactTotalAmount);
+            consContactItem = convertView.findViewById(R.id.constraintLayout);
 
             // Hide email address until set if present
-            textContactsEmailAddress.setVisibility(View.GONE);
+            textContactEmailAddress.setVisibility(View.GONE);
         }
 
         /**
@@ -219,15 +211,15 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
                 // Get specific items
                 for (int i = 0; i < filterList.size(); i++) {
 
-                    if (filterList.get(i).getContactsFullName().toUpperCase()
+                    if (filterList.get(i).getContactFullName().toUpperCase()
                             .contains(constraint)) {
 
                         JB_Contacts jbContacts = new JB_Contacts(
-                                filterList.get(i).getContactsFullName(),
-                                filterList.get(i).getContactsPhoneNumber(),
-                                filterList.get(i).getContactsEmailAddress(),
-                                filterList.get(i).getContactsAddress(),
-                                filterList.get(i).getContactsType());
+                                filterList.get(i).getContactFullName(),
+                                filterList.get(i).getContactPhoneNumber(),
+                                filterList.get(i).getContactEmailAddress(),
+                                filterList.get(i).getContactAddress(),
+                                filterList.get(i).getContactType());
 
                         filters.add(jbContacts); // Add java bean to ArrayList
                     }

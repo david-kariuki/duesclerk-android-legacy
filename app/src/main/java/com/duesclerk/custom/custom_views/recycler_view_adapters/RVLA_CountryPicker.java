@@ -70,7 +70,7 @@ public class RVLA_CountryPicker extends RecyclerView.Adapter<RVLA_CountryPicker.
         int countryFlagID = DataUtils.getDrawableFromName(this.mContext,
                 this.countryData.get(position).getCountryFlag());
 
-        // Set country data to TextView
+        // Set country data to TextViews
         holder.textCountryName.setText(this.countryData.get(position).getCountryName());
         String plusCountryCode = "+" + this.countryData.get(position).getCountryCode();
         holder.textCountryCode.setText(plusCountryCode);
@@ -171,7 +171,7 @@ public class RVLA_CountryPicker extends RecyclerView.Adapter<RVLA_CountryPicker.
             textCountryAlpha2 = convertView.findViewById(R.id.textCountryPicker_CountryAlpha2);
             textCountryAlpha3 = convertView.findViewById(R.id.textCountryPicker_CountryAlpha3);
             imageViewCountryFlags = convertView.findViewById(R.id.imageCountryPicker_CountryFlag);
-            consCountryItem = convertView.findViewById(R.id.consCountryPicker_CountryItem);
+            consCountryItem = convertView.findViewById(R.id.constraintLayout);
         }
 
         /**

@@ -107,7 +107,7 @@
                 android:backgroundTint="@color/colorPrimary"
                 android:contentDescription="@string/content_description_fab_cancel_profile_edits"
                 android:elevation="@dimen/dimen_fab_elevation_small"
-                android:src="@drawable/ic_x_100px_white"
+                android:src="@drawable/ic_baseline_close_24_white"
                 android:visibility="gone"
                 app:borderWidth="0dp"
                 app:fabSize="auto"

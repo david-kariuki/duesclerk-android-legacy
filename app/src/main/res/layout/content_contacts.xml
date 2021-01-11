@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activities.ContactActivity"
+    tools:showIn="@layout/activity_contacts">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:descendantFocusability="beforeDescendants"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:focusedByDefault="true"
+        android:orientation="vertical"
+        tools:targetApi="o">
+
+        <SearchView
+            android:id="@+id/searchViewContacts"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="30dp"
+            android:elevation="@dimen/dimen_bs_toolbar_elevation"
+            android:gravity="start"
+            android:closeIcon="@drawable/ic_baseline_close_24_primary"
+            android:iconifiedByDefault="false"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:queryHint="@string/hint_search_contacts"
+            android:layout_marginBottom="5dp"
+            android:searchHintIcon="@drawable/ic_baseline_search_24_primary_dark"
+            android:searchIcon="@drawable/ic_baseline_search_24_primary_dark"
+            android:theme="@style/AppSearchView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewPeopleOwingMe"
+            style="@style/Style_RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

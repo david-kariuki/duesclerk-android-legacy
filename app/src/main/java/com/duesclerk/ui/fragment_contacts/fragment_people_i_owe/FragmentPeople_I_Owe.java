@@ -260,8 +260,7 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
             showSwipeRefreshLayout(true); // Show main layout
 
             // Creating RecyclerView adapter object
-            rvlaContacts = new RVLA_Contacts(requireActivity(), contacts,
-                    database.getUserAccountInfo(null).get(0).getUserId());
+            rvlaContacts = new RVLA_Contacts(requireActivity(), contacts);
 
             // Check for adapter observers
             if (!rvlaContacts.hasObservers()) {
@@ -307,9 +306,15 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
 
             interfaceMainActivity.showAddContactFAB(false); // Hide fab button
 
+            searchView.setVisibility(View.GONE); // Hide SearchView
+
         } else {
 
             llNoContacts.setVisibility(View.GONE); // Hide RecyclerView
+
+            interfaceMainActivity.showAddContactFAB(true); // True fab button
+
+            searchView.setVisibility(View.VISIBLE); // Show SearchView
         }
     }
 

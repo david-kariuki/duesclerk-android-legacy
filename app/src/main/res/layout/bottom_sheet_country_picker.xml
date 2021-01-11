@@ -25,7 +25,7 @@
             android:layout_marginEnd="30dp"
             android:background="@null"
             android:backgroundTint="@null"
-            android:closeIcon="@drawable/ic_x_100px_white"
+            android:closeIcon="@drawable/ic_baseline_close_24_white"
             android:gravity="center_vertical"
             android:imeOptions="actionSearch"
             android:inputType="text"

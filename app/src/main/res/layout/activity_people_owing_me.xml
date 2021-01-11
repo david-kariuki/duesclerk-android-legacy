@@ -30,13 +30,14 @@
 
                 <SearchView
                     android:id="@+id/searchViewContacts"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="35dp"
+                    android:layout_gravity="start"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
-                    android:layout_marginEnd="30dp"
-                    android:closeIcon="@drawable/ic_x_100px_white"
+                    android:layout_marginEnd="15dp"
                     android:elevation="@dimen/dimen_bs_toolbar_elevation"
+                    android:closeIcon="@drawable/ic_baseline_close_24_primary"
                     android:gravity="start"
                     android:iconifiedByDefault="false"
                     android:imeOptions="actionSearch"

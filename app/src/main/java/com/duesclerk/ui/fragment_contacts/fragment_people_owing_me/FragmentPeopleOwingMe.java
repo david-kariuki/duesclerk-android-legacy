@@ -191,6 +191,12 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
             interfaceMainActivity.showAddContactDialogFragment(true);
         });
 
+        llNoConnection_TryAgain.setOnClickListener(v -> {
+
+            // Start/Stop swipe SwipeRefresh
+            ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout, swipeRefreshListener);
+        });
+
         return view; // Return inflated view
     }
 
@@ -211,6 +217,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
                 BroadCastUtils.bcrActionReloadPeopleOwingMe);
 
         if (DataUtils.isEmptyArrayList(fetchedContacts)) {
+
             // Start SwipeRefreshLayout
             ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout, swipeRefreshListener);
         }
@@ -257,8 +264,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
             showSwipeRefreshLayout(true); // Show main layout
 
             // Creating RecyclerView adapter object
-            rvlaContacts = new RVLA_Contacts(requireActivity(), contacts,
-                    database.getUserAccountInfo(null).get(0).getUserId());
+            rvlaContacts = new RVLA_Contacts(requireActivity(), contacts);
 
             // Check for adapter observers
             if (!rvlaContacts.hasObservers()) {
@@ -304,9 +310,15 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
 
             interfaceMainActivity.showAddContactFAB(false); // Hide fab button
 
+            searchView.setVisibility(View.GONE); // Hide SearchView
+
         } else {
 
             llNoContacts.setVisibility(View.GONE); // Hide RecyclerView
+
+            interfaceMainActivity.showAddContactFAB(true); // True fab button
+
+            searchView.setVisibility(View.VISIBLE); // Show SearchView
         }
     }
 

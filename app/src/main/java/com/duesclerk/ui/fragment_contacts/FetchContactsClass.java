@@ -121,7 +121,7 @@ public class FetchContactsClass {
 
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(
-                                NetworkTags.UserNetworkTags.TAG_SWITCH_ACCOUNT_TYPE_REQUEST);
+                                NetworkTags.Contacts.TAG_FETCH_USER_CONTACTS_STRING_REQUEST);
                     }
                 } catch (Exception ignored) {
                 }
@@ -174,7 +174,7 @@ public class FetchContactsClass {
                     @SuppressWarnings({"unchecked", "rawtypes"}) Map<String, String> params =
                             new HashMap();
 
-                    // Put userId, current and new password to Map params
+                    // Put userId to Map params
                     params.put(UserAccountUtils.FIELD_USER_ID, userId);
 
                     return params; // Return params
@@ -207,7 +207,7 @@ public class FetchContactsClass {
 
             // Adding request to request queue
             ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                    NetworkTags.UserNetworkTags.TAG_SWITCH_ACCOUNT_TYPE_REQUEST);
+                    NetworkTags.Contacts.TAG_FETCH_USER_CONTACTS_STRING_REQUEST);
 
         } else {
 
@@ -245,30 +245,32 @@ public class FetchContactsClass {
                     jsonObject = jsonArray.getJSONObject(i);
 
                     // Getting Data from json object
-                    String contactsFullName, contactsPhoneNumber, contactsEmailAddress, contactsAddress,
-                            contactsType;
+                    String contactId, contactFullName, contactPhoneNumber, contactEmailAddress,
+                            contactAddress, contactType;
 
-                    contactsFullName = jsonObject.getString(ContactUtils.FIELD_CONTACT_FULL_NAME);
-                    contactsPhoneNumber = jsonObject
+                    contactId = jsonObject.getString(ContactUtils.FIELD_CONTACT_ID);
+                    contactFullName = jsonObject.getString(ContactUtils.FIELD_CONTACT_FULL_NAME);
+                    contactPhoneNumber = jsonObject
                             .getString(ContactUtils.FIELD_CONTACT_PHONE_NUMBER);
-                    contactsEmailAddress = jsonObject
+                    contactEmailAddress = jsonObject
                             .getString(ContactUtils.FIELD_CONTACT_EMAIL_ADDRESS);
-                    contactsAddress = jsonObject.getString(ContactUtils.FIELD_CONTACT_ADDRESS);
-                    contactsType = jsonObject.getString(ContactUtils.FIELD_CONTACT_TYPE);
+                    contactAddress = jsonObject.getString(ContactUtils.FIELD_CONTACT_ADDRESS);
+                    contactType = jsonObject.getString(ContactUtils.FIELD_CONTACT_TYPE);
 
                     // Set data to java bean
-                    jbContacts.setContactsFullName(contactsFullName);
-                    jbContacts.setContactsPhoneNumber(contactsPhoneNumber);
-                    jbContacts.setContactsEmailAddress(contactsEmailAddress);
-                    jbContacts.setContactsAddress(contactsAddress);
-                    jbContacts.setContactsType(contactsType);
+                    jbContacts.setContactId(contactId);
+                    jbContacts.setContactFullName(contactFullName);
+                    jbContacts.setContactPhoneNumber(contactPhoneNumber);
+                    jbContacts.setContactEmailAddress(contactEmailAddress);
+                    jbContacts.setContactAddress(contactAddress);
+                    jbContacts.setContactType(contactType);
 
-                    if (contactsType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME)) {
+                    if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME)) {
                         // People owing me
 
                         contactsPeopleOwingMe.add(jbContacts); // Add java bean to ArrayList
 
-                    } else if (contactsType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_I_OWE)) {
+                    } else if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_I_OWE)) {
                         // People I owe
 
                         contactsPeopleIOwe.add(jbContacts); // Add java bean to ArrayList
