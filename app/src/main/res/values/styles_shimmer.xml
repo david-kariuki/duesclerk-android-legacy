@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Style_ShimmerFrameLayout">
+        <item name="shimmer_auto_start">true</item>
+        <item name="shimmer_direction">left_to_right</item>
+        <item name="shimmer_shape">linear</item>
+        <item name="shimmer_duration">@integer/int_shimmer_duration</item>
+        <item name="shimmer_repeat_mode">restart</item>
+    </style>
+
+    <style name="Style_Shimmer_Background">
+
+        <item name="android:background">@color/color_shimmer_item_grey</item>
+    </style>
+
+    <style name="Style_Shimmer_TextView_Small" parent="Style_Shimmer_Background">
+
+        <item name="android:height">@dimen/dimen_shimmer_text_view_height</item>
+        <item name="android:width">@dimen/dimen_shimmer_text_view_width_small</item>
+    </style>
+
+    <style name="Style_Shimmer_TextView_Medium" parent="Style_Shimmer_Background">
+
+        <item name="android:height">@dimen/dimen_shimmer_text_view_height</item>
+        <item name="android:width">@dimen/dimen_shimmer_text_view_width_medium</item>
+    </style>
+
+</resources>

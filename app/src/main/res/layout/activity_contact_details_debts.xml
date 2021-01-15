@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorActivityBackground"
+    android:orientation="vertical"
+    tools:context=".activities.ContactDetailsDebtsActivity"
+    tools:ignore="UseCompoundDrawables"
+    tools:targetApi="o">
+
+    <RelativeLayout
+        android:id="@+id/rlContactActivity_NoConnection"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <include layout="@layout/layout_no_connection" />
+    </RelativeLayout>
+
+    <com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout
+        android:id="@+id/swipeRefreshContactActivity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/coordinator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:overScrollMode="never">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appBarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorActivityBackground"
+                android:overScrollMode="never"
+                android:theme="@style/AppTheme.AppBarOverlay">
+
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fitsSystemWindows="true"
+                    android:overScrollMode="never"
+                    app:contentScrim="@color/colorTransparent"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            style="@style/Style_Toolbar_Container_Medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dimen_toolbar_height_medium">
+
+                            <ImageView
+                                android:id="@+id/imageContactActivity_Exit"
+                                style="@style/Style_Toolbar_Icon_Exit"
+                                android:layout_width="@dimen/dimen_icon_size_small"
+                                android:layout_height="@dimen/dimen_icon_size_small"
+                                android:contentDescription="@string/content_description_icon_exit" />
+
+                            <TextView
+                                android:id="@+id/textContactActivity_Title"
+                                style="@style/Style_Toolbar_Title_Medium_Primary_Dark"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/title_debts_people_owing_me" />
+
+                        </LinearLayout>
+
+                        <!--Toolbar divider-->
+                        <include layout="@layout/divider_toolbar_activities" />
+
+                        <com.facebook.shimmer.ShimmerFrameLayout
+                            android:id="@+id/shimmerContactActivity"
+                            style="@style/Style_ShimmerFrameLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <include layout="@layout/layout_shimmer_contact_activity" />
+
+                        </com.facebook.shimmer.ShimmerFrameLayout>
+
+                        <LinearLayout
+                            android:id="@+id/llContactActivity_ContactDetails"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:id="@+id/imageContactActivity_ContactPhoto"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:layout_marginStart="10dp"
+                                    android:contentDescription="@string/content_description_icon_country_flag"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/img_placeholder_user_grey"
+                                    app:border_color="@color/colorPrimary"
+                                    app:border_width="1dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintDimensionRatio="H,1:1"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="15dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:gravity="start"
+                                    android:orientation="vertical">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal"
+                                        tools:ignore="TooDeepLayout">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:ems="6"
+                                            android:singleLine="true"
+                                            android:text="@string/hint_full_name"
+                                            android:textColor="@color/colorPrimaryGrey"
+                                            android:textSize="13sp" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="8dp"
+                                            android:ellipsize="marquee"
+                                            android:singleLine="true"
+                                            android:text="@string/symbol_full_colon"
+                                            android:textColor="@color/colorPrimaryGrey"
+                                            android:textSize="13sp" />
+
+                                        <TextView
+                                            android:id="@+id/textContactActivity_ContactFullName"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:hint="@string/hint_not_provided"
+                                            android:singleLine="true"
+                                            android:textColor="@color/colorBlack"
+                                            android:textColorHint="@color/colorPrimaryGrey"
+                                            android:textSize="14sp" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:ems="6"
+                                            android:singleLine="true"
+                                            android:text="@string/hint_phone_number"
+                                            android:textColor="@color/colorPrimaryGrey"
+                                            android:textSize="13sp" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="8dp"
+                                            android:ellipsize="marquee"
+                                            android:singleLine="true"
+                                            android:text="@string/symbol_full_colon"
+                                            android:textColor="@color/colorPrimaryGrey"
+                                            android:textSize="13sp" />
+
+                                        <TextView
+                                            android:id="@+id/textContactActivity_ContactPhoneNumber"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:hint="@string/hint_not_provided"
+                                            android:singleLine="true"
+                                            android:textColor="@color/colorBlack"
+                                            android:textColorHint="@color/colorPrimaryGrey"
+                                            android:textSize="14sp" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:ems="6"
+                                            android:singleLine="true"
+                                            android:text="@string/hint_email_address"
+                                            android:textColor="@color/colorPrimaryGrey"
+                                            android:textSize="13sp" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="8dp"
+                                            android:ellipsize="marquee"
+                                            android:singleLine="true"
+                                            android:text="@string/symbol_full_colon"
+                                            android:textColor="@color/colorPrimaryGrey"
+                                            android:textSize="13sp" />
+
+                                        <TextView
+                                            android:id="@+id/textContactActivity_ContactEmailAddress"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:hint="@string/hint_not_provided"
+                                            android:singleLine="true"
+                                            android:textColorHint="@color/colorPrimaryGrey"
+                                            android:textSize="14sp" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:ems="6"
+                                            android:singleLine="true"
+                                            android:text="@string/hint_address"
+                                            android:textColor="@color/colorPrimaryGrey"
+                                            android:textSize="13sp" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="8dp"
+                                            android:ellipsize="marquee"
+                                            android:singleLine="true"
+                                            android:text="@string/symbol_full_colon"
+                                            android:textColor="@color/colorPrimaryGrey"
+                                            android:textSize="13sp" />
+
+                                        <TextView
+                                            android:id="@+id/textContactActivity_ContactAddress"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:hint="@string/hint_not_provided"
+                                            android:singleLine="false"
+                                            android:textColor="@color/colorBlack"
+                                            android:textColorHint="@color/colorPrimaryGrey"
+                                            android:textSize="14sp" />
+                                    </LinearLayout>
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:id="@+id/llContactActivity_EditContact"
+                                    style="@style/Style_CustomButton_Container_Stroke_Continuous_Primary"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="0dp"
+                                    android:layout_marginEnd="15dp"
+                                    android:layout_marginBottom="0dp"
+                                    android:gravity="center"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="@dimen/dimen_icon_size_small"
+                                        android:layout_height="@dimen/dimen_icon_size_small"
+                                        android:layout_marginStart="5dp"
+                                        android:layout_marginTop="2dp"
+                                        android:layout_marginBottom="2dp"
+                                        android:contentDescription="@string/content_description_icon_edit"
+                                        android:padding="@dimen/dimen_icon_padding_small"
+                                        android:src="@drawable/ic_baseline_edit_24_primary" />
+
+                                    <TextView
+                                        style="@style/Style_Text_Labels"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginStart="0dp"
+                                        android:layout_marginTop="0dp"
+                                        android:layout_marginEnd="10dp"
+                                        android:layout_marginBottom="0dp"
+                                        android:lines="1"
+                                        android:singleLine="true"
+                                        android:text="@string/action_edit_contact"
+                                        android:textSize="12sp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/llContactActivity_DeleteContact"
+                                    style="@style/Style_CustomButton_Container_Stroke_Continuous_Primary"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="0dp"
+                                    android:layout_marginEnd="15dp"
+                                    android:layout_marginBottom="0dp"
+                                    android:gravity="center"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="@dimen/dimen_icon_size_small"
+                                        android:layout_height="@dimen/dimen_icon_size_small"
+                                        android:layout_marginStart="5dp"
+                                        android:layout_marginTop="2dp"
+                                        android:layout_marginBottom="2dp"
+                                        android:contentDescription="@string/content_description_icon_edit"
+                                        android:padding="@dimen/dimen_icon_padding_small"
+                                        android:src="@drawable/ic_baseline_delete_forever_24_primary" />
+
+                                    <TextView
+                                        style="@style/Style_Text_Labels"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginStart="0dp"
+                                        android:layout_marginTop="0dp"
+                                        android:layout_marginEnd="10dp"
+                                        android:layout_marginBottom="0dp"
+                                        android:lines="1"
+                                        android:singleLine="true"
+                                        android:text="@string/action_delete_contact"
+                                        android:textSize="12sp" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <!--Toolbar divider-->
+                            <include layout="@layout/divider_toolbar_activities" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        style="@style/Style_Toolbar_Container_Medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/colorWhite"
+                        android:descendantFocusability="beforeDescendants"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:focusedByDefault="true"
+                        android:orientation="vertical">
+
+                        <SearchView
+                            android:id="@+id/searchViewContacts"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="30dp"
+                            android:closeIcon="@drawable/ic_baseline_close_24_primary"
+                            android:elevation="@dimen/dimen_bs_toolbar_elevation"
+                            android:gravity="start"
+                            android:iconifiedByDefault="false"
+                            android:imeOptions="actionSearch"
+                            android:inputType="text"
+                            android:queryHint="@string/hint_search_contacts"
+                            android:searchHintIcon="@drawable/ic_baseline_search_24_primary_dark"
+                            android:searchIcon="@drawable/ic_baseline_search_24_primary_dark"
+                            android:theme="@style/AppSearchView"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <include layout="@layout/content_contact_details_debts" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabContactActivity_AddDebt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginStart="@dimen/dimen_fab_margin_start"
+                android:layout_marginTop="@dimen/dimen_fab_margin_top"
+                android:layout_marginEnd="@dimen/dimen_fab_margin_end"
+                android:layout_marginBottom="@dimen/dimen_fab_margin_bottom"
+                android:backgroundTint="@color/colorPrimary"
+                android:contentDescription="@string/content_description_fab_add_debt_record"
+                android:elevation="@dimen/dimen_fab_elevation_small"
+                android:src="@drawable/ic_baseline_add_24_white"
+                android:visibility="gone"
+                app:borderWidth="0dp"
+                app:fabSize="auto"
+                app:tint="@color/colorWhite" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout>
+</LinearLayout>

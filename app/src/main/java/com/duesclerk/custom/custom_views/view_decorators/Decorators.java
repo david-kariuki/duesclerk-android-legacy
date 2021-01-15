@@ -1,17 +1,17 @@
 package com.duesclerk.custom.custom_views.view_decorators;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.duesclerk.R;
 import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.BottomSheetFragment_CountryPicker;
-import com.duesclerk.ui.fragment_contacts.fragment_people_i_owe.FragmentPeople_I_Owe;
-import com.duesclerk.ui.fragment_contacts.fragment_people_owing_me.FragmentPeopleOwingMe;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -32,22 +32,22 @@ public class Decorators extends RecyclerView.ItemDecoration {
     }
 
     /**
-     * Class constructor for fragment people owing me
+     * Class constructor for activities
      */
-    public Decorators(FragmentPeopleOwingMe fragmentPeopleOwingMe) {
+    public Decorators(Activity activity) {
 
         // Get drawable
-        mDivider = ContextCompat.getDrawable(fragmentPeopleOwingMe.requireContext(),
+        mDivider = ContextCompat.getDrawable(activity,
                 R.drawable.gradient_divider_white_primary_grey_white);
     }
 
     /**
-     * Class constructor for fragment people I Owe
+     * Class constructor for fragments
      */
-    public Decorators(FragmentPeople_I_Owe fragmentPeopleIOwe) {
+    public Decorators(Fragment fragment) {
 
         // Get drawable
-        mDivider = ContextCompat.getDrawable(fragmentPeopleIOwe.requireContext(),
+        mDivider = ContextCompat.getDrawable(fragment.requireContext(),
                 R.drawable.gradient_divider_white_primary_grey_white);
     }
 

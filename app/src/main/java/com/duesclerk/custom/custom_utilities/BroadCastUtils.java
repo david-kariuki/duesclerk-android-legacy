@@ -15,21 +15,24 @@ public class BroadCastUtils {
             = "ReloadPeopleOwingMe";
     public static final String bcrActionReloadPeopleIOwe
             = "ReloadPeopleIOwe";
+    public static final String bcrActionReloadContactActivity
+            = "ReloadContactActivity";
 
-    public static void registerRefreshBroadCasts(Activity activity,
-                                           BroadcastReceiver broadcastReceiver,
-                                           String broadCastAction) {
+    public static void registerBroadCasts(Activity activity,
+                                          BroadcastReceiver broadcastReceiver,
+                                          String broadCastAction) {
 
         try {
 
             // Register BroadCast
             activity.registerReceiver(broadcastReceiver, new IntentFilter(broadCastAction));
+
         } catch (IllegalArgumentException ignored) {
         }
     }
 
-    public static void unRegisterRefreshBroadCast(Activity activity,
-                                            BroadcastReceiver broadcastReceiver) {
+    public static void unRegisterBroadCast(Activity activity,
+                                           BroadcastReceiver broadcastReceiver) {
 
         try {
 

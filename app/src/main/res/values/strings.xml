@@ -9,6 +9,7 @@
     <string name="title_activity_user_profile">Profile</string>
     <string name="title_activity_email_verification">Email verification</string>
     <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
+    <string name="title_activity_contact_data">ContactsActivity</string>
 
     <!--Fragment titles-->
     <string name="title_fragment_people_i_owe">Those I Owe</string>
@@ -27,9 +28,12 @@
     <string name="title_updating_password">Updating password</string>
     <string name="title_switching_account_type">Switching account type</string>
     <string name="title_adding_contact">Adding contact</string>
+    <string name="title_adding_debt">Adding debt</string>
     <string name="title_mailing_email_verification_code">Sending verification code</string>
     <string name="title_verifying_email_address">Verifying email address</string>
     <string name="title_resetting_password">Verifying email address</string>
+    <string name="title_debts_people_owing_me">Money %1$s owes me.</string>
+    <string name="title_debts_people_i_owe">Money I owe %1$s.</string>
 
     <!--Hints-->
     <string name="hint_first_name">First name</string>
@@ -52,10 +56,22 @@
     <string name="hint_personal_account">Personal Account</string>
     <string name="hint_business_account">Business Account</string>
     <string name="hint_full_name">Full name</string>
-    <string name="hint_persons_address">Persons address</string>
+    <string name="hint_address">Address</string>
     <string name="hint_contacts_type">Contacts type</string>
     <string name="hint_optional">(Optional)</string>
     <string name="hint_contacts_total_amount">Total amount</string>
+    <string name="hint_search_countries">Search countries</string>
+    <string name="hint_search_contacts">Search contacts</string>
+    <string name="hint_search_debts">Search debts</string>
+    <string name="hint_date_issued">Date issued</string>
+    <string name="hint_issued">Issued</string>
+    <string name="hint_date_due">Date due</string>
+    <string name="hint_due">Due</string>
+    <string name="hint_debt_amount">Debt amount</string>
+    <string name="hint_description">Description</string>
+    <string name="hint_debt_description">Debt description</string>
+    <string name="hint_debt_type_you_owe">You owe</string>
+    <string name="hint_debt_type_you_are_owed">You are owed</string>
 
     <!--Actions-->
     <string name="action_sign_in">Sign In</string>
@@ -71,6 +87,8 @@
     <string name="action_logout">Logout</string>
     <string name="action_view_profile">View Profile</string>
     <string name="action_cancel">Cancel</string>
+    <string name="action_edit_contact">Edit contact</string>
+    <string name="action_delete_contact">Delete contact</string>
     <string name="action_verify">Verify</string>
     <string name="action_try_again">Try again</string>
     <string name="action_change_password">Change Password</string>
@@ -108,12 +126,14 @@
     <string name="msg_updating_password">Updating your password! Please wait…</string>
     <string name="msg_switching_account_type">Switching to %1$s! Please wait…</string>
     <string name="msg_adding_contact">Adding %1$ss\' contact! Please wait…</string>
+    <string name="msg_adding_debt">Adding %1$ss\' debt! Please wait…</string>
     <string name="msg_welcome_to">Welcome to %1$s.</string>
     <string name="msg_logout">Are you sure you want to log out %1$s?</string>
     <string name="msg_profile_updated">Profile updated successfully.</string>
     <string name="msg_password_updated">Password updated successfully.</string>
     <string name="msg_account_switching_successful">Account switched successfully.</string>
     <string name="msg_contact_adding_successful">%1$s has been added successfully.</string>
+    <string name="msg_debt_adding_successful">%1$s has been added to %2$s.</string>
     <string name="msg_mailing_email_verification_code">Mailing you a verification code! Please wait…</string>
     <string name="msg_email_address_verified">Your email address has been verified!</string>
     <string name="msg_verification_code_sent">Verification code sent to your email.</string>
@@ -144,5 +164,7 @@
 
     <!--Number-->
     <string name="number_decimal_zero">0.0</string>
+    <string name="hint_not_provided">Not provided</string>
+
 
 </resources>

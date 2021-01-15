@@ -3,7 +3,10 @@
     <!--Content description-->
     <string name="content_description_icon">Icon</string>
     <string name="content_description_app_icon">Application icon</string>
+    <string name="content_description_icon_close">Close icon</string>
     <string name="content_description_icon_exit">Exit icon</string>
+    <string name="content_description_icon_edit">Edit icon</string>
+    <string name="content_description_icon_delete">Delete icon</string>
     <string name="content_description_icon_contact">Contact icon</string>
     <string name="content_description_email_verification">Email verification</string>
     <string name="content_description_icon_greetings">Greetings icon</string>
@@ -34,6 +37,12 @@
     <string name="content_description_icon_signup_date">Signup date icon</string>
     <string name="content_description_icon_password">Password icon</string>
     <string name="content_description_icon_password_toggle">Password toggle icon</string>
+
+    <!--Debts-->
+    <string name="content_description_icon_debt_amount">Debt amount</string>
+    <string name="content_description_icon_debt_date_issued">Debt issuance date</string>
+    <string name="content_description_icon_debt_date_due">Debt due date</string>
+    <string name="content_description_icon_debt_description">Debt description</string>
 
     <!--SignUp and SignIn-->
     <string name="content_description_icon_sign_in">Sign in icon</string>

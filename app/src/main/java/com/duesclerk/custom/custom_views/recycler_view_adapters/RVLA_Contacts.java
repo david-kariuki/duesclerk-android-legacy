@@ -16,7 +16,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.duesclerk.R;
-import com.duesclerk.activities.ContactActivity;
+import com.duesclerk.activities.ContactDetailsDebtsActivity;
 import com.duesclerk.custom.custom_utilities.ContactUtils;
 import com.duesclerk.custom.custom_utilities.DataUtils;
 import com.duesclerk.custom.java_beans.JB_Contacts;
@@ -88,11 +88,19 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
             holder.consContactItem.setOnClickListener(v -> {
 
                 // Start Debts activity
-                Intent intent = new Intent(v.getContext(), ContactActivity.class);
+                Intent intent = new Intent(v.getContext(), ContactDetailsDebtsActivity.class);
 
                 // Pass contact id
                 intent.putExtra(ContactUtils.FIELD_CONTACT_ID,
                         this.contacts.get(position).getContactId());
+
+                // Pass contact full name
+                intent.putExtra(ContactUtils.FIELD_CONTACT_FULL_NAME,
+                        this.contacts.get(position).getContactFullName());
+
+                // Pass contact type
+                intent.putExtra(ContactUtils.FIELD_CONTACT_TYPE,
+                        this.contacts.get(position).getContactType());
 
                 v.getContext().startActivity(intent);
             });

@@ -11,6 +11,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -50,6 +52,7 @@ import java.util.Objects;
  * Initialize ProgressDialog
  * Show ProgressDialog
  * Dismiss ProgressDialog
+ * Initialize SearchView
  */
 public class ViewsUtils {
 
@@ -323,9 +326,9 @@ public class ViewsUtils {
     /**
      * Function to show DialogFragment_DatePicker
      *
-     * @param fragmentManager    - to show DialogFragment_DatePicker
+     * @param fragmentManager          - to show DialogFragment_DatePicker
      * @param dialogFragmentDatePicker - associated DialogFragment_DatePicker
-     * @param show               - boolean(show-true/false) - to show or hide DialogFragment_DatePicker
+     * @param show                     - boolean(show-true/false) - to show or hide DialogFragment_DatePicker
      */
     public static void showDatePickerFragment(FragmentManager fragmentManager,
                                               DialogFragment_DatePicker dialogFragmentDatePicker, boolean show) {
@@ -413,8 +416,11 @@ public class ViewsUtils {
                                               MultiSwipeRefreshLayout swipeRefreshLayout,
                                               SwipeRefreshLayout.OnRefreshListener swipeRefreshListener) {
 
+        // Set view offset
+//        swipeRefreshLayout.setProgressViewOffset(false,
+//                DataUtils.getIntegerResource(mContext, R.integer.int_swipe_refresh_offset_start),
+//                DataUtils.getIntegerResource(mContext, R.integer.int_swipe_refresh_offset_end));
         try {
-
 
             // Set color scheme
             swipeRefreshLayout.setColorSchemeColors(DataUtils.getSwipeRefreshColorSchemeResources());
@@ -437,8 +443,7 @@ public class ViewsUtils {
                 // Stop SwipeRefreshLayout
                 swipeRefreshLayout.setRefreshing(false);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ignored) {
         }
     }
 
@@ -492,5 +497,59 @@ public class ViewsUtils {
 
             progressDialog.dismiss(); // Dismiss ProgressDialog
         }
+    }
+
+    /**
+     * Function to initialize SearchView for Activities
+     *
+     * @param searchViewId - Associated SearchView id
+     */
+    private SearchView initSearchView(Activity activity, int searchViewId) {
+
+        // Create SearchView
+        SearchView searchView = activity.findViewById(searchViewId);
+
+        // Get SearchView id
+        int identifier = searchView.getContext().getResources().getIdentifier(
+                "android:id/search_src_text", null, null);
+
+        // Get SearchView text
+        TextView textView = searchView.findViewById(identifier);
+
+        // Set SearchView text color
+        textView.setTextColor(DataUtils.getColorResource(activity.getApplicationContext(),
+                R.color.colorBlack));
+
+        searchView.setIconifiedByDefault(false); // Disable iconified
+        searchView.clearFocus(); // Clear SearchView focus
+
+        return searchView;
+    }
+
+    /**
+     * Function to initialize SearchView for fragments
+     *
+     * @param searchViewId - Associated SearchView id
+     */
+    private SearchView initSearchView(Context context, View view, int searchViewId) {
+
+        // Create SearchView
+        SearchView searchView = view.findViewById(searchViewId);
+
+        // Get SearchView id
+        int identifier = searchView.getContext().getResources().getIdentifier(
+                "android:id/search_src_text", null, null);
+
+        // Get SearchView text
+        TextView textView = searchView.findViewById(identifier);
+
+        // Set SearchView text color
+        textView.setTextColor(DataUtils.getColorResource(context,
+                R.color.colorBlack));
+
+        searchView.setIconifiedByDefault(false); // Disable iconified
+        searchView.clearFocus(); // Clear SearchView focus
+
+        return searchView;
     }
 }

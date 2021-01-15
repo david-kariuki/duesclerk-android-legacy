@@ -8,15 +8,18 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
 import com.duesclerk.R;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DataUtils {
     /*
@@ -26,6 +29,7 @@ public class DataUtils {
      * Check if EditText is empty.
      * Check if Uri is empty.
      * Check if JSONArray is empty.
+     * Check if JSONObject is empty.
      * Check if ArrayList is empty.
      * Convert dp(int/float) to pixels
      * Get string resources with/without placeholders
@@ -77,6 +81,16 @@ public class DataUtils {
     public static boolean isEmptyJSONArray(JSONArray jsonArray) {
 
         return (jsonArray == null);
+    }
+
+    /**
+     * Function to check if JSONObject is empty
+     *
+     * @param jsonObject - associated JSONObject
+     */
+    public static boolean isEmptyJSONObject(JSONObject jsonObject) {
+
+        return (jsonObject == null);
     }
 
     /**
@@ -156,6 +170,7 @@ public class DataUtils {
      * @param stringId - string resource id
      * @param args     - placeholders ids
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public static String getStringResource(Context context, int stringId, Integer... args) {
 
         // Create new Object array with same size as args length
@@ -168,7 +183,7 @@ public class DataUtils {
         }
 
         // Return string with placeholders
-        return context.getResources().getString(stringId, newArgs);
+        return context.getResources().getString(stringId, Arrays.stream((newArgs)).toArray());
     }
 
     /**
@@ -186,16 +201,20 @@ public class DataUtils {
 
         // Loop through passed object with string id
         for (int i = 0; i < args.length; i++) {
+
             // Get string from string id adding them to new Object array
             if (args[i].getClass().equals(Integer.class)) {
-                newArgs[i] = context.getResources().getString(Integer.parseInt(args[i]));
-            } else {
-                newArgs[i] = args[i];
 
+                newArgs[i] = context.getResources().getString(Integer.parseInt(args[i]));
+
+            } else {
+
+                newArgs[i] = args[i];
             }
         }
+
         // Return string with placeholders
-        return context.getResources().getString(stringId, newArgs);
+        return context.getResources().getString(stringId,  newArgs);
     }
 
     /**

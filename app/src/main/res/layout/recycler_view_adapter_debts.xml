@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="7dp"
+    android:background="@color/colorWhite"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    tools:context=".activities.ContactDetailsDebtsActivity"
+    tools:ignore="HardcodedText">
+
+    <LinearLayout
+        android:id="@+id/llImageContact_ContactPhoto"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/circle_border_primary_dark_fill_primary"
+        android:gravity="center"
+        app:layout_constraintVertical_bias="0"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="H,1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/constraintLayout1">
+
+        <TextView
+            android:id="@+id/textDebt_Count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:lines="1"
+            android:singleLine="true"
+            android:text="1"
+            android:textColor="@color/colorWhite"
+            android:textSize="11sp"
+            tools:ignore="SmallSp" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:id="@+id/constraintLayout1"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/llImageContact_ContactPhoto"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@id/llDebtOptions"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textDebt_Type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:ellipsize="marquee"
+                android:hint="@string/hint_debt_type_you_are_owed"
+                android:maxEms="8"
+                android:minEms="1"
+                android:singleLine="true"
+                android:textColor="@color/colorPrimaryGrey"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textDebt_AmountCurrency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="$"
+                    android:textColor="@color/colorBlack"
+                    android:textColorHint="@color/colorBlack"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/textDebt_Amount"
+                    style="@style/TextAppearance.AppCompat.Headline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginEnd="10dp"
+                    android:hint="@string/hint_debt_amount"
+                    android:singleLine="true"
+                    android:textColor="@color/colorBlack"
+                    android:textColorHint="@color/colorBlack"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:ellipsize="marquee"
+                    android:hint="@string/hint_due"
+                    android:maxEms="8"
+                    android:minEms="3"
+                    android:singleLine="true"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimaryGrey"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textDebt_DateDue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:ellipsize="marquee"
+                    android:hint="@string/hint_date_due"
+                    android:minEms="3"
+                    android:singleLine="true"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimaryGrey"
+                    android:textSize="12sp"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
+
+            <net.cachapa.expandablelayout.ExpandableLayout
+                android:id="@+id/expandableDebt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:el_expanded="false">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:ellipsize="marquee"
+                            android:ems="3"
+                            android:hint="@string/hint_issued"
+                            android:maxEms="3"
+                            android:minEms="3"
+                            android:singleLine="true"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/colorPrimaryGrey"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textDebt_DateIssued"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:ellipsize="marquee"
+                            android:hint="@string/hint_date_issued"
+                            android:minEms="3"
+                            android:singleLine="true"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/colorPrimaryGrey"
+                            android:textSize="12sp"
+                            tools:ignore="RtlCompat" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:ellipsize="marquee"
+                            android:gravity="center_vertical"
+                            android:hint="@string/hint_description"
+                            android:maxEms="9"
+                            android:maxLength="50"
+                            android:minEms="1"
+                            android:minLines="1"
+                            android:singleLine="false"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            tools:ignore="RtlCompat" />
+
+                        <TextView
+                            android:id="@+id/textDebt_Description"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:ellipsize="marquee"
+                            android:gravity="center_vertical"
+                            android:hint="@string/hint_not_provided"
+                            android:maxLength="50"
+                            android:minEms="1"
+                            android:minLines="1"
+                            android:singleLine="false"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="13sp"
+                            tools:ignore="RtlCompat" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </net.cachapa.expandablelayout.ExpandableLayout>
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/llDebtOptions"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageDebt_Options"
+                android:layout_width="@dimen/dimen_icon_size_small"
+                android:layout_height="@dimen/dimen_icon_size_small"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                app:layout_constraintVertical_bias="0"
+                android:layout_gravity="end"
+                android:layout_marginBottom="5dp"
+                android:contentDescription="@string/content_description_icon"
+                android:padding="@dimen/dimen_icon_padding_small"
+                android:src="@drawable/ic_baseline_more_vert_24_primary_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ObsoleteLayoutParam" />
+
+            <ImageView
+                android:id="@+id/imageDebt_DropDown"
+                android:layout_width="@dimen/dimen_icon_size_small"
+                android:layout_height="@dimen/dimen_icon_size_small"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="bottom"
+                app:layout_constraintVertical_bias="1"
+                android:layout_marginTop="5dp"
+                android:contentDescription="@string/content_description_icon"
+                android:src="@drawable/ic_baseline_arrow_drop_down_24_black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageDebt_Options"
+                tools:ignore="ObsoleteLayoutParam" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

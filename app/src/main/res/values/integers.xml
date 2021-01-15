@@ -2,9 +2,14 @@
 <resources>
 
     <!--general-->
+    <integer name="int_shimmer_duration">1000</integer>
 
     <!--volley timeouts-->
     <integer name="int_volley_account_request_initial_timeout_ms">10000</integer>
     <integer name="int_volley_account_request_max_timeout_retry">1</integer>
+
+    <!--SwipeRefreshLayout-->
+    <integer name="int_swipe_refresh_offset_start">0</integer>
+    <integer name="int_swipe_refresh_offset_end">160</integer>
 
 </resources>

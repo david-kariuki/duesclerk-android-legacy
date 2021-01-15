@@ -55,7 +55,6 @@ public class NetworkUrls {
         // URL to switch account type
         public static final String URL_SWITCH_ACCOUNT_TYPE = FOLDER_CONTROLLERS_USER
                 + "switchAccountType.php";
-
     }
 
     /**
@@ -73,5 +72,13 @@ public class NetworkUrls {
         // URL to fetch users contacts
         public static final String URL_FETCH_USER_CONTACTS = FOLDER_CONTROLLERS_CONTACTS +
                 "fetchUserContacts.php";
+
+        // URL to fetch contact data
+        public static final String URL_FETCH_CONTACT_DATA = FOLDER_CONTROLLERS_CONTACTS +
+                "fetchContactData.php";
+
+        // URL to add contacts debt
+        public static final String URL_ADD_CONTACTS_DEBT = FOLDER_CONTROLLERS_CONTACTS +
+                "addContactsDebt.php";
     }
 }

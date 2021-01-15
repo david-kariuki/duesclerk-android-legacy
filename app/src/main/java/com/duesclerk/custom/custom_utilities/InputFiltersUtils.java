@@ -1,7 +1,6 @@
 package com.duesclerk.custom.custom_utilities;
 
 import android.content.Context;
-import android.text.Editable;
 import android.text.InputFilter;
 import android.util.Patterns;
 import android.widget.EditText;
@@ -109,89 +108,6 @@ public class InputFiltersUtils {
     };
 
     /**
-     * This function prevents the username from starting with a period
-     * If a period is detected as the first character, it will be deleted
-     *
-     * @param context  - for Toast
-     * @param editable - Changing text
-     * @param editText - associated input field
-     */
-    public static void blockLeadingPeriod(Context context, Editable editable, EditText editText) {
-
-        if (editable.length() > 0) {
-            if (String.valueOf(editable.charAt(0)).equals(".")) {
-                String currentValue, trimmed;
-                if (editable.length() > 0) {
-                    currentValue = editable.toString();
-                    trimmed = currentValue.substring(1); // Remove leading period
-                    editText.setText(null);
-
-                    for (int i = 0; i < trimmed.length(); i++) {
-                        char c = trimmed.charAt(i);
-                        editText.append(String.valueOf(c)); // Set char to textView
-                    }
-
-                } else {
-
-                    editText.setText(null); // Clear text
-                }
-
-                CustomToast.errorMessage(context, DataUtils.getStringResource(context,
-                        R.string.error_cannot_start_with_a_period,
-                        R.string.hint_usernames), 0);
-            }
-        }
-    }
-
-    /**
-     * This function prevents repetition of periods after the first position
-     * It checks for the length of username if greater than 2
-     * It gets the last and second last characters and checks if both are periods
-     * It will delete the last period if the second last character was also a period
-     *
-     * @param context  - for Toast
-     * @param editable - Changing text
-     * @param editText - associated input field
-     */
-    public static void blockRecurringPeriods(Context context, Editable editable,
-                                             EditText editText) {
-
-        if (editable.length() > 0) {
-            if (editable.length() > 2) {
-
-                String currentValue, trimmed;
-
-                char last, secondLast;
-                secondLast = editable.charAt(editable.length() - 2); // Get second last character
-                last = editable.charAt(editable.length() - 1); // Get last character
-
-                if (String.valueOf(secondLast).equals(".")) {
-                    if (String.valueOf(last).equals(".")) {
-
-                        currentValue = editable.toString(); // Get current value
-
-                        // Remove last period
-                        trimmed = currentValue.substring(0, editable.length() - 1);
-
-                        editText.setText(null); // Clear text
-
-                        for (int i = 0; i < trimmed.length(); i++) {
-
-                            char c = trimmed.charAt(i); // Get character at position
-                            editText.append(String.valueOf(c)); // Set char to textView
-                        }
-
-                        CustomToast.errorMessage(context, DataUtils.getStringResource(context,
-                                R.string.error_periods_cannot_be_repeated_in,
-                                DataUtils.getStringResource(context, R.string.hint_usernames).toLowerCase()),
-                                0);
-                    }
-                }
-            }
-        }
-    }
-
-    /**
      * Function to check persons name length and notify on error
      *
      * @param context     - Context to get string resources
@@ -260,9 +176,9 @@ public class InputFiltersUtils {
     }
 
     /**
-     * Function to check business name length
+     * Function to check business name length then notify on error
      *
-     * @param context  - context used to show toast
+     * @param context  - To show toast
      * @param editText - Character Sequence
      *
      * @return boolean
@@ -290,9 +206,9 @@ public class InputFiltersUtils {
     }
 
     /**
-     * Function to check business name length
+     * Function to check business name length then notify on error
      *
-     * @param context  - context used to show toast
+     * @param context  - To show toast
      * @param editText - Character Sequence
      *
      * @return boolean
@@ -321,9 +237,9 @@ public class InputFiltersUtils {
 
 
     /**
-     * Function to check email address length and format validity
+     * Function to check email address length and format validity then notify on error
      *
-     * @param context      - context used to show toast
+     * @param context      - To show toast
      * @param emailAddress - String email address
      *
      * @return boolean
@@ -348,9 +264,9 @@ public class InputFiltersUtils {
 
 
     /**
-     * Function to check email address length and format validity
+     * Function to check email address length and format validity then notify on error
      *
-     * @param context  - context used to show toast
+     * @param context  - To show toast
      * @param editText - Character Sequence
      *
      * @return boolean
@@ -381,7 +297,7 @@ public class InputFiltersUtils {
 
 
     /**
-     * Function to check phone number length and format validity
+     * Function to check phone number length and format validity then notify on error
      *
      * @param context     - Context used to show toast
      * @param phoneNumber - String phone number
@@ -408,9 +324,9 @@ public class InputFiltersUtils {
     }
 
     /**
-     * Function to check phone number length and format validity
+     * Function to check phone number length and format validity then notify on error
      *
-     * @param context  - context used to show toast
+     * @param context  - To show toast
      * @param editText - Character Sequence
      *
      * @return boolean
@@ -441,9 +357,9 @@ public class InputFiltersUtils {
     }
 
     /**
-     * Function to check phone number length and format validity
+     * Function to check phone number length and format validity then notify on error
      *
-     * @param context  - context used to show toast
+     * @param context  - To show toast
      * @param editText - Character Sequence
      *
      * @return boolean
@@ -472,9 +388,9 @@ public class InputFiltersUtils {
     }
 
     /**
-     * Function to check phone number length and format validity
+     * Function to compare current and new password then notify on error
      *
-     * @param context             - context used to show toast
+     * @param context             - To show toast
      * @param editCurrentPassword - Character Sequence
      *
      * @return boolean
@@ -503,6 +419,15 @@ public class InputFiltersUtils {
         return false; // Return false on value not acceptable
     }
 
+    /**
+     * Function to compare new passwords then notify on error
+     *
+     * @param context             - To show toast
+     * @param editNewPassword     - New password
+     * @param editConfirmPassword - Confirmation of new password
+     *
+     * @return boolean
+     */
     public static boolean compareNewPasswords(@NonNull Context context,
                                               @NonNull EditText editNewPassword,
                                               @NonNull EditText editConfirmPassword) {
@@ -528,9 +453,9 @@ public class InputFiltersUtils {
     }
 
     /**
-     * Function to check country length
+     * Function to check country length then notify on error
      *
-     * @param context  - context used to show toast
+     * @param context  - To show toast
      * @param editText - Character Sequence
      *
      * @return boolean
@@ -555,65 +480,9 @@ public class InputFiltersUtils {
     }
 
     /**
-     * Function to check city length
+     * Function to check verification code length then notify on error
      *
-     * @param context  - context used to show toast
-     * @param editText - Character Sequence
-     *
-     * @return boolean
-     */
-    public static boolean checkCityLengthNotify(@NonNull Context context,
-                                                @NonNull EditText editText) {
-
-        if (!(Objects.requireNonNull(editText.getText()).length() > 0)) {
-
-            // Toast error message
-            CustomToast.errorMessage(context, DataUtils.getStringResource(context,
-                    R.string.error_city_null), R.drawable.ic_baseline_location_city_24_white);
-
-            editText.requestFocus(); // Request focus
-            editText.setError(null); // Enable error icon
-
-        } else {
-
-            return true; // Return true on value acceptable
-        }
-
-        return false; // Return false on value not acceptable
-    }
-
-    /**
-     * Function to check date of birth length
-     *
-     * @param context  - context used to show toast
-     * @param editText - Character Sequence
-     *
-     * @return boolean
-     */
-    public static boolean checkDateOfBirthLengthNotify(@NonNull Context context,
-                                                       @NonNull EditText editText) {
-
-        if (!(Objects.requireNonNull(editText.getText()).length() > 0)) {
-
-            // Toast error message
-            CustomToast.errorMessage(context, DataUtils.getStringResource(context,
-                    R.string.error_date_of_birth_null),
-                    R.drawable.ic_baseline_calendar_today_24_white);
-
-            editText.setError(null); // Enable error icon
-
-        } else {
-
-            return true; // Return true on value acceptable
-        }
-
-        return false; // Return false on value not acceptable
-    }
-
-    /**
-     * Function to check business name length
-     *
-     * @param context  - context used to show toast
+     * @param context  - To show toast
      * @param editText - Character Sequence
      *
      * @return boolean
@@ -642,4 +511,93 @@ public class InputFiltersUtils {
         return false; // Return false on value not acceptable
     }
 
+    /**
+     * Function to check debt amount length then notify on error
+     *
+     * @param context  - To show toast
+     * @param editText - Character Sequence
+     *
+     * @return boolean
+     */
+    public static boolean checkDebtAmountLengthNotify(Context context,
+                                                      @NonNull EditText editText) {
+
+        if (Objects.requireNonNull(editText.getText()).length() == 0) {
+
+            // Toast error message
+            CustomToast.errorMessage(context, DataUtils.getStringResource(context,
+                    R.string.error_debt_amount_null),
+                    R.drawable.ic_baseline_attach_money_24_white);
+
+            // Enable error icon
+            editText.setError(DataUtils.getStringResource(context,
+                    R.string.error_debt_amount_null));
+
+        } else {
+
+            return true; // Return true on value acceptable
+        }
+
+        return false; // Return false on value not acceptable
+    }
+
+    /**
+     * Function to check debt date issued then notify on error
+     *
+     * @param context  - To show toast
+     * @param editText - Character Sequence
+     *
+     * @return boolean
+     */
+    public static boolean checkDebtDateIssuedNotify(Context context,
+                                                    @NonNull EditText editText) {
+
+        if (Objects.requireNonNull(editText.getText()).length() == 0) {
+
+            // Toast error message
+            CustomToast.errorMessage(context, DataUtils.getStringResource(context,
+                    R.string.error_debt_date_issued_null),
+                    R.drawable.ic_baseline_calendar_today_24_white);
+
+            // Enable error icon
+            editText.setError(DataUtils.getStringResource(context,
+                    R.string.error_debt_date_issued_null));
+
+        } else {
+
+            return true; // Return true on value acceptable
+        }
+
+        return false; // Return false on value not acceptable
+    }
+
+    /**
+     * Function to check debt date due then notify on error
+     *
+     * @param context  - To show toast
+     * @param editText - Character Sequence
+     *
+     * @return boolean
+     */
+    public static boolean checkDebtDateDueNotify(Context context,
+                                                 @NonNull EditText editText) {
+
+        if (Objects.requireNonNull(editText.getText()).length() == 0) {
+
+            // Toast error message
+            CustomToast.errorMessage(context, DataUtils.getStringResource(context,
+                    R.string.error_debt_date_due_null),
+                    R.drawable.ic_baseline_date_range_24_white);
+
+            // Enable error icon
+            editText.setError(DataUtils.getStringResource(context,
+                    R.string.error_debt_date_due_null));
+
+        } else {
+
+            return true; // Return true on value acceptable
+        }
+
+        return false; // Return false on value not acceptable
+    }
 }
