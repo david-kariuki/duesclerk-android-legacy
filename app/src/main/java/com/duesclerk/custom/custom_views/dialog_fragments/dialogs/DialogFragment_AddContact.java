@@ -68,7 +68,7 @@ public class DialogFragment_AddContact extends DialogFragment {
     private final LayoutInflater inflater;
     private final Context mContext;
     private final int mainActivityTabPosition;
-    private EditText editContactsFullName, editContactsPhoneNumber, editEmailAddress, editContactAddress;
+    private EditText editContactFullName, editContactPhoneNumber, editEmailAddress, editContactAddress;
     private String contactsEmailAddress, contactsAddress, contactType;
     private ProgressDialog progressDialog;
 
@@ -76,6 +76,7 @@ public class DialogFragment_AddContact extends DialogFragment {
      * Class constructor
      */
     public DialogFragment_AddContact(Context context, int tabPosition) {
+
         this.mContext = context;
         this.mainActivityTabPosition = tabPosition;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -91,21 +92,21 @@ public class DialogFragment_AddContact extends DialogFragment {
                 R.layout.dialog_add_contact, null, false);
 
         // ImageViews
-        ImageView imageAddContact = dialogView.findViewById(R.id.imageAddPerson_AddContact);
+        ImageView imageAddContact = dialogView.findViewById(R.id.imageAddContact_AddContact);
 
         // EditTexts
-        this.editContactsFullName = dialogView.findViewById(R.id.editAddPerson_FullName);
-        this.editContactsPhoneNumber = dialogView.findViewById(R.id.editAddPerson_PhoneNumber);
-        this.editEmailAddress = dialogView.findViewById(R.id.editAddPerson_EmailAddress);
-        this.editContactAddress = dialogView.findViewById(R.id.editAddPerson_PersonsAddress);
+        this.editContactFullName = dialogView.findViewById(R.id.editAddContact_FullName);
+        this.editContactPhoneNumber = dialogView.findViewById(R.id.editAddContact_PhoneNumber);
+        this.editEmailAddress = dialogView.findViewById(R.id.editAddContact_EmailAddress);
+        this.editContactAddress = dialogView.findViewById(R.id.editAddContact_Address);
 
         // LinearLayouts
-        LinearLayout llCancel = dialogView.findViewById(R.id.llAddPerson_Cancel);
-        LinearLayout llAddPerson = dialogView.findViewById(R.id.llAddPerson_Add);
+        LinearLayout llCancel = dialogView.findViewById(R.id.llAddContact_Cancel);
+        LinearLayout llAddContact = dialogView.findViewById(R.id.llAddContact_Add);
 
         // Radio buttons
-        RadioButton radioOwingMe = dialogView.findViewById(R.id.radioAddPerson_OwingMe);
-        RadioButton radioPeopleIOwe = dialogView.findViewById(R.id.radioAddPerson_PeopleIOwe);
+        RadioButton radioOwingMe = dialogView.findViewById(R.id.radioAddContact_OwingMe);
+        RadioButton radioPeopleIOwe = dialogView.findViewById(R.id.radioAddContact_PeopleIOwe);
 
         // Initialize ProgressDialog
         this.progressDialog = ViewsUtils.initProgressDialog(requireActivity(), false);
@@ -180,8 +181,8 @@ public class DialogFragment_AddContact extends DialogFragment {
         // Cancel onClick
         llCancel.setOnClickListener(v -> dismiss()); // Dismiss dialog
 
-        // Add person onClick
-        llAddPerson.setOnClickListener(v -> {
+        // Add contact onClick
+        llAddContact.setOnClickListener(v -> {
 
             // Check fields
             if (checkFieldInputs()) {
@@ -202,8 +203,8 @@ public class DialogFragment_AddContact extends DialogFragment {
                 }
 
                 String userId = database.getUserAccountInfo(null).get(0).getUserId();
-                String contactsFullName = editContactsFullName.getText().toString();
-                String contactsPhoneNumber = editContactsPhoneNumber.getText().toString();
+                String contactsFullName = editContactFullName.getText().toString();
+                String contactsPhoneNumber = editContactPhoneNumber.getText().toString();
 
                 // Add/Upload  contact
                 this.addContact(userId, contactsFullName, contactsPhoneNumber);
@@ -211,7 +212,6 @@ public class DialogFragment_AddContact extends DialogFragment {
             }
         });
 
-        // Remove dialog, title, set background to transparent and set dialog view
         // Remove window title
         dialogAddContact.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
@@ -247,22 +247,22 @@ public class DialogFragment_AddContact extends DialogFragment {
             if (!DataUtils.isEmptyString(savedContactsFullName)) {
 
                 // Set contacts full name
-                editContactsFullName.setText(savedContactsFullName);
+                editContactFullName.setText(savedContactsFullName);
             }
             if (!DataUtils.isEmptyString(savedContactsPhoneNumber)) {
 
                 // Set contacts phone number
-                editContactsFullName.setText(savedContactsPhoneNumber);
+                editContactFullName.setText(savedContactsPhoneNumber);
             }
             if (!DataUtils.isEmptyString(savedContactsEmailAddress)) {
 
                 // Set contacts email address
-                editContactsFullName.setText(savedContactsEmailAddress);
+                editContactFullName.setText(savedContactsEmailAddress);
             }
             if (!DataUtils.isEmptyString(savedContactsAddress)) {
 
                 // Set contacts address
-                editContactsFullName.setText(savedContactsAddress);
+                editContactFullName.setText(savedContactsAddress);
             }
         }
     }
@@ -273,18 +273,18 @@ public class DialogFragment_AddContact extends DialogFragment {
         // Save dialog inputs to outState
 
         // Check for field values and set to outState
-        if (!DataUtils.isEmptyEditText(editContactsFullName)) {
+        if (!DataUtils.isEmptyEditText(editContactFullName)) {
 
             // Get and put contacts full name
             outState.putString(ContactUtils.FIELD_CONTACT_FULL_NAME,
-                    editContactsFullName.getText().toString());
+                    editContactFullName.getText().toString());
         }
 
-        if (!DataUtils.isEmptyEditText(editContactsPhoneNumber)) {
+        if (!DataUtils.isEmptyEditText(editContactPhoneNumber)) {
 
             // Get and put contacts phone number
             outState.putString(ContactUtils.FIELD_CONTACT_PHONE_NUMBER,
-                    editContactsPhoneNumber.getText().toString());
+                    editContactPhoneNumber.getText().toString());
         }
 
         if (!DataUtils.isEmptyEditText(editEmailAddress)) {
@@ -329,34 +329,34 @@ public class DialogFragment_AddContact extends DialogFragment {
     private void clearFieldInputsFocusAndError() {
 
         // Clear EditText inputs
-        editContactsFullName.setText(null);
-        editContactsPhoneNumber.setText(null);
+        editContactFullName.setText(null);
+        editContactPhoneNumber.setText(null);
         editEmailAddress.setText(null);
         editContactAddress.setText(null);
 
         // Clear EditText focus
-        editContactsFullName.clearFocus();
-        editContactsPhoneNumber.clearFocus();
+        editContactFullName.clearFocus();
+        editContactPhoneNumber.clearFocus();
         editEmailAddress.clearFocus();
         editContactAddress.clearFocus();
 
         // Clear EditText error
-        editContactsFullName.setError(null);
-        editContactsPhoneNumber.setError(null);
+        editContactFullName.setError(null);
+        editContactPhoneNumber.setError(null);
         editEmailAddress.setError(null);
         editContactAddress.setError(null);
     }
 
     /**
-     * Function to check names and password fields lengths and values and notify by toast on error
+     * Function to check field lengths and values and notify by toast on error
      */
     private boolean checkFieldInputs() {
         boolean fieldOk;
 
 
         fieldOk = (checkContactType()
-                && InputFiltersUtils.checkFullNameLengthNotify(mContext, editContactsFullName)
-                && InputFiltersUtils.checkPhoneNumberValidNotify(mContext, editContactsPhoneNumber)
+                && InputFiltersUtils.checkFullNameLengthNotify(mContext, editContactFullName)
+                && InputFiltersUtils.checkPhoneNumberValidNotify(mContext, editContactPhoneNumber)
         );
 
         // Validate email address
@@ -406,13 +406,13 @@ public class DialogFragment_AddContact extends DialogFragment {
             // Check for full name
             if (!DataUtils.isEmptyString(fullName)) {
 
-                editContactsFullName.setText(fullName); // Set full name
+                editContactFullName.setText(fullName); // Set full name
             }
 
             // Check for phone number
             if (!DataUtils.isEmptyString(phoneNumber)) {
 
-                editContactsPhoneNumber.setText(phoneNumber); // Set phone number
+                editContactPhoneNumber.setText(phoneNumber); // Set phone number
             }
 
             // Check for email address
@@ -755,8 +755,8 @@ public class DialogFragment_AddContact extends DialogFragment {
      * Function to add contact to remote database
      *
      * @param userId              - Users id
-     * @param contactsFullName    - Persons / Contacts full name
-     * @param contactsPhoneNumber - Persons / Contacts phone number
+     * @param contactsFullName    - Contacts full name
+     * @param contactsPhoneNumber - Contacts phone number
      */
     private void addContact(final String userId, final String contactsFullName,
                             final String contactsPhoneNumber) {
@@ -820,7 +820,7 @@ public class DialogFragment_AddContact extends DialogFragment {
                             dismiss(); // Dismiss dialog
                         }
                     } else {
-                        // Error updating details
+                        // Error adding contact
 
                         String errorMessage = jsonObject.getString(
                                 VolleyUtils.KEY_ERROR_MESSAGE);
@@ -829,7 +829,7 @@ public class DialogFragment_AddContact extends DialogFragment {
                         CustomToast.errorMessage(
                                 mContext,
                                 errorMessage,
-                                R.drawable.ic_baseline_edit_24_white);
+                                R.drawable.ic_baseline_person_add_alt_1_24_white);
 
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(

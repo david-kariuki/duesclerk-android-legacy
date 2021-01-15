@@ -41,7 +41,7 @@
                 app:layout_constraintVertical_bias="-1" />
 
             <ImageView
-                android:id="@+id/imageAddPerson_AddContact"
+                android:id="@+id/imageAddContact_AddContact"
                 android:layout_width="@dimen/dimen_icon_size_small"
                 android:layout_height="@dimen/dimen_icon_size_small"
                 android:layout_marginEnd="15dp"
@@ -118,7 +118,7 @@
                                 android:orientation="horizontal">
 
                                 <RadioButton
-                                    android:id="@+id/radioAddPerson_OwingMe"
+                                    android:id="@+id/radioAddContact_OwingMe"
                                     android:layout_width="@dimen/dimen_icon_size_small"
                                     android:layout_height="@dimen/dimen_icon_size_small"
                                     android:buttonTint="@color/colorPrimary"
@@ -133,7 +133,7 @@
                                     android:textColor="@color/colorPrimaryGrey" />
 
                                 <RadioButton
-                                    android:id="@+id/radioAddPerson_PeopleIOwe"
+                                    android:id="@+id/radioAddContact_PeopleIOwe"
                                     android:layout_width="@dimen/dimen_icon_size_small"
                                     android:layout_height="@dimen/dimen_icon_size_small"
                                     android:layout_marginStart="15dp"
@@ -197,8 +197,8 @@
                                         android:src="@drawable/ic_baseline_person_24_primary" />
 
                                     <EditText
-                                        android:id="@+id/editAddPerson_FullName"
-                                        style="@style/Style_SignInSignUpProfile_TextInputLayout"
+                                        android:id="@+id/editAddContact_FullName"
+                                        style="@style/Style_TextInputLayout"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:autofillHints="@string/hint_first_name"
@@ -264,8 +264,8 @@
                                         android:src="@drawable/ic_baseline_phone_24_primary" />
 
                                     <EditText
-                                        android:id="@+id/editAddPerson_PhoneNumber"
-                                        style="@style/Style_SignInSignUpProfile_TextInputLayout"
+                                        android:id="@+id/editAddContact_PhoneNumber"
+                                        style="@style/Style_TextInputLayout"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:layout_marginStart="0dp"
@@ -340,8 +340,8 @@
                                         android:src="@drawable/ic_baseline_email_24_primary" />
 
                                     <EditText
-                                        android:id="@+id/editAddPerson_EmailAddress"
-                                        style="@style/Style_SignInSignUpProfile_TextInputLayout"
+                                        android:id="@+id/editAddContact_EmailAddress"
+                                        style="@style/Style_TextInputLayout"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:autofillHints="@string/hint_email_address"
@@ -400,8 +400,8 @@
                                         android:src="@drawable/ic_address_100px_primary" />
 
                                     <EditText
-                                        android:id="@+id/editAddPerson_PersonsAddress"
-                                        style="@style/Style_SignInSignUpProfile_TextInputLayout"
+                                        android:id="@+id/editAddContact_Address"
+                                        style="@style/Style_TextInputLayout"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:autofillHints=""
@@ -448,7 +448,7 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:id="@+id/llAddPerson_Cancel"
+                            android:id="@+id/llAddContact_Cancel"
                             style="@style/Style_CustomButton_Container_Stroke_Dotted_Primary_Dark"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -468,7 +468,7 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/llAddPerson_Add"
+                            android:id="@+id/llAddContact_Add"
                             style="@style/Style_CustomButton_Container_Fill_Primary_Dark"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

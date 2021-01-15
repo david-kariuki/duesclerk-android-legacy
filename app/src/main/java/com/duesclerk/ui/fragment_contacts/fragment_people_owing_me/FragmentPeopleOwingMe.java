@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -88,8 +87,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
                 false);
 
         // Initialize And Set Item Decorator
-        Decorators decorators = new Decorators(
-                FragmentPeopleOwingMe.this);
+        Decorators decorators = new Decorators(FragmentPeopleOwingMe.this);
 
         recyclerView.addItemDecoration(decorators); // Add item decoration
         recyclerView.setLayoutManager(layoutManager); // Set layout manager
@@ -213,7 +211,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
         super.onStart();
 
         // Register broadcast
-        BroadCastUtils.registerRefreshBroadCasts(requireActivity(), bcrReloadContacts,
+        BroadCastUtils.registerBroadCasts(requireActivity(), bcrReloadContacts,
                 BroadCastUtils.bcrActionReloadPeopleOwingMe);
 
         if (DataUtils.isEmptyArrayList(fetchedContacts)) {
@@ -228,7 +226,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
         super.onStop();
 
         // Unregister BroadcastReceiver
-        BroadCastUtils.unRegisterRefreshBroadCast(requireActivity(), bcrReloadContacts);
+        BroadCastUtils.unRegisterBroadCast(requireActivity(), bcrReloadContacts);
     }
 
     /**
@@ -272,11 +270,8 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
                 rvlaContacts.setHasStableIds(true); // Set has stable ids
             }
 
-            // Setting Adapter to RecyclerView
-            recyclerView.setAdapter(rvlaContacts);
-
-            // Notify Data Set Changed
-            rvlaContacts.notifyDataSetChanged();
+            recyclerView.setAdapter(rvlaContacts); // Setting Adapter to RecyclerView
+            rvlaContacts.notifyDataSetChanged(); // Notify Data Set Changed
         }
     }
 

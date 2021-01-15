@@ -133,7 +133,8 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
     public void onViewDetachedFromWindow(final @NotNull
                                                  RecyclerViewHolder holder) {
         super.onViewDetachedFromWindow(holder);
-        holder.clearAnimation();
+
+        holder.clearAnimation(); // Clear animation
     }
 
     // Animating single element
@@ -144,8 +145,9 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
             Animation animation = AnimationUtils.loadAnimation(this.mContext,
                     android.R.anim.slide_in_left);
 
-            viewToAnimate.startAnimation(animation);
-            this.lastPosition = position;
+            viewToAnimate.startAnimation(animation); // Start animation
+
+            this.lastPosition = position; // Set position to last position
         }
     }
 

@@ -48,7 +48,7 @@
 
                     <View
                         style="@style/Style_Shimmer_TextView_Labels"
-                        android:layout_width="@dimen/dimen_shimmer_text_view_width"
+                        android:layout_width="@dimen/dimen_shimmer_text_view_width_medium"
                         android:layout_height="@dimen/dimen_shimmer_text_view_height"
                         android:layout_marginStart="20dp"
                         android:layout_marginBottom="5dp" />
@@ -96,7 +96,7 @@
 
                     <View
                         style="@style/Style_Shimmer_TextView_Labels"
-                        android:layout_width="@dimen/dimen_shimmer_text_view_width"
+                        android:layout_width="@dimen/dimen_shimmer_text_view_width_medium"
                         android:layout_height="@dimen/dimen_shimmer_text_view_height"
                         android:layout_marginStart="20dp"
                         android:layout_marginBottom="5dp" />
@@ -175,7 +175,7 @@
 
                     <View
                         style="@style/Style_Shimmer_TextView_Labels"
-                        android:layout_width="@dimen/dimen_shimmer_text_view_width"
+                        android:layout_width="@dimen/dimen_shimmer_text_view_width_medium"
                         android:layout_height="@dimen/dimen_shimmer_text_view_height"
                         android:layout_marginStart="20dp"
                         android:layout_marginBottom="5dp" />
@@ -254,7 +254,7 @@
 
                     <View
                         style="@style/Style_Shimmer_TextView_Labels"
-                        android:layout_width="@dimen/dimen_shimmer_text_view_width"
+                        android:layout_width="@dimen/dimen_shimmer_text_view_width_medium"
                         android:layout_height="@dimen/dimen_shimmer_text_view_height"
                         android:layout_marginStart="20dp"
                         android:layout_marginBottom="5dp" />
@@ -311,7 +311,7 @@
 
                     <View
                         style="@style/Style_Shimmer_TextView_Labels"
-                        android:layout_width="@dimen/dimen_shimmer_text_view_width"
+                        android:layout_width="@dimen/dimen_shimmer_text_view_width_medium"
                         android:layout_height="@dimen/dimen_shimmer_text_view_height"
                         android:layout_marginStart="20dp"
                         android:layout_marginBottom="5dp" />
@@ -359,7 +359,7 @@
 
                     <View
                         style="@style/Style_Shimmer_TextView_Labels"
-                        android:layout_width="@dimen/dimen_shimmer_text_view_width"
+                        android:layout_width="@dimen/dimen_shimmer_text_view_width_medium"
                         android:layout_height="@dimen/dimen_shimmer_text_view_height"
                         android:layout_marginStart="20dp"
                         android:layout_marginBottom="5dp" />
@@ -385,7 +385,7 @@
 
                         <View
                             style="@style/Style_Shimmer_TextView_Labels"
-                            android:layout_width="@dimen/dimen_shimmer_text_view_width"
+                            android:layout_width="@dimen/dimen_shimmer_text_view_width_medium"
                             android:layout_height="@dimen/dimen_shimmer_text_view_height" />
                     </LinearLayout>
                 </LinearLayout>
@@ -407,7 +407,7 @@
 
                     <View
                         style="@style/Style_Shimmer_TextView_Labels"
-                        android:layout_width="@dimen/dimen_shimmer_text_view_width"
+                        android:layout_width="@dimen/dimen_shimmer_text_view_width_medium"
                         android:layout_height="@dimen/dimen_shimmer_text_view_height"
                         android:layout_marginStart="20dp"
                         android:layout_marginBottom="5dp" />
@@ -433,7 +433,7 @@
 
                         <View
                             style="@style/Style_Shimmer_TextView_Labels"
-                            android:layout_width="@dimen/dimen_shimmer_text_view_width"
+                            android:layout_width="@dimen/dimen_shimmer_text_view_width_medium"
                             android:layout_height="@dimen/dimen_shimmer_text_view_height" />
                     </LinearLayout>
                 </LinearLayout>

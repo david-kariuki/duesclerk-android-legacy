@@ -128,7 +128,7 @@ public class FetchContactsClass {
             }, volleyError -> {
 
                 // Log Response
-                //Log.e(TAG, "Fetch contacts response error : "
+                // Log.e(TAG, "Fetch contacts response error : "
                 //      + volleyError.getMessage());
 
                 // Hide SwipeRefreshLayout

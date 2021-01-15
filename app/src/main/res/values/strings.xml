@@ -104,6 +104,8 @@
     <string name="action_send_code">Send code</string>
     <string name="action_did_not_receive_code">I did not receive my code!</string>
     <string name="action_add_contact">Add contact</string>
+    <string name="action_add_debt">Add debt</string>
+    <string name="action_debt">Add contact</string>
     <string name="action_goto_settings">GOTO SETTINGS</string>
 
     <!--Labels-->
@@ -116,6 +118,7 @@
     <string name="label_enter_email_address">Enter email address</string>
     <string name="label_create_password">Create Password</string>
     <string name="label_add_contact_or_person">Add contact or person</string>
+    <string name="label_add_debt">Add debt</string>
     <string name="label_grant_permissions">Grant Permissions</string>
 
     <!--Messages-->
@@ -149,6 +152,7 @@
     <string name="msg_enter_verification_code_to_verify_account">Please enter the code below to verify your account.</string>
     <string name="msg_grant_permission_message">This application needs %1$s permission to %2$s. You can grant them in the app settings.</string>
     <string name="msg_contacts_empty">You have not added any contacts yet.\nAll your saved contacts will be shown here.\n\nYou can add new ones.</string>
+    <string name="msg_debts_empty">No debts found for %1$s.\nAll added debts will be shown here.\n\nYou can add new ones.</string>
 
     <!--Permissions tags and purpose messages-->
     <string name="msg_grant_permission_title">Grant %1$s Permissions.</string>

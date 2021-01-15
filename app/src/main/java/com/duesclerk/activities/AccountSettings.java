@@ -95,7 +95,7 @@ public class AccountSettings extends AppCompatActivity {
         super.onStart();
 
         // Register broadcast
-        BroadCastUtils.registerRefreshBroadCasts(AccountSettings.this, bcrSetActionText,
+        BroadCastUtils.registerBroadCasts(AccountSettings.this, bcrSetActionText,
                 BroadCastUtils.bcrActionSetSwitchAccountTypeActionText);
     }
 
@@ -104,7 +104,7 @@ public class AccountSettings extends AppCompatActivity {
         super.onStop();
 
         // Unregister BroadcastReceiver
-        BroadCastUtils.unRegisterRefreshBroadCast(AccountSettings.this, bcrSetActionText);
+        BroadCastUtils.unRegisterBroadCast(AccountSettings.this, bcrSetActionText);
     }
 
     /**

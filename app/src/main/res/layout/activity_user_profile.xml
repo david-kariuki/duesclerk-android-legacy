@@ -58,9 +58,10 @@
                     android:id="@+id/shimmerUserProfileActivity"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    style="@style/Style_ShimmerFrameLayout"
                     android:visibility="gone">
 
-                    <include layout="@layout/shimmer_placeholder_profile_activity" />
+                    <include layout="@layout/layout_shimmer_profile_activity" />
                 </com.facebook.shimmer.ShimmerFrameLayout>
             </LinearLayout>
         </com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout>

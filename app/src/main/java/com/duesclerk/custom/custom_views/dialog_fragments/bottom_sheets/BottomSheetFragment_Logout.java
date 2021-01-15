@@ -66,14 +66,10 @@ public class BottomSheetFragment_Logout extends BottomSheetDialogFragment {
             // Check if user is logged in
             if (sessionManager.isSignedIn()) {
 
-                // Check for user information
-                if (!database.isEmpty()) {
-
-                    // Delete user details from SQLite database
-                    database.deleteUserAccountInfoByUserId(
-                            database.getUserAccountInfo(null).get(0)
-                            .getUserId());
-                }
+                // Delete user details from SQLite database
+                database.deleteUserAccountInfoByUserId(
+                        database.getUserAccountInfo(null).get(0)
+                                .getUserId());
 
                 sessionManager.setSignedIn(false); // Falsify session
 

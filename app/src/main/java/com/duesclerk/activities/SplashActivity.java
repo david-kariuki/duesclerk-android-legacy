@@ -63,20 +63,21 @@ public class SplashActivity extends AppCompatActivity {
                         wait += 100;
                     }
 
+                    Intent intent;
                     if (sessionManager.isSignedIn()) {
 
                         // Launch MainActivity
-                        startActivity(new Intent(SplashActivity.this,
-                                MainActivity.class));
+                        intent = new Intent(SplashActivity.this,
+                                MainActivity.class);
 
                     } else {
 
                         // Launch Signin and SignUp activity
-                        startActivity(new Intent(SplashActivity.this,
-                                SignInSignupActivity.class));
+                        intent = new Intent(SplashActivity.this,
+                                SignInSignupActivity.class);
                     }
 
-                    SplashActivity.this.finish(); // Exit activity
+                    startActivity(intent); // Start activity
 
                 } catch (Exception ignored) {
                 } finally {

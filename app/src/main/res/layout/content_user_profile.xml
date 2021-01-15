@@ -76,7 +76,7 @@
 
                         <EditText
                             android:id="@+id/editUserProfileActivity_BusinessName"
-                            style="@style/Style_SignInSignUpProfile_TextInputLayout"
+                            style="@style/Style_TextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:autofillHints=""
@@ -132,7 +132,7 @@
 
                         <EditText
                             android:id="@+id/editUserProfileActivity_FirstName"
-                            style="@style/Style_SignInSignUpProfile_TextInputLayout"
+                            style="@style/Style_TextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:autofillHints=""
@@ -172,7 +172,7 @@
 
                         <EditText
                             android:id="@+id/editUserProfileActivity_LastName"
-                            style="@style/Style_SignInSignUpProfile_TextInputLayout"
+                            style="@style/Style_TextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:autofillHints=""
@@ -229,7 +229,7 @@
 
                             <EditText
                                 android:id="@+id/editUserProfileActivity_EmailAddress"
-                                style="@style/Style_SignInSignUpProfile_TextInputLayout"
+                                style="@style/Style_TextInputLayout"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentStart="true"
