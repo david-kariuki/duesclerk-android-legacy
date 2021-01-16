@@ -504,7 +504,7 @@ public class ViewsUtils {
      *
      * @param searchViewId - Associated SearchView id
      */
-    private SearchView initSearchView(Activity activity, int searchViewId) {
+    public static SearchView initSearchView(Activity activity, int searchViewId) {
 
         // Create SearchView
         SearchView searchView = activity.findViewById(searchViewId);
@@ -531,7 +531,7 @@ public class ViewsUtils {
      *
      * @param searchViewId - Associated SearchView id
      */
-    private SearchView initSearchView(Context context, View view, int searchViewId) {
+    public static SearchView initSearchView(Context context, View view, int searchViewId) {
 
         // Create SearchView
         SearchView searchView = view.findViewById(searchViewId);
@@ -546,6 +546,11 @@ public class ViewsUtils {
         // Set SearchView text color
         textView.setTextColor(DataUtils.getColorResource(context,
                 R.color.colorBlack));
+
+        // Set text hint color
+        textView.setHintTextColor(DataUtils.getColorResource(context,
+                R.color.colorBlack));
+
 
         searchView.setIconifiedByDefault(false); // Disable iconified
         searchView.clearFocus(); // Clear SearchView focus

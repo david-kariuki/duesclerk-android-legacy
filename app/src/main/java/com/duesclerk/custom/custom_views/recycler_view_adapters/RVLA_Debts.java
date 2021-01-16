@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,11 +26,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHolder> {
+public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHolder> implements Filterable {
 
     private final Context mContext;
-    private final ArrayList<JB_Debts> debts;
+    private final ArrayList<JB_Debts> filterList;
+    private ArrayList<JB_Debts> debts;
     private int lastPosition = 0;
+    private DebtsFilter debtsFilter;
 
     private View viewHolderView; // ViewHolder view
 
@@ -43,6 +47,7 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
 
         this.mContext = context;
         this.debts = debts;
+        this.filterList = debts;
     }
 
     @Override
@@ -170,6 +175,17 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
             this.lastPosition = position;
         }
     }
+
+    @Override
+    public Filter getFilter() {
+
+        if (debtsFilter == null) {
+            debtsFilter = new RVLA_Debts.DebtsFilter();
+        }
+
+        return debtsFilter; // Return filter
+    }
+
     /**
      * ViewHolder class
      */
@@ -178,7 +194,7 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
 
         ConstraintLayout consContactItem;
         TextView textDebtCount, textDebtAmount, textDebtType, textDebtDescription,
-        textDateDebtIssued, textDateDebtDue;
+                textDateDebtIssued, textDateDebtDue;
         ImageView imageDropDown;
         ExpandableLayout expandableLayout;
 
@@ -214,4 +230,59 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
         }
     }
 
+    /**
+     * Debts filter class
+     */
+    @SuppressWarnings("unchecked")
+    class DebtsFilter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            FilterResults results = new FilterResults();
+
+            if (constraint != null && constraint.length() > 0) {
+
+                // Constraint to uppercase
+                constraint = constraint.toString().toUpperCase();
+
+                ArrayList<JB_Debts> filters = new ArrayList<>();
+
+                // Get specific items
+                for (int i = 0; i < filterList.size(); i++) {
+
+                    if (filterList.get(i).getDebtAmount().contains(constraint)
+                            || filterList.get(i).getDebtDescription().toUpperCase()
+                            .contains(constraint)) {
+
+                        JB_Debts jbDebts = new JB_Debts(
+                                filterList.get(i).getDebtId(),
+                                filterList.get(i).getDebtAmount(),
+                                filterList.get(i).getDebtDateIssued(),
+                                filterList.get(i).getDebtDateDue(),
+                                filterList.get(i).getDebtDescription());
+
+                        filters.add(jbDebts); // Add java bean to ArrayList
+                    }
+                }
+
+                results.count = filters.size(); // Update FilterResults count
+                results.values = filters; // Update FilterResults values
+
+            } else {
+
+                results.count = filterList.size(); // Update FilterResults count
+                results.values = filterList; // Update FilterResults values
+            }
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+
+            debts = (ArrayList<JB_Debts>) results.values; // Set values to ArrayList
+            notifyDataSetChanged(); // Notify data set changed
+        }
+    }
 }

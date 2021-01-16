@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -76,6 +77,8 @@ public class ContactDetailsDebtsActivity extends AppCompatActivity implements Ap
     private LinearLayout llNoDebts;
     private RecyclerView recyclerView;
     private BroadcastReceiver bcrReloadDebts;
+    RVLA_Debts rvlaDebts;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +92,8 @@ public class ContactDetailsDebtsActivity extends AppCompatActivity implements Ap
         appBarLayout = findViewById(R.id.appBarLayout);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshContactActivity);
 
+        LinearLayout llEditContact = findViewById(R.id.llContactActivity_EditContact);
+        LinearLayout llDeleteContact = findViewById(R.id.llContactActivity_DeleteContact);
         llContactDetails = findViewById(R.id.llContactActivity_ContactDetails);
         LinearLayout llNoConnectionTryAgain = findViewById(R.id.llNoConnection_TryAgain);
         llNoDebts = findViewById(R.id.llDebts_NoDebt);
@@ -106,6 +111,8 @@ public class ContactDetailsDebtsActivity extends AppCompatActivity implements Ap
         textNoDebtMessage = findViewById(R.id.textNoDebt_Message);
 
         shimmerContactDetails = findViewById(R.id.shimmerContactActivity);
+
+        //searchView = findViewById(R.id.searchViewContacts);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL,
                 false);
@@ -139,16 +146,17 @@ public class ContactDetailsDebtsActivity extends AppCompatActivity implements Ap
         // Get intent and values passed
         Intent intent = getIntent();
 
-        contactId = intent.getStringExtra(ContactUtils.FIELD_CONTACT_ID); // Get contact id
-        contactFullName = intent.getStringExtra(ContactUtils.FIELD_CONTACT_FULL_NAME);
-        String contactType = intent.getStringExtra(ContactUtils.FIELD_CONTACT_TYPE);
+        //contactId = intent.getStringExtra(ContactUtils.FIELD_CONTACT_ID); // Get contact id
+        //contactFullName = intent.getStringExtra(ContactUtils.FIELD_CONTACT_FULL_NAME);
+        //String contactType = intent.getStringExtra(ContactUtils.FIELD_CONTACT_TYPE);
 
-        //contactId = "contact79cd3601dd0e36b15e896665c86f94d6"; // Get contact id
-        //contactFullName = "abraham";
-        //String contactType = ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME;
+        contactId = "contact79cd3601dd0e36b15e896665c86f94d6"; // Get contact id
+        contactFullName = "abraham";
+        String contactType = ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME;
 
         // Set title
         String title = null;
+        //noinspection ConstantConditions
         if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME)) {
 
             title = DataUtils.getStringResource(mContext, R.string.title_debts_people_owing_me,
@@ -193,6 +201,25 @@ public class ContactDetailsDebtsActivity extends AppCompatActivity implements Ap
         swipeRefreshLayout.setProgressViewOffset(false,
                 DataUtils.getIntegerResource(mContext, R.integer.int_swipe_refresh_offset_start),
                 DataUtils.getIntegerResource(mContext, R.integer.int_swipe_refresh_offset_end));
+
+        // Setup SearchView
+        searchView = ViewsUtils.initSearchView(this, R.id.searchViewDebts);
+
+        // Add query text listener
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String arg0) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+
+                // Filter text input
+                rvlaDebts.getFilter().filter(query);
+                return false;
+            }
+        });
 
         // Exit onClick
         imageExit.setOnClickListener(v -> finish());
@@ -553,7 +580,7 @@ public class ContactDetailsDebtsActivity extends AppCompatActivity implements Ap
                     showRecyclerView(true); // Show RecyclerView
 
                     // Creating RecyclerView adapter object
-                    RVLA_Debts rvlaDebts = new RVLA_Debts(mContext, debtRecords);
+                    rvlaDebts = new RVLA_Debts(mContext, debtRecords);
 
                     // Check for adapter observers
                     if (!rvlaDebts.hasObservers()) {
@@ -564,6 +591,7 @@ public class ContactDetailsDebtsActivity extends AppCompatActivity implements Ap
                     recyclerView.setAdapter(rvlaDebts); // Setting Adapter to RecyclerView
                     rvlaDebts.notifyDataSetChanged(); // Notify Data Set Changed
 
+                    showSearchView(true); // Show SearchView
                 } else {
 
                     showNoDebtsLayout(true); // Show no debts view
@@ -575,6 +603,23 @@ public class ContactDetailsDebtsActivity extends AppCompatActivity implements Ap
         } else {
 
             showNoDebtsLayout(true); // Show no debts view
+        }
+    }
+
+    /**
+     * Function to show / hide SearchView
+     *
+     * @param show - boolean - (show / hide view)
+     */
+    private void showSearchView(boolean show) {
+
+        if (show) {
+
+            searchView.setVisibility(View.VISIBLE); // Show SearchView
+
+        } else {
+
+            searchView.setVisibility(View.GONE); // Hide SearchView
         }
     }
 
@@ -593,8 +638,6 @@ public class ContactDetailsDebtsActivity extends AppCompatActivity implements Ap
 
             fabAddDebt.setVisibility(View.GONE); // Hide FAB
         }
-
-        showNoConnectionLayout(!show); // Show / hide no connection layout
     }
 
     /**
@@ -674,6 +717,8 @@ public class ContactDetailsDebtsActivity extends AppCompatActivity implements Ap
 
             llNoDebts.setVisibility(View.GONE); // Hide no debts layout
         }
+
+        showSearchView(!show); // Show / Hide SearchView
     }
 
     /**

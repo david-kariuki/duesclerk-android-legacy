@@ -11,18 +11,23 @@ public class JB_Debts {
     public JB_Debts() {
     }
 
+    /**
+     * Class constructor
+     *
+     * @param debtId          - Debt id
+     * @param debtAmount      - Debt amount
+     * @param debtDateIssued  - Debt date issued
+     * @param debtDateDue     - Debt date due
+     * @param debtDescription - Debt description
+     */
     public JB_Debts(final String debtId, final String debtAmount, final String debtDateIssued,
-                    final String debtDateDue, final String debtDescription, final String contactId,
-                    final String contactType, final String userId) {
+                    final String debtDateDue, final String debtDescription) {
 
         this.debtId = debtId;
         this.debtAmount = debtAmount;
         this.debtDateIssued = debtDateIssued;
         this.debtDateDue = debtDateDue;
         this.debtDescription = debtDescription;
-        this.contactId = contactId;
-        this.contactType = contactType;
-        this.userId = userId;
     }
 
     /**

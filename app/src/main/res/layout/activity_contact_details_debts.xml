@@ -276,7 +276,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="5dp"
+                                android:layout_marginBottom="10dp"
                                 android:gravity="center"
                                 android:orientation="horizontal">
 
@@ -366,43 +366,33 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:descendantFocusability="beforeDescendants"
+                    android:focusableInTouchMode="true"
+                    android:focusedByDefault="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="15dp"
                     android:orientation="vertical">
 
-                    <LinearLayout
-                        style="@style/Style_Toolbar_Container_Medium"
+                    <SearchView
+                        android:id="@+id/searchViewDebts"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:background="@color/colorWhite"
-                        android:descendantFocusability="beforeDescendants"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:focusedByDefault="true"
-                        android:orientation="vertical">
+                        android:layout_height="35dp"
+                        android:layout_gravity="start"
+                        android:visibility="gone"
+                        android:closeIcon="@drawable/ic_baseline_close_24_primary"
+                        android:elevation="@dimen/dimen_bs_toolbar_elevation"
+                        android:gravity="start"
+                        android:queryHint="@string/hint_search_debts"
+                        android:searchHintIcon="@drawable/ic_baseline_search_24_primary_dark"
+                        android:searchIcon="@drawable/ic_baseline_search_24_primary_dark"
+                        android:theme="@style/Style_SearchView" />
 
-                        <SearchView
-                            android:id="@+id/searchViewContacts"
-                            android:layout_width="match_parent"
-                            android:layout_height="35dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="30dp"
-                            android:closeIcon="@drawable/ic_baseline_close_24_primary"
-                            android:elevation="@dimen/dimen_bs_toolbar_elevation"
-                            android:gravity="start"
-                            android:iconifiedByDefault="false"
-                            android:imeOptions="actionSearch"
-                            android:inputType="text"
-                            android:queryHint="@string/hint_search_contacts"
-                            android:searchHintIcon="@drawable/ic_baseline_search_24_primary_dark"
-                            android:searchIcon="@drawable/ic_baseline_search_24_primary_dark"
-                            android:theme="@style/AppSearchView"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </LinearLayout>
+                    <!--Toolbar divider-->
+                    <include layout="@layout/divider_toolbar_activities" />
 
                 </LinearLayout>
-
             </com.google.android.material.appbar.AppBarLayout>
 
             <include layout="@layout/content_contact_details_debts" />
