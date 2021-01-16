@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     android:background="@color/colorActivityBackground"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.ContactDetailsDebtsActivity"
-    tools:showIn="@layout/activity_contact_details_debts">
+    tools:context=".activities.ContactDetailsAndDebtsActivity"
+    tools:showIn="@layout/activity_contact_details_and_debts">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -19,6 +19,25 @@
         android:orientation="vertical"
         tools:targetApi="o">
 
+        <TextView
+            android:id="@+id/textContactDetailsAndDebtsActivity_DebtsTotalAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/label_debts_total_amount"
+            android:singleLine="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:visibility="gone"
+            app:layout_constraintHorizontal_bias="0"
+            android:textColor="@color/colorBlack"
+            android:textColorHint="@color/colorPrimaryGrey"
+            android:textSize="14sp" />
+
         <LinearLayout
             android:id="@+id/llDebts_NoDebt"
             android:layout_width="0dp"
@@ -27,7 +46,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textContactDetailsAndDebtsActivity_DebtsTotalAmount"
             app:layout_constraintVertical_bias="0">
 
             <include layout="@layout/layout_no_debts" />
@@ -38,10 +57,11 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical"
+            android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textContactDetailsAndDebtsActivity_DebtsTotalAmount"
             app:layout_constraintVertical_bias="0">
 
             <androidx.recyclerview.widget.RecyclerView

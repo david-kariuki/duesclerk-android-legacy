@@ -3,7 +3,7 @@ package com.duesclerk.custom.java_beans;
 public class JB_Contacts {
 
     String contactId, contactFullName, contactPhoneNumber, contactEmailAddress, contactAddress,
-            contactType;
+            contactType, debtsTotalAmount;
 
     /**
      * Default constructor
@@ -29,6 +29,29 @@ public class JB_Contacts {
         this.contactEmailAddress = contactEmailAddress;
         this.contactAddress = contactAddress;
         this.contactType = contactType;
+
+    }
+
+    /**
+     * JavaBean constructor
+     *
+     * @param contactFullName     - Contact full name
+     * @param contactPhoneNumber  - Contact email address
+     * @param contactEmailAddress - Contact email address
+     * @param contactAddress      - Contact address
+     * @param contactType         - Contact type
+     * @param debtsTotalAmount    - Debts total amount
+     */
+    public JB_Contacts(final String contactFullName, final String contactPhoneNumber,
+                       final String contactEmailAddress, final String contactAddress,
+                       final String contactType, final String debtsTotalAmount) {
+
+        this.contactFullName = contactFullName;
+        this.contactPhoneNumber = contactPhoneNumber;
+        this.contactEmailAddress = contactEmailAddress;
+        this.contactAddress = contactAddress;
+        this.contactType = contactType;
+        this.debtsTotalAmount = debtsTotalAmount;
 
     }
 
@@ -136,5 +159,23 @@ public class JB_Contacts {
      */
     public void setContactType(String contactType) {
         this.contactType = contactType; // Set contact type
+    }
+
+
+    /**
+     * Function to get total debts amount
+     */
+    public String getDebtsTotalAmount() {
+
+        return debtsTotalAmount; // Return total debts amount
+    }
+
+    /**
+     * Function to set total debts amount
+     *
+     * @param debtsTotalAmount - total debts amount
+     */
+    public void setDebtsTotalAmount(String debtsTotalAmount) {
+        this.debtsTotalAmount = debtsTotalAmount; // Set total debts amount
     }
 }

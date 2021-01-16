@@ -49,8 +49,8 @@ public class NetworkTags {
                 "TagStringRequestFetchUserContacts";
 
         // Tag used to cancel SignUp request
-        public static final String TAG_FETCH_CONTACT_DATA_STRING_REQUEST =
-                "TagStringRequestFetchContactData";
+        public static final String TAG_FETCH_CONTACT_DETAILS_AND_DEBTS_STRING_REQUEST =
+                "TagStringRequestFetchContactDetailsAndDebts";
 
         // Tag used to cancel add contacts debt request
         public static final String TAG_ADD_CONTACTS_DEBT_STRING_REQUEST =

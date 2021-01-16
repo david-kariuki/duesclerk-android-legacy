@@ -29,8 +29,8 @@ public class RVLA_CountryPicker extends RecyclerView.Adapter<RVLA_CountryPicker.
 
     private final Context mContext;
     private final ArrayList<JB_CountryData> filterList;
-    private ArrayList<JB_CountryData> countryData;
     private final BottomSheetFragment_CountryPicker bottomSheetFragmentCountryPicker;
+    private ArrayList<JB_CountryData> countryData;
     private CountriesFilter countriesFilter;
     private int lastPosition = 0;
     // ViewHolder view
@@ -208,7 +208,12 @@ public class RVLA_CountryPicker extends RecyclerView.Adapter<RVLA_CountryPicker.
                 // Get specific items
                 for (int i = 0; i < filterList.size(); i++) {
 
-                    if (filterList.get(i).getCountryName().toUpperCase().contains(constraint)) {
+                    if (filterList.get(i).getCountryName().toUpperCase().contains(constraint)
+                            || filterList.get(i).getCountryCode().contains(constraint)
+                            || filterList.get(i).getCountryAlpha2().toUpperCase()
+                            .contains(constraint)
+                            || filterList.get(i).getCountryAlpha3().toUpperCase()
+                            .contains(constraint)) {
 
                         JB_CountryData jbCountryData = new JB_CountryData(
                                 filterList.get(i).getCountryName(),

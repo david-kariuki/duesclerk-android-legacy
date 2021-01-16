@@ -44,6 +44,25 @@
         tools:targetApi="o">
 
         <activity
+            android:name=".activities.ContactDetailsAndDebtsActivity"
+            android:label="@string/title_activity_contact_data"
+            android:theme="@style/Theme.DuesClerk.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
+
+
+        </activity>
+
+        <activity
+            android:name="com.onegravity.contactpicker.core.ContactPickerActivity"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".activities.ForgotPasswordActivity"
             android:label="@string/title_activity_forgot_password"
             android:theme="@style/Theme.DuesClerk.NoActionBar" />

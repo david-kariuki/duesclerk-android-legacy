@@ -6,12 +6,12 @@
     android:layout_height="wrap_content"
     android:background="@color/colorActivityBackground"
     android:orientation="vertical"
-    tools:context=".activities.ContactDetailsDebtsActivity"
+    tools:context=".activities.ContactDetailsAndDebtsActivity"
     tools:ignore="UseCompoundDrawables"
     tools:targetApi="o">
 
     <RelativeLayout
-        android:id="@+id/rlContactActivity_NoConnection"
+        android:id="@+id/rlContactDetailsAndDebtsActivity_NoConnection"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -21,7 +21,7 @@
     </RelativeLayout>
 
     <com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout
-        android:id="@+id/swipeRefreshContactActivity"
+        android:id="@+id/swipeRefreshContactDetailsAndDebtsActivity"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -59,14 +59,14 @@
                             android:layout_height="@dimen/dimen_toolbar_height_medium">
 
                             <ImageView
-                                android:id="@+id/imageContactActivity_Exit"
+                                android:id="@+id/imageContactDetailsAndDebtsActivity_Exit"
                                 style="@style/Style_Toolbar_Icon_Exit"
                                 android:layout_width="@dimen/dimen_icon_size_small"
                                 android:layout_height="@dimen/dimen_icon_size_small"
                                 android:contentDescription="@string/content_description_icon_exit" />
 
                             <TextView
-                                android:id="@+id/textContactActivity_Title"
+                                android:id="@+id/textContactDetailsAndDebtsActivity_Title"
                                 style="@style/Style_Toolbar_Title_Medium_Primary_Dark"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
                         <include layout="@layout/divider_toolbar_activities" />
 
                         <com.facebook.shimmer.ShimmerFrameLayout
-                            android:id="@+id/shimmerContactActivity"
+                            android:id="@+id/shimmerContactDetailsAndDebtsActivity"
                             style="@style/Style_ShimmerFrameLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
@@ -88,7 +88,7 @@
                         </com.facebook.shimmer.ShimmerFrameLayout>
 
                         <LinearLayout
-                            android:id="@+id/llContactActivity_ContactDetails"
+                            android:id="@+id/llContactDetailsAndDebtsActivity_ContactDetails"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
@@ -102,9 +102,9 @@
                                 android:orientation="horizontal">
 
                                 <de.hdodenhof.circleimageview.CircleImageView
-                                    android:id="@+id/imageContactActivity_ContactPhoto"
-                                    android:layout_width="60dp"
-                                    android:layout_height="60dp"
+                                    android:id="@+id/imageContactDetailsAndDebtsActivity_ContactPhoto"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
                                     android:layout_marginStart="10dp"
                                     android:contentDescription="@string/content_description_icon_country_flag"
                                     android:scaleType="centerCrop"
@@ -154,11 +154,13 @@
                                             android:textSize="13sp" />
 
                                         <TextView
-                                            android:id="@+id/textContactActivity_ContactFullName"
+                                            android:id="@+id/textContactDetailsAndDebtsActivity_ContactFullName"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:hint="@string/hint_not_provided"
-                                            android:singleLine="true"
+                                            android:singleLine="false"
+                                            android:textAlignment="textStart"
+                                            android:maxLines="2"
                                             android:textColor="@color/colorBlack"
                                             android:textColorHint="@color/colorPrimaryGrey"
                                             android:textSize="14sp" />
@@ -190,7 +192,7 @@
                                             android:textSize="13sp" />
 
                                         <TextView
-                                            android:id="@+id/textContactActivity_ContactPhoneNumber"
+                                            android:id="@+id/textContactDetailsAndDebtsActivity_ContactPhoneNumber"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:hint="@string/hint_not_provided"
@@ -226,7 +228,7 @@
                                             android:textSize="13sp" />
 
                                         <TextView
-                                            android:id="@+id/textContactActivity_ContactEmailAddress"
+                                            android:id="@+id/textContactDetailsAndDebtsActivity_ContactEmailAddress"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:hint="@string/hint_not_provided"
@@ -261,7 +263,7 @@
                                             android:textSize="13sp" />
 
                                         <TextView
-                                            android:id="@+id/textContactActivity_ContactAddress"
+                                            android:id="@+id/textContactDetailsAndDebtsActivity_ContactAddress"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:hint="@string/hint_not_provided"
@@ -281,7 +283,7 @@
                                 android:orientation="horizontal">
 
                                 <LinearLayout
-                                    android:id="@+id/llContactActivity_EditContact"
+                                    android:id="@+id/llContactDetailsAndDebtsActivity_EditContact"
                                     style="@style/Style_CustomButton_Container_Stroke_Continuous_Primary"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -318,7 +320,7 @@
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:id="@+id/llContactActivity_DeleteContact"
+                                    android:id="@+id/llContactDetailsAndDebtsActivity_DeleteContact"
                                     style="@style/Style_CustomButton_Container_Stroke_Continuous_Primary"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -395,10 +397,10 @@
                 </LinearLayout>
             </com.google.android.material.appbar.AppBarLayout>
 
-            <include layout="@layout/content_contact_details_debts" />
+            <include layout="@layout/content_contact_details_and_debts" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fabContactActivity_AddDebt"
+                android:id="@+id/fabContactDetailsAndDebtsActivity_AddDebt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"

@@ -36,16 +36,13 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="15dp"
-                    android:elevation="@dimen/dimen_bs_toolbar_elevation"
                     android:closeIcon="@drawable/ic_baseline_close_24_primary"
+                    android:elevation="@dimen/dimen_bs_toolbar_elevation"
                     android:gravity="start"
-                    android:iconifiedByDefault="false"
-                    android:imeOptions="actionSearch"
-                    android:inputType="text"
                     android:queryHint="@string/hint_search_contacts"
                     android:searchHintIcon="@drawable/ic_baseline_search_24_primary_dark"
                     android:searchIcon="@drawable/ic_baseline_search_24_primary_dark"
-                    android:theme="@style/AppSearchView"
+                    android:theme="@style/Style_SearchView"
                     android:visibility="gone" />
 
                 <include layout="@layout/content_people_owing_me" />

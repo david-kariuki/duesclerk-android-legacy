@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -56,14 +55,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ContactDetailsDebtsActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
+public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
 
-    //private final String TAG = ContactDetailsDebtsActivity.class.getSimpleName(); // Get class simple name
+    //private final String TAG = ContactDetailsAndDebtsActivity.class.getSimpleName(); // Get
+    // class simple name
     RelativeLayout rlNoConnection;
     FloatingActionButton fabAddDebt;
+    RVLA_Debts rvlaDebts;
     private Context mContext;
     private TextView textContactFullName, textContactPhoneNumber, textContactEmailAddress,
-            textContactAddress, textNoDebtMessage;
+            textContactAddress, textNoDebtMessage, textDebtsTotalAmount;
     private MultiSwipeRefreshLayout swipeRefreshLayout;
     private SwipeRefreshLayout.OnRefreshListener swipeRefreshListener;
     private JSONArray fetchedContactDetails;
@@ -77,40 +78,43 @@ public class ContactDetailsDebtsActivity extends AppCompatActivity implements Ap
     private LinearLayout llNoDebts;
     private RecyclerView recyclerView;
     private BroadcastReceiver bcrReloadDebts;
-    RVLA_Debts rvlaDebts;
     private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact_details_debts);
+        setContentView(R.layout.activity_contact_details_and_debts);
 
         mContext = this; // Get application context
 
-        ImageView imageExit = findViewById(R.id.imageContactActivity_Exit);
-        TextView textTitle = findViewById(R.id.textContactActivity_Title);
+        ImageView imageExit = findViewById(R.id.imageContactDetailsAndDebtsActivity_Exit);
+        TextView textTitle = findViewById(R.id.textContactDetailsAndDebtsActivity_Title);
         appBarLayout = findViewById(R.id.appBarLayout);
-        swipeRefreshLayout = findViewById(R.id.swipeRefreshContactActivity);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshContactDetailsAndDebtsActivity);
 
-        LinearLayout llEditContact = findViewById(R.id.llContactActivity_EditContact);
-        LinearLayout llDeleteContact = findViewById(R.id.llContactActivity_DeleteContact);
-        llContactDetails = findViewById(R.id.llContactActivity_ContactDetails);
+        LinearLayout llEditContact = findViewById(
+                R.id.llContactDetailsAndDebtsActivity_EditContact);
+        LinearLayout llDeleteContact = findViewById(
+                R.id.llContactDetailsAndDebtsActivity_DeleteContact);
+
+        llContactDetails = findViewById(R.id.llContactDetailsAndDebtsActivity_ContactDetails);
         LinearLayout llNoConnectionTryAgain = findViewById(R.id.llNoConnection_TryAgain);
         llNoDebts = findViewById(R.id.llDebts_NoDebt);
         LinearLayout llAddDebt = findViewById(R.id.llNoDebts_AddDebt);
 
-        rlNoConnection = findViewById(R.id.rlContactActivity_NoConnection);
+        rlNoConnection = findViewById(R.id.rlContactDetailsAndDebtsActivity_NoConnection);
 
         recyclerView = findViewById(R.id.recyclerViewDebts);
-        fabAddDebt = findViewById(R.id.fabContactActivity_AddDebt);
+        fabAddDebt = findViewById(R.id.fabContactDetailsAndDebtsActivity_AddDebt);
 
-        textContactFullName = findViewById(R.id.textContactActivity_ContactFullName);
-        textContactPhoneNumber = findViewById(R.id.textContactActivity_ContactPhoneNumber);
-        textContactEmailAddress = findViewById(R.id.textContactActivity_ContactEmailAddress);
-        textContactAddress = findViewById(R.id.textContactActivity_ContactAddress);
+        textContactFullName = findViewById(R.id.textContactDetailsAndDebtsActivity_ContactFullName);
+        textContactPhoneNumber = findViewById(R.id.textContactDetailsAndDebtsActivity_ContactPhoneNumber);
+        textContactEmailAddress = findViewById(R.id.textContactDetailsAndDebtsActivity_ContactEmailAddress);
+        textContactAddress = findViewById(R.id.textContactDetailsAndDebtsActivity_ContactAddress);
+        textDebtsTotalAmount = findViewById(R.id.textContactDetailsAndDebtsActivity_DebtsTotalAmount);
         textNoDebtMessage = findViewById(R.id.textNoDebt_Message);
 
-        shimmerContactDetails = findViewById(R.id.shimmerContactActivity);
+        shimmerContactDetails = findViewById(R.id.shimmerContactDetailsAndDebtsActivity);
 
         //searchView = findViewById(R.id.searchViewContacts);
 
@@ -132,7 +136,7 @@ public class ContactDetailsDebtsActivity extends AppCompatActivity implements Ap
                 String action = intent.getAction(); // Get action
 
                 // Check for BroadCast action
-                if (action.equals(BroadCastUtils.bcrActionReloadContactActivity)) {
+                if (action.equals(BroadCastUtils.bcrActionReloadContactDetailsAndDebtsActivity)) {
 
                     // Start/Stop swipe SwipeRefresh
                     ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout,
@@ -146,16 +150,17 @@ public class ContactDetailsDebtsActivity extends AppCompatActivity implements Ap
         // Get intent and values passed
         Intent intent = getIntent();
 
-        //contactId = intent.getStringExtra(ContactUtils.FIELD_CONTACT_ID); // Get contact id
-        //contactFullName = intent.getStringExtra(ContactUtils.FIELD_CONTACT_FULL_NAME);
-        //String contactType = intent.getStringExtra(ContactUtils.FIELD_CONTACT_TYPE);
+        contactId = intent.getStringExtra(ContactUtils.FIELD_CONTACT_ID); // Get contact id
+        contactFullName = intent.getStringExtra(ContactUtils.FIELD_CONTACT_FULL_NAME);
+        String contactType = intent.getStringExtra(ContactUtils.FIELD_CONTACT_TYPE);
 
-        contactId = "contact79cd3601dd0e36b15e896665c86f94d6"; // Get contact id
-        contactFullName = "abraham";
-        String contactType = ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME;
+        //contactId = "contact79cd3601dd0e36b15e896665c86f94d6"; // Get contact id
+        //contactFullName = "abraham";
+        //String contactType = ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME;
 
         // Set title
         String title = null;
+
         //noinspection ConstantConditions
         if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME)) {
 
@@ -251,8 +256,8 @@ public class ContactDetailsDebtsActivity extends AppCompatActivity implements Ap
         super.onStart();
 
         // Register broadcast
-        BroadCastUtils.registerBroadCasts(ContactDetailsDebtsActivity.this, bcrReloadDebts,
-                BroadCastUtils.bcrActionReloadContactActivity);
+        BroadCastUtils.registerBroadCasts(ContactDetailsAndDebtsActivity.this, bcrReloadDebts,
+                BroadCastUtils.bcrActionReloadContactDetailsAndDebtsActivity);
 
         // Start/Stop swipe SwipeRefresh
         ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout, swipeRefreshListener);
@@ -263,7 +268,7 @@ public class ContactDetailsDebtsActivity extends AppCompatActivity implements Ap
         super.onStop();
 
         // Unregister BroadcastReceiver
-        BroadCastUtils.unRegisterBroadCast(ContactDetailsDebtsActivity.this, bcrReloadDebts);
+        BroadCastUtils.unRegisterBroadCast(ContactDetailsAndDebtsActivity.this, bcrReloadDebts);
     }
 
     @Override
@@ -324,9 +329,7 @@ public class ContactDetailsDebtsActivity extends AppCompatActivity implements Ap
 
             // Create string request
             StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                    NetworkUrls.ContactURLS.URL_FETCH_CONTACT_DATA, response -> {
-
-                Log.e("Data", response);
+                    NetworkUrls.ContactURLS.URL_FETCH_CONTACT_DETAILS_AND_DEBTS, response -> {
 
                 // Log Response
                 // Log.d(TAG, "Fetching contact data response:" + response);
@@ -370,7 +373,7 @@ public class ContactDetailsDebtsActivity extends AppCompatActivity implements Ap
 
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(
-                                NetworkTags.Contacts.TAG_FETCH_CONTACT_DATA_STRING_REQUEST);
+                                NetworkTags.Contacts.TAG_FETCH_CONTACT_DETAILS_AND_DEBTS_STRING_REQUEST);
                     }
                 } catch (Exception ignored) {
                 }
@@ -403,7 +406,7 @@ public class ContactDetailsDebtsActivity extends AppCompatActivity implements Ap
 
                 // Clear url cache
                 ApplicationClass.getClassInstance().deleteUrlVolleyCache(
-                        NetworkUrls.ContactURLS.URL_FETCH_CONTACT_DATA);
+                        NetworkUrls.ContactURLS.URL_FETCH_CONTACT_DETAILS_AND_DEBTS);
             }) {
                 @Override
                 protected void deliverResponse(String response) {
@@ -458,7 +461,7 @@ public class ContactDetailsDebtsActivity extends AppCompatActivity implements Ap
 
             // Adding request to request queue
             ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                    NetworkTags.Contacts.TAG_FETCH_CONTACT_DATA_STRING_REQUEST);
+                    NetworkTags.Contacts.TAG_FETCH_CONTACT_DETAILS_AND_DEBTS_STRING_REQUEST);
 
         } else {
 
@@ -498,12 +501,18 @@ public class ContactDetailsDebtsActivity extends AppCompatActivity implements Ap
                         ContactUtils.FIELD_CONTACT_EMAIL_ADDRESS);
                 String contactAddress = contactDetails.getString(
                         ContactUtils.FIELD_CONTACT_ADDRESS);
+                String debtsTotalAmount = DataUtils.getStringResource(
+                        mContext,
+                        R.string.label_debts_total_amount,
+                        contactDetails.getString(DebtUtils.FIELD_DEBTS_TOTAL_AMOUNT)
+                );
 
                 // Set contact details
                 this.textContactFullName.setText(contactFullName);
                 this.textContactPhoneNumber.setText(contactPhoneNumber);
                 this.textContactEmailAddress.setText(contactEmailAddress);
                 this.textContactAddress.setText(contactAddress);
+                this.textDebtsTotalAmount.setText(debtsTotalAmount);
 
                 // Show ShimmerFrameLayout
                 ViewsUtils.showShimmerFrameLayout(false, shimmerContactDetails);
@@ -688,11 +697,13 @@ public class ContactDetailsDebtsActivity extends AppCompatActivity implements Ap
         if (show) {
 
             recyclerView.setVisibility(View.VISIBLE); // Show RecyclerView
+            textDebtsTotalAmount.setVisibility(View.VISIBLE); // Show total debts amount
             showNoDebtsLayout(false); // Hide no debts layout
 
         } else {
 
             recyclerView.setVisibility(View.GONE); // Hide RecyclerView
+            textDebtsTotalAmount.setVisibility(View.GONE); // Hide total debts amount
         }
     }
 

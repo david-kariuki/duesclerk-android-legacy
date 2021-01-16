@@ -776,6 +776,10 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
                         enableProfileEdit(false); // Disable profile edits
 
+                        // Stop swipe SwipeRefresh
+                        ViewsUtils.showSwipeRefreshLayout(false, swipeRefreshLayout,
+                                swipeRefreshListener);
+
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(
                                 NetworkTags.User.TAG_FETCH_USER_PROFILE_STRING_REQUEST);

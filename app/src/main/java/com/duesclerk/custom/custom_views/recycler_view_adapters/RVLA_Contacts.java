@@ -221,17 +221,45 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
                 // Get specific items
                 for (int i = 0; i < filterList.size(); i++) {
 
-                    if (filterList.get(i).getContactFullName().toUpperCase()
-                            .contains(constraint)) {
+                    JB_Contacts jbContacts;
+                    if (DataUtils.isEmptyString(filterList.get(i).getDebtsTotalAmount())) {
 
-                        JB_Contacts jbContacts = new JB_Contacts(
-                                filterList.get(i).getContactFullName(),
-                                filterList.get(i).getContactPhoneNumber(),
-                                filterList.get(i).getContactEmailAddress(),
-                                filterList.get(i).getContactAddress(),
-                                filterList.get(i).getContactType());
+                        if (filterList.get(i).getContactFullName().toUpperCase().contains(constraint)
+                                || filterList.get(i).getContactPhoneNumber().contains(constraint)
+                                || filterList.get(i).getContactEmailAddress().toUpperCase()
+                                .contains(constraint)
+                        ) {
+                            // Excluding debt total amount in search
 
-                        filters.add(jbContacts); // Add java bean to ArrayList
+                            jbContacts = new JB_Contacts(
+                                    filterList.get(i).getContactFullName(),
+                                    filterList.get(i).getContactPhoneNumber(),
+                                    filterList.get(i).getContactEmailAddress(),
+                                    filterList.get(i).getContactAddress(),
+                                    filterList.get(i).getContactType());
+
+                            filters.add(jbContacts); // Add java bean to ArrayList
+                        }
+                    } else {
+                        // Including debt total amount in search
+
+                        if (filterList.get(i).getContactFullName().toUpperCase().contains(constraint)
+                                || filterList.get(i).getContactPhoneNumber().contains(constraint)
+                                || filterList.get(i).getContactEmailAddress().toUpperCase()
+                                .contains(constraint)
+                                || filterList.get(i).getDebtsTotalAmount().contains(constraint)
+                        ) {
+
+                            jbContacts = new JB_Contacts(
+                                    filterList.get(i).getContactFullName(),
+                                    filterList.get(i).getContactPhoneNumber(),
+                                    filterList.get(i).getContactEmailAddress(),
+                                    filterList.get(i).getContactAddress(),
+                                    filterList.get(i).getContactType(),
+                                    filterList.get(i).getDebtsTotalAmount());
+
+                            filters.add(jbContacts); // Add java bean to ArrayList
+                        }
                     }
                 }
 

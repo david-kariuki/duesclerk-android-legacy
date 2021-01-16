@@ -7,7 +7,7 @@
     android:background="@drawable/bottom_sheet_background_curved"
     android:fillViewport="true"
     android:orientation="vertical"
-    tools:context=".activities.ContactDetailsDebtsActivity"
+    tools:context=".activities.ContactDetailsAndDebtsActivity"
     tools:ignore="UselessParent">
 
     <LinearLayout

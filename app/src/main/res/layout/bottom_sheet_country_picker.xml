@@ -32,7 +32,7 @@
             android:queryHint="@string/hint_search_countries"
             android:searchHintIcon="@drawable/ic_baseline_search_24_primary_dark"
             android:searchIcon="@drawable/ic_baseline_search_24_primary_dark"
-            android:theme="@style/AppSearchView"
+            android:theme="@style/Style_SearchView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

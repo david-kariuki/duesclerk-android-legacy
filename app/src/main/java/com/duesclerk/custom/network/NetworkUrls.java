@@ -74,8 +74,8 @@ public class NetworkUrls {
                 "fetchUserContacts.php";
 
         // URL to fetch contact data
-        public static final String URL_FETCH_CONTACT_DATA = FOLDER_CONTROLLERS_CONTACTS +
-                "fetchContactData.php";
+        public static final String URL_FETCH_CONTACT_DETAILS_AND_DEBTS = FOLDER_CONTROLLERS_CONTACTS
+                + "fetchContactDetailsAndDebts.php";
 
         // URL to add contacts debt
         public static final String URL_ADD_CONTACTS_DEBT = FOLDER_CONTROLLERS_CONTACTS +

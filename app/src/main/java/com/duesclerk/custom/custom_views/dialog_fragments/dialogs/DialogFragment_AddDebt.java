@@ -310,7 +310,7 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
 
                             // Send broadcast to refresh debts
                             Intent intentBroadcast = new Intent(
-                                    BroadCastUtils.bcrActionReloadContactActivity);
+                                    BroadCastUtils.bcrActionReloadContactDetailsAndDebtsActivity);
 
                             requireActivity().sendBroadcast(intentBroadcast); // Send broadcast
 

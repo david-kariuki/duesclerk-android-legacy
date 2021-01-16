@@ -15,7 +15,7 @@ public class BroadCastUtils {
             = "ReloadPeopleOwingMe";
     public static final String bcrActionReloadPeopleIOwe
             = "ReloadPeopleIOwe";
-    public static final String bcrActionReloadContactActivity
+    public static final String bcrActionReloadContactDetailsAndDebtsActivity
             = "ReloadContactActivity";
 
     public static void registerBroadCasts(Activity activity,

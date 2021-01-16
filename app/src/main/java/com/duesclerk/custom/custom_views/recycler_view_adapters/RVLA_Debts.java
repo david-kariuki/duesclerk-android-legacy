@@ -119,7 +119,7 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
             holder.consContactItem.setOnClickListener(v -> {
 
 //                // Start Debts activity
-//                Intent intent = new Intent(v.getContext(), ContactDetailsDebtsActivity.class);
+//                Intent intent = new Intent(v.getContext(), ContactDetailsAndDebtsActivity.class);
 //
 //                // Pass contact id
 //                intent.putExtra(ContactUtils.FIELD_CONTACT_ID, this.debts

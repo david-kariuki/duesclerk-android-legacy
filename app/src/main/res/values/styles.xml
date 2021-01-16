@@ -40,7 +40,6 @@
         <item name="android:queryHint">@string/hint_search_contacts</item>
         <item name="android:searchHintIcon">@drawable/ic_baseline_search_24_primary_dark</item>
         <item name="android:searchIcon">@drawable/ic_baseline_search_24_primary_dark</item>
-
     </style>
 
     <style name="AppTheme.Toolbar" parent="AppTheme">

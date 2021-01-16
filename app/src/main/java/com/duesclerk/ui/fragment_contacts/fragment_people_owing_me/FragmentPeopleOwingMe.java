@@ -47,8 +47,6 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
     private Interface_MainActivity interfaceMainActivity;
     private UserDatabase database;
     private FetchContactsClass fetchContactsClass;
-    private boolean isReload = false;
-    private boolean animateSwipeRefresh = false;
     private SearchView searchView;
     private RVLA_Contacts rvlaContacts;
 
@@ -81,7 +79,9 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
         LinearLayout llNoConnection_TryAgain = view.findViewById(R.id.llNoConnection_TryAgain);
         llNoContacts = view.findViewById(R.id.llContacts_NoContacts);
         LinearLayout llAddContact = view.findViewById(R.id.llNoContacts_AddContact);
-        searchView = view.findViewById(R.id.searchViewContacts);
+
+        // Setup SearchView
+        searchView = ViewsUtils.initSearchView(mContext, view, R.id.searchViewContacts);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL,
                 false);
@@ -104,8 +104,6 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
         // SwipeRefreshLayout listener
         swipeRefreshListener =
                 () -> {
-
-                    animateSwipeRefresh = !isReload; // Set animate swipe refresh
 
                     if (!DataUtils.isEmptyArrayList(fetchedContacts)) {
                         fetchedContacts.clear(); // Clear contacts array
@@ -160,8 +158,6 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
                 }
             }
         };
-
-        setupSearchView(); // Setup SearchView
 
         // Add query text listener
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -230,25 +226,6 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
     }
 
     /**
-     * Function to setup SearchView
-     */
-    private void setupSearchView() {
-
-        // Get SearchView id
-        int searchViewId = searchView.getContext().getResources().getIdentifier(
-                "android:id/search_src_text", null, null);
-
-        // Get SearchView text
-        TextView textView = searchView.findViewById(searchViewId);
-
-        // Set SearchView text color
-        textView.setTextColor(DataUtils.getColorResource(mContext, R.color.colorBlack));
-
-        searchView.setIconifiedByDefault(false); // Disable iconified
-        searchView.clearFocus(); // Clear SearchView focus
-    }
-
-    /**
      * Function to load contacts into RecyclerView
      *
      * @param contacts - ArrayList with user contacts
@@ -272,6 +249,23 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
 
             recyclerView.setAdapter(rvlaContacts); // Setting Adapter to RecyclerView
             rvlaContacts.notifyDataSetChanged(); // Notify Data Set Changed
+        }
+    }
+
+    /**
+     * Function to show / hide SearchView
+     *
+     * @param show - boolean - (show / hide view)
+     */
+    private void showSearchView(boolean show) {
+
+        if (show) {
+
+            searchView.setVisibility(View.VISIBLE); // Show SearchView
+
+        } else {
+
+            searchView.setVisibility(View.GONE); // Hide SearchView
         }
     }
 
@@ -305,7 +299,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
 
             interfaceMainActivity.showAddContactFAB(false); // Hide fab button
 
-            searchView.setVisibility(View.GONE); // Hide SearchView
+            showSearchView(false); // Hide SearchView
 
         } else {
 
@@ -313,7 +307,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
 
             interfaceMainActivity.showAddContactFAB(true); // True fab button
 
-            searchView.setVisibility(View.VISIBLE); // Show SearchView
+            showSearchView(true); // Show SearchView
         }
     }
 
