@@ -106,7 +106,6 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
                 () -> {
 
                     if (!DataUtils.isEmptyArrayList(fetchedContacts)) {
-
                         fetchedContacts.clear(); // Clear contacts array
                     }
 
@@ -121,6 +120,7 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
                                 swipeRefreshLayout,
                                 swipeRefreshListener
                         );
+
                     } else {
                         // No internet connection
 
@@ -187,6 +187,12 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
             interfaceMainActivity.showAddContactDialogFragment(true);
         });
 
+        llNoConnection_TryAgain.setOnClickListener(v -> {
+
+            // Start/Stop swipe SwipeRefresh
+            ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout, swipeRefreshListener);
+        });
+
         return view; // Return inflated view
     }
 
@@ -204,12 +210,14 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
 
         // Register broadcast
         BroadCastUtils.registerBroadCasts(requireActivity(), bcrReloadContacts,
-                BroadCastUtils.bcrActionReloadPeopleOwingMe);
+                BroadCastUtils.bcrActionReloadPeopleIOwe);
 
         if (DataUtils.isEmptyArrayList(fetchedContacts)) {
+
             // Start SwipeRefreshLayout
             ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout, swipeRefreshListener);
         }
+
     }
 
     @Override
@@ -248,6 +256,23 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
     }
 
     /**
+     * Function to show / hide SearchView
+     *
+     * @param show - boolean - (show / hide view)
+     */
+    private void showSearchView(boolean show) {
+
+        if (show) {
+
+            searchView.setVisibility(View.VISIBLE); // Show SearchView
+
+        } else {
+
+            searchView.setVisibility(View.GONE); // Hide SearchView
+        }
+    }
+
+    /**
      * Function to show or hide SwipeRefreshLayout
      *
      * @param show - boolean - (show/hide SwipeRefreshLayout)
@@ -277,7 +302,7 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
 
             interfaceMainActivity.showAddContactFAB(false); // Hide fab button
 
-            showSearchView(false); // Show SearchView
+            showSearchView(false); // Hide SearchView
 
         } else {
 
@@ -286,23 +311,6 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
             interfaceMainActivity.showAddContactFAB(true); // True fab button
 
             showSearchView(true); // Show SearchView
-        }
-    }
-
-    /**
-     * Function to show / hide SearchView
-     *
-     * @param show - boolean - (show / hide view)
-     */
-    private void showSearchView(boolean show) {
-
-        if (show) {
-
-            searchView.setVisibility(View.VISIBLE); // Show SearchView
-
-        } else {
-
-            searchView.setVisibility(View.GONE); // Hide SearchView
         }
     }
 
@@ -344,7 +352,6 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
      */
     @Override
     public void passUserContacts_PeopleOwingMe(ArrayList<JB_Contacts> contacts) {
-
     }
 
     /**

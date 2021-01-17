@@ -2,6 +2,7 @@ package com.duesclerk.custom.custom_views.recycler_view_adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.duesclerk.R;
-import com.duesclerk.activities.ContactDetailsDebtsActivity;
+import com.duesclerk.activities.ContactDetailsAndDebtsActivity;
 import com.duesclerk.custom.custom_utilities.ContactUtils;
 import com.duesclerk.custom.custom_utilities.DataUtils;
 import com.duesclerk.custom.java_beans.JB_Contacts;
@@ -81,6 +82,20 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
             holder.textContactEmailAddress.setText(contactEmailAddress);
         }
 
+        // Get contacts total debts amount
+        String contactsTotalDebtsAmount = this.contacts.get(position).getDebtsTotalAmount();
+
+        // Set contacts total debt amount
+        holder.textContactsDebtTotalAmount.setText(contactsTotalDebtsAmount);
+
+        // Check for contacts total debts amount to bold text
+        if (!contactsTotalDebtsAmount.equals("0")) {
+
+            // Bold contacts total debt amount text
+            holder.textContactsDebtTotalAmount.setTypeface(
+                    holder.textContactsDebtTotalAmount.getTypeface(), Typeface.BOLD);
+        }
+
         // Check for ViewHolder
         if (viewHolderView != null) {
 
@@ -88,7 +103,9 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
             holder.consContactItem.setOnClickListener(v -> {
 
                 // Start Debts activity
-                Intent intent = new Intent(v.getContext(), ContactDetailsDebtsActivity.class);
+                Intent intent = new Intent(v.getContext(), ContactDetailsAndDebtsActivity.class);
+
+                intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
 
                 // Pass contact id
                 intent.putExtra(ContactUtils.FIELD_CONTACT_ID,
@@ -168,7 +185,7 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
             implements View.OnClickListener {
 
         TextView textContactFullName, textContactPhoneNumber, textContactEmailAddress,
-                textContactTotalAmount;
+                textContactsDebtTotalAmount;
         ImageView imageContactPicture;
         ConstraintLayout consContactItem;
 
@@ -180,7 +197,7 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
             textContactFullName = convertView.findViewById(R.id.textContact_ContactFullName);
             textContactPhoneNumber = convertView.findViewById(R.id.textContact_ContactPhoneNumber);
             textContactEmailAddress = convertView.findViewById(R.id.textContact_ContactEmailAddress);
-            textContactTotalAmount = convertView.findViewById(R.id.textContact_ContactTotalAmount);
+            textContactsDebtTotalAmount = convertView.findViewById(R.id.textContact_ContactTotalAmount);
             consContactItem = convertView.findViewById(R.id.constraintLayout);
 
             // Hide email address until set if present

@@ -8,6 +8,7 @@ public class DebtUtils {
     public static final String FIELD_DEBT_DATE_ISSUED = "DebtDateIssued";
     public static final String FIELD_DEBT_DATE_DUE = "DebtDateDue";
     public static final String FIELD_DEBT_DESCRIPTION = "DebtDescription";
+    public static final String FIELD_DEBTS_TOTAL_AMOUNT = "DebtsTotalAmount";
 
     // Contact
     public static final String KEY_DEBTS = "Debts";

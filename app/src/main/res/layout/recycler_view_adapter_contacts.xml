@@ -108,6 +108,7 @@
                         android:ellipsize="marquee"
                         android:hint="@string/hint_contacts_total_amount"
                         android:maxEms="8"
+                        android:textStyle="bold"
                         android:minEms="1"
                         android:singleLine="true"
                         android:textColor="@color/colorPrimaryGrey"
@@ -136,7 +137,7 @@
                         android:maxEms="8"
                         android:minEms="1"
                         android:singleLine="true"
-                        android:textColor="@color/colorPrimaryGrey"
+                        android:textColor="@color/colorBlack"
                         android:textSize="13sp" />
                 </LinearLayout>
             </LinearLayout>

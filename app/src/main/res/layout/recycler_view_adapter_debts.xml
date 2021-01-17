@@ -10,7 +10,7 @@
     android:background="@color/colorWhite"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    tools:context=".activities.ContactDetailsDebtsActivity"
+    tools:context=".activities.ContactDetailsAndDebtsActivity"
     tools:ignore="HardcodedText">
 
     <LinearLayout

@@ -268,7 +268,18 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         super.onStop();
 
         // Unregister BroadcastReceiver
-        BroadCastUtils.unRegisterBroadCast(ContactDetailsAndDebtsActivity.this, bcrReloadDebts);
+        BroadCastUtils.unRegisterBroadCast(ContactDetailsAndDebtsActivity.this,
+                bcrReloadDebts);
+
+        // Broadcast to refresh contacts
+        Intent intentBroadcastPeopleOwingMe = new Intent(
+                BroadCastUtils.bcrActionReloadPeopleOwingMe);
+        Intent intentBroadcastPeopleIOwe = new Intent(
+                BroadCastUtils.bcrActionReloadPeopleIOwe);
+
+        // Send broadcasts
+        sendBroadcast(intentBroadcastPeopleOwingMe);
+        sendBroadcast(intentBroadcastPeopleIOwe);
     }
 
     @Override

@@ -52,7 +52,7 @@ import java.util.Map;
 public class DialogFragment_AddDebt extends DialogFragment implements Interface_DatePicker {
 
     // Get class simple name
-    // private final String TAG = DialogFragment_AddDebt.class.getSimpleName();
+    //private final String TAG = DialogFragment_AddDebt.class.getSimpleName();
 
     private final LayoutInflater inflater;
     private final Context mContext;
@@ -118,8 +118,6 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
                 // Fields ok
 
                 String userId = database.getUserAccountInfo(null).get(0).getUserId();
-
-                String debtDateIssued, debtDateDue, debtDescription;
 
                 // Add/Upload  contact
                 this.addContactsDebt(
@@ -286,7 +284,7 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
                     NetworkUrls.ContactURLS.URL_ADD_CONTACTS_DEBT, response -> {
 
                 // Log Response
-                // Log.d(TAG, "Add contacts debt response:" + response);
+                //Log.d(TAG, "Add contacts debt response:" + response);
 
                 ViewsUtils.dismissProgressDialog(progressDialog); // Hide Dialog
 
@@ -300,19 +298,29 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
                         // New contact added successfully
 
                         // Show success message
-                        String[] successMessageArgs = {debtAmount, contactFullName};
                         CustomToast.infoMessage(mContext,
                                 DataUtils.getStringResource(mContext,
-                                        R.string.msg_debt_adding_successful, successMessageArgs),
+                                        R.string.msg_debt_adding_successful, debtAmount, contactFullName),
                                 false, R.drawable.ic_baseline_attach_money_24_white);
 
                         try {
 
-                            // Send broadcast to refresh debts
-                            Intent intentBroadcast = new Intent(
+                            // Broadcast to refresh debts
+                            Intent intentBroadcastDebts = new Intent(
                                     BroadCastUtils.bcrActionReloadContactDetailsAndDebtsActivity);
 
-                            requireActivity().sendBroadcast(intentBroadcast); // Send broadcast
+                            // Broadcast to refresh contacts
+                            Intent intentBroadcastPeopleOwingMe = new Intent(
+                                    BroadCastUtils.bcrActionReloadPeopleOwingMe);
+
+                            // Broadcast to refresh contacts
+                            Intent intentBroadcastPeopleIOwe = new Intent(
+                                    BroadCastUtils.bcrActionReloadPeopleIOwe);
+
+                            // Send broadcasts
+                            requireActivity().sendBroadcast(intentBroadcastDebts);
+                            requireActivity().sendBroadcast(intentBroadcastPeopleOwingMe);
+                            requireActivity().sendBroadcast(intentBroadcastPeopleIOwe);
 
                         } finally {
 

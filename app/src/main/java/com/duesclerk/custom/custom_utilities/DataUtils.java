@@ -214,7 +214,7 @@ public class DataUtils {
         }
 
         // Return string with placeholders
-        return context.getResources().getString(stringId,  newArgs);
+        return context.getResources().getString(stringId, newArgs);
     }
 
     /**

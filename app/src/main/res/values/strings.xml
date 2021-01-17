@@ -72,6 +72,7 @@
     <string name="hint_debt_description">Debt description</string>
     <string name="hint_debt_type_you_owe">You owe</string>
     <string name="hint_debt_type_you_are_owed">You are owed</string>
+    <string name="hint_not_provided">Not provided</string>
 
     <!--Actions-->
     <string name="action_sign_in">Sign In</string>
@@ -120,6 +121,7 @@
     <string name="label_add_contact_or_person">Add contact or person</string>
     <string name="label_add_debt">Add debt</string>
     <string name="label_grant_permissions">Grant Permissions</string>
+    <string name="label_debts_total_amount">Total debts amount : %1$s</string>
 
     <!--Messages-->
     <string name="msg_company_tag_line">Manage your dues with ease.</string>
@@ -168,7 +170,6 @@
 
     <!--Number-->
     <string name="number_decimal_zero">0.0</string>
-    <string name="hint_not_provided">Not provided</string>
 
 
 </resources>

@@ -16,6 +16,7 @@ import com.duesclerk.R;
 import com.duesclerk.custom.custom_utilities.ApplicationClass;
 import com.duesclerk.custom.custom_utilities.ContactUtils;
 import com.duesclerk.custom.custom_utilities.DataUtils;
+import com.duesclerk.custom.custom_utilities.DebtUtils;
 import com.duesclerk.custom.custom_utilities.UserAccountUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
 import com.duesclerk.custom.custom_utilities.VolleyUtils;
@@ -38,14 +39,14 @@ import java.util.Map;
 
 public class FetchContactsClass {
 
-    // private final String TAG = FetchContactsClass.class.getSimpleName();
+    //private final String TAG = FetchContactsClass.class.getSimpleName();
     private final Context mContext;
     private final Interface_Contacts interfaceContacts;
 
     /**
      * Class constructor for FragmentPeopleOwingMe
      *
-     * @param context            - Class context
+     * @param context               - Class context
      * @param fragmentPeopleOwingMe - Calling fragment
      */
     public FetchContactsClass(Context context, FragmentPeopleOwingMe fragmentPeopleOwingMe) {
@@ -85,7 +86,7 @@ public class FetchContactsClass {
                     NetworkUrls.ContactURLS.URL_FETCH_USER_CONTACTS, response -> {
 
                 // Log Response
-                // Log.d(TAG, "Fetching contacts response:" + response);
+                //Log.d(TAG, "Fetching contacts response:" + response);
 
                 // Hide SwipeRefreshLayout
                 ViewsUtils.showSwipeRefreshLayout(false,
@@ -105,7 +106,7 @@ public class FetchContactsClass {
                                 ContactUtils.KEY_CONTACTS);
 
                         // Split JSONArray to get (People owing me) and (People I owe) contacts
-                        sortJSONArray(jsonArray);
+                        extractSortJSONArray(jsonArray);
 
                     } else {
                         // Error updating details
@@ -128,7 +129,7 @@ public class FetchContactsClass {
             }, volleyError -> {
 
                 // Log Response
-                // Log.e(TAG, "Fetch contacts response error : "
+                //Log.e(TAG, "Fetch contacts response error : "
                 //      + volleyError.getMessage());
 
                 // Hide SwipeRefreshLayout
@@ -225,7 +226,7 @@ public class FetchContactsClass {
      *
      * @param jsonArray - Contacts JSONArray
      */
-    private void sortJSONArray(JSONArray jsonArray) {
+    private void extractSortJSONArray(JSONArray jsonArray) {
 
         ArrayList<JB_Contacts> contactsPeopleOwingMe = new ArrayList<>();
         ArrayList<JB_Contacts> contactsPeopleIOwe = new ArrayList<>();
@@ -246,16 +247,23 @@ public class FetchContactsClass {
 
                     // Getting Data from json object
                     String contactId, contactFullName, contactPhoneNumber, contactEmailAddress,
-                            contactAddress, contactType;
+                            contactAddress, contactType, contactsTotalDebtsAmount;
 
                     contactId = jsonObject.getString(ContactUtils.FIELD_CONTACT_ID);
                     contactFullName = jsonObject.getString(ContactUtils.FIELD_CONTACT_FULL_NAME);
-                    contactPhoneNumber = jsonObject
-                            .getString(ContactUtils.FIELD_CONTACT_PHONE_NUMBER);
-                    contactEmailAddress = jsonObject
-                            .getString(ContactUtils.FIELD_CONTACT_EMAIL_ADDRESS);
+                    contactPhoneNumber = jsonObject.getString(
+                            ContactUtils.FIELD_CONTACT_PHONE_NUMBER);
+                    contactEmailAddress = jsonObject.getString(
+                            ContactUtils.FIELD_CONTACT_EMAIL_ADDRESS);
                     contactAddress = jsonObject.getString(ContactUtils.FIELD_CONTACT_ADDRESS);
                     contactType = jsonObject.getString(ContactUtils.FIELD_CONTACT_TYPE);
+                    contactsTotalDebtsAmount = jsonObject.getString(
+                            DebtUtils.FIELD_DEBTS_TOTAL_AMOUNT);
+
+                    // Check if debts total amount is null to insert 0
+                    if (DataUtils.isEmptyString(contactsTotalDebtsAmount)) {
+                        contactsTotalDebtsAmount = "0";
+                    }
 
                     // Set data to java bean
                     jbContacts.setContactId(contactId);
@@ -264,6 +272,7 @@ public class FetchContactsClass {
                     jbContacts.setContactEmailAddress(contactEmailAddress);
                     jbContacts.setContactAddress(contactAddress);
                     jbContacts.setContactType(contactType);
+                    jbContacts.setDebtsTotalAmount(contactsTotalDebtsAmount);
 
                     if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME)) {
                         // People owing me
@@ -289,7 +298,7 @@ public class FetchContactsClass {
      * Function to pass contacts data to interface
      *
      * @param contactsPeopleOwingMe - ArrayList with PeopleOwingMe contacts
-     * @param contactsPeopleIOwe - ArrayList with PeopleIOwe contacts
+     * @param contactsPeopleIOwe    - ArrayList with PeopleIOwe contacts
      */
     private void passContactDataToInterface(ArrayList<JB_Contacts> contactsPeopleOwingMe,
                                             ArrayList<JB_Contacts> contactsPeopleIOwe) {

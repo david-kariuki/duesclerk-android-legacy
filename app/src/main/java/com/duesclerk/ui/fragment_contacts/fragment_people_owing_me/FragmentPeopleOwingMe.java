@@ -113,12 +113,14 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
                         // Network connection established
 
                         handleNetworkConnectionEvent(true);
+
                         // Fetch contacts
                         fetchContactsClass.fetchContacts(
                                 database.getUserAccountInfo(null).get(0).getUserId(),
                                 swipeRefreshLayout,
                                 swipeRefreshListener
                         );
+
                     } else {
                         // No internet connection
 
@@ -215,6 +217,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
             // Start SwipeRefreshLayout
             ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout, swipeRefreshListener);
         }
+
     }
 
     @Override
