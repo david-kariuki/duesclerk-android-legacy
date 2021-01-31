@@ -316,7 +316,7 @@
                                         android:lines="1"
                                         android:singleLine="true"
                                         android:text="@string/action_edit_contact"
-                                        android:textSize="12sp" />
+                                        android:textSize="13sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -353,7 +353,7 @@
                                         android:lines="1"
                                         android:singleLine="true"
                                         android:text="@string/action_delete_contact"
-                                        android:textSize="12sp" />
+                                        android:textSize="13sp" />
                                 </LinearLayout>
                             </LinearLayout>
 

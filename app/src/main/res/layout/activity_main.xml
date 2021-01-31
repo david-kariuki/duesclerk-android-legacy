@@ -10,7 +10,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:descendantFocusability="beforeDescendants"
+        android:focusable="true"
+        android:focusedByDefault="true"
+        android:focusableInTouchMode="true"
+        tools:targetApi="o">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayoutMainActivity"
@@ -32,6 +37,25 @@
             app:tabPaddingStart="0dp"
             app:tabSelectedTextColor="@color/colorPrimaryDark"
             app:tabTextColor="@color/colorBlack" />
+
+            <SearchView
+                android:id="@+id/searchViewMainActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_gravity="start"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="3dp"
+                android:closeIcon="@drawable/ic_baseline_close_24_primary"
+                android:elevation="@dimen/dimen_bs_toolbar_elevation"
+                android:gravity="start"
+                android:queryHint="@string/hint_search_contacts"
+                android:searchHintIcon="@drawable/ic_baseline_search_24_primary_dark"
+                android:searchIcon="@drawable/ic_baseline_search_24_primary_dark"
+                android:theme="@style/Style_SearchView"
+                android:visibility="visible" />
+
 
         <include layout="@layout/content_main" />
 

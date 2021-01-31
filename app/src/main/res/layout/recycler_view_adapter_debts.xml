@@ -18,14 +18,14 @@
         android:layout_width="22dp"
         android:layout_height="22dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/circle_border_primary_dark_fill_primary"
         android:gravity="center"
-        app:layout_constraintVertical_bias="0"
-        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="H,1:1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/constraintLayout1">
+        app:layout_constraintTop_toTopOf="@id/constraintLayout1"
+        app:layout_constraintVertical_bias="0">
 
         <TextView
             android:id="@+id/textDebt_Count"
@@ -41,11 +41,11 @@
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
-        android:id="@+id/constraintLayout1"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,6 +73,7 @@
                 android:minEms="1"
                 android:singleLine="true"
                 android:textColor="@color/colorPrimaryGrey"
+                android:textColorHint="@color/colorPrimaryGrey"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -125,6 +126,7 @@
                     android:singleLine="true"
                     android:textAlignment="textStart"
                     android:textColor="@color/colorPrimaryGrey"
+                    android:textColorHint="@color/colorPrimaryGrey"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -139,6 +141,7 @@
                     android:singleLine="true"
                     android:textAlignment="textStart"
                     android:textColor="@color/colorPrimaryGrey"
+                    android:textColorHint="@color/colorPrimaryGrey"
                     android:textSize="12sp"
                     tools:ignore="RtlCompat" />
             </LinearLayout>
@@ -171,6 +174,7 @@
                             android:singleLine="true"
                             android:textAlignment="textStart"
                             android:textColor="@color/colorPrimaryGrey"
+                            android:textColorHint="@color/colorPrimaryGrey"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
@@ -185,6 +189,7 @@
                             android:singleLine="true"
                             android:textAlignment="textStart"
                             android:textColor="@color/colorPrimaryGrey"
+                            android:textColorHint="@color/colorPrimaryGrey"
                             android:textSize="12sp"
                             tools:ignore="RtlCompat" />
                     </LinearLayout>
@@ -211,6 +216,7 @@
                             android:singleLine="false"
                             android:textAlignment="textEnd"
                             android:textColor="@color/colorBlack"
+                            android:textColorHint="@color/colorPrimaryGrey"
                             android:textSize="13sp"
                             android:textStyle="bold"
                             tools:ignore="RtlCompat" />
@@ -229,6 +235,7 @@
                             android:singleLine="false"
                             android:textAlignment="textStart"
                             android:textColor="@color/colorBlack"
+                            android:textColorHint="@color/colorPrimaryGrey"
                             android:textSize="13sp"
                             tools:ignore="RtlCompat" />
 
@@ -254,7 +261,6 @@
                 android:layout_height="@dimen/dimen_icon_size_small"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                app:layout_constraintVertical_bias="0"
                 android:layout_gravity="end"
                 android:layout_marginBottom="5dp"
                 android:contentDescription="@string/content_description_icon"
@@ -263,6 +269,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0"
                 tools:ignore="ObsoleteLayoutParam" />
 
             <ImageView
@@ -272,7 +279,6 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_gravity="bottom"
-                app:layout_constraintVertical_bias="1"
                 android:layout_marginTop="5dp"
                 android:contentDescription="@string/content_description_icon"
                 android:src="@drawable/ic_baseline_arrow_drop_down_24_black"
@@ -280,6 +286,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageDebt_Options"
+                app:layout_constraintVertical_bias="1"
                 tools:ignore="ObsoleteLayoutParam" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

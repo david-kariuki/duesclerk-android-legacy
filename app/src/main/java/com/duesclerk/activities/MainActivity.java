@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,8 @@ import com.duesclerk.custom.custom_utilities.DataUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
 import com.duesclerk.custom.custom_views.dialog_fragments.dialogs.DialogFragment_AddContact;
 import com.duesclerk.custom.custom_views.view_pager.ViewPagerAdapter;
+import com.duesclerk.custom.java_beans.JB_Contacts;
+import com.duesclerk.interfaces.Interface_Contacts;
 import com.duesclerk.interfaces.Interface_MainActivity;
 import com.duesclerk.ui.fragment_app_menu.FragmentAppMenu;
 import com.duesclerk.ui.fragment_contacts.fragment_people_i_owe.FragmentPeople_I_Owe;
@@ -23,27 +26,41 @@ import com.google.android.material.tabs.TabLayout;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity implements Interface_MainActivity {
+public class MainActivity extends AppCompatActivity implements Interface_MainActivity,
+        Interface_Contacts {
 
+    private final String KEY_QUERY_PEOPLE_OWING_ME = "QueryPeopleOwingMe";
+    private final String KEY_QUERY_PEOPLE_I_OWE = "QueryPeopleIOwe";
     private TabLayout tabLayout;
     private ViewPager viewPager;
-
     private Context mContext;
     private ImageView imageTabPeopleOwingMe, imageTabPeopleIOwe, imageTabAppMenu;
     private TextView textTabPeopleOwingMe, textTabPeopleIOwe, textTabAppMenu;
     private FloatingActionButton fabAddContact;
     private int tabPosition = 0;
+    private FragmentPeopleOwingMe peopleOwingMe;
+    private FragmentPeople_I_Owe peopleIOwe;
+    private String queryPeopleOwingMe = "", queryPeopleIOwe = "";
+    private Interface_MainActivity interfaceMainActivity;
+
+    // Shared SearchView for all contacts listing fragments
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         mContext = this; // Get Context
 
         fabAddContact = findViewById(R.id.fabMainActivity_AddContact);
+
+        // Setup SearchView
+        searchView = ViewsUtils.initSearchView(this, R.id.searchViewMainActivity);
 
         setupTabLayout(); // Set up TabLayout
         viewPager.setOffscreenPageLimit(2); // Set ViewPager off screen limit
@@ -56,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
                 tabPosition = tab.getPosition(); // Get current tab position
                 viewPager.setCurrentItem(tabPosition, true); // Set current position
                 switchTabSelection(tabPosition, true); // Switch tab selection
-                hideFabButton(tabPosition); // Hide/show fab button
+                switchSearchViewText(tabPosition);
             }
 
             @Override
@@ -64,6 +81,8 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
 
                 tabPosition = tab.getPosition(); // Get current tab position
                 switchTabSelection(tabPosition, false); // Switch tab selection
+                hideFabButton(tabPosition); // Hide/show fab button
+                switchSearchViewText(tabPosition);
             }
 
             @Override
@@ -75,6 +94,57 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
 
         // Add page change listener
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        /*
+        Add query text listener
+            - The SearchView is shared by two fragments. OnText changed, the SearchView will update
+              a RecyclerViewAdapter based on current visible fragment.
+            - The SearchView query will be set to a holding variable on query text changed
+              - This value in the holding variable will be set back to the SearchView as a new query
+                when the TabLayout position is changed.
+              - If first fragment is visible, the SearchView query at first fragment will be saved
+                to a variable same to if next fragment is visible.
+              - When the TabLayout position changes, the holding variable values will be set for
+                the respective fragments.
+              - This will mimic two separate SearchViews for respective fragments.
+            - The query will also be passed to the fragments RecyclerViewAdapter filter when user
+              is searching a visible fragment.
+        */
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String arg0) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+
+                // Pass SearchView query to fragments
+                switch (tabPosition) {
+                    case 0:
+
+                        // Set SearchView query to holding variable
+                        queryPeopleOwingMe = query;
+
+                        // Set SearchView query to visible fragment
+                        peopleOwingMe.setSearchQuery(query);
+                        break;
+
+                    case 1:
+
+                        // Set SearchView query to holding variable
+                        queryPeopleIOwe = query;
+
+                        // Set SearchView query to visible fragment
+                        peopleIOwe.setSearchQuery(query);
+                        break;
+
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
 
         // Add contact onClick
         fabAddContact.setOnClickListener(v -> {
@@ -96,7 +166,21 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
     @Override
     public void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
+
+        // Save ViewPager position
         outState.putInt("position", tabLayout.getSelectedTabPosition());
+
+        // Save SearchView query
+        switch (tabPosition) {
+            case 0:
+                outState.putString(KEY_QUERY_PEOPLE_OWING_ME, searchView.getQuery().toString());
+                break;
+            case 1:
+                outState.putString(KEY_QUERY_PEOPLE_I_OWE, searchView.getQuery().toString());
+                break;
+            default:
+                break;
+        }
     }
 
     /**
@@ -107,7 +191,23 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+
+        // Restore ViewPager position
         viewPager.setCurrentItem(savedInstanceState.getInt("position"));
+
+        // Save SearchView query
+        switch (tabPosition) {
+            case 0:
+                searchView.setQuery(savedInstanceState
+                        .getString(KEY_QUERY_PEOPLE_OWING_ME), true);
+                break;
+            case 1:
+                searchView.setQuery(savedInstanceState
+                        .getString(KEY_QUERY_PEOPLE_I_OWE), true);
+                break;
+            default:
+                break;
+        }
     }
 
     /**
@@ -178,8 +278,8 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        FragmentPeopleOwingMe peopleOwingMe = new FragmentPeopleOwingMe();
-        FragmentPeople_I_Owe peopleIOwe = new FragmentPeople_I_Owe();
+        peopleOwingMe = new FragmentPeopleOwingMe();
+        peopleIOwe = new FragmentPeople_I_Owe();
         FragmentAppMenu fragmentAppMenu = new FragmentAppMenu();
 
         // Add Fragments To ViewPager Adapter
@@ -199,6 +299,9 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
      * @param selected  - boolean
      */
     private void switchTabSelection(int position, boolean selected) {
+
+        showSearchView(position != 2); // Show / Hide SearchView
+
         switch (position) {
             case 0:
                 if (selected) {
@@ -209,6 +312,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
                     // Set tab icon color
                     ViewsUtils.loadImageView(mContext, R.drawable.ic_me_100px_primary_dark,
                             imageTabPeopleOwingMe);
+
                 } else {
                     // Set tab title color
                     textTabPeopleOwingMe.setTextColor(DataUtils.getColorResource(mContext,
@@ -219,7 +323,9 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
                             imageTabPeopleOwingMe);
                 }
                 break;
+
             case 1:
+
                 if (selected) {
                     // Set tab title color
                     textTabPeopleIOwe.setTextColor(DataUtils.getColorResource(mContext,
@@ -333,5 +439,56 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
     public void showAddContactDialogFragment(boolean show) {
 
         fabAddContact.performClick(); // Click add contact FAB
+    }
+
+    @Override
+    public void showSearchView(boolean show) {
+
+        if (show) {
+
+            searchView.setVisibility(View.VISIBLE); // Show SearchView
+
+        } else {
+
+            searchView.setVisibility(View.GONE); // Hide SearchView
+        }
+    }
+
+    /**
+     * Function to change SearchView query on TabLayout position changed
+     *
+     * @param tabPosition - TabLayouts' current position
+     */
+    private void switchSearchViewText(int tabPosition) {
+        switch (tabPosition) {
+
+            case 0:
+                // Set SearchView query to holding variables' text
+                searchView.setQuery(queryPeopleOwingMe, true);
+                break;
+
+            case 1:
+                // Set SearchView query to holding variables' text
+                searchView.setQuery(queryPeopleIOwe, true);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void passUserContacts_PeopleOwingMe(ArrayList<JB_Contacts> contacts) {
+
+    }
+
+    @Override
+    public void passUserContacts_PeopleIOwe(ArrayList<JB_Contacts> contacts) {
+
+    }
+
+    @Override
+    public void setNoContactsFound(boolean found) {
+
     }
 }

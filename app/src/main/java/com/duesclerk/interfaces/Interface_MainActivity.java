@@ -6,16 +6,21 @@ package com.duesclerk.interfaces;
 public interface Interface_MainActivity {
 
     /**
-     * Interface to hide add contact fab button
+     * Interface method to hide add contact fab button
      *
      * @param show - Boolean - show/hide fab
      */
     void showAddContactFAB(boolean show);
 
     /**
-     * Interface to show / hide add contact fab button
+     * Interface method to show/hide add contact fab button
      *
      * @param show - Boolean - show/hide dialog fragment
      */
     void showAddContactDialogFragment(boolean show);
+
+    /**
+     * Interface method to show/hide SearchView
+     */
+    void showSearchView(boolean show);
 }

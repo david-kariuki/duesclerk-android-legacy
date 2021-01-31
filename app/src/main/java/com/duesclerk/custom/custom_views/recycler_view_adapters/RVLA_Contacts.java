@@ -6,8 +6,6 @@ import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -32,9 +30,7 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
     private final Context mContext;
     private final ArrayList<JB_Contacts> filterList;
     private ArrayList<JB_Contacts> contacts;
-    private int lastPosition = 0;
     private ContactsFilter contactsFilter;
-
     private View viewHolderView; // ViewHolder view
 
     /**
@@ -43,8 +39,7 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
      * @param context  - Class context
      * @param contacts - ArrayList with contact
      */
-    public RVLA_Contacts(Context context,
-                         ArrayList<JB_Contacts> contacts) {
+    public RVLA_Contacts(Context context,ArrayList<JB_Contacts> contacts) {
 
         this.mContext = context;
         this.contacts = contacts;
@@ -122,8 +117,6 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
                 v.getContext().startActivity(intent);
             });
         }
-
-        setAnimation(holder.itemView, position); // Set animation
     }
 
     @Override
@@ -154,25 +147,13 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
         holder.clearAnimation(); // Clear animation
     }
 
-    // Animating single element
-    private void setAnimation(View viewToAnimate, int position) {
-
-        if (position > this.lastPosition) {
-
-            Animation animation = AnimationUtils.loadAnimation(this.mContext,
-                    android.R.anim.slide_in_left);
-
-            viewToAnimate.startAnimation(animation); // Start animation
-
-            this.lastPosition = position; // Set position to last position
-        }
-    }
-
     @Override
     public Filter getFilter() {
 
+        // Check if filter is null
         if (contactsFilter == null) {
-            contactsFilter = new ContactsFilter();
+
+            contactsFilter = new ContactsFilter(); // Initialize filter
         }
 
         return contactsFilter; // Return filter
@@ -190,10 +171,11 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
         ConstraintLayout consContactItem;
 
         RecyclerViewHolder(View convertView) {
-
             super(convertView);
+
             viewHolderView = convertView;
 
+            // Fiend views by ids
             textContactFullName = convertView.findViewById(R.id.textContact_ContactFullName);
             textContactPhoneNumber = convertView.findViewById(R.id.textContact_ContactPhoneNumber);
             textContactEmailAddress = convertView.findViewById(R.id.textContact_ContactEmailAddress);
@@ -248,12 +230,15 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
                         ) {
                             // Excluding debt total amount in search
 
+                            // Create new result java bean
                             jbContacts = new JB_Contacts(
+                                    filterList.get(i).getContactId(),
                                     filterList.get(i).getContactFullName(),
                                     filterList.get(i).getContactPhoneNumber(),
                                     filterList.get(i).getContactEmailAddress(),
                                     filterList.get(i).getContactAddress(),
-                                    filterList.get(i).getContactType());
+                                    filterList.get(i).getContactType(),
+                                    filterList.get(i).getDebtsTotalAmount());
 
                             filters.add(jbContacts); // Add java bean to ArrayList
                         }
@@ -267,7 +252,9 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
                                 || filterList.get(i).getDebtsTotalAmount().contains(constraint)
                         ) {
 
+                            // Create new result java bean
                             jbContacts = new JB_Contacts(
+                                    filterList.get(i).getContactId(),
                                     filterList.get(i).getContactFullName(),
                                     filterList.get(i).getContactPhoneNumber(),
                                     filterList.get(i).getContactEmailAddress(),

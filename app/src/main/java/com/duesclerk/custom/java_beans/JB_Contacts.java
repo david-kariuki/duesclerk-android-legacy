@@ -1,6 +1,8 @@
 package com.duesclerk.custom.java_beans;
 
-public class JB_Contacts {
+import java.io.Serializable;
+
+public class JB_Contacts implements Serializable {
 
     String contactId, contactFullName, contactPhoneNumber, contactEmailAddress, contactAddress,
             contactType, debtsTotalAmount;
@@ -14,45 +16,26 @@ public class JB_Contacts {
     /**
      * JavaBean constructor
      *
+     * @param contactId           - Contact id
      * @param contactFullName     - Contact full name
-     * @param contactPhoneNumber  - Contact email address
-     * @param contactEmailAddress - Contact email address
-     * @param contactAddress      - Contact address
-     * @param contactType         - Contact type
-     */
-    public JB_Contacts(final String contactFullName, final String contactPhoneNumber,
-                       final String contactEmailAddress, final String contactAddress,
-                       final String contactType) {
-
-        this.contactFullName = contactFullName;
-        this.contactPhoneNumber = contactPhoneNumber;
-        this.contactEmailAddress = contactEmailAddress;
-        this.contactAddress = contactAddress;
-        this.contactType = contactType;
-
-    }
-
-    /**
-     * JavaBean constructor
-     *
-     * @param contactFullName     - Contact full name
-     * @param contactPhoneNumber  - Contact email address
+     * @param contactPhoneNumber  - Contact phone number
      * @param contactEmailAddress - Contact email address
      * @param contactAddress      - Contact address
      * @param contactType         - Contact type
      * @param debtsTotalAmount    - Debts total amount
      */
-    public JB_Contacts(final String contactFullName, final String contactPhoneNumber,
+    public JB_Contacts(final String contactId, final String contactFullName,
+                       final String contactPhoneNumber,
                        final String contactEmailAddress, final String contactAddress,
                        final String contactType, final String debtsTotalAmount) {
 
+        this.contactId = contactId;
         this.contactFullName = contactFullName;
         this.contactPhoneNumber = contactPhoneNumber;
         this.contactEmailAddress = contactEmailAddress;
         this.contactAddress = contactAddress;
         this.contactType = contactType;
         this.debtsTotalAmount = debtsTotalAmount;
-
     }
 
     /**

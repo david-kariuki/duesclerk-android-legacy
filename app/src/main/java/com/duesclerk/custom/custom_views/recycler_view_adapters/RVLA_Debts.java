@@ -176,16 +176,6 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
         }
     }
 
-    @Override
-    public Filter getFilter() {
-
-        if (debtsFilter == null) {
-            debtsFilter = new RVLA_Debts.DebtsFilter();
-        }
-
-        return debtsFilter; // Return filter
-    }
-
     /**
      * ViewHolder class
      */
@@ -230,6 +220,18 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
         }
     }
 
+    @Override
+    public Filter getFilter() {
+
+        // Check if filter is null
+        if (debtsFilter == null) {
+
+            debtsFilter = new RVLA_Debts.DebtsFilter(); // Initialize filter
+        }
+
+        return debtsFilter; // Return filter
+    }
+
     /**
      * Debts filter class
      */
@@ -255,6 +257,7 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
                             || filterList.get(i).getDebtDescription().toUpperCase()
                             .contains(constraint)) {
 
+                        // Create new result java bean
                         JB_Debts jbDebts = new JB_Debts(
                                 filterList.get(i).getDebtId(),
                                 filterList.get(i).getDebtAmount(),

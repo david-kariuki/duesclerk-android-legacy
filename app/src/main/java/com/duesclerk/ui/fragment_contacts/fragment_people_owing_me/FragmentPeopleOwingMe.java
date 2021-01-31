@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,8 +46,8 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
     private Interface_MainActivity interfaceMainActivity;
     private UserDatabase database;
     private FetchContactsClass fetchContactsClass;
-    private SearchView searchView;
     private RVLA_Contacts rvlaContacts;
+    private String searchQuery;
 
     public static FragmentPeopleOwingMe newInstance() {
         return new FragmentPeopleOwingMe();
@@ -79,9 +78,6 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
         LinearLayout llNoConnection_TryAgain = view.findViewById(R.id.llNoConnection_TryAgain);
         llNoContacts = view.findViewById(R.id.llContacts_NoContacts);
         LinearLayout llAddContact = view.findViewById(R.id.llNoContacts_AddContact);
-
-        // Setup SearchView
-        searchView = ViewsUtils.initSearchView(mContext, view, R.id.searchViewContacts);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL,
                 false);
@@ -161,22 +157,6 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
             }
         };
 
-        // Add query text listener
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String arg0) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String query) {
-
-                // Filter text input
-                rvlaContacts.getFilter().filter(query);
-                return false;
-            }
-        });
-
         // Start/Stop swipe SwipeRefresh
         ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout, swipeRefreshListener);
 
@@ -237,38 +217,28 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
 
         if (!DataUtils.isEmptyArrayList(contacts)) {
 
-            this.fetchedContacts = contacts; // Set ArrayList
+            // Filter text input
+            if (!DataUtils.isEmptyString(searchQuery)) {
 
-            showSwipeRefreshLayout(true); // Show main layout
+                rvlaContacts.getFilter().filter(this.searchQuery); // Set adapter filter query
 
-            // Creating RecyclerView adapter object
-            rvlaContacts = new RVLA_Contacts(requireActivity(), contacts);
+            } else {
+                this.fetchedContacts = contacts; // Set ArrayList
 
-            // Check for adapter observers
-            if (!rvlaContacts.hasObservers()) {
+                showSwipeRefreshLayout(true); // Show main layout
 
-                rvlaContacts.setHasStableIds(true); // Set has stable ids
+                // Creating RecyclerView adapter object
+                rvlaContacts = new RVLA_Contacts(requireActivity(), contacts);
+
+                // Check for adapter observers
+                if (!rvlaContacts.hasObservers()) {
+
+                    rvlaContacts.setHasStableIds(true); // Set has stable ids
+                }
+
+                recyclerView.setAdapter(rvlaContacts); // Setting Adapter to RecyclerView
+                rvlaContacts.notifyDataSetChanged(); // Notify Data Set Changed
             }
-
-            recyclerView.setAdapter(rvlaContacts); // Setting Adapter to RecyclerView
-            rvlaContacts.notifyDataSetChanged(); // Notify Data Set Changed
-        }
-    }
-
-    /**
-     * Function to show / hide SearchView
-     *
-     * @param show - boolean - (show / hide view)
-     */
-    private void showSearchView(boolean show) {
-
-        if (show) {
-
-            searchView.setVisibility(View.VISIBLE); // Show SearchView
-
-        } else {
-
-            searchView.setVisibility(View.GONE); // Hide SearchView
         }
     }
 
@@ -302,7 +272,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
 
             interfaceMainActivity.showAddContactFAB(false); // Hide fab button
 
-            showSearchView(false); // Hide SearchView
+            interfaceMainActivity.showSearchView(false); // Hide SearchView
 
         } else {
 
@@ -310,7 +280,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
 
             interfaceMainActivity.showAddContactFAB(true); // True fab button
 
-            showSearchView(true); // Show SearchView
+            interfaceMainActivity.showSearchView(true); // Show SearchView
         }
     }
 
@@ -343,6 +313,20 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
 
             llNoConnection.setVisibility(View.GONE); // Hide no connection bar
         }
+    }
+
+    /**
+     * Function to set search query received from MainActivity
+     *
+     * @param searchQuery - SearchView query
+     */
+    public void setSearchQuery(String searchQuery) {
+
+        if (searchQuery == null) searchQuery = "";
+        this.searchQuery = searchQuery;
+
+        // Filter text input
+        rvlaContacts.getFilter().filter(searchQuery);
     }
 
     /**

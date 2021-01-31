@@ -147,9 +147,10 @@ public class RVLA_CountryPicker extends RecyclerView.Adapter<RVLA_CountryPicker.
     @Override
     public Filter getFilter() {
 
+        // Check if filter is null
         if (countriesFilter == null) {
 
-            countriesFilter = new CountriesFilter();
+            countriesFilter = new CountriesFilter(); // Initialize filter
         }
 
         return countriesFilter; // Return filter
@@ -215,6 +216,7 @@ public class RVLA_CountryPicker extends RecyclerView.Adapter<RVLA_CountryPicker.
                             || filterList.get(i).getCountryAlpha3().toUpperCase()
                             .contains(constraint)) {
 
+                        // Create new result java bean
                         JB_CountryData jbCountryData = new JB_CountryData(
                                 filterList.get(i).getCountryName(),
                                 filterList.get(i).getCountryCode(),
