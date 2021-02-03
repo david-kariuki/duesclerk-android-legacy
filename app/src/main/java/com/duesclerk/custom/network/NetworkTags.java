@@ -55,5 +55,9 @@ public class NetworkTags {
         // Tag used to cancel add contacts debt request
         public static final String TAG_ADD_CONTACTS_DEBT_STRING_REQUEST =
                 "TagStringRequestAddContactsDebt";
+
+        // Tag used to cancel update contacts debt request
+        public static final String TAG_UPDATE_CONTACT_STRING_REQUEST =
+                "TagStringRequestUpdateContact";
     }
 }

@@ -28,6 +28,7 @@
     <string name="title_updating_password">Updating password</string>
     <string name="title_switching_account_type">Switching account type</string>
     <string name="title_adding_contact">Adding contact</string>
+    <string name="title_updating_contact">Updating contact</string>
     <string name="title_adding_debt">Adding debt</string>
     <string name="title_mailing_email_verification_code">Sending verification code</string>
     <string name="title_verifying_email_address">Verifying email address</string>
@@ -89,6 +90,7 @@
     <string name="action_view_profile">View Profile</string>
     <string name="action_cancel">Cancel</string>
     <string name="action_edit_contact">Edit contact</string>
+    <string name="action_update_contact">Update contact</string>
     <string name="action_delete_contact">Delete contact</string>
     <string name="action_verify">Verify</string>
     <string name="action_try_again">Try again</string>
@@ -119,6 +121,7 @@
     <string name="label_enter_email_address">Enter email address</string>
     <string name="label_create_password">Create Password</string>
     <string name="label_add_contact_or_person">Add contact or person</string>
+    <string name="label_edit_contact_or_person">Edit contact or person</string>
     <string name="label_add_debt">Add debt</string>
     <string name="label_grant_permissions">Grant Permissions</string>
     <string name="label_debts_total_amount">Total debts amount : %1$s</string>
@@ -131,10 +134,12 @@
     <string name="msg_updating_password">Updating your password! Please wait…</string>
     <string name="msg_switching_account_type">Switching to %1$s! Please wait…</string>
     <string name="msg_adding_contact">Adding %1$ss\' contact! Please wait…</string>
+    <string name="msg_updating_contact">Updating contact! Please wait…</string>
     <string name="msg_adding_debt">Adding %1$ss\' debt! Please wait…</string>
     <string name="msg_welcome_to">Welcome to %1$s.</string>
     <string name="msg_logout">Are you sure you want to log out %1$s?</string>
-    <string name="msg_profile_updated">Profile updated successfully.</string>
+    <string name="msg_profile_updated_successfully">Profile updated successfully.</string>
+    <string name="msg_contact_updated_successfully">Contact updated successfully.</string>
     <string name="msg_password_updated">Password updated successfully.</string>
     <string name="msg_account_switching_successful">Account switched successfully.</string>
     <string name="msg_contact_adding_successful">%1$s has been added successfully.</string>

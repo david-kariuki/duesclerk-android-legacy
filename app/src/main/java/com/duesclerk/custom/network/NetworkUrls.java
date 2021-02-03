@@ -65,10 +65,6 @@ public class NetworkUrls {
         private static final String FOLDER_CONTROLLERS_CONTACTS = FOLDER_CONTROLLERS + "contacts"
                 + URL_SEPARATOR;
 
-        // URL to add contact
-        public static final String URL_ADD_CONTACT = FOLDER_CONTROLLERS_CONTACTS +
-                "addUserContact.php";
-
         // URL to fetch users contacts
         public static final String URL_FETCH_USER_CONTACTS = FOLDER_CONTROLLERS_CONTACTS +
                 "fetchUserContacts.php";
@@ -77,8 +73,16 @@ public class NetworkUrls {
         public static final String URL_FETCH_CONTACT_DETAILS_AND_DEBTS = FOLDER_CONTROLLERS_CONTACTS
                 + "fetchContactDetailsAndDebts.php";
 
+        // URL to add contact
+        public static final String URL_ADD_CONTACT = FOLDER_CONTROLLERS_CONTACTS +
+                "addUserContact.php";
+
         // URL to add contacts debt
         public static final String URL_ADD_CONTACTS_DEBT = FOLDER_CONTROLLERS_CONTACTS +
                 "addContactsDebt.php";
+
+        // URL to add contact
+        public static final String URL_UPDATE_CONTACT = FOLDER_CONTROLLERS_CONTACTS +
+                "updateUserContact.php";
     }
 }

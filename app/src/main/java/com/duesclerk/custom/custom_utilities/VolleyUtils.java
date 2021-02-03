@@ -16,7 +16,7 @@ public class VolleyUtils {
     public static final String KEY_USER                 = "User";
     public static final String KEY_UPDATE_PROFILE       = "UpdateProfile";
 
-    // SignIN and SignUp
+    // SignIn and SignUp
     public static final String KEY_SIGNIN               = "SignIn";
     public static final String KEY_SIGNUP               = "SignUp";
 
@@ -24,6 +24,8 @@ public class VolleyUtils {
     public static final String KEY_SEND_VERIFICATION_CODE   = "SendVerificationCode";
     public static final String KEY_EMAIL_VERIFICATION       = "EmailVerification";
     public static final String KEY_PASSWORD_RESET           = "PasswordReset";
+
+    public static final String KEY_UPDATE_CONTACT       = "UpdateContact";
 
     public static String getApiKey(Context context){
         return "API_" + DataUtils.getStringResource(context, R.string.app_name) + "php_2020";

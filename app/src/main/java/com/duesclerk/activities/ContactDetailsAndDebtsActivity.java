@@ -34,6 +34,7 @@ import com.duesclerk.custom.custom_utilities.UserAccountUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
 import com.duesclerk.custom.custom_utilities.VolleyUtils;
 import com.duesclerk.custom.custom_views.dialog_fragments.dialogs.DialogFragment_AddDebt;
+import com.duesclerk.custom.custom_views.dialog_fragments.dialogs.DialogFragment_UpdateContact;
 import com.duesclerk.custom.custom_views.recycler_view_adapters.RVLA_Debts;
 import com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout;
 import com.duesclerk.custom.custom_views.toast.CustomToast;
@@ -63,7 +64,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
     FloatingActionButton fabAddDebt;
     RVLA_Debts rvlaDebts;
     private Context mContext;
-    private TextView textContactFullName, textContactPhoneNumber, textContactEmailAddress,
+    private TextView textTitle, textContactFullName, textContactPhoneNumber, textContactEmailAddress,
             textContactAddress, textNoDebtMessage, textDebtsTotalAmount;
     private MultiSwipeRefreshLayout swipeRefreshLayout;
     private SwipeRefreshLayout.OnRefreshListener swipeRefreshListener;
@@ -71,14 +72,15 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
     private ArrayList<JB_Debts> debtRecords;
     private AppBarLayout appBarLayout;
     private UserDatabase database;
-    private String contactId;
-    private String contactFullName;
+    private String contactId, contactType, contactFullName, contactPhoneNumber,
+            contactEmailAddress, contactAddress;
     private ShimmerFrameLayout shimmerContactDetails;
     private LinearLayout llContactDetails;
     private LinearLayout llNoDebts;
     private RecyclerView recyclerView;
     private BroadcastReceiver bcrReloadDebts;
     private SearchView searchView;
+    private DialogFragment_UpdateContact dialogFragmentEditContact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +90,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         mContext = this; // Get application context
 
         ImageView imageExit = findViewById(R.id.imageContactDetailsAndDebtsActivity_Exit);
-        TextView textTitle = findViewById(R.id.textContactDetailsAndDebtsActivity_Title);
+        textTitle = findViewById(R.id.textContactDetailsAndDebtsActivity_Title);
         appBarLayout = findViewById(R.id.appBarLayout);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshContactDetailsAndDebtsActivity);
 
@@ -115,8 +117,6 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         textNoDebtMessage = findViewById(R.id.textNoDebt_Message);
 
         shimmerContactDetails = findViewById(R.id.shimmerContactDetailsAndDebtsActivity);
-
-        //searchView = findViewById(R.id.searchViewContacts);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL,
                 false);
@@ -150,34 +150,21 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         // Get intent and values passed
         Intent intent = getIntent();
 
-        contactId = intent.getStringExtra(ContactUtils.FIELD_CONTACT_ID); // Get contact id
-        contactFullName = intent.getStringExtra(ContactUtils.FIELD_CONTACT_FULL_NAME);
-        String contactType = intent.getStringExtra(ContactUtils.FIELD_CONTACT_TYPE);
+        this.contactId = intent.getStringExtra(ContactUtils.FIELD_CONTACT_ID); // Get contact id
+        this.contactFullName = intent.getStringExtra(ContactUtils.FIELD_CONTACT_FULL_NAME);
+        this.contactType = intent.getStringExtra(ContactUtils.FIELD_CONTACT_TYPE);
 
-        //contactId = "contact79cd3601dd0e36b15e896665c86f94d6"; // Get contact id
-        //contactFullName = "abraham";
-        //String contactType = ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME;
-
-        // Set title
-        String title = null;
-
-        //noinspection ConstantConditions
-        if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME)) {
-
-            title = DataUtils.getStringResource(mContext, R.string.title_debts_people_owing_me,
-                    contactFullName);
-
-        } else if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_I_OWE)) {
-
-            title = DataUtils.getStringResource(mContext, R.string.title_debts_people_i_owe,
-                    contactFullName);
-        }
-        textTitle.setText(title); // Set activity title
+        setActivityTitle(contactType, contactFullName); // Set activity title
 
         DialogFragment_AddDebt dialogFragmentAddDebt = new DialogFragment_AddDebt(mContext,
                 contactId, contactFullName);
         dialogFragmentAddDebt.setCancelable(false); // Disable cancelable
         dialogFragmentAddDebt.setRetainInstance(true); // Set retain instance
+
+        dialogFragmentEditContact = new DialogFragment_UpdateContact(
+                mContext);
+        dialogFragmentEditContact.setCancelable(false); // Disable cancelable
+        dialogFragmentEditContact.setRetainInstance(true); // Set retain instance
 
         // Add CoordinatorLayout as swipeable child
         swipeRefreshLayout.setSwipeableChildren(R.id.coordinator);
@@ -248,6 +235,13 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         llAddDebt.setOnClickListener(v -> {
 
             fabAddDebt.performClick(); // Click fab add debt
+        });
+
+        llEditContact.setOnClickListener(v -> {
+
+            // Show add debt dialog
+            ViewsUtils.showDialogFragment(getSupportFragmentManager(),
+                    dialogFragmentEditContact, true);
         });
     }
 
@@ -323,6 +317,28 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         super.onResume();
 
         appBarLayout.addOnOffsetChangedListener(this); // Add offset changed listener
+    }
+
+    /**
+     * Function to set and update activity title
+     *
+     * @param contactType     - String activity title
+     * @param contactFullName - Contact full name
+     */
+    private void setActivityTitle(String contactType, String contactFullName) {
+
+        String title = "";
+        if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME)) {
+
+            title = DataUtils.getStringResource(mContext, R.string.title_debts_people_owing_me,
+                    contactFullName);
+
+        } else if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_I_OWE)) {
+
+            title = DataUtils.getStringResource(mContext, R.string.title_debts_people_i_owe,
+                    contactFullName);
+        }
+        textTitle.setText(title); // Set activity title
     }
 
     /**
@@ -504,19 +520,21 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                         ContactUtils.KEY_CONTACT_DETAILS);
 
                 // Get contact details
-                String contactFullName = contactDetails.getString(
+                this.contactFullName = contactDetails.getString(
                         ContactUtils.FIELD_CONTACT_FULL_NAME);
-                String contactPhoneNumber = contactDetails.getString(
+                this.contactPhoneNumber = contactDetails.getString(
                         ContactUtils.FIELD_CONTACT_PHONE_NUMBER);
-                String contactEmailAddress = contactDetails.getString(
+                this.contactEmailAddress = contactDetails.getString(
                         ContactUtils.FIELD_CONTACT_EMAIL_ADDRESS);
-                String contactAddress = contactDetails.getString(
+                this.contactAddress = contactDetails.getString(
                         ContactUtils.FIELD_CONTACT_ADDRESS);
                 String debtsTotalAmount = DataUtils.getStringResource(
                         mContext,
                         R.string.label_debts_total_amount,
                         contactDetails.getString(DebtUtils.FIELD_DEBTS_TOTAL_AMOUNT)
                 );
+
+                setActivityTitle(contactType, contactFullName); // Update activity title
 
                 // Set contact details
                 this.textContactFullName.setText(contactFullName);
@@ -531,6 +549,10 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                 showContactDetails(true); // Show contact details
 
                 showAddDebtFab(true); // Show add debt FAB
+
+                // Pass contact details to
+                dialogFragmentEditContact.setContactDetails(contactId, contactFullName,
+                        contactPhoneNumber, contactEmailAddress, contactAddress);
 
             } catch (Exception ignored) {
             }
