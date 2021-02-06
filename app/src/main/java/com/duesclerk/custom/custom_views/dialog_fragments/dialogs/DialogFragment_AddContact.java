@@ -74,6 +74,9 @@ public class DialogFragment_AddContact extends DialogFragment {
 
     /**
      * Class constructor
+     *
+     * @param context     - Context
+     * @param tabPosition - TabLayout position
      */
     public DialogFragment_AddContact(Context context, int tabPosition) {
 

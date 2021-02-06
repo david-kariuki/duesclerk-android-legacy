@@ -37,6 +37,7 @@
         <item name="android:imeOptions">actionSearch</item>
         <item name="android:textAlignment">textStart</item>
         <item name="android:inputType">text</item>
+        <item name="android:queryBackground">@color/colorWhite</item>
         <item name="android:queryHint">@string/hint_search_contacts</item>
         <item name="android:searchHintIcon">@drawable/ic_baseline_search_24_primary_dark</item>
         <item name="android:searchIcon">@drawable/ic_baseline_search_24_primary_dark</item>

@@ -58,27 +58,24 @@ public class BottomSheetFragment_Logout extends BottomSheetDialogFragment {
                     R.string.msg_logout,
                     database.getUserAccountInfo(null).get(0).getEmailAddress()));
         }
+
         // Dismiss dialog
         tvCancel.setOnClickListener(v -> dialog.dismiss());
 
         tvLogout.setOnClickListener(v -> {
 
-            // Check if user is logged in
-            if (sessionManager.isSignedIn()) {
+            sessionManager.setSignedIn(false); // Falsify session
 
-                // Delete user details from SQLite database
-                database.deleteUserAccountInfoByUserId(
-                        database.getUserAccountInfo(null).get(0)
-                                .getUserId());
+            // Launch SignInSignUp activity
+            startActivity(new Intent(getActivity(), SignInSignupActivity.class));
 
-                sessionManager.setSignedIn(false); // Falsify session
+            // Delete user details from SQLite database
+            database.deleteUserAccountInfoByUserId(
+                    database.getUserAccountInfo(null).get(0)
+                            .getUserId());
 
-                // Launch SignInSignUp activity
-                startActivity(new Intent(getActivity(), SignInSignupActivity.class));
-
-                // Close activity
-                requireActivity().finish();
-            }
+            // Close activity
+            requireActivity().finish();
 
             dialog.dismiss(); // Dismiss dialog
         });

@@ -210,6 +210,20 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
         }
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        showSearchView(tabPosition != 2); // Show / Hide SearchView
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        showSearchView(tabPosition != 2); // Show / Hide SearchView
+    }
+
     /**
      * Function to setup TabLayout icons and title
      */
@@ -303,7 +317,9 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
         showSearchView(position != 2); // Show / Hide SearchView
 
         switch (position) {
+
             case 0:
+
                 if (selected) {
                     // Set tab title color
                     textTabPeopleOwingMe.setTextColor(DataUtils.getColorResource(mContext,
@@ -344,7 +360,9 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
                             imageTabPeopleIOwe);
                 }
                 break;
+
             case 2:
+
                 if (selected) {
                     // Set tab title color
                     textTabAppMenu.setTextColor(DataUtils.getColorResource(mContext,
@@ -364,6 +382,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
                             imageTabAppMenu);
                 }
                 break;
+
             default:
                 break;
         }
@@ -463,13 +482,21 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
         switch (tabPosition) {
 
             case 0:
+
                 // Set SearchView query to holding variables' text
                 searchView.setQuery(queryPeopleOwingMe, true);
                 break;
 
             case 1:
+
                 // Set SearchView query to holding variables' text
                 searchView.setQuery(queryPeopleIOwe, true);
+                break;
+
+            case 2:
+
+                // Set SearchView query to null
+                searchView.setQuery("", false);
                 break;
 
             default:
