@@ -10,11 +10,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:descendantFocusability="beforeDescendants"
         android:focusable="true"
-        android:focusedByDefault="true"
         android:focusableInTouchMode="true"
+        android:focusedByDefault="true"
+        android:orientation="vertical"
         tools:targetApi="o">
 
         <com.google.android.material.tabs.TabLayout
@@ -25,7 +25,7 @@
             android:layout_marginStart="0dp"
             android:layout_marginEnd="0dp"
             android:background="@color/colorActivityBackground"
-            android:elevation="@dimen/dimen_toolbar_elevation_large"
+            android:elevation="@dimen/dimen_toolbar_activity_elevation_large"
             android:longClickable="false"
             android:overScrollMode="never"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -38,24 +38,27 @@
             app:tabSelectedTextColor="@color/colorPrimaryDark"
             app:tabTextColor="@color/colorBlack" />
 
-            <SearchView
-                android:id="@+id/searchViewMainActivity"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_gravity="start"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="3dp"
-                android:closeIcon="@drawable/ic_baseline_close_24_primary"
-                android:elevation="@dimen/dimen_bs_toolbar_elevation"
-                android:gravity="start"
-                android:queryHint="@string/hint_search_contacts"
-                android:searchHintIcon="@drawable/ic_baseline_search_24_primary_dark"
-                android:searchIcon="@drawable/ic_baseline_search_24_primary_dark"
-                android:theme="@style/Style_SearchView"
-                android:visibility="visible" />
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchViewMainActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_gravity="start"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="start"
+            android:visibility="visible"
+            app:closeIcon="@drawable/ic_baseline_close_24_primary"
+            app:queryHint="@string/hint_search_contacts"
+            app:searchHintIcon="@drawable/ic_baseline_search_24_primary_dark"
+            app:searchIcon="@drawable/ic_baseline_search_24_primary_dark"
+            app:theme="@style/Style_SearchView" />
 
+        <View
+            android:layout_width="match_parent"
+            android:id="@+id/dividerSearchView"
+            android:layout_height="@dimen/dimen_search_view_divider"
+            style="@style/Style_SearchView_Divider"/>
 
         <include layout="@layout/content_main" />
 

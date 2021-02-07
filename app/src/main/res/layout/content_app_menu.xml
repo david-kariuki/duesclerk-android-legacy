@@ -29,11 +29,11 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/dimen_icon_size_medium"
-                    android:layout_height="@dimen/dimen_icon_size_medium"
+                    android:layout_width="@dimen/dimen_image_view_icon_size_medium"
+                    android:layout_height="@dimen/dimen_image_view_icon_size_medium"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="20dp"
-                    android:padding="@dimen/dimen_icon_padding_medium"
+                    android:padding="@dimen/dimen_image_view_icon_padding_medium"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_baseline_person_24_black" />
 
@@ -66,11 +66,11 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/dimen_icon_size_medium"
-                    android:layout_height="@dimen/dimen_icon_size_medium"
+                    android:layout_width="@dimen/dimen_image_view_icon_size_medium"
+                    android:layout_height="@dimen/dimen_image_view_icon_size_medium"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="20dp"
-                    android:padding="@dimen/dimen_icon_padding_medium"
+                    android:padding="@dimen/dimen_image_view_icon_padding_medium"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_baseline_admin_panel_settings_24_black" />
 
@@ -104,11 +104,11 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/dimen_icon_size_medium"
-                    android:layout_height="@dimen/dimen_icon_size_medium"
+                    android:layout_width="@dimen/dimen_image_view_icon_size_medium"
+                    android:layout_height="@dimen/dimen_image_view_icon_size_medium"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="20dp"
-                    android:padding="@dimen/dimen_icon_padding_medium"
+                    android:padding="@dimen/dimen_image_view_icon_padding_medium"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_baseline_help_24_black" />
 
@@ -142,11 +142,11 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/dimen_icon_size_medium"
-                    android:layout_height="@dimen/dimen_icon_size_medium"
+                    android:layout_width="@dimen/dimen_image_view_icon_size_medium"
+                    android:layout_height="@dimen/dimen_image_view_icon_size_medium"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="20dp"
-                    android:padding="@dimen/dimen_icon_padding_medium"
+                    android:padding="@dimen/dimen_image_view_icon_padding_medium"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_baseline_feedback_24_black" />
 
@@ -180,11 +180,11 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/dimen_icon_size_medium"
-                    android:layout_height="@dimen/dimen_icon_size_medium"
+                    android:layout_width="@dimen/dimen_image_view_icon_size_medium"
+                    android:layout_height="@dimen/dimen_image_view_icon_size_medium"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="20dp"
-                    android:padding="@dimen/dimen_icon_padding_medium"
+                    android:padding="@dimen/dimen_image_view_icon_padding_medium"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_baseline_info_24_black" />
 
@@ -214,11 +214,11 @@
             android:visibility="gone">
 
             <ImageView
-                android:layout_width="@dimen/dimen_icon_size_medium"
-                android:layout_height="@dimen/dimen_icon_size_medium"
+                android:layout_width="@dimen/dimen_image_view_icon_size_medium"
+                android:layout_height="@dimen/dimen_image_view_icon_size_medium"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="20dp"
-                android:padding="@dimen/dimen_icon_padding_medium"
+                android:padding="@dimen/dimen_image_view_icon_padding_medium"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_baseline_settings_24_black" />
 
@@ -251,11 +251,11 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/dimen_icon_size_medium"
-                    android:layout_height="@dimen/dimen_icon_size_medium"
+                    android:layout_width="@dimen/dimen_image_view_icon_size_medium"
+                    android:layout_height="@dimen/dimen_image_view_icon_size_medium"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="20dp"
-                    android:padding="@dimen/dimen_icon_padding_medium"
+                    android:padding="@dimen/dimen_image_view_icon_padding_medium"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_baseline_exit_to_app_24_red" />
 

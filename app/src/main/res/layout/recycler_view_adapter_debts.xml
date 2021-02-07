@@ -257,14 +257,14 @@
 
             <ImageView
                 android:id="@+id/imageDebt_Options"
-                android:layout_width="@dimen/dimen_icon_size_small"
-                android:layout_height="@dimen/dimen_icon_size_small"
+                android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                android:layout_height="@dimen/dimen_image_view_icon_size_small"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_gravity="end"
                 android:layout_marginBottom="5dp"
                 android:contentDescription="@string/content_description_icon"
-                android:padding="@dimen/dimen_icon_padding_small"
+                android:padding="@dimen/dimen_image_view_icon_padding_small"
                 android:src="@drawable/ic_baseline_more_vert_24_primary_grey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -274,8 +274,8 @@
 
             <ImageView
                 android:id="@+id/imageDebt_DropDown"
-                android:layout_width="@dimen/dimen_icon_size_small"
-                android:layout_height="@dimen/dimen_icon_size_small"
+                android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                android:layout_height="@dimen/dimen_image_view_icon_size_small"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_gravity="bottom"

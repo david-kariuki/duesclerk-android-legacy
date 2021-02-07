@@ -184,13 +184,13 @@
 
                 <View
                     style="@style/Style_Shimmer_TextView_Small"
-                    android:layout_width="@dimen/dimen_icon_size_small"
-                    android:layout_height="@dimen/dimen_icon_size_small"
+                    android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                    android:layout_height="@dimen/dimen_image_view_icon_size_small"
                     android:layout_marginEnd="2dp"
                     android:layout_marginBottom="2dp"
                     android:layout_marginTop="2dp"
                     android:layout_marginStart="5dp"
-                    android:padding="@dimen/dimen_icon_padding_small" />
+                    android:padding="@dimen/dimen_image_view_icon_padding_small" />
 
                 <View
                     style="@style/Style_Shimmer_TextView_Small"
@@ -213,13 +213,13 @@
 
                 <View
                     style="@style/Style_Shimmer_TextView_Small"
-                    android:layout_width="@dimen/dimen_icon_size_small"
-                    android:layout_height="@dimen/dimen_icon_size_small"
+                    android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                    android:layout_height="@dimen/dimen_image_view_icon_size_small"
                     android:layout_marginEnd="2dp"
                     android:layout_marginBottom="2dp"
                     android:layout_marginTop="2dp"
                     android:layout_marginStart="5dp"
-                    android:padding="@dimen/dimen_icon_padding_small" />
+                    android:padding="@dimen/dimen_image_view_icon_padding_small" />
 
                 <View
                     style="@style/Style_Shimmer_TextView_Small"

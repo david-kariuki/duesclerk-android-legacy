@@ -36,19 +36,19 @@
                 android:textAlignment="center"
                 android:textColor="@color/colorBlack"
                 android:textColorHint="@color/colorBlack"
-                android:textSize="@dimen/dimen_email_verification_message_text_size" />
+                android:textSize="@dimen/dimen_text_view_message_size_normal" />
 
             <LinearLayout
                 android:id="@+id/llEmailVerification_SendVerificationCode"
                 style="@style/Style_CustomButton_Container_Fill_Primary_Dark"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dimen_email_verification_button_height"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/Style_CustomButton_Text"
+                    style="@style/Style_LinearLayout_Button_Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/action_send_code"
@@ -68,7 +68,7 @@
             android:layout_marginBottom="20dp"
             android:text="@string/action_already_have_code"
             android:textColor="@color/colorBlue900"
-            android:textSize="@dimen/dimen_email_verification_link_text_size"
+            android:textSize="@dimen/dimen_text_view_links_size_normal"
             android:textStyle="bold" />
 
     </LinearLayout>

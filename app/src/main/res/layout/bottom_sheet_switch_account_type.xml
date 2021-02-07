@@ -8,8 +8,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_bs_toolbar_height"
-        android:elevation="@dimen/dimen_bs_toolbar_elevation">
+        android:layout_height="@dimen/dimen_toolbar_bs_height"
+        android:elevation="@dimen/dimen_toolbar_bs_elevation">
 
         <TextView
             android:id="@+id/textSwitchAccountType_Title"
@@ -22,7 +22,7 @@
             android:text="@string/action_switch_account_type"
             android:textColor="@color/colorPrimaryRed"
             android:textColorHint="@color/colorPrimaryDark"
-            android:textSize="@dimen/dimen_toolbar_title_size"
+            android:textSize="@dimen/dimen_text_view_toolbar_title_size"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/colorWhite"
-                app:cardCornerRadius="@dimen/dimen_signup_signin_card_corner_radius"
+                app:cardCornerRadius="@dimen/dimen_card_view_corner_radius"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -84,11 +84,11 @@
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:layout_width="@dimen/dimen_icon_size_small"
-                                android:layout_height="@dimen/dimen_icon_size_small"
+                                android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                                android:layout_height="@dimen/dimen_image_view_icon_size_small"
                                 android:layout_marginEnd="10dp"
                                 android:contentDescription="@string/content_description_icon_first_name"
-                                android:padding="@dimen/dimen_icon_padding_small"
+                                android:padding="@dimen/dimen_image_view_icon_padding_small"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/ic_baseline_person_24_primary" />
 
@@ -106,7 +106,7 @@
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/dimen_signup_signin_field_divider_height"
+                            android:layout_height="@dimen/dimen_field_divider_height"
                             android:layout_marginStart="49dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="30dp"
@@ -122,11 +122,11 @@
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:layout_width="@dimen/dimen_icon_size_small"
-                                android:layout_height="@dimen/dimen_icon_size_small"
+                                android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                                android:layout_height="@dimen/dimen_image_view_icon_size_small"
                                 android:layout_marginEnd="10dp"
                                 android:contentDescription="@string/content_description_icon_last_name"
-                                android:padding="@dimen/dimen_icon_padding_small"
+                                android:padding="@dimen/dimen_image_view_icon_padding_small"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/ic_baseline_email_24_primary"
                                 android:visibility="invisible" />
@@ -145,7 +145,7 @@
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/dimen_signup_signin_field_divider_height"
+                            android:layout_height="@dimen/dimen_field_divider_height"
                             android:layout_marginStart="49dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="30dp"
@@ -181,11 +181,11 @@
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:layout_width="@dimen/dimen_icon_size_small"
-                                android:layout_height="@dimen/dimen_icon_size_small"
+                                android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                                android:layout_height="@dimen/dimen_image_view_icon_size_small"
                                 android:layout_marginEnd="8dp"
                                 android:contentDescription="@string/content_description_icon_business_name"
-                                android:padding="@dimen/dimen_icon_padding_small"
+                                android:padding="@dimen/dimen_image_view_icon_padding_small"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/ic_baseline_business_24_primary" />
 
@@ -204,7 +204,7 @@
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/dimen_signup_signin_field_divider_height"
+                            android:layout_height="@dimen/dimen_field_divider_height"
                             android:layout_marginStart="49dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="30dp"
@@ -241,13 +241,13 @@
 
                             <ImageView
                                 android:id="@+id/ImageView1"
-                                android:layout_width="@dimen/dimen_icon_size_small"
-                                android:layout_height="@dimen/dimen_icon_size_small"
+                                android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                                android:layout_height="@dimen/dimen_image_view_icon_size_small"
                                 android:layout_alignParentStart="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginEnd="10dp"
                                 android:contentDescription="@string/content_description_icon_password"
-                                android:padding="@dimen/dimen_icon_padding_small"
+                                android:padding="@dimen/dimen_image_view_icon_padding_small"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/ic_baseline_lock_24_primary" />
 
@@ -268,14 +268,14 @@
 
                             <ImageView
                                 android:id="@+id/imageSwitchAccountType_Password"
-                                android:layout_width="@dimen/dimen_icon_size_small"
-                                android:layout_height="@dimen/dimen_icon_size_small"
+                                android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                                android:layout_height="@dimen/dimen_image_view_icon_size_small"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginEnd="10dp"
                                 android:contentDescription="@string/content_description_icon_password_toggle"
-                                android:padding="@dimen/dimen_icon_padding_small"
+                                android:padding="@dimen/dimen_image_view_icon_padding_small"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/ic_baseline_visibility_24_primary_grey"
                                 android:visibility="invisible" />
@@ -283,7 +283,7 @@
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/dimen_signup_signin_field_divider_height"
+                            android:layout_height="@dimen/dimen_field_divider_height"
                             android:layout_marginStart="49dp"
                             android:layout_marginEnd="30dp"
                             android:background="@color/colorDividerGrey" />
@@ -301,7 +301,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/colorWhite"
-                app:cardCornerRadius="@dimen/dimen_signup_signin_card_corner_radius"
+                app:cardCornerRadius="@dimen/dimen_card_view_corner_radius"
                 app:cardUseCompatPadding="true">
 
 
@@ -329,7 +329,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        style="@style/Style_CustomButton_Text"
+                        style="@style/Style_LinearLayout_Button_Text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/action_cancel"
@@ -347,7 +347,7 @@
                     android:gravity="center">
 
                     <TextView
-                        style="@style/Style_CustomButton_Text"
+                        style="@style/Style_LinearLayout_Button_Text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/action_switch"

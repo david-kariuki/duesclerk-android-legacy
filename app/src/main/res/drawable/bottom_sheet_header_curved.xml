@@ -6,6 +6,6 @@
     <solid android:color="@color/colorWhite" />
 
     <corners
-        android:topLeftRadius="@dimen/dimen_bs_outlines_radius"
-        android:topRightRadius="@dimen/dimen_bs_outlines_radius" />
+        android:topLeftRadius="@dimen/dimen_outlines_bs_radius"
+        android:topRightRadius="@dimen/dimen_outlines_bs_radius" />
 </shape>

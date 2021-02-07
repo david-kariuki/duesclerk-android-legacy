@@ -1,52 +1,62 @@
 <resources>
 
     <!--General-->
-    <dimen name="dimen_toolbar_title_size">17sp</dimen>
 
     <!--Floating action button-->
     <dimen name="dimen_fab_margin_top">15dp</dimen>
     <dimen name="dimen_fab_margin_start">17dp</dimen>
     <dimen name="dimen_fab_margin_end">@dimen/dimen_fab_margin_start</dimen>
     <dimen name="dimen_fab_margin_bottom">16dp</dimen>
+    <dimen name="dimen_fab_elevation_small">5dp</dimen>
 
-    <!--ImageView size dimensions-->
-    <dimen name="dimen_icon_size_small">28dp</dimen>
-    <dimen name="dimen_icon_size_medium">35dp</dimen>
-    <dimen name="dimen_icon_size_large">45dp</dimen>
+    <!--CardView-->
+    <dimen name="dimen_card_view_elevation">10dp</dimen>
+    <dimen name="dimen_card_view_margin_top">5dp</dimen>
+    <dimen name="dimen_card_view_corner_radius">15dp</dimen>
 
-    <!--ImageView padding dimensions-->
-    <dimen name="dimen_icon_padding_small">5dp</dimen>
-    <dimen name="dimen_icon_padding_medium">8dp</dimen>
+    <!--ImageView dimensions-->
+    <dimen name="dimen_image_view_icon_size_small">28dp</dimen>
+    <dimen name="dimen_image_view_icon_size_medium">35dp</dimen>
+    <dimen name="dimen_image_view_icon_size_large">45dp</dimen>
+    <dimen name="dimen_image_view_icon_padding_small">5dp</dimen>
+    <dimen name="dimen_image_view_icon_padding_medium">8dp</dimen>
 
-    <!--ToolBar Dimensions-->
-    <dimen name="dimen_toolbar_height_medium">45dp</dimen>
-    <dimen name="dimen_toolbar_elevation_medium">10dp</dimen>
-    <dimen name="dimen_toolbar_elevation_large">14dp</dimen>
-    <dimen name="dimen_toolbar_divider_height">.6dp</dimen>
+    <!--ToolBar Dimensions (Activities and BottomSheets-->
+    <dimen name="dimen_toolbar_activity_height_medium">45dp</dimen>
+    <dimen name="dimen_toolbar_activity_elevation_medium">10dp</dimen>
+    <dimen name="dimen_toolbar_activity_elevation_large">14dp</dimen>
+    <dimen name="dimen_toolbar_activity_divider_height">.6dp</dimen>
+    <dimen name="dimen_toolbar_bs_elevation">5dp</dimen>
+    <dimen name="dimen_toolbar_bs_height">35dp</dimen>
 
     <!--TabLayout-->
     <dimen name="dimen_tab_layout_icon_size_small">25dp</dimen>
     <dimen name="dimen_tab_layout_text_size_small">12sp</dimen>
 
     <!--Bottom Sheets-->
-    <dimen name="dimen_bs_toolbar_height">35dp</dimen>
     <dimen name="dimen_bs_text_buttons_size">13sp</dimen>
-    <dimen name="dimen_bs_toolbar_elevation">5dp</dimen>
-    <dimen name="dimen_bs_outlines_radius">25dp</dimen>
 
-    <!--SignUp and SignIn Dimensions-->
-    <dimen name="dimen_signup_signin_edit_text_size">14sp</dimen>
-    <dimen name="dimen_signup_signin_labels_text_size">13sp</dimen>
-    <dimen name="dimen_signup_signin_card_elevation">10dp</dimen>
-    <dimen name="dimen_signup_signin_card_margin_top">5dp</dimen>
-    <dimen name="dimen_signup_signin_card_corner_radius">15dp</dimen>
-    <dimen name="dimen_signup_signin_edit_text_min_width">150dp</dimen>
-    <dimen name="dimen_signup_signin_field_divider_height">0.5dp</dimen>
-    <dimen name="dimen_signup_signin_field_divider_margin_top">6dp</dimen>
+    <!--Text Dimensions-->
+    <dimen name="dimen_edit_text_size_normal">14sp</dimen>
+    <dimen name="dimen_text_view_labels_size_normal">13sp</dimen>
+    <dimen name="dimen_text_view_links_size_normal">13sp</dimen>
+    <dimen name="dimen_text_view_message_size_normal">15sp</dimen>
+    <dimen name="dimen_text_view_button_size">12sp</dimen>
+    <dimen name="dimen_text_view_toolbar_title_size">17sp</dimen>
+    <dimen name="dimen_edit_text_min_width">150dp</dimen>
+
+    <!--Dividers-->
+    <dimen name="dimen_list_divider_height">.3dp</dimen>
+    <dimen name="dimen_field_divider_height">0.5dp</dimen>
+    <dimen name="dimen_field_divider_margin_top">6dp</dimen>
+    <dimen name="dimen_search_view_divider">.4dp</dimen>
+
+    <!--Outlines-->
     <dimen name="dimen_outlines_corners">25dp</dimen>
     <dimen name="dimen_outlines_radius">10dp</dimen>
     <dimen name="dimen_outlines_stroke_width_small">.8dp</dimen>
     <dimen name="dimen_outlines_stroke_width_medium">1.2dp</dimen>
+    <dimen name="dimen_outlines_bs_radius">25dp</dimen>
 
     <!--App Options Activity-->
     <dimen name="dimen_app_options_list_item_height">50dp</dimen>
@@ -57,12 +67,4 @@
     <dimen name="dimen_shimmer_text_view_width_small">90dp</dimen>
     <dimen name="dimen_shimmer_text_view_height">15dp</dimen>
     <dimen name="dimen_shimmer_edit_text_height">25dp</dimen>
-    <dimen name="dimen_fab_elevation_small">5dp</dimen>
-
-    <!--Verification Activity Text Size-->
-    <dimen name="dimen_email_verification_message_text_size">15sp</dimen>
-    <dimen name="dimen_email_verification_link_text_size">13sp</dimen>
-    <dimen name="dimen_email_verification_button_height">45dp</dimen>
-
-    <dimen name="dimen_list_divider_height">.3dp</dimen>
 </resources>

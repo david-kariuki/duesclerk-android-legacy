@@ -4,8 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <solid android:color="@color/colorWhite"/>
     <corners
-        android:topRightRadius="@dimen/dimen_bs_outlines_radius"
-        android:topLeftRadius="@dimen/dimen_bs_outlines_radius"
-        android:bottomRightRadius="@dimen/dimen_bs_outlines_radius"
-        android:bottomLeftRadius="@dimen/dimen_bs_outlines_radius"/>
+        android:topRightRadius="@dimen/dimen_outlines_bs_radius"
+        android:topLeftRadius="@dimen/dimen_outlines_bs_radius"
+        android:bottomRightRadius="@dimen/dimen_outlines_bs_radius"
+        android:bottomLeftRadius="@dimen/dimen_outlines_bs_radius"/>
 </shape>

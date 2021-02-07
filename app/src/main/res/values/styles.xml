@@ -32,7 +32,6 @@
         <item name="android:textColor">@color/colorBlack</item>
         <item name="android:textColorHint">@color/colorBlack</item>
         <item name="android:singleLine">true</item>
-        <item name="android:elevation">@dimen/dimen_bs_toolbar_elevation</item>
         <item name="android:iconifiedByDefault">false</item>
         <item name="android:imeOptions">actionSearch</item>
         <item name="android:textAlignment">textStart</item>
@@ -116,9 +115,9 @@
     <!--Toolbars-->
     <style name="Style_Toolbar_Container_Medium">
         <item name="android:layout_width">match_parent</item>
-        <item name="elevation">@dimen/dimen_toolbar_elevation_medium</item>
-        <item name="android:layout_height">@dimen/dimen_toolbar_height_medium</item>
-        <item name="android:minHeight">@dimen/dimen_toolbar_height_medium</item>
+        <item name="elevation">@dimen/dimen_toolbar_activity_elevation_medium</item>
+        <item name="android:layout_height">@dimen/dimen_toolbar_activity_height_medium</item>
+        <item name="android:minHeight">@dimen/dimen_toolbar_activity_height_medium</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:background">@color/colorWhite</item>
         <item name="android:orientation">horizontal</item>
@@ -135,9 +134,9 @@
     </style>
 
     <style name="Style_Toolbar_Icon_Exit">
-        <item name="android:layout_height">@dimen/dimen_icon_size_small</item>
-        <item name="android:layout_width">@dimen/dimen_icon_size_small</item>
-        <item name="android:padding">@dimen/dimen_icon_padding_small</item>
+        <item name="android:layout_height">@dimen/dimen_image_view_icon_size_small</item>
+        <item name="android:layout_width">@dimen/dimen_image_view_icon_size_small</item>
+        <item name="android:padding">@dimen/dimen_image_view_icon_padding_small</item>
         <item name="android:src">@drawable/ic_baseline_arrow_back_24_primary_dark</item>
         <item name="android:layout_marginStart">10dp</item>
         <item name="android:layout_marginEnd">10dp</item>
@@ -166,7 +165,7 @@
 
     <!--BottomSheets dismiss icon-->
     <style name="Style_BottomSheets_Dismiss" parent="@android:style/TextAppearance.Widget.TextView">
-        <item name="android:padding">@dimen/dimen_icon_padding_small</item>
+        <item name="android:padding">@dimen/dimen_image_view_icon_padding_small</item>
         <item name="android:layout_marginStart">10dp</item>
         <item name="android:layout_marginEnd">5dp</item>
         <item name="android:src">@drawable/ic_baseline_close_24_black</item>
@@ -277,5 +276,12 @@
         <item name="android:background">@color/colorTransparent</item>
         <item name="android:maxLines">1</item>
         <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+    <style name="Style_SearchView_Divider">
+        <item name="android:background">@color/colorBlack</item>
+        <item name="android:layout_marginStart">55dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginBottom">3dp</item>
     </style>
 </resources>

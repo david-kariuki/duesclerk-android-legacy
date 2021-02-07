@@ -20,10 +20,10 @@
             <ImageView
                 android:id="@+id/imageEmailActivation_Exit"
                 style="@style/Style_Toolbar_Icon_Exit"
-                android:layout_width="@dimen/dimen_icon_size_small"
-                android:layout_height="@dimen/dimen_icon_size_small"
+                android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                android:layout_height="@dimen/dimen_image_view_icon_size_small"
                 android:contentDescription="@string/content_description_icon_exit"
-                android:padding="@dimen/dimen_icon_padding_small" />
+                android:padding="@dimen/dimen_image_view_icon_padding_small" />
 
             <TextView
                 style="@style/Style_Toolbar_Title_Medium_Primary_Dark"
