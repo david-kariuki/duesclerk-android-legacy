@@ -56,13 +56,13 @@
                         <LinearLayout
                             style="@style/Style_Toolbar_Container_Medium"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/dimen_toolbar_height_medium">
+                            android:layout_height="@dimen/dimen_toolbar_activity_height_medium">
 
                             <ImageView
                                 android:id="@+id/imageContactDetailsAndDebtsActivity_Exit"
                                 style="@style/Style_Toolbar_Icon_Exit"
-                                android:layout_width="@dimen/dimen_icon_size_small"
-                                android:layout_height="@dimen/dimen_icon_size_small"
+                                android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                                android:layout_height="@dimen/dimen_image_view_icon_size_small"
                                 android:contentDescription="@string/content_description_icon_exit" />
 
                             <TextView
@@ -70,6 +70,8 @@
                                 style="@style/Style_Toolbar_Title_Medium_Primary_Dark"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:maxLines="2"
+                                android:singleLine="false"
                                 android:text="@string/title_debts_people_owing_me" />
 
                         </LinearLayout>
@@ -295,13 +297,13 @@
                                     android:orientation="horizontal">
 
                                     <ImageView
-                                        android:layout_width="@dimen/dimen_icon_size_small"
-                                        android:layout_height="@dimen/dimen_icon_size_small"
+                                        android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                                        android:layout_height="@dimen/dimen_image_view_icon_size_small"
                                         android:layout_marginStart="5dp"
                                         android:layout_marginTop="2dp"
                                         android:layout_marginBottom="2dp"
                                         android:contentDescription="@string/content_description_icon_edit"
-                                        android:padding="@dimen/dimen_icon_padding_small"
+                                        android:padding="@dimen/dimen_image_view_icon_padding_small"
                                         android:src="@drawable/ic_baseline_edit_24_primary" />
 
                                     <TextView
@@ -321,7 +323,7 @@
 
                                 <LinearLayout
                                     android:id="@+id/llContactDetailsAndDebtsActivity_DeleteContact"
-                                    style="@style/Style_CustomButton_Container_Stroke_Continuous_Primary"
+                                    style="@style/Style_CustomButton_Container_Stroke_Continuous_Primary_Red"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="5dp"
@@ -332,14 +334,14 @@
                                     android:orientation="horizontal">
 
                                     <ImageView
-                                        android:layout_width="@dimen/dimen_icon_size_small"
-                                        android:layout_height="@dimen/dimen_icon_size_small"
+                                        android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                                        android:layout_height="@dimen/dimen_image_view_icon_size_small"
                                         android:layout_marginStart="5dp"
                                         android:layout_marginTop="2dp"
                                         android:layout_marginBottom="2dp"
                                         android:contentDescription="@string/content_description_icon_edit"
-                                        android:padding="@dimen/dimen_icon_padding_small"
-                                        android:src="@drawable/ic_baseline_delete_forever_24_primary" />
+                                        android:padding="@dimen/dimen_image_view_icon_padding_small"
+                                        android:src="@drawable/ic_baseline_delete_forever_24_primary_red" />
 
                                     <TextView
                                         style="@style/Style_Text_Labels"
@@ -348,6 +350,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginStart="0dp"
                                         android:layout_marginTop="0dp"
+                                        android:textColor="@color/colorPrimaryRed"
                                         android:layout_marginEnd="10dp"
                                         android:layout_marginBottom="0dp"
                                         android:lines="1"
@@ -377,14 +380,14 @@
                     android:layout_marginStart="15dp"
                     android:orientation="vertical">
 
-                    <SearchView
+                    <androidx.appcompat.widget.SearchView
                         android:id="@+id/searchViewDebts"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_gravity="start"
                         android:visibility="gone"
                         android:closeIcon="@drawable/ic_baseline_close_24_primary"
-                        android:elevation="@dimen/dimen_bs_toolbar_elevation"
+                        android:elevation="@dimen/dimen_toolbar_bs_elevation"
                         android:gravity="start"
                         android:queryHint="@string/hint_search_debts"
                         android:searchHintIcon="@drawable/ic_baseline_search_24_primary_dark"

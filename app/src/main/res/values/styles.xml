@@ -124,10 +124,12 @@
     </style>
 
     <style name="Style_Toolbar_Title_Medium_Primary_Dark">
-        <item name="android:textSize">@dimen/dimen_toolbar_title_size</item>
+        <item name="android:textSize">@dimen/dimen_text_view_toolbar_title_size</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
         <item name="android:layout_gravity">center_vertical|start</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_alignParentStart">true</item>
@@ -158,9 +160,7 @@
         <item name="android:background">@color/color_shimmer_item_grey</item>
     </style>
 
-    <!--
-        BottomSheets
-    -->
+    <!--BottomSheets-->
     <!--BottomSheets title texts-->
 
     <!--BottomSheets dismiss icon-->
@@ -213,6 +213,19 @@
     </style>
 
     <!--Stroke continuous primary-->
+    <style name="Style_CustomButton_Container_Stroke_Continuous_Primary_Red">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:background">
+            @drawable/outline_rectangle_stroke_primary_red
+        </item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <!--Stroke continuous primary-->
     <style name="Style_CustomButton_Container_Stroke_Continuous_Primary_Grey">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
@@ -238,7 +251,7 @@
     </style>
 
     <!--Custom LinearLayout button-->
-    <style name="Style_CustomButton_Text" parent="@android:style/TextAppearance.Widget.TextView">
+    <style name="Style_LinearLayout_Button_Text" parent="@android:style/TextAppearance.Widget.TextView">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_marginStart">22dp</item>
@@ -247,14 +260,28 @@
         <item name="android:layout_marginBottom">8dp</item>
         <item name="android:textStyle">bold</item>
         <item name="textAllCaps">true</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">@dimen/dimen_text_view_button_size</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!--Custom TextView button-->
+    <style name="Style_TextView_Button" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginStart">22dp</item>
+        <item name="android:layout_marginEnd">22dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textSize">@dimen/dimen_text_view_button_size</item>
         <item name="android:gravity">center</item>
     </style>
 
     <style name="Style_PasswordCounterText" parent="@android:style/TextAppearance.Widget.TextView">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">@dimen/dimen_edit_text_size_normal</item>
         <item name="android:gravity">center</item>
         <item name="android:lines">1</item>
         <item name="android:ems">2</item>
@@ -267,7 +294,7 @@
     </style>
 
     <style name="Style_Text_Labels">
-        <item name="android:textSize">@dimen/dimen_signup_signin_edit_text_size</item>
+        <item name="android:textSize">@dimen/dimen_edit_text_size_normal</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textColorHint">@color/colorTextView</item>
         <item name="android:layout_marginStart">15dp</item>

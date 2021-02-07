@@ -1,17 +1,22 @@
 package com.duesclerk.activities;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -58,8 +63,9 @@ import java.util.Map;
 
 public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
 
-    //private final String TAG = ContactDetailsAndDebtsActivity.class.getSimpleName(); // Get
-    // class simple name
+    // Get class simple name
+    // private final String TAG = ContactDetailsAndDebtsActivity.class.getSimpleName();
+
     RelativeLayout rlNoConnection;
     FloatingActionButton fabAddDebt;
     RVLA_Debts rvlaDebts;
@@ -72,8 +78,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
     private ArrayList<JB_Debts> debtRecords;
     private AppBarLayout appBarLayout;
     private UserDatabase database;
-    private String contactId, contactType, contactFullName, contactPhoneNumber,
-            contactEmailAddress, contactAddress;
+    private String contactId, contactType, contactFullName;
     private ShimmerFrameLayout shimmerContactDetails;
     private LinearLayout llContactDetails;
     private LinearLayout llNoDebts;
@@ -81,6 +86,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
     private BroadcastReceiver bcrReloadDebts;
     private SearchView searchView;
     private DialogFragment_UpdateContact dialogFragmentEditContact;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +133,10 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         recyclerView.addItemDecoration(decorators); // Add item decoration
         recyclerView.setLayoutManager(layoutManager); // Set layout manager
         recyclerView.setHasFixedSize(false); // Set has fixed size to false
+
+        // Initialize ProgressDialog
+        progressDialog = ViewsUtils.initProgressDialog(ContactDetailsAndDebtsActivity.this,
+                false);
 
         // Broadcast receiver
         bcrReloadDebts = new BroadcastReceiver() {
@@ -237,12 +247,16 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
             fabAddDebt.performClick(); // Click fab add debt
         });
 
+        // Edit contact onClick - Show edit contact dialog
         llEditContact.setOnClickListener(v -> {
 
             // Show add debt dialog
             ViewsUtils.showDialogFragment(getSupportFragmentManager(),
                     dialogFragmentEditContact, true);
         });
+
+        // Delete contact onClick - Show delete contact confirmation
+        llDeleteContact.setOnClickListener(v -> showDialogDeleteContact());
     }
 
     @Override
@@ -339,6 +353,200 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                     contactFullName);
         }
         textTitle.setText(title); // Set activity title
+    }
+
+    /**
+     * Function to show / hide SearchView
+     *
+     * @param show - boolean - (show / hide view)
+     */
+    private void showSearchView(boolean show) {
+
+        if (show) {
+
+            searchView.setVisibility(View.VISIBLE); // Show SearchView
+
+        } else {
+
+            searchView.setVisibility(View.GONE); // Hide SearchView
+        }
+    }
+
+    /**
+     * Function to show / hide add debt fab
+     *
+     * @param show - boolean - (show / hide view)
+     */
+    private void showAddDebtFab(boolean show) {
+
+        if (show) {
+
+            fabAddDebt.setVisibility(View.VISIBLE); // Show FAB
+
+        } else {
+
+            fabAddDebt.setVisibility(View.GONE); // Hide FAB
+        }
+    }
+
+    /**
+     * Function to show / hide contact details
+     *
+     * @param show - boolean - (show / hide view)
+     */
+    private void showContactDetails(boolean show) {
+
+        if (show) {
+
+            swipeRefreshLayout.setVisibility(View.VISIBLE); // Show SwipeRefreshLayout
+            llContactDetails.setVisibility(View.VISIBLE); // Show contact details
+
+        } else {
+
+            llContactDetails.setVisibility(View.GONE); // Hide contact details
+        }
+
+        showNoConnectionLayout(!show); // Show / hide no connection layout
+    }
+
+    /**
+     * Function to show / hide connection layout
+     *
+     * @param show - boolean - (show / hide view)
+     */
+    private void showNoConnectionLayout(boolean show) {
+
+        if (show) {
+
+            rlNoConnection.setVisibility(View.VISIBLE); // Show SwipeRefreshLayout
+            swipeRefreshLayout.setVisibility(View.GONE); // Hide contact details
+
+        } else {
+
+            rlNoConnection.setVisibility(View.GONE); // Hide no connection layout
+        }
+    }
+
+    /**
+     * Function to show / hide RecyclerView
+     *
+     * @param show - boolean - (show / hide view)
+     */
+    private void showRecyclerView(boolean show) {
+
+        if (show) {
+
+            recyclerView.setVisibility(View.VISIBLE); // Show RecyclerView
+            textDebtsTotalAmount.setVisibility(View.VISIBLE); // Show total debts amount
+            showNoDebtsLayout(false); // Hide no debts layout
+
+        } else {
+
+            recyclerView.setVisibility(View.GONE); // Hide RecyclerView
+            textDebtsTotalAmount.setVisibility(View.GONE); // Hide total debts amount
+        }
+    }
+
+    /**
+     * Function to show / hide debts layout
+     *
+     * @param show - boolean - (show / hide view)
+     */
+    private void showNoDebtsLayout(boolean show) {
+
+        if (show) {
+
+            String noDebtsMessage = DataUtils.getStringResource(mContext,
+                    R.string.msg_debts_empty, contactFullName);
+
+            textNoDebtMessage.setText(noDebtsMessage); // Set no debts message
+
+            llNoDebts.setVisibility(View.VISIBLE); // Show no debts layout
+            showRecyclerView(false); // Hide RecyclerView
+
+        } else {
+
+            llNoDebts.setVisibility(View.GONE); // Hide no debts layout
+        }
+
+        showSearchView(!show); // Show / Hide SearchView
+    }
+
+    /**
+     * Function to respond to connection failures
+     *
+     * @param connected - boolean - (network connected / not connected)
+     */
+    private void handleNetworkConnectionEvent(boolean connected) {
+
+        // Check connection state
+        if (!connected) {
+            // No connection
+
+            // Hide swipe SwipeRefresh
+            ViewsUtils.showSwipeRefreshLayout(false, swipeRefreshLayout,
+                    swipeRefreshListener);
+
+            showContactDetails(false); // Hide contact details
+
+        }
+
+        showNoConnectionLayout(!connected); // Show / hide no connection layout
+    }
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+
+        // Check if SwipeRefreshLayout is refreshing
+        if (swipeRefreshLayout.isRefreshing()) {
+
+            swipeRefreshLayout.setEnabled(true); // Enable SwipeRefreshLayout
+
+        } else {
+
+            // Refresh will only be enabled when the offset is zero
+            swipeRefreshLayout.setEnabled(verticalOffset == 0);
+        }
+    }
+
+    /**
+     * Function to create custom dialog to confirm contact deletion
+     */
+    private void showDialogDeleteContact() {
+
+        Dialog dialog = new Dialog(this);
+        LayoutInflater inflater = (LayoutInflater)
+                mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        @SuppressLint("InflateParams")
+        View dialogView = inflater.inflate(R.layout.dialog_confirm_delete_contact, null,
+                false);
+
+        TextView textDialogMessage = dialogView.findViewById(R.id.textDeleteContact_DialogMessage);
+        TextView textCancel = dialogView.findViewById(R.id.textDeleteContact_Cancel);
+        TextView textDeleteContact = dialogView.findViewById(R.id.textDeleteContact_Delete);
+
+        textDialogMessage.setText(DataUtils.getStringResource(mContext,
+                R.string.msg_delete_contact_confirmation, this.contactFullName));
+
+        // Cancel onClick - Dismiss dialog
+        textCancel.setOnClickListener(v -> dialog.dismiss());
+
+        // Delete contact onClick - Show delete contact confirmation
+        textDeleteContact.setOnClickListener(v -> {
+
+                    dialog.dismiss(); // Dismiss dialog
+
+                    // Delete contact
+                    this.deleteContact(
+                            database.getUserAccountInfo(null).get(0).getUserId(),
+                            new String[]{this.contactId});
+                }
+        );
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // Remove window title
+        dialog.setContentView(dialogView); // Set content view
+        dialog.create(); // Create dialog
+        dialog.show(); // Show dialog
     }
 
     /**
@@ -522,11 +730,11 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                 // Get contact details
                 this.contactFullName = contactDetails.getString(
                         ContactUtils.FIELD_CONTACT_FULL_NAME);
-                this.contactPhoneNumber = contactDetails.getString(
+                String contactPhoneNumber = contactDetails.getString(
                         ContactUtils.FIELD_CONTACT_PHONE_NUMBER);
-                this.contactEmailAddress = contactDetails.getString(
+                String contactEmailAddress = contactDetails.getString(
                         ContactUtils.FIELD_CONTACT_EMAIL_ADDRESS);
-                this.contactAddress = contactDetails.getString(
+                String contactAddress = contactDetails.getString(
                         ContactUtils.FIELD_CONTACT_ADDRESS);
                 String debtsTotalAmount = DataUtils.getStringResource(
                         mContext,
@@ -649,156 +857,171 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
     }
 
     /**
-     * Function to show / hide SearchView
+     * Function to add contact to remote database
      *
-     * @param show - boolean - (show / hide view)
+     * @param userId      - Users id
+     * @param contactsIds - Contact id
      */
-    private void showSearchView(boolean show) {
+    private void deleteContact(final String userId, final String[] contactsIds) {
 
-        if (show) {
+        // Check Internet Connection State
+        if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
+            // Connected
 
-            searchView.setVisibility(View.VISIBLE); // Show SearchView
+            ViewsUtils.hideKeyboard(ContactDetailsAndDebtsActivity.this); // Hide keyboard if showing
+
+            // Show dialog
+            ViewsUtils.showProgressDialog(progressDialog,
+                    DataUtils.getStringResource(mContext, R.string.title_updating_contact),
+                    DataUtils.getStringResource(mContext, R.string.msg_updating_contact)
+            );
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                    NetworkUrls.ContactURLS.URL_DELETE_CONTACTS, response -> {
+
+                // Log Response
+                // Log.d(TAG, "Delete contacts response:" + response);
+
+                ViewsUtils.dismissProgressDialog(progressDialog); // Hide Dialog
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean error = jsonObject.getBoolean(VolleyUtils.KEY_ERROR);
+
+                    // Check for error
+                    if (!error) {
+                        // New contact added successfully
+
+                        JSONObject jsonObjectDeleteContact = jsonObject
+                                .getJSONObject(VolleyUtils.KEY_DELETE_CONTACTS);
+
+                        if (!DataUtils.isEmptyString(jsonObjectDeleteContact
+                                .getString(VolleyUtils.KEY_SUCCESS_MESSAGE))) {
+
+                            // Show success message
+                            String plurals = "";
+                            if (contactsIds.length > 1) {
+                                plurals = "s";
+                            }
+
+                            CustomToast.infoMessage(mContext, DataUtils.getStringResource(mContext,
+                                    R.string.msg_contact_deleted_successfully, plurals),
+                                    false,
+                                    R.drawable.ic_baseline_person_remove_alt_1_24_white);
+
+                            finish(); // Exit activity
+                        }
+                    } else {
+                        // Error adding contact
+
+                        String errorMessage = jsonObject.getString(
+                                VolleyUtils.KEY_ERROR_MESSAGE);
+
+                        // Toast error message
+                        CustomToast.errorMessage(
+                                mContext, errorMessage,
+                                R.drawable.ic_baseline_person_add_alt_1_24_white);
+
+                        // Cancel Pending Request
+                        ApplicationClass.getClassInstance().cancelPendingRequests(
+                                NetworkTags.Contacts.TAG_DELETE_CONTACTS_STRING_REQUEST);
+                    }
+                } catch (Exception ignored) {
+                }
+            }, volleyError -> {
+
+                // Log Response
+                // Log.e(TAG, "Delete contacts response error : "
+                //        + volleyError.getMessage());
+
+                ViewsUtils.dismissProgressDialog(progressDialog); // Hide Dialog
+
+                // Check request response
+                if (volleyError.getMessage() == null || volleyError instanceof NetworkError
+                        || volleyError instanceof ServerError || volleyError instanceof
+                        AuthFailureError || volleyError instanceof TimeoutError) {
+
+                    CustomToast.errorMessage(mContext, DataUtils.getStringResource(mContext,
+                            R.string.error_network_connection_error_message_short),
+                            R.drawable.ic_sad_cloud_100px_white);
+
+                } else {
+
+                    // Toast Connection Error Message
+                    CustomToast.errorMessage(mContext, volleyError.getMessage(),
+                            R.drawable.ic_sad_cloud_100px_white);
+                }
+
+                // Clear url cache
+                ApplicationClass.getClassInstance().deleteUrlVolleyCache(
+                        NetworkUrls.ContactURLS.URL_DELETE_CONTACTS);
+            }) {
+                @Override
+                protected void deliverResponse(String response) {
+                    super.deliverResponse(response);
+                }
+
+//                @Override
+//                public Map<String, String> getHeaders() {
+//                    HashMap<String, String> headers = new HashMap<>();
+//                    headers.put("Content-Type", "application/json");
+//                    // headers.put(VolleyUtils.KEY_API_KEY, VolleyUtils.getApiKey(mContext));
+//                    return headers;
+//                }
+
+                @Override
+                protected Map<String, String> getParams() {
+                    @SuppressWarnings({"unchecked", "rawtypes"}) Map<String, String> params =
+                            new HashMap();
+
+                    // Put contact id to Map params
+                    params.put(ContactUtils.KEY_CONTACTS_IDS, contactId);
+
+                    // Put userId to Map params
+                    params.put(UserAccountUtils.FIELD_USER_ID, userId);
+
+                    return params; // Return params
+                }
+
+                @Override
+                protected VolleyError parseNetworkError(VolleyError volleyError) {
+                    return super.parseNetworkError(volleyError);
+                }
+
+                @Override
+                public void deliverError(VolleyError error) {
+                    super.deliverError(error);
+                }
+            };
+
+            // Set Request Priority
+            ApplicationClass.getClassInstance().setPriority(Request.Priority.HIGH);
+
+            // Set retry policy
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+
+                    DataUtils.getIntegerResource(mContext,
+                            R.integer.int_volley_account_request_initial_timeout_ms),
+                    DataUtils.getIntegerResource(mContext,
+                            R.integer.int_volley_account_request_max_timeout_retry),
+                    1.0f));
+
+            // Set request caching to false
+            stringRequest.setShouldCache(false);
+
+            // Adding request to request queue
+            ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
+                    NetworkTags.Contacts.TAG_UPDATE_CONTACT_STRING_REQUEST);
 
         } else {
 
-            searchView.setVisibility(View.GONE); // Hide SearchView
-        }
-    }
-
-    /**
-     * Function to show / hide add debt fab
-     *
-     * @param show - boolean - (show / hide view)
-     */
-    private void showAddDebtFab(boolean show) {
-
-        if (show) {
-
-            fabAddDebt.setVisibility(View.VISIBLE); // Show FAB
-
-        } else {
-
-            fabAddDebt.setVisibility(View.GONE); // Hide FAB
-        }
-    }
-
-    /**
-     * Function to show / hide contact details
-     *
-     * @param show - boolean - (show / hide view)
-     */
-    private void showContactDetails(boolean show) {
-
-        if (show) {
-
-            swipeRefreshLayout.setVisibility(View.VISIBLE); // Show SwipeRefreshLayout
-            llContactDetails.setVisibility(View.VISIBLE); // Show contact details
-
-        } else {
-
-            llContactDetails.setVisibility(View.GONE); // Hide contact details
-        }
-
-        showNoConnectionLayout(!show); // Show / hide no connection layout
-    }
-
-    /**
-     * Function to show / hide connection layout
-     *
-     * @param show - boolean - (show / hide view)
-     */
-    private void showNoConnectionLayout(boolean show) {
-
-        if (show) {
-
-            rlNoConnection.setVisibility(View.VISIBLE); // Show SwipeRefreshLayout
-            swipeRefreshLayout.setVisibility(View.GONE); // Hide contact details
-
-        } else {
-
-            rlNoConnection.setVisibility(View.GONE); // Hide no connection layout
-        }
-    }
-
-    /**
-     * Function to show / hide RecyclerView
-     *
-     * @param show - boolean - (show / hide view)
-     */
-    private void showRecyclerView(boolean show) {
-
-        if (show) {
-
-            recyclerView.setVisibility(View.VISIBLE); // Show RecyclerView
-            textDebtsTotalAmount.setVisibility(View.VISIBLE); // Show total debts amount
-            showNoDebtsLayout(false); // Hide no debts layout
-
-        } else {
-
-            recyclerView.setVisibility(View.GONE); // Hide RecyclerView
-            textDebtsTotalAmount.setVisibility(View.GONE); // Hide total debts amount
-        }
-    }
-
-    /**
-     * Function to show / hide debts layout
-     *
-     * @param show - boolean - (show / hide view)
-     */
-    private void showNoDebtsLayout(boolean show) {
-
-        if (show) {
-
-            String noDebtsMessage = DataUtils.getStringResource(mContext,
-                    R.string.msg_debts_empty, contactFullName);
-
-            textNoDebtMessage.setText(noDebtsMessage); // Set no debts message
-
-            llNoDebts.setVisibility(View.VISIBLE); // Show no debts layout
-            showRecyclerView(false); // Hide RecyclerView
-
-        } else {
-
-            llNoDebts.setVisibility(View.GONE); // Hide no debts layout
-        }
-
-        showSearchView(!show); // Show / Hide SearchView
-    }
-
-    /**
-     * Function to respond to connection failures
-     *
-     * @param connected - boolean - (network connected / not connected)
-     */
-    private void handleNetworkConnectionEvent(boolean connected) {
-
-        // Check connection state
-        if (!connected) {
-            // No connection
-
-            // Hide swipe SwipeRefresh
-            ViewsUtils.showSwipeRefreshLayout(false, swipeRefreshLayout,
-                    swipeRefreshListener);
-
-            showContactDetails(false); // Hide contact details
-
-        }
-
-        showNoConnectionLayout(!connected); // Show / hide no connection layout
-    }
-
-    @Override
-    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-
-        // Check if SwipeRefreshLayout is refreshing
-        if (swipeRefreshLayout.isRefreshing()) {
-
-            swipeRefreshLayout.setEnabled(true); // Enable SwipeRefreshLayout
-
-        } else {
-
-            // Refresh will only be enabled when the offset is zero
-            swipeRefreshLayout.setEnabled(verticalOffset == 0);
+            // Toast network connection message
+            CustomToast.errorMessage(
+                    mContext,
+                    DataUtils.getStringResource(mContext,
+                            R.string.error_network_connection_error_message_long),
+                    R.drawable.ic_sad_cloud_100px_white);
         }
     }
 }

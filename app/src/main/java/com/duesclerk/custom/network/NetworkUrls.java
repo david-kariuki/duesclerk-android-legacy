@@ -84,5 +84,9 @@ public class NetworkUrls {
         // URL to add contact
         public static final String URL_UPDATE_CONTACT = FOLDER_CONTROLLERS_CONTACTS +
                 "updateUserContact.php";
+
+        // URL to delete contacts
+        public static final String URL_DELETE_CONTACTS = FOLDER_CONTROLLERS_CONTACTS +
+                "deleteUserContacts.php";
     }
 }
