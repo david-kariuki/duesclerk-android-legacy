@@ -47,7 +47,7 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
     private UserDatabase database;
     private FetchContactsClass fetchContactsClass;
     private RVLA_Contacts rvlaContacts;
-    private String searchQuery;
+    private String searchQuery = "";
 
     public static FragmentPeople_I_Owe newInstance() {
         return new FragmentPeople_I_Owe();
