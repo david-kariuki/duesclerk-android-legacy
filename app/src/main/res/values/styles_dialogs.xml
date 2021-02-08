@@ -30,4 +30,25 @@
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
 
+    <!--Options List Fragment-->
+    <style name="Style_Options_List_Option">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">@drawable/animation_ripple_list_grey</item>
+    </style>
+
+    <style name="Style_Options_List_Labels">
+        <item name="android:textSize">@dimen/dimen_bs_list_text_labels_size</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:lines">1</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="Style_Options_List_Icons">
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:background">@drawable/outline_options_list_icons_background</item>
+    </style>
 </resources>

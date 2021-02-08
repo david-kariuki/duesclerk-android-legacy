@@ -197,6 +197,7 @@
     <style name="Style_ExpandableLayout">
         <item name="el_parallax">0.5</item>
         <item name="expanded">false</item>
+        <item name="el_duration">@integer/int_expandable_layout_duration</item>
     </style>
 
     <!--Stroke continuous primary-->

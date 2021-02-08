@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -124,10 +126,11 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
 
         shimmerContactDetails = findViewById(R.id.shimmerContactDetailsAndDebtsActivity);
 
+        // RecyclerView LayoutManager
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL,
                 false);
 
-        // Initialize And Set Item Decorator
+        // Initialize and set RecyclerView decorator
         Decorators decorators = new Decorators(this);
 
         recyclerView.addItemDecoration(decorators); // Add item decoration
@@ -160,17 +163,24 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         // Get intent and values passed
         Intent intent = getIntent();
 
-        this.contactId = intent.getStringExtra(ContactUtils.FIELD_CONTACT_ID); // Get contact id
-        this.contactFullName = intent.getStringExtra(ContactUtils.FIELD_CONTACT_FULL_NAME);
-        this.contactType = intent.getStringExtra(ContactUtils.FIELD_CONTACT_TYPE);
+//        this.contactId = intent.getStringExtra(ContactUtils.FIELD_CONTACT_ID); // Get contact id
+//        this.contactFullName = intent.getStringExtra(ContactUtils.FIELD_CONTACT_FULL_NAME);
+//        this.contactType = intent.getStringExtra(ContactUtils.FIELD_CONTACT_TYPE);
 
-        setActivityTitle(contactType, contactFullName); // Set activity title
+        this.contactId = "contact79cd3601dd0e36b15e896665c86f94d6"; // Get contact id
+        this.contactFullName = "Abraham";
+        this.contactType = "ContactTypePeopleOwingMe";
 
+        // Set activity title
+        setActivityTitle(contactType, contactFullName);
+
+        // Dialog fragment to add debt
         DialogFragment_AddDebt dialogFragmentAddDebt = new DialogFragment_AddDebt(mContext,
                 contactId, contactFullName);
         dialogFragmentAddDebt.setCancelable(false); // Disable cancelable
         dialogFragmentAddDebt.setRetainInstance(true); // Set retain instance
 
+        // Dialog fragment to edit contact
         dialogFragmentEditContact = new DialogFragment_UpdateContact(
                 mContext);
         dialogFragmentEditContact.setCancelable(false); // Disable cancelable
@@ -257,6 +267,48 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
 
         // Delete contact onClick - Show delete contact confirmation
         llDeleteContact.setOnClickListener(v -> showDialogDeleteContact());
+
+        // Create ItemTouchHelper call back
+        ItemTouchHelper.SimpleCallback touchHelperCallback = new ItemTouchHelper.SimpleCallback(
+                0, ItemTouchHelper.LEFT) {
+
+            @Override
+            public boolean onMove(@NotNull RecyclerView recyclerView,
+                                  RecyclerView.@NotNull ViewHolder viewHolder,
+                                  RecyclerView.@NotNull ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.@NotNull ViewHolder viewHolder, int direction) {
+                switch (direction) {
+                    case ItemTouchHelper.LEFT:
+
+                        rvlaDebts.setExpandedDebtOptionsMenu(true, viewHolder.getAdapterPosition());
+                        break;
+
+                    case ItemTouchHelper.RIGHT:
+
+                        rvlaDebts.setExpandedDebtOptionsMenu(false, viewHolder.getAdapterPosition());
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void onChildDraw(@NotNull Canvas c, @NotNull RecyclerView recyclerView,
+                                    RecyclerView.@NotNull ViewHolder viewHolder, float dX,
+                                    float dY, int actionState, boolean isCurrentlyActive) {
+            }
+        };
+
+        // Initialize ItemTouchHelper
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(touchHelperCallback);
+
+        // Attach ItemTouchHelper to RecyclerView
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     @Override
@@ -331,6 +383,21 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         super.onResume();
 
         appBarLayout.addOnOffsetChangedListener(this); // Add offset changed listener
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        // Check for expanded views in RecyclerView adapter
+        if (rvlaDebts.isExpandedOptionsOrDetails()) {
+
+            // Collapse expanded views in RecyclerView adapter
+            rvlaDebts.setCollapsedExpandedLayouts();
+
+        } else {
+
+            super.onBackPressed();
+        }
     }
 
     /**

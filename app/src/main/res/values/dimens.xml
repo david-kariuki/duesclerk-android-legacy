@@ -35,6 +35,7 @@
 
     <!--Bottom Sheets-->
     <dimen name="dimen_bs_text_buttons_size">13sp</dimen>
+    <dimen name="dimen_bs_list_text_labels_size">14sp</dimen>
 
     <!--Text Dimensions-->
     <dimen name="dimen_edit_text_size_normal">14sp</dimen>

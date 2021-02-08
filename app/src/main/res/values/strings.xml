@@ -90,6 +90,8 @@
     <string name="action_view_profile">View Profile</string>
     <string name="action_cancel">Cancel</string>
     <string name="action_delete">Delete</string>
+    <string name="action_set_to_paid">Paid</string>
+    <string name="action_edit">Edit</string>
     <string name="action_edit_contact">Edit contact</string>
     <string name="action_update_contact">Update contact</string>
     <string name="action_delete_contact">Delete contact</string>
@@ -127,6 +129,7 @@
     <string name="label_grant_permissions">Grant Permissions</string>
     <string name="label_debts_total_amount">Total debts amount : %1$s</string>
     <string name="label_delete_contact">Delete contact!</string>
+    <string name="label_debt_options">Debt options</string>
 
     <!--Messages-->
     <string name="msg_company_tag_line">Manage your dues with ease.</string>
