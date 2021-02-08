@@ -3,6 +3,7 @@
 
     <!--general-->
     <integer name="int_shimmer_duration">1000</integer>
+    <integer name="int_expandable_layout_duration">900</integer>
 
     <!--volley timeouts-->
     <integer name="int_volley_account_request_initial_timeout_ms">10000</integer>
