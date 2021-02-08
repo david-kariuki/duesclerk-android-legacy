@@ -104,8 +104,10 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
 
         counterThread.interrupt(); // Stop thread
+
+        super.onBackPressed();
+
     }
 }
