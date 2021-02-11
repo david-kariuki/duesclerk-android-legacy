@@ -10,6 +10,7 @@ public class DebtUtils {
     public static final String FIELD_DEBT_DESCRIPTION = "DebtDescription";
     public static final String FIELD_DEBTS_TOTAL_AMOUNT = "DebtsTotalAmount";
 
-    // Contact
+    // Debts
     public static final String KEY_DEBTS = "Debts";
+    public static final String KEY_DEBTS_IDS = "DebtsIds";
 }
