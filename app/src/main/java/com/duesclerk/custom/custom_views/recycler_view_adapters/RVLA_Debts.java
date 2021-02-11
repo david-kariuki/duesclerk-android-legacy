@@ -19,6 +19,7 @@ import com.duesclerk.custom.custom_utilities.ContactUtils;
 import com.duesclerk.custom.custom_utilities.DataUtils;
 import com.duesclerk.custom.custom_utilities.ViewsUtils;
 import com.duesclerk.custom.java_beans.JB_Debts;
+import com.duesclerk.interfaces.Interface_IDS;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
@@ -26,7 +27,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHolder> implements Filterable {
+public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHolder>
+        implements Filterable {
 
     private final Context mContext;
     private final ArrayList<JB_Debts> filterList;
@@ -34,6 +36,7 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
     private int lastPosition = 0;
     private DebtsFilter debtsFilter;
     private View viewHolderView; // ViewHolder view
+    private Interface_IDS interfaceIds;
 
     /**
      * Class constructor
@@ -42,11 +45,12 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
      * @param debts   - ArrayList with debts
      */
     public RVLA_Debts(Context context,
-                      ArrayList<JB_Debts> debts) {
+                      ArrayList<JB_Debts> debts, Interface_IDS interfaceIds) {
 
         this.mContext = context;
         this.debts = debts;
         this.filterList = debts;
+        this.interfaceIds = interfaceIds;
     }
 
     @Override
@@ -179,6 +183,15 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
         });
 
         holder.imageCollapseDebtOptionsMenu.setOnClickListener(v -> {
+
+            setExpandedDebtOptionsMenu(false, position); // Collapse debt item menu
+        });
+
+        // Menu items onClick
+        holder.imageDeleteDebt.setOnClickListener(v -> {
+
+            // Pass debts ids to interface
+            interfaceIds.passDebtsIds(new String[]{debts.get(position).getDebtId()});
 
             setExpandedDebtOptionsMenu(false, position); // Collapse debt item menu
         });

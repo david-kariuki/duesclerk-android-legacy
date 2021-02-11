@@ -1,16 +1,11 @@
 package com.duesclerk.activities;
 
-import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -32,6 +27,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.duesclerk.R;
+import com.duesclerk.custom.DeleteContactsDebts;
 import com.duesclerk.custom.custom_utilities.ApplicationClass;
 import com.duesclerk.custom.custom_utilities.BroadCastUtils;
 import com.duesclerk.custom.custom_utilities.ContactUtils;
@@ -51,6 +47,7 @@ import com.duesclerk.custom.network.InternetConnectivity;
 import com.duesclerk.custom.network.NetworkTags;
 import com.duesclerk.custom.network.NetworkUrls;
 import com.duesclerk.custom.storage_adapters.UserDatabase;
+import com.duesclerk.interfaces.Interface_IDS;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -63,7 +60,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
+public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
+        AppBarLayout.OnOffsetChangedListener, Interface_IDS {
 
     // Get class simple name
     // private final String TAG = ContactDetailsAndDebtsActivity.class.getSimpleName();
@@ -88,7 +86,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
     private BroadcastReceiver bcrReloadDebts;
     private SearchView searchView;
     private DialogFragment_UpdateContact dialogFragmentEditContact;
-    private ProgressDialog progressDialog;
+    private DeleteContactsDebts deleteContactsOrDebts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,10 +135,6 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         recyclerView.setLayoutManager(layoutManager); // Set layout manager
         recyclerView.setHasFixedSize(false); // Set has fixed size to false
 
-        // Initialize ProgressDialog
-        progressDialog = ViewsUtils.initProgressDialog(ContactDetailsAndDebtsActivity.this,
-                false);
-
         // Broadcast receiver
         bcrReloadDebts = new BroadcastReceiver() {
             @Override
@@ -163,13 +157,13 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         // Get intent and values passed
         Intent intent = getIntent();
 
-//        this.contactId = intent.getStringExtra(ContactUtils.FIELD_CONTACT_ID); // Get contact id
-//        this.contactFullName = intent.getStringExtra(ContactUtils.FIELD_CONTACT_FULL_NAME);
-//        this.contactType = intent.getStringExtra(ContactUtils.FIELD_CONTACT_TYPE);
+        this.contactId = intent.getStringExtra(ContactUtils.FIELD_CONTACT_ID); // Get contact id
+        this.contactFullName = intent.getStringExtra(ContactUtils.FIELD_CONTACT_FULL_NAME);
+        this.contactType = intent.getStringExtra(ContactUtils.FIELD_CONTACT_TYPE);
 
-        this.contactId = "contact79cd3601dd0e36b15e896665c86f94d6"; // Get contact id
-        this.contactFullName = "Abraham";
-        this.contactType = "ContactTypePeopleOwingMe";
+//        this.contactId = "contact79cd3601dd0e36b15e896665c86f94d6"; // Get contact id
+//        this.contactFullName = "Abraham";
+//        this.contactType = "ContactTypePeopleOwingMe";
 
         // Set activity title
         setActivityTitle(contactType, contactFullName);
@@ -190,6 +184,8 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         swipeRefreshLayout.setSwipeableChildren(R.id.coordinator);
 
         database = new UserDatabase(mContext); // Initialize database
+
+        deleteContactsOrDebts = new DeleteContactsDebts(ContactDetailsAndDebtsActivity.this);
 
         // SwipeRefreshLayout listener
         swipeRefreshListener =
@@ -266,7 +262,15 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         });
 
         // Delete contact onClick - Show delete contact confirmation
-        llDeleteContact.setOnClickListener(v -> showDialogDeleteContact());
+        llDeleteContact.setOnClickListener(v -> {
+
+                    // Delete contact
+                    deleteContactsOrDebts.confirmAndDeleteContactsOrDebts(
+                            true, contactFullName,
+                            database.getUserAccountInfo(null).get(0).getUserId(),
+                            new String[]{contactId});
+                }
+        );
 
         // Create ItemTouchHelper call back
         ItemTouchHelper.SimpleCallback touchHelperCallback = new ItemTouchHelper.SimpleCallback(
@@ -319,7 +323,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         BroadCastUtils.registerBroadCasts(ContactDetailsAndDebtsActivity.this, bcrReloadDebts,
                 BroadCastUtils.bcrActionReloadContactDetailsAndDebtsActivity);
 
-        // Start/Stop swipe SwipeRefresh
+        // Start / Stop swipe SwipeRefresh
         ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout, swipeRefreshListener);
     }
 
@@ -574,46 +578,6 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
             // Refresh will only be enabled when the offset is zero
             swipeRefreshLayout.setEnabled(verticalOffset == 0);
         }
-    }
-
-    /**
-     * Function to create custom dialog to confirm contact deletion
-     */
-    private void showDialogDeleteContact() {
-
-        Dialog dialog = new Dialog(this);
-        LayoutInflater inflater = (LayoutInflater)
-                mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        @SuppressLint("InflateParams")
-        View dialogView = inflater.inflate(R.layout.dialog_confirm_delete_contact, null,
-                false);
-
-        TextView textDialogMessage = dialogView.findViewById(R.id.textDeleteContact_DialogMessage);
-        TextView textCancel = dialogView.findViewById(R.id.textDeleteContact_Cancel);
-        TextView textDeleteContact = dialogView.findViewById(R.id.textDeleteContact_Delete);
-
-        textDialogMessage.setText(DataUtils.getStringResource(mContext,
-                R.string.msg_delete_contact_confirmation, this.contactFullName));
-
-        // Cancel onClick - Dismiss dialog
-        textCancel.setOnClickListener(v -> dialog.dismiss());
-
-        // Delete contact onClick - Show delete contact confirmation
-        textDeleteContact.setOnClickListener(v -> {
-
-                    dialog.dismiss(); // Dismiss dialog
-
-                    // Delete contact
-                    this.deleteContact(
-                            database.getUserAccountInfo(null).get(0).getUserId(),
-                            new String[]{this.contactId});
-                }
-        );
-
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // Remove window title
-        dialog.setContentView(dialogView); // Set content view
-        dialog.create(); // Create dialog
-        dialog.show(); // Show dialog
     }
 
     /**
@@ -897,7 +861,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                     showRecyclerView(true); // Show RecyclerView
 
                     // Creating RecyclerView adapter object
-                    rvlaDebts = new RVLA_Debts(mContext, debtRecords);
+                    rvlaDebts = new RVLA_Debts(mContext, debtRecords, this);
 
                     // Check for adapter observers
                     if (!rvlaDebts.hasObservers()) {
@@ -923,172 +887,16 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         }
     }
 
-    /**
-     * Function to add contact to remote database
-     *
-     * @param userId      - Users id
-     * @param contactsIds - Contact id
-     */
-    private void deleteContact(final String userId, final String[] contactsIds) {
+    @Override
+    public void passContactsIds(String[] contactsIds) {
 
-        // Check Internet Connection State
-        if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
-            // Connected
+    }
 
-            ViewsUtils.hideKeyboard(ContactDetailsAndDebtsActivity.this); // Hide keyboard if showing
+    @Override
+    public void passDebtsIds(String[] debtsIds) {
 
-            // Show dialog
-            ViewsUtils.showProgressDialog(progressDialog,
-                    DataUtils.getStringResource(mContext, R.string.title_updating_contact),
-                    DataUtils.getStringResource(mContext, R.string.msg_updating_contact)
-            );
-
-            StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                    NetworkUrls.ContactURLS.URL_DELETE_CONTACTS, response -> {
-
-                // Log Response
-                // Log.d(TAG, "Delete contacts response:" + response);
-
-                ViewsUtils.dismissProgressDialog(progressDialog); // Hide Dialog
-
-                try {
-
-                    JSONObject jsonObject = new JSONObject(response);
-                    boolean error = jsonObject.getBoolean(VolleyUtils.KEY_ERROR);
-
-                    // Check for error
-                    if (!error) {
-                        // New contact added successfully
-
-                        JSONObject jsonObjectDeleteContact = jsonObject
-                                .getJSONObject(VolleyUtils.KEY_DELETE_CONTACTS);
-
-                        if (!DataUtils.isEmptyString(jsonObjectDeleteContact
-                                .getString(VolleyUtils.KEY_SUCCESS_MESSAGE))) {
-
-                            // Show success message
-                            String plurals = "";
-                            if (contactsIds.length > 1) {
-                                plurals = "s";
-                            }
-
-                            CustomToast.infoMessage(mContext, DataUtils.getStringResource(mContext,
-                                    R.string.msg_contact_deleted_successfully, plurals),
-                                    false,
-                                    R.drawable.ic_baseline_person_remove_alt_1_24_white);
-
-                            finish(); // Exit activity
-                        }
-                    } else {
-                        // Error adding contact
-
-                        String errorMessage = jsonObject.getString(
-                                VolleyUtils.KEY_ERROR_MESSAGE);
-
-                        // Toast error message
-                        CustomToast.errorMessage(
-                                mContext, errorMessage,
-                                R.drawable.ic_baseline_person_add_alt_1_24_white);
-
-                        // Cancel Pending Request
-                        ApplicationClass.getClassInstance().cancelPendingRequests(
-                                NetworkTags.Contacts.TAG_DELETE_CONTACTS_STRING_REQUEST);
-                    }
-                } catch (Exception ignored) {
-                }
-            }, volleyError -> {
-
-                // Log Response
-                // Log.e(TAG, "Delete contacts response error : "
-                //        + volleyError.getMessage());
-
-                ViewsUtils.dismissProgressDialog(progressDialog); // Hide Dialog
-
-                // Check request response
-                if (volleyError.getMessage() == null || volleyError instanceof NetworkError
-                        || volleyError instanceof ServerError || volleyError instanceof
-                        AuthFailureError || volleyError instanceof TimeoutError) {
-
-                    CustomToast.errorMessage(mContext, DataUtils.getStringResource(mContext,
-                            R.string.error_network_connection_error_message_short),
-                            R.drawable.ic_sad_cloud_100px_white);
-
-                } else {
-
-                    // Toast Connection Error Message
-                    CustomToast.errorMessage(mContext, volleyError.getMessage(),
-                            R.drawable.ic_sad_cloud_100px_white);
-                }
-
-                // Clear url cache
-                ApplicationClass.getClassInstance().deleteUrlVolleyCache(
-                        NetworkUrls.ContactURLS.URL_DELETE_CONTACTS);
-            }) {
-                @Override
-                protected void deliverResponse(String response) {
-                    super.deliverResponse(response);
-                }
-
-//                @Override
-//                public Map<String, String> getHeaders() {
-//                    HashMap<String, String> headers = new HashMap<>();
-//                    headers.put("Content-Type", "application/json");
-//                    // headers.put(VolleyUtils.KEY_API_KEY, VolleyUtils.getApiKey(mContext));
-//                    return headers;
-//                }
-
-                @Override
-                protected Map<String, String> getParams() {
-                    @SuppressWarnings({"unchecked", "rawtypes"}) Map<String, String> params =
-                            new HashMap();
-
-                    // Put contact id to Map params
-                    params.put(ContactUtils.KEY_CONTACTS_IDS, contactId);
-
-                    // Put userId to Map params
-                    params.put(UserAccountUtils.FIELD_USER_ID, userId);
-
-                    return params; // Return params
-                }
-
-                @Override
-                protected VolleyError parseNetworkError(VolleyError volleyError) {
-                    return super.parseNetworkError(volleyError);
-                }
-
-                @Override
-                public void deliverError(VolleyError error) {
-                    super.deliverError(error);
-                }
-            };
-
-            // Set Request Priority
-            ApplicationClass.getClassInstance().setPriority(Request.Priority.HIGH);
-
-            // Set retry policy
-            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-
-                    DataUtils.getIntegerResource(mContext,
-                            R.integer.int_volley_account_request_initial_timeout_ms),
-                    DataUtils.getIntegerResource(mContext,
-                            R.integer.int_volley_account_request_max_timeout_retry),
-                    1.0f));
-
-            // Set request caching to false
-            stringRequest.setShouldCache(false);
-
-            // Adding request to request queue
-            ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                    NetworkTags.Contacts.TAG_UPDATE_CONTACT_STRING_REQUEST);
-
-        } else {
-
-            // Toast network connection message
-            CustomToast.errorMessage(
-                    mContext,
-                    DataUtils.getStringResource(mContext,
-                            R.string.error_network_connection_error_message_long),
-                    R.drawable.ic_sad_cloud_100px_white);
-        }
+        // Delete debt
+        deleteContactsOrDebts.confirmAndDeleteContactsOrDebts(false, contactFullName,
+                this.contactId, debtsIds);
     }
 }
