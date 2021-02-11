@@ -37,7 +37,7 @@ public class NetworkTags {
     }
 
     /**
-     * Class with user network tags
+     * Class with contacts network tags
      */
     public static class Contacts {
 
@@ -52,10 +52,6 @@ public class NetworkTags {
         public static final String TAG_FETCH_CONTACT_DETAILS_AND_DEBTS_STRING_REQUEST =
                 "TagStringRequestFetchContactDetailsAndDebts";
 
-        // Tag used to cancel add contacts debt request
-        public static final String TAG_ADD_CONTACTS_DEBT_STRING_REQUEST =
-                "TagStringRequestAddContactsDebt";
-
         // Tag used to cancel update contacts debt request
         public static final String TAG_UPDATE_CONTACT_STRING_REQUEST =
                 "TagStringRequestUpdateContact";
@@ -63,5 +59,19 @@ public class NetworkTags {
         // Tag used to cancel delete contacts request
         public static final String TAG_DELETE_CONTACTS_STRING_REQUEST =
                 "TagStringRequestDeleteContacts";
+    }
+
+    /**
+     * Class with debts network tags
+     */
+    public static class Debts {
+
+        // Tag used to cancel add contacts debt request
+        public static final String TAG_ADD_CONTACTS_DEBT_STRING_REQUEST =
+                "TagStringRequestAddContactsDebt";
+
+        // Tag used to cancel delete contacts debts request
+        public static final String TAG_DELETE_CONTACTS_DEBTS_STRING_REQUEST =
+                "TagStringRequestDeleteContactsDebts";
     }
 }
