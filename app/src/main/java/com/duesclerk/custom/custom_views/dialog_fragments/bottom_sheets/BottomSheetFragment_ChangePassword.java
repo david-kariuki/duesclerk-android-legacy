@@ -299,7 +299,7 @@ public class BottomSheetFragment_ChangePassword extends BottomSheetDialogFragmen
 
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(
-                                NetworkTags.User.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
+                                NetworkTags.UserNetworkTags.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
                     }
                 } catch (Exception ignored) {
                 }
@@ -384,7 +384,7 @@ public class BottomSheetFragment_ChangePassword extends BottomSheetDialogFragmen
 
             // Adding request to request queue
             ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                    NetworkTags.User.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
+                    NetworkTags.UserNetworkTags.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
 
         } else {
 

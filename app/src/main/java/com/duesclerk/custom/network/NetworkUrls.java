@@ -58,7 +58,7 @@ public class NetworkUrls {
     }
 
     /**
-     * Class with user network urls
+     * Class with contacts network urls
      */
     public static class ContactURLS {
 
@@ -77,12 +77,29 @@ public class NetworkUrls {
         public static final String URL_ADD_CONTACT = FOLDER_CONTROLLERS_CONTACTS +
                 "addUserContact.php";
 
-        // URL to add contacts debt
-        public static final String URL_ADD_CONTACTS_DEBT = FOLDER_CONTROLLERS_CONTACTS +
-                "addContactsDebt.php";
-
         // URL to add contact
         public static final String URL_UPDATE_CONTACT = FOLDER_CONTROLLERS_CONTACTS +
                 "updateUserContact.php";
+
+        // URL to delete contacts
+        public static final String URL_DELETE_CONTACTS = FOLDER_CONTROLLERS_CONTACTS +
+                "deleteUserContacts.php";
+    }
+
+    /**
+     * Class with debts network urls
+     */
+    public static class DebtsURLS {
+
+        private static final String FOLDER_CONTROLLERS_DEBTS = FOLDER_CONTROLLERS + "debt"
+                + URL_SEPARATOR;
+
+        // URL to add contacts debt
+        public static final String URL_ADD_CONTACTS_DEBT = FOLDER_CONTROLLERS_DEBTS +
+                "addContactsDebt.php";
+
+        // URL to delete contacts debts
+        public static final String URL_DELETE_CONTACTS_DEBTS = FOLDER_CONTROLLERS_DEBTS +
+                "deleteContactsDebts.php";
     }
 }

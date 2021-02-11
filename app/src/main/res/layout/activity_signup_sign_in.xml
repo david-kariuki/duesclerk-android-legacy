@@ -10,7 +10,7 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayoutSignup"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_toolbar_height_medium"
+        android:layout_height="@dimen/dimen_toolbar_activity_height_medium"
         android:layout_marginBottom="3dp"
         android:fillViewport="true"
         android:visibility="gone"
@@ -34,8 +34,8 @@
 
             <ImageView
                 style="@style/Style_Toolbar_Icon_Exit"
-                android:layout_width="@dimen/dimen_icon_size_small"
-                android:layout_height="@dimen/dimen_icon_size_small"
+                android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                android:layout_height="@dimen/dimen_image_view_icon_size_small"
                 android:contentDescription="@string/content_description_icon_exit"
                 android:id="@+id/imageSignupBack"
                 android:layout_marginTop="10dp"

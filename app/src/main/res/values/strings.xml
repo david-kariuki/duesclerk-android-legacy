@@ -29,6 +29,8 @@
     <string name="title_switching_account_type">Switching account type</string>
     <string name="title_adding_contact">Adding contact</string>
     <string name="title_updating_contact">Updating contact</string>
+    <string name="title_deleting_contact">Deleting contact</string>
+    <string name="title_deleting_debt">Deleting debt</string>
     <string name="title_adding_debt">Adding debt</string>
     <string name="title_mailing_email_verification_code">Sending verification code</string>
     <string name="title_verifying_email_address">Verifying email address</string>
@@ -89,6 +91,9 @@
     <string name="action_logout">Logout</string>
     <string name="action_view_profile">View Profile</string>
     <string name="action_cancel">Cancel</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_set_to_paid">Paid</string>
+    <string name="action_edit">Edit</string>
     <string name="action_edit_contact">Edit contact</string>
     <string name="action_update_contact">Update contact</string>
     <string name="action_delete_contact">Delete contact</string>
@@ -125,6 +130,9 @@
     <string name="label_add_debt">Add debt</string>
     <string name="label_grant_permissions">Grant Permissions</string>
     <string name="label_debts_total_amount">Total debts amount : %1$s</string>
+    <string name="label_delete_contact">Delete contact!</string>
+    <string name="label_delete_debt">Delete debt!</string>
+    <string name="label_debt_options">Debt options</string>
 
     <!--Messages-->
     <string name="msg_company_tag_line">Manage your dues with ease.</string>
@@ -135,11 +143,15 @@
     <string name="msg_switching_account_type">Switching to %1$s! Please wait…</string>
     <string name="msg_adding_contact">Adding %1$ss\' contact! Please wait…</string>
     <string name="msg_updating_contact">Updating contact! Please wait…</string>
+    <string name="msg_deleting_contact">Deleting contact! Please wait…</string>
+    <string name="msg_deleting_debt">Deleting debt! Please wait…</string>
     <string name="msg_adding_debt">Adding %1$ss\' debt! Please wait…</string>
     <string name="msg_welcome_to">Welcome to %1$s.</string>
     <string name="msg_logout">Are you sure you want to log out %1$s?</string>
     <string name="msg_profile_updated_successfully">Profile updated successfully.</string>
     <string name="msg_contact_updated_successfully">Contact updated successfully.</string>
+    <string name="msg_contact_deleted_successfully">Contact%1$s deleted successfully.</string>
+    <string name="msg_debt_deleted_successfully">Debt%1$s deleted successfully.</string>
     <string name="msg_password_updated">Password updated successfully.</string>
     <string name="msg_account_switching_successful">Account switched successfully.</string>
     <string name="msg_contact_adding_successful">%1$s has been added successfully.</string>
@@ -160,6 +172,8 @@
     <string name="msg_grant_permission_message">This application needs %1$s permission to %2$s. You can grant them in the app settings.</string>
     <string name="msg_contacts_empty">You have not added any contacts yet.\nAll your saved contacts will be shown here.\n\nYou can add new ones.</string>
     <string name="msg_debts_empty">No debts found for %1$s.\nAll added debts will be shown here.\n\nYou can add new ones.</string>
+    <string name="msg_delete_contact_confirmation">You are about to delete %1$s and all associated debt records. This cannot be undone.\n\nDo you wish to proceed?</string>
+    <string name="msg_delete_debt_confirmation">You are deleting this debt record. This cannot be undone.\n\nDo you wish to proceed?</string>
 
     <!--Permissions tags and purpose messages-->
     <string name="msg_grant_permission_title">Grant %1$s Permissions.</string>

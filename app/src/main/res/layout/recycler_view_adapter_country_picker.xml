@@ -19,7 +19,7 @@
         android:layout_height="30dp"
         android:layout_marginStart="10dp"
         android:contentDescription="@string/content_description_icon_country_flag"
-        android:padding="@dimen/dimen_icon_padding_small"
+        android:padding="@dimen/dimen_image_view_icon_padding_small"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_baseline_flag_24_primary_grey"
         app:layout_constraintBottom_toBottomOf="parent"

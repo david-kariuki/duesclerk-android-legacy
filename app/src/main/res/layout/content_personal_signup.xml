@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 app:cardBackgroundColor="@color/colorWhite"
-                app:cardCornerRadius="@dimen/dimen_signup_signin_card_corner_radius"
+                app:cardCornerRadius="@dimen/dimen_card_view_corner_radius"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -66,12 +66,12 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="@dimen/dimen_icon_size_small"
-                            android:layout_height="@dimen/dimen_icon_size_small"
+                            android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                            android:layout_height="@dimen/dimen_image_view_icon_size_small"
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="10dp"
                             android:contentDescription="@string/content_description_icon_first_name"
-                            android:padding="@dimen/dimen_icon_padding_small"
+                            android:padding="@dimen/dimen_image_view_icon_padding_small"
                             android:scaleType="centerCrop"
                             android:src="@drawable/ic_baseline_person_24_primary" />
 
@@ -90,9 +90,9 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_signup_signin_field_divider_height"
+                        android:layout_height="@dimen/dimen_field_divider_height"
                         android:layout_marginStart="49dp"
-                        android:layout_marginTop="@dimen/dimen_signup_signin_field_divider_margin_top"
+                        android:layout_marginTop="@dimen/dimen_field_divider_margin_top"
                         android:layout_marginEnd="10dp"
                         android:background="@color/colorDividerGrey" />
 
@@ -106,11 +106,11 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="@dimen/dimen_icon_size_small"
-                            android:layout_height="@dimen/dimen_icon_size_small"
+                            android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                            android:layout_height="@dimen/dimen_image_view_icon_size_small"
                             android:layout_marginEnd="10dp"
                             android:contentDescription="@string/content_description_icon_last_name"
-                            android:padding="@dimen/dimen_icon_padding_small"
+                            android:padding="@dimen/dimen_image_view_icon_padding_small"
                             android:scaleType="centerCrop"
                             android:src="@drawable/ic_baseline_email_24_primary"
                             android:visibility="invisible" />
@@ -133,7 +133,7 @@
                 style="@style/Style_SignInSignUp_Profile_CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="@dimen/dimen_signup_signin_card_corner_radius"
+                app:cardCornerRadius="@dimen/dimen_card_view_corner_radius"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -159,11 +159,11 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="@dimen/dimen_icon_size_small"
-                            android:layout_height="@dimen/dimen_icon_size_small"
+                            android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                            android:layout_height="@dimen/dimen_image_view_icon_size_small"
                             android:layout_marginEnd="10dp"
                             android:contentDescription="@string/content_description_icon_email_address"
-                            android:padding="@dimen/dimen_icon_padding_small"
+                            android:padding="@dimen/dimen_image_view_icon_padding_small"
                             android:scaleType="centerCrop"
                             android:src="@drawable/ic_baseline_email_24_primary" />
 
@@ -187,7 +187,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/colorWhite"
-                app:cardCornerRadius="@dimen/dimen_signup_signin_card_corner_radius"
+                app:cardCornerRadius="@dimen/dimen_card_view_corner_radius"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -213,25 +213,25 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="@dimen/dimen_icon_size_small"
-                            android:layout_height="@dimen/dimen_icon_size_small"
+                            android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                            android:layout_height="@dimen/dimen_image_view_icon_size_small"
                             android:layout_gravity="center_vertical"
                             android:layout_marginTop="2dp"
                             android:layout_marginEnd="5dp"
                             android:layout_marginBottom="2dp"
                             android:contentDescription="@string/content_description_icon_country"
-                            android:padding="@dimen/dimen_icon_padding_small"
+                            android:padding="@dimen/dimen_image_view_icon_padding_small"
                             android:scaleType="centerCrop"
                             android:src="@drawable/ic_baseline_location_on_24_primary" />
 
                         <ImageView
                             android:id="@+id/imageSignupActivity_CountryFlag"
-                            android:layout_width="@dimen/dimen_icon_size_medium"
-                            android:layout_height="@dimen/dimen_icon_size_small"
+                            android:layout_width="@dimen/dimen_image_view_icon_size_medium"
+                            android:layout_height="@dimen/dimen_image_view_icon_size_small"
                             android:layout_gravity="center_vertical"
                             android:layout_marginEnd="2dp"
                             android:contentDescription="@string/content_description_icon_country_flag"
-                            android:padding="@dimen/dimen_icon_padding_small"
+                            android:padding="@dimen/dimen_image_view_icon_padding_small"
                             android:scaleType="centerCrop"
                             android:src="@drawable/ic_baseline_flag_24_primary_grey" />
 
@@ -260,7 +260,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/colorWhite"
-                app:cardCornerRadius="@dimen/dimen_signup_signin_card_corner_radius"
+                app:cardCornerRadius="@dimen/dimen_card_view_corner_radius"
                 app:cardUseCompatPadding="true">
 
                 <RelativeLayout
@@ -273,14 +273,14 @@
 
                     <ImageView
                         android:id="@+id/ImageView"
-                        android:layout_width="@dimen/dimen_icon_size_small"
-                        android:layout_height="@dimen/dimen_icon_size_small"
+                        android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                        android:layout_height="@dimen/dimen_image_view_icon_size_small"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="10dp"
                         android:contentDescription="@string/content_description_icon_password"
-                        android:padding="@dimen/dimen_icon_padding_small"
+                        android:padding="@dimen/dimen_image_view_icon_padding_small"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_baseline_lock_24_primary" />
 
@@ -313,14 +313,14 @@
 
                     <ImageView
                         android:id="@+id/imageSignupActivity_PasswordToggle"
-                        android:layout_width="@dimen/dimen_icon_size_small"
-                        android:layout_height="@dimen/dimen_icon_size_small"
+                        android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                        android:layout_height="@dimen/dimen_image_view_icon_size_small"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="10dp"
                         android:contentDescription="@string/content_description_icon_password_toggle"
-                        android:padding="@dimen/dimen_icon_padding_small"
+                        android:padding="@dimen/dimen_image_view_icon_padding_small"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_baseline_visibility_24_primary_grey"
                         android:visibility="invisible" />
@@ -347,12 +347,12 @@
                     tools:ignore="UseCompoundDrawables,UselessParent">
 
                     <ImageView
-                        android:layout_width="@dimen/dimen_icon_size_small"
-                        android:layout_height="@dimen/dimen_icon_size_small"
+                        android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                        android:layout_height="@dimen/dimen_image_view_icon_size_small"
                         android:layout_marginStart="13dp"
                         android:layout_marginEnd="5dp"
                         android:contentDescription="@string/content_description_icon_sign_in"
-                        android:padding="@dimen/dimen_icon_padding_small"
+                        android:padding="@dimen/dimen_image_view_icon_padding_small"
                         android:src="@drawable/ic_baseline_arrow_back_24_primary_dark" />
 
                     <TextView

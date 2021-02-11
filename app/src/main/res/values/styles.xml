@@ -32,11 +32,11 @@
         <item name="android:textColor">@color/colorBlack</item>
         <item name="android:textColorHint">@color/colorBlack</item>
         <item name="android:singleLine">true</item>
-        <item name="android:elevation">@dimen/dimen_bs_toolbar_elevation</item>
         <item name="android:iconifiedByDefault">false</item>
         <item name="android:imeOptions">actionSearch</item>
         <item name="android:textAlignment">textStart</item>
         <item name="android:inputType">text</item>
+        <item name="android:queryBackground">@color/colorWhite</item>
         <item name="android:queryHint">@string/hint_search_contacts</item>
         <item name="android:searchHintIcon">@drawable/ic_baseline_search_24_primary_dark</item>
         <item name="android:searchIcon">@drawable/ic_baseline_search_24_primary_dark</item>
@@ -115,28 +115,30 @@
     <!--Toolbars-->
     <style name="Style_Toolbar_Container_Medium">
         <item name="android:layout_width">match_parent</item>
-        <item name="elevation">@dimen/dimen_toolbar_elevation_medium</item>
-        <item name="android:layout_height">@dimen/dimen_toolbar_height_medium</item>
-        <item name="android:minHeight">@dimen/dimen_toolbar_height_medium</item>
+        <item name="elevation">@dimen/dimen_toolbar_activity_elevation_medium</item>
+        <item name="android:layout_height">@dimen/dimen_toolbar_activity_height_medium</item>
+        <item name="android:minHeight">@dimen/dimen_toolbar_activity_height_medium</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:background">@color/colorWhite</item>
         <item name="android:orientation">horizontal</item>
     </style>
 
     <style name="Style_Toolbar_Title_Medium_Primary_Dark">
-        <item name="android:textSize">@dimen/dimen_toolbar_title_size</item>
+        <item name="android:textSize">@dimen/dimen_text_view_toolbar_title_size</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
         <item name="android:layout_gravity">center_vertical|start</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_alignParentStart">true</item>
     </style>
 
     <style name="Style_Toolbar_Icon_Exit">
-        <item name="android:layout_height">@dimen/dimen_icon_size_small</item>
-        <item name="android:layout_width">@dimen/dimen_icon_size_small</item>
-        <item name="android:padding">@dimen/dimen_icon_padding_small</item>
+        <item name="android:layout_height">@dimen/dimen_image_view_icon_size_small</item>
+        <item name="android:layout_width">@dimen/dimen_image_view_icon_size_small</item>
+        <item name="android:padding">@dimen/dimen_image_view_icon_padding_small</item>
         <item name="android:src">@drawable/ic_baseline_arrow_back_24_primary_dark</item>
         <item name="android:layout_marginStart">10dp</item>
         <item name="android:layout_marginEnd">10dp</item>
@@ -158,14 +160,12 @@
         <item name="android:background">@color/color_shimmer_item_grey</item>
     </style>
 
-    <!--
-        BottomSheets
-    -->
+    <!--BottomSheets-->
     <!--BottomSheets title texts-->
 
     <!--BottomSheets dismiss icon-->
     <style name="Style_BottomSheets_Dismiss" parent="@android:style/TextAppearance.Widget.TextView">
-        <item name="android:padding">@dimen/dimen_icon_padding_small</item>
+        <item name="android:padding">@dimen/dimen_image_view_icon_padding_small</item>
         <item name="android:layout_marginStart">10dp</item>
         <item name="android:layout_marginEnd">5dp</item>
         <item name="android:src">@drawable/ic_baseline_close_24_black</item>
@@ -197,6 +197,7 @@
     <style name="Style_ExpandableLayout">
         <item name="el_parallax">0.5</item>
         <item name="expanded">false</item>
+        <item name="el_duration">@integer/int_expandable_layout_duration</item>
     </style>
 
     <!--Stroke continuous primary-->
@@ -205,6 +206,19 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:background">
             @drawable/outline_rectangle_stroke_primary
+        </item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <!--Stroke continuous primary-->
+    <style name="Style_CustomButton_Container_Stroke_Continuous_Primary_Red">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:background">
+            @drawable/outline_rectangle_stroke_primary_red
         </item>
         <item name="android:layout_marginStart">10dp</item>
         <item name="android:layout_marginEnd">10dp</item>
@@ -238,7 +252,7 @@
     </style>
 
     <!--Custom LinearLayout button-->
-    <style name="Style_CustomButton_Text" parent="@android:style/TextAppearance.Widget.TextView">
+    <style name="Style_LinearLayout_Button_Text" parent="@android:style/TextAppearance.Widget.TextView">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_marginStart">22dp</item>
@@ -247,14 +261,28 @@
         <item name="android:layout_marginBottom">8dp</item>
         <item name="android:textStyle">bold</item>
         <item name="textAllCaps">true</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">@dimen/dimen_text_view_button_size</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!--Custom TextView button-->
+    <style name="Style_TextView_Button" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginStart">22dp</item>
+        <item name="android:layout_marginEnd">22dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textSize">@dimen/dimen_text_view_button_size</item>
         <item name="android:gravity">center</item>
     </style>
 
     <style name="Style_PasswordCounterText" parent="@android:style/TextAppearance.Widget.TextView">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">@dimen/dimen_edit_text_size_normal</item>
         <item name="android:gravity">center</item>
         <item name="android:lines">1</item>
         <item name="android:ems">2</item>
@@ -267,7 +295,7 @@
     </style>
 
     <style name="Style_Text_Labels">
-        <item name="android:textSize">@dimen/dimen_signup_signin_edit_text_size</item>
+        <item name="android:textSize">@dimen/dimen_edit_text_size_normal</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textColorHint">@color/colorTextView</item>
         <item name="android:layout_marginStart">15dp</item>
@@ -276,5 +304,12 @@
         <item name="android:background">@color/colorTransparent</item>
         <item name="android:maxLines">1</item>
         <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+    <style name="Style_SearchView_Divider">
+        <item name="android:background">@color/colorBlack</item>
+        <item name="android:layout_marginStart">55dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginBottom">3dp</item>
     </style>
 </resources>

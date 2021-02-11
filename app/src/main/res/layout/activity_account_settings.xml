@@ -15,13 +15,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorWhite"
-            android:elevation="@dimen/dimen_toolbar_elevation_medium"
+            android:elevation="@dimen/dimen_toolbar_activity_elevation_medium"
             android:orientation="horizontal"
             style="@style/Style_Toolbar_Container_Medium">
 
             <ImageView
-                android:layout_width="@dimen/dimen_icon_size_small"
-                android:layout_height="@dimen/dimen_icon_size_small"
+                android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                android:layout_height="@dimen/dimen_image_view_icon_size_small"
                 android:id="@+id/imageAccountSettings_Exit"
                 style="@style/Style_Toolbar_Icon_Exit"
                 android:contentDescription="@string/content_description_icon_exit"/>

@@ -122,7 +122,7 @@ public class FetchContactsClass {
 
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(
-                                NetworkTags.Contacts.TAG_FETCH_USER_CONTACTS_STRING_REQUEST);
+                                NetworkTags.ContactsNetworkTags.TAG_FETCH_USER_CONTACTS_STRING_REQUEST);
                     }
                 } catch (Exception ignored) {
                 }
@@ -208,7 +208,7 @@ public class FetchContactsClass {
 
             // Adding request to request queue
             ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                    NetworkTags.Contacts.TAG_FETCH_USER_CONTACTS_STRING_REQUEST);
+                    NetworkTags.ContactsNetworkTags.TAG_FETCH_USER_CONTACTS_STRING_REQUEST);
 
         } else {
 

@@ -2,8 +2,9 @@ package com.duesclerk.custom.java_beans;
 
 public class JB_Debts {
 
-    String debtId, debtAmount, debtDateIssued, debtDateDue, debtDescription, contactId,
+    private String debtId, debtAmount, debtDateIssued, debtDateDue, debtDescription, contactId,
             contactType, userId;
+    private boolean isExpandedDebtsOptionsMenu = false, isExpandedDebtsDetailsLayout = false;
 
     /**
      * Default constructor
@@ -156,5 +157,37 @@ public class JB_Debts {
      */
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    /**
+     * Function to check if debts details layout is expanded
+     */
+    public boolean isExpandedDebtDetailsLayout() {
+        return this.isExpandedDebtsDetailsLayout;
+    }
+
+    /**
+     * Function to set debts details layout to expanded
+     *
+     * @param isExpandedDebtsDetailsLayout - Set debts details layout to expanded value
+     */
+    public void setExpandedDebtDetailsLayout(boolean isExpandedDebtsDetailsLayout) {
+        this.isExpandedDebtsDetailsLayout = isExpandedDebtsDetailsLayout;
+    }
+
+    /**
+     * Function to check if debts option menu is expanded
+     */
+    public boolean isExpandedDebtOptionsMenu() {
+        return this.isExpandedDebtsOptionsMenu;
+    }
+
+    /**
+     * Function to set debts options menu to expanded
+     *
+     * @param isExpandedDebtsOptionsMenu - Set debts options menu to expanded value
+     */
+    public void setExpandedDebtOptionsMenu(boolean isExpandedDebtsOptionsMenu) {
+        this.isExpandedDebtsOptionsMenu = isExpandedDebtsOptionsMenu;
     }
 }

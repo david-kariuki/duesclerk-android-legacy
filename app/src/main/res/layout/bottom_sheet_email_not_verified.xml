@@ -8,8 +8,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_bs_toolbar_height"
-        android:elevation="@dimen/dimen_bs_toolbar_elevation">
+        android:layout_height="@dimen/dimen_toolbar_bs_height"
+        android:elevation="@dimen/dimen_toolbar_bs_elevation">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -35,13 +35,13 @@
 
             <ImageView
                 android:id="@+id/ivBSEmailNotVerified_hand"
-                android:layout_width="@dimen/dimen_icon_size_small"
-                android:layout_height="@dimen/dimen_icon_size_small"
+                android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                android:layout_height="@dimen/dimen_image_view_icon_size_small"
                 android:layout_gravity="center_vertical"
                 android:layout_marginTop="2dp"
                 android:layout_marginBottom="2dp"
                 android:contentDescription="@string/content_description_icon_greetings"
-                android:padding="@dimen/dimen_icon_padding_small"
+                android:padding="@dimen/dimen_image_view_icon_padding_small"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_hand_coloured" />
         </LinearLayout>
@@ -49,8 +49,8 @@
         <ImageView
             android:id="@+id/imageViewBSClose"
             style="@style/Style_BottomSheets_Dismiss"
-            android:layout_width="@dimen/dimen_icon_size_small"
-            android:layout_height="@dimen/dimen_icon_size_small"
+            android:layout_width="@dimen/dimen_image_view_icon_size_small"
+            android:layout_height="@dimen/dimen_image_view_icon_size_small"
             android:contentDescription="@string/content_description_icon_dismiss_dialog"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +97,7 @@
             app:layout_constraintVertical_bias="-1">
 
             <TextView
-                style="@style/Style_CustomButton_Text"
+                style="@style/Style_LinearLayout_Button_Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/action_verify"

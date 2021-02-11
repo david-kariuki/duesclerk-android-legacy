@@ -318,13 +318,14 @@ public class DialogFragment_UpdateContact extends DialogFragment {
                             CustomToast.infoMessage(mContext,
                                     DataUtils.getStringResource(mContext,
                                             R.string.msg_contact_updated_successfully),
-                                    false, R.drawable.ic_baseline_person_add_alt_1_24_white);
+                                    false,
+                                    R.drawable.ic_baseline_person_add_alt_1_24_white);
 
                             try {
 
                                 // Send broadcast to set switch account type action text
-                                Intent intentBroadcast = new Intent(
-                                        BroadCastUtils.bcrActionReloadContactDetailsAndDebtsActivity);
+                                Intent intentBroadcast = new Intent(BroadCastUtils
+                                        .bcrActionReloadContactDetailsAndDebtsActivity);
 
                                 requireActivity().sendBroadcast(intentBroadcast); // Send broadcast
 
@@ -346,7 +347,7 @@ public class DialogFragment_UpdateContact extends DialogFragment {
 
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(
-                                NetworkTags.Contacts.TAG_UPDATE_CONTACT_STRING_REQUEST);
+                                NetworkTags.ContactsNetworkTags.TAG_UPDATE_CONTACT_STRING_REQUEST);
                     }
                 } catch (Exception ignored) {
                 }
@@ -447,7 +448,7 @@ public class DialogFragment_UpdateContact extends DialogFragment {
 
             // Adding request to request queue
             ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                    NetworkTags.Contacts.TAG_UPDATE_CONTACT_STRING_REQUEST);
+                    NetworkTags.ContactsNetworkTags.TAG_UPDATE_CONTACT_STRING_REQUEST);
 
         } else {
 

@@ -45,4 +45,6 @@
     <!--App Option-->
 
     <color name="color_shimmer_item_grey">@color/colorGreyLight200</color>
+
+    <color name="color_options_list_icon_background">@color/colorGreyLight200</color>
 </resources>

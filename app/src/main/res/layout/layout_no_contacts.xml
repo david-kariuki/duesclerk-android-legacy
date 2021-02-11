@@ -32,7 +32,7 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_marginBottom="15dp"
-                android:padding="@dimen/dimen_icon_padding_small"
+                android:padding="@dimen/dimen_image_view_icon_padding_small"
                 android:scaleType="centerCrop"
                 android:contentDescription="@string/content_description_icon_contact"
                 android:src="@drawable/ic_baseline_contacts_24_primary" />
@@ -60,7 +60,7 @@
                 android:gravity="center">
 
                 <TextView
-                    style="@style/Style_CustomButton_Text"
+                    style="@style/Style_LinearLayout_Button_Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/action_add_contact"

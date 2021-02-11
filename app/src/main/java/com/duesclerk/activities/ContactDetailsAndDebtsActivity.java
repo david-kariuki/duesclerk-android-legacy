@@ -3,15 +3,17 @@ package com.duesclerk.activities;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -25,6 +27,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.duesclerk.R;
+import com.duesclerk.custom.DeleteContactsDebts;
 import com.duesclerk.custom.custom_utilities.ApplicationClass;
 import com.duesclerk.custom.custom_utilities.BroadCastUtils;
 import com.duesclerk.custom.custom_utilities.ContactUtils;
@@ -44,6 +47,7 @@ import com.duesclerk.custom.network.InternetConnectivity;
 import com.duesclerk.custom.network.NetworkTags;
 import com.duesclerk.custom.network.NetworkUrls;
 import com.duesclerk.custom.storage_adapters.UserDatabase;
+import com.duesclerk.interfaces.Interface_IDS;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -56,10 +60,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
+public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
+        AppBarLayout.OnOffsetChangedListener, Interface_IDS {
 
-    //private final String TAG = ContactDetailsAndDebtsActivity.class.getSimpleName(); // Get
-    // class simple name
+    // Get class simple name
+    // private final String TAG = ContactDetailsAndDebtsActivity.class.getSimpleName();
+
     RelativeLayout rlNoConnection;
     FloatingActionButton fabAddDebt;
     RVLA_Debts rvlaDebts;
@@ -72,8 +78,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
     private ArrayList<JB_Debts> debtRecords;
     private AppBarLayout appBarLayout;
     private UserDatabase database;
-    private String contactId, contactType, contactFullName, contactPhoneNumber,
-            contactEmailAddress, contactAddress;
+    private String contactId, contactType, contactFullName;
     private ShimmerFrameLayout shimmerContactDetails;
     private LinearLayout llContactDetails;
     private LinearLayout llNoDebts;
@@ -81,6 +86,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
     private BroadcastReceiver bcrReloadDebts;
     private SearchView searchView;
     private DialogFragment_UpdateContact dialogFragmentEditContact;
+    private DeleteContactsDebts deleteContactsOrDebts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,10 +124,11 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
 
         shimmerContactDetails = findViewById(R.id.shimmerContactDetailsAndDebtsActivity);
 
+        // RecyclerView LayoutManager
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL,
                 false);
 
-        // Initialize And Set Item Decorator
+        // Initialize and set RecyclerView decorator
         Decorators decorators = new Decorators(this);
 
         recyclerView.addItemDecoration(decorators); // Add item decoration
@@ -154,13 +161,20 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         this.contactFullName = intent.getStringExtra(ContactUtils.FIELD_CONTACT_FULL_NAME);
         this.contactType = intent.getStringExtra(ContactUtils.FIELD_CONTACT_TYPE);
 
-        setActivityTitle(contactType, contactFullName); // Set activity title
+//        this.contactId = "contact79cd3601dd0e36b15e896665c86f94d6"; // Get contact id
+//        this.contactFullName = "Abraham";
+//        this.contactType = "ContactTypePeopleOwingMe";
 
+        // Set activity title
+        setActivityTitle(contactType, contactFullName);
+
+        // Dialog fragment to add debt
         DialogFragment_AddDebt dialogFragmentAddDebt = new DialogFragment_AddDebt(mContext,
                 contactId, contactFullName);
         dialogFragmentAddDebt.setCancelable(false); // Disable cancelable
         dialogFragmentAddDebt.setRetainInstance(true); // Set retain instance
 
+        // Dialog fragment to edit contact
         dialogFragmentEditContact = new DialogFragment_UpdateContact(
                 mContext);
         dialogFragmentEditContact.setCancelable(false); // Disable cancelable
@@ -170,6 +184,8 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         swipeRefreshLayout.setSwipeableChildren(R.id.coordinator);
 
         database = new UserDatabase(mContext); // Initialize database
+
+        deleteContactsOrDebts = new DeleteContactsDebts(ContactDetailsAndDebtsActivity.this);
 
         // SwipeRefreshLayout listener
         swipeRefreshListener =
@@ -237,12 +253,66 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
             fabAddDebt.performClick(); // Click fab add debt
         });
 
+        // Edit contact onClick - Show edit contact dialog
         llEditContact.setOnClickListener(v -> {
 
             // Show add debt dialog
             ViewsUtils.showDialogFragment(getSupportFragmentManager(),
                     dialogFragmentEditContact, true);
         });
+
+        // Delete contact onClick - Show delete contact confirmation
+        llDeleteContact.setOnClickListener(v -> {
+
+                    // Delete contact
+                    deleteContactsOrDebts.confirmAndDeleteContactsOrDebts(
+                            true, contactFullName,
+                            database.getUserAccountInfo(null).get(0).getUserId(),
+                            new String[]{contactId});
+                }
+        );
+
+        // Create ItemTouchHelper call back
+        ItemTouchHelper.SimpleCallback touchHelperCallback = new ItemTouchHelper.SimpleCallback(
+                0, ItemTouchHelper.LEFT) {
+
+            @Override
+            public boolean onMove(@NotNull RecyclerView recyclerView,
+                                  RecyclerView.@NotNull ViewHolder viewHolder,
+                                  RecyclerView.@NotNull ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.@NotNull ViewHolder viewHolder, int direction) {
+                switch (direction) {
+                    case ItemTouchHelper.LEFT:
+
+                        rvlaDebts.setExpandedDebtOptionsMenu(true, viewHolder.getAdapterPosition());
+                        break;
+
+                    case ItemTouchHelper.RIGHT:
+
+                        rvlaDebts.setExpandedDebtOptionsMenu(false, viewHolder.getAdapterPosition());
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void onChildDraw(@NotNull Canvas c, @NotNull RecyclerView recyclerView,
+                                    RecyclerView.@NotNull ViewHolder viewHolder, float dX,
+                                    float dY, int actionState, boolean isCurrentlyActive) {
+            }
+        };
+
+        // Initialize ItemTouchHelper
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(touchHelperCallback);
+
+        // Attach ItemTouchHelper to RecyclerView
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     @Override
@@ -253,7 +323,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         BroadCastUtils.registerBroadCasts(ContactDetailsAndDebtsActivity.this, bcrReloadDebts,
                 BroadCastUtils.bcrActionReloadContactDetailsAndDebtsActivity);
 
-        // Start/Stop swipe SwipeRefresh
+        // Start / Stop swipe SwipeRefresh
         ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout, swipeRefreshListener);
     }
 
@@ -319,6 +389,21 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         appBarLayout.addOnOffsetChangedListener(this); // Add offset changed listener
     }
 
+    @Override
+    public void onBackPressed() {
+
+        // Check for expanded views in RecyclerView adapter
+        if (rvlaDebts.isExpandedOptionsOrDetails()) {
+
+            // Collapse expanded views in RecyclerView adapter
+            rvlaDebts.setCollapsedExpandedLayouts();
+
+        } else {
+
+            super.onBackPressed();
+        }
+    }
+
     /**
      * Function to set and update activity title
      *
@@ -339,313 +424,6 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                     contactFullName);
         }
         textTitle.setText(title); // Set activity title
-    }
-
-    /**
-     * Function to fetch/retrieve contact data
-     *
-     * @param contactId - contact id
-     */
-    private void fetchContactData(String contactId) {
-
-        // Check internet connection state
-        if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
-            // Connected
-
-            handleNetworkConnectionEvent(true); // Set connection established to true
-
-            // Create string request
-            StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                    NetworkUrls.ContactURLS.URL_FETCH_CONTACT_DETAILS_AND_DEBTS, response -> {
-
-                // Log Response
-                // Log.d(TAG, "Fetching contact data response:" + response);
-
-                showAddDebtFab(false); // Hide add debt FAB
-
-                // Hide SwipeRefreshLayout
-                ViewsUtils.showSwipeRefreshLayout(false,
-                        swipeRefreshLayout, swipeRefreshListener);
-
-                try {
-
-                    JSONObject jsonObject = new JSONObject(response);
-                    boolean error = jsonObject.getBoolean(VolleyUtils.KEY_ERROR);
-
-                    // Check for error
-                    if (!error) {
-                        // Contact data fetched
-
-                        extractContactDetails(jsonObject); // Extract contact details
-
-                        // Get JSONArray From JSONObject
-                        JSONArray contactDebts;
-                        contactDebts = jsonObject.getJSONArray(
-                                DebtUtils.KEY_DEBTS);
-
-                        // Split JSONArray to get contact debts records
-                        extractDebtsJSONArray(contactDebts);
-
-                    } else {
-                        // Error updating details
-
-                        String errorMessage = jsonObject.getString(
-                                VolleyUtils.KEY_ERROR_MESSAGE);
-
-                        // Toast error message
-                        CustomToast.errorMessage(
-                                mContext,
-                                errorMessage,
-                                R.drawable.ic_baseline_edit_24_white);
-
-                        // Cancel Pending Request
-                        ApplicationClass.getClassInstance().cancelPendingRequests(
-                                NetworkTags.Contacts.TAG_FETCH_CONTACT_DETAILS_AND_DEBTS_STRING_REQUEST);
-                    }
-                } catch (Exception ignored) {
-                }
-            }, volleyError -> {
-
-                // Log Response
-                // Log.e(TAG, "Fetch contact data response error : "
-                // + volleyError.getMessage());
-
-                // Hide SwipeRefreshLayout
-                ViewsUtils.showSwipeRefreshLayout(false,
-                        swipeRefreshLayout, swipeRefreshListener);
-
-
-                // Check request response
-                if (volleyError.getMessage() == null || volleyError instanceof NetworkError
-                        || volleyError instanceof ServerError || volleyError instanceof
-                        AuthFailureError || volleyError instanceof TimeoutError) {
-
-                    CustomToast.errorMessage(mContext, DataUtils.getStringResource(mContext,
-                            R.string.error_network_connection_error_message_short),
-                            R.drawable.ic_sad_cloud_100px_white);
-
-                } else {
-
-                    // Toast Connection Error Message
-                    CustomToast.errorMessage(mContext, volleyError.getMessage(),
-                            R.drawable.ic_sad_cloud_100px_white);
-                }
-
-                // Clear url cache
-                ApplicationClass.getClassInstance().deleteUrlVolleyCache(
-                        NetworkUrls.ContactURLS.URL_FETCH_CONTACT_DETAILS_AND_DEBTS);
-            }) {
-                @Override
-                protected void deliverResponse(String response) {
-                    super.deliverResponse(response);
-                }
-
-                    /*@Override
-                    public Map<String, String> getHeaders() {
-                        HashMap<String, String> headers = new HashMap<>();
-                        headers.put("Content-Type", "application/json");
-                        headers.put(VolleyUtils.KEY_API_KEY, VolleyUtils.getApiKey(mContext));
-                        return headers;
-                    }*/
-
-                @Override
-                protected Map<String, String> getParams() {
-                    @SuppressWarnings({"unchecked", "rawtypes"}) Map<String, String> params =
-                            new HashMap();
-
-                    // Put userId and contactId to Map params
-                    params.put(UserAccountUtils.FIELD_USER_ID,
-                            database.getUserAccountInfo(null).get(0).getUserId());
-                    params.put(ContactUtils.FIELD_CONTACT_ID, contactId);
-
-                    return params; // Return params
-                }
-
-                @Override
-                protected VolleyError parseNetworkError(VolleyError volleyError) {
-                    return super.parseNetworkError(volleyError);
-                }
-
-                @Override
-                public void deliverError(VolleyError error) {
-                    super.deliverError(error);
-                }
-            };
-
-            // Set Request Priority
-            ApplicationClass.getClassInstance().setPriority(Request.Priority.HIGH);
-
-            // Set retry policy
-            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                    DataUtils.getIntegerResource(mContext,
-                            R.integer.int_volley_account_request_initial_timeout_ms),
-                    DataUtils.getIntegerResource(mContext,
-                            R.integer.int_volley_account_request_max_timeout_retry),
-                    1.0f));
-
-            // Set request caching to false
-            stringRequest.setShouldCache(false);
-
-            // Adding request to request queue
-            ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                    NetworkTags.Contacts.TAG_FETCH_CONTACT_DETAILS_AND_DEBTS_STRING_REQUEST);
-
-        } else {
-
-            handleNetworkConnectionEvent(false); // Handle no connection event
-
-            // Toast network connection message
-            CustomToast.errorMessage(
-                    mContext,
-                    DataUtils.getStringResource(mContext,
-                            R.string.error_network_connection_error_message_long),
-                    R.drawable.ic_sad_cloud_100px_white);
-        }
-    }
-
-    /**
-     * Function to extract debts from jsonArray
-     *
-     * @param jsonObject - JSONObject to get contact details JSONObject
-     */
-    private void extractContactDetails(JSONObject jsonObject) {
-
-        // Check if JSONObject is empty
-        if (!DataUtils.isEmptyJSONObject(jsonObject)) {
-
-            try {
-
-                // Get JSONObject from JSONObject
-                JSONObject contactDetails = jsonObject.getJSONObject(
-                        ContactUtils.KEY_CONTACT_DETAILS);
-
-                // Get contact details
-                this.contactFullName = contactDetails.getString(
-                        ContactUtils.FIELD_CONTACT_FULL_NAME);
-                this.contactPhoneNumber = contactDetails.getString(
-                        ContactUtils.FIELD_CONTACT_PHONE_NUMBER);
-                this.contactEmailAddress = contactDetails.getString(
-                        ContactUtils.FIELD_CONTACT_EMAIL_ADDRESS);
-                this.contactAddress = contactDetails.getString(
-                        ContactUtils.FIELD_CONTACT_ADDRESS);
-                String debtsTotalAmount = DataUtils.getStringResource(
-                        mContext,
-                        R.string.label_debts_total_amount,
-                        contactDetails.getString(DebtUtils.FIELD_DEBTS_TOTAL_AMOUNT)
-                );
-
-                setActivityTitle(contactType, contactFullName); // Update activity title
-
-                // Set contact details
-                this.textContactFullName.setText(contactFullName);
-                this.textContactPhoneNumber.setText(contactPhoneNumber);
-                this.textContactEmailAddress.setText(contactEmailAddress);
-                this.textContactAddress.setText(contactAddress);
-                this.textDebtsTotalAmount.setText(debtsTotalAmount);
-
-                // Show ShimmerFrameLayout
-                ViewsUtils.showShimmerFrameLayout(false, shimmerContactDetails);
-
-                showContactDetails(true); // Show contact details
-
-                showAddDebtFab(true); // Show add debt FAB
-
-                // Pass contact details to
-                dialogFragmentEditContact.setContactDetails(contactId, contactFullName,
-                        contactPhoneNumber, contactEmailAddress, contactAddress);
-
-            } catch (Exception ignored) {
-            }
-        }
-    }
-
-    /**
-     * Function to extract debts from jsonArray
-     *
-     * @param jsonArray - JSONArray with debts
-     */
-    private void extractDebtsJSONArray(JSONArray jsonArray) {
-
-        if (jsonArray != null) {
-
-            if (jsonArray.length() > 0) {
-                // Looping through all the elements of the json array
-
-                debtRecords.clear(); // Clear ArrayList
-
-                for (int i = 0; i < jsonArray.length(); i++) {
-
-                    // Creating a json object of the current index
-                    JSONObject jsonObject;
-                    JB_Debts jbDebts = new JB_Debts();
-
-                    try {
-
-                        // Getting Data json object
-                        jsonObject = jsonArray.getJSONObject(i);
-
-                        // Getting Data from json object
-                        String debtId, debtAmount, debtDateIssued, debtDateDue, debtDescription,
-                                contactId, contactType, userId;
-
-                        debtId = jsonObject.getString(DebtUtils.FIELD_DEBT_ID);
-                        debtAmount = jsonObject.getString(DebtUtils.FIELD_DEBT_AMOUNT);
-                        debtDateIssued = jsonObject.getString(DebtUtils.FIELD_DEBT_DATE_ISSUED);
-                        debtDateDue = jsonObject.getString(DebtUtils.FIELD_DEBT_DATE_DUE);
-                        debtDescription = jsonObject.getString(DebtUtils.FIELD_DEBT_DESCRIPTION);
-                        contactId = jsonObject.getString(ContactUtils.FIELD_CONTACT_ID);
-                        contactType = jsonObject.getString(ContactUtils.FIELD_CONTACT_TYPE);
-                        userId = jsonObject.getString(UserAccountUtils.FIELD_USER_ID);
-
-                        // Set data to java bean
-                        jbDebts.setDebtId(debtId);
-                        jbDebts.setDebtAmount(debtAmount);
-                        jbDebts.setDebtDateIssued(debtDateIssued);
-                        jbDebts.setDebtDateDue(debtDateDue);
-                        jbDebts.setDebtDescription(debtDescription);
-                        jbDebts.setContactId(contactId);
-                        jbDebts.setContactType(contactType);
-                        jbDebts.setUserId(userId);
-
-                        // Add java bean to ArrayList
-                        debtRecords.add(jbDebts);
-
-                    } catch (Exception ignored) {
-                    }
-                }
-
-                // Check for fetched debt records
-                if (!DataUtils.isEmptyArrayList(debtRecords)) {
-                    // Debt records found
-
-                    showNoConnectionLayout(false); // Hide no debts view
-                    showRecyclerView(true); // Show RecyclerView
-
-                    // Creating RecyclerView adapter object
-                    rvlaDebts = new RVLA_Debts(mContext, debtRecords);
-
-                    // Check for adapter observers
-                    if (!rvlaDebts.hasObservers()) {
-
-                        rvlaDebts.setHasStableIds(true); // Set has stable ids
-                    }
-
-                    recyclerView.setAdapter(rvlaDebts); // Setting Adapter to RecyclerView
-                    rvlaDebts.notifyDataSetChanged(); // Notify Data Set Changed
-
-                    showSearchView(true); // Show SearchView
-                } else {
-
-                    showNoDebtsLayout(true); // Show no debts view
-                }
-            } else {
-
-                showNoDebtsLayout(true); // Show no debts view
-            }
-        } else {
-
-            showNoDebtsLayout(true); // Show no debts view
-        }
     }
 
     /**
@@ -800,5 +578,325 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
             // Refresh will only be enabled when the offset is zero
             swipeRefreshLayout.setEnabled(verticalOffset == 0);
         }
+    }
+
+    /**
+     * Function to fetch/retrieve contact data
+     *
+     * @param contactId - contact id
+     */
+    private void fetchContactData(String contactId) {
+
+        // Check internet connection state
+        if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
+            // Connected
+
+            handleNetworkConnectionEvent(true); // Set connection established to true
+
+            // Create string request
+            StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                    NetworkUrls.ContactURLS.URL_FETCH_CONTACT_DETAILS_AND_DEBTS, response -> {
+
+                // Log Response
+                // Log.d(TAG, "Fetching contact data response:" + response);
+
+                showAddDebtFab(false); // Hide add debt FAB
+
+                // Hide SwipeRefreshLayout
+                ViewsUtils.showSwipeRefreshLayout(false,
+                        swipeRefreshLayout, swipeRefreshListener);
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean error = jsonObject.getBoolean(VolleyUtils.KEY_ERROR);
+
+                    // Check for error
+                    if (!error) {
+                        // Contact data fetched
+
+                        extractContactDetails(jsonObject); // Extract contact details
+
+                        // Get JSONArray From JSONObject
+                        JSONArray contactDebts;
+                        contactDebts = jsonObject.getJSONArray(
+                                DebtUtils.KEY_DEBTS);
+
+                        // Split JSONArray to get contact debts records
+                        extractDebtsJSONArray(contactDebts);
+
+                    } else {
+                        // Error updating details
+
+                        String errorMessage = jsonObject.getString(
+                                VolleyUtils.KEY_ERROR_MESSAGE);
+
+                        // Toast error message
+                        CustomToast.errorMessage(
+                                mContext,
+                                errorMessage,
+                                R.drawable.ic_baseline_edit_24_white);
+
+                        // Cancel Pending Request
+                        ApplicationClass.getClassInstance().cancelPendingRequests(
+                                NetworkTags.ContactsNetworkTags.TAG_FETCH_CONTACT_DETAILS_AND_DEBTS_STRING_REQUEST);
+                    }
+                } catch (Exception ignored) {
+                }
+            }, volleyError -> {
+
+                // Log Response
+                // Log.e(TAG, "Fetch contact data response error : "
+                // + volleyError.getMessage());
+
+                // Hide SwipeRefreshLayout
+                ViewsUtils.showSwipeRefreshLayout(false,
+                        swipeRefreshLayout, swipeRefreshListener);
+
+
+                // Check request response
+                if (volleyError.getMessage() == null || volleyError instanceof NetworkError
+                        || volleyError instanceof ServerError || volleyError instanceof
+                        AuthFailureError || volleyError instanceof TimeoutError) {
+
+                    CustomToast.errorMessage(mContext, DataUtils.getStringResource(mContext,
+                            R.string.error_network_connection_error_message_short),
+                            R.drawable.ic_sad_cloud_100px_white);
+
+                } else {
+
+                    // Toast Connection Error Message
+                    CustomToast.errorMessage(mContext, volleyError.getMessage(),
+                            R.drawable.ic_sad_cloud_100px_white);
+                }
+
+                // Clear url cache
+                ApplicationClass.getClassInstance().deleteUrlVolleyCache(
+                        NetworkUrls.ContactURLS.URL_FETCH_CONTACT_DETAILS_AND_DEBTS);
+            }) {
+                @Override
+                protected void deliverResponse(String response) {
+                    super.deliverResponse(response);
+                }
+
+                    /*@Override
+                    public Map<String, String> getHeaders() {
+                        HashMap<String, String> headers = new HashMap<>();
+                        headers.put("Content-Type", "application/json");
+                        headers.put(VolleyUtils.KEY_API_KEY, VolleyUtils.getApiKey(mContext));
+                        return headers;
+                    }*/
+
+                @Override
+                protected Map<String, String> getParams() {
+                    @SuppressWarnings({"unchecked", "rawtypes"}) Map<String, String> params =
+                            new HashMap();
+
+                    // Put userId and contactId to Map params
+                    params.put(UserAccountUtils.FIELD_USER_ID,
+                            database.getUserAccountInfo(null).get(0).getUserId());
+                    params.put(ContactUtils.FIELD_CONTACT_ID, contactId);
+
+                    return params; // Return params
+                }
+
+                @Override
+                protected VolleyError parseNetworkError(VolleyError volleyError) {
+                    return super.parseNetworkError(volleyError);
+                }
+
+                @Override
+                public void deliverError(VolleyError error) {
+                    super.deliverError(error);
+                }
+            };
+
+            // Set Request Priority
+            ApplicationClass.getClassInstance().setPriority(Request.Priority.HIGH);
+
+            // Set retry policy
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    DataUtils.getIntegerResource(mContext,
+                            R.integer.int_volley_account_request_initial_timeout_ms),
+                    DataUtils.getIntegerResource(mContext,
+                            R.integer.int_volley_account_request_max_timeout_retry),
+                    1.0f));
+
+            // Set request caching to false
+            stringRequest.setShouldCache(false);
+
+            // Adding request to request queue
+            ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
+                    NetworkTags.ContactsNetworkTags.TAG_FETCH_CONTACT_DETAILS_AND_DEBTS_STRING_REQUEST);
+
+        } else {
+
+            handleNetworkConnectionEvent(false); // Handle no connection event
+
+            // Toast network connection message
+            CustomToast.errorMessage(
+                    mContext,
+                    DataUtils.getStringResource(mContext,
+                            R.string.error_network_connection_error_message_long),
+                    R.drawable.ic_sad_cloud_100px_white);
+        }
+    }
+
+    /**
+     * Function to extract debts from jsonArray
+     *
+     * @param jsonObject - JSONObject to get contact details JSONObject
+     */
+    private void extractContactDetails(JSONObject jsonObject) {
+
+        // Check if JSONObject is empty
+        if (!DataUtils.isEmptyJSONObject(jsonObject)) {
+
+            try {
+
+                // Get JSONObject from JSONObject
+                JSONObject contactDetails = jsonObject.getJSONObject(
+                        ContactUtils.KEY_CONTACT_DETAILS);
+
+                // Get contact details
+                this.contactFullName = contactDetails.getString(
+                        ContactUtils.FIELD_CONTACT_FULL_NAME);
+                String contactPhoneNumber = contactDetails.getString(
+                        ContactUtils.FIELD_CONTACT_PHONE_NUMBER);
+                String contactEmailAddress = contactDetails.getString(
+                        ContactUtils.FIELD_CONTACT_EMAIL_ADDRESS);
+                String contactAddress = contactDetails.getString(
+                        ContactUtils.FIELD_CONTACT_ADDRESS);
+                String debtsTotalAmount = DataUtils.getStringResource(
+                        mContext,
+                        R.string.label_debts_total_amount,
+                        contactDetails.getString(DebtUtils.FIELD_DEBTS_TOTAL_AMOUNT)
+                );
+
+                setActivityTitle(contactType, contactFullName); // Update activity title
+
+                // Set contact details
+                this.textContactFullName.setText(contactFullName);
+                this.textContactPhoneNumber.setText(contactPhoneNumber);
+                this.textContactEmailAddress.setText(contactEmailAddress);
+                this.textContactAddress.setText(contactAddress);
+                this.textDebtsTotalAmount.setText(debtsTotalAmount);
+
+                // Show ShimmerFrameLayout
+                ViewsUtils.showShimmerFrameLayout(false, shimmerContactDetails);
+
+                showContactDetails(true); // Show contact details
+
+                showAddDebtFab(true); // Show add debt FAB
+
+                // Pass contact details to
+                dialogFragmentEditContact.setContactDetails(contactId, contactFullName,
+                        contactPhoneNumber, contactEmailAddress, contactAddress);
+
+            } catch (Exception ignored) {
+            }
+        }
+    }
+
+    /**
+     * Function to extract debts from jsonArray
+     *
+     * @param jsonArray - JSONArray with debts
+     */
+    private void extractDebtsJSONArray(JSONArray jsonArray) {
+
+        if (jsonArray != null) {
+
+            if (jsonArray.length() > 0) {
+                // Looping through all the elements of the json array
+
+                debtRecords.clear(); // Clear ArrayList
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+
+                    // Creating a json object of the current index
+                    JSONObject jsonObject;
+                    JB_Debts jbDebts = new JB_Debts();
+
+                    try {
+
+                        // Getting Data json object
+                        jsonObject = jsonArray.getJSONObject(i);
+
+                        // Getting Data from json object
+                        String debtId, debtAmount, debtDateIssued, debtDateDue, debtDescription,
+                                contactId, contactType, userId;
+
+                        debtId = jsonObject.getString(DebtUtils.FIELD_DEBT_ID);
+                        debtAmount = jsonObject.getString(DebtUtils.FIELD_DEBT_AMOUNT);
+                        debtDateIssued = jsonObject.getString(DebtUtils.FIELD_DEBT_DATE_ISSUED);
+                        debtDateDue = jsonObject.getString(DebtUtils.FIELD_DEBT_DATE_DUE);
+                        debtDescription = jsonObject.getString(DebtUtils.FIELD_DEBT_DESCRIPTION);
+                        contactId = jsonObject.getString(ContactUtils.FIELD_CONTACT_ID);
+                        contactType = jsonObject.getString(ContactUtils.FIELD_CONTACT_TYPE);
+                        userId = jsonObject.getString(UserAccountUtils.FIELD_USER_ID);
+
+                        // Set data to java bean
+                        jbDebts.setDebtId(debtId);
+                        jbDebts.setDebtAmount(debtAmount);
+                        jbDebts.setDebtDateIssued(debtDateIssued);
+                        jbDebts.setDebtDateDue(debtDateDue);
+                        jbDebts.setDebtDescription(debtDescription);
+                        jbDebts.setContactId(contactId);
+                        jbDebts.setContactType(contactType);
+                        jbDebts.setUserId(userId);
+
+                        // Add java bean to ArrayList
+                        debtRecords.add(jbDebts);
+
+                    } catch (Exception ignored) {
+                    }
+                }
+
+                // Check for fetched debt records
+                if (!DataUtils.isEmptyArrayList(debtRecords)) {
+                    // Debt records found
+
+                    showNoConnectionLayout(false); // Hide no debts view
+                    showRecyclerView(true); // Show RecyclerView
+
+                    // Creating RecyclerView adapter object
+                    rvlaDebts = new RVLA_Debts(mContext, debtRecords, this);
+
+                    // Check for adapter observers
+                    if (!rvlaDebts.hasObservers()) {
+
+                        rvlaDebts.setHasStableIds(true); // Set has stable ids
+                    }
+
+                    recyclerView.setAdapter(rvlaDebts); // Setting Adapter to RecyclerView
+                    rvlaDebts.notifyDataSetChanged(); // Notify Data Set Changed
+
+                    showSearchView(true); // Show SearchView
+                } else {
+
+                    showNoDebtsLayout(true); // Show no debts view
+                }
+            } else {
+
+                showNoDebtsLayout(true); // Show no debts view
+            }
+        } else {
+
+            showNoDebtsLayout(true); // Show no debts view
+        }
+    }
+
+    @Override
+    public void passContactsIds(String[] contactsIds) {
+
+    }
+
+    @Override
+    public void passDebtsIds(String[] debtsIds) {
+
+        // Delete debt
+        deleteContactsOrDebts.confirmAndDeleteContactsOrDebts(false, contactFullName,
+                this.contactId, debtsIds);
     }
 }

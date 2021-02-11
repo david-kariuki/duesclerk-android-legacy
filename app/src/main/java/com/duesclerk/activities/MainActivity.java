@@ -4,10 +4,10 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.duesclerk.R;
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
     private FragmentPeopleOwingMe peopleOwingMe;
     private FragmentPeople_I_Owe peopleIOwe;
     private String queryPeopleOwingMe = "", queryPeopleIOwe = "";
-    private Interface_MainActivity interfaceMainActivity;
+    private View dividerSearchView;
 
     // Shared SearchView for all contacts listing fragments
     private SearchView searchView;
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
 
         // Setup SearchView
         searchView = ViewsUtils.initSearchView(this, R.id.searchViewMainActivity);
+        dividerSearchView = findViewById(R.id.dividerSearchView);
 
         setupTabLayout(); // Set up TabLayout
         viewPager.setOffscreenPageLimit(2); // Set ViewPager off screen limit
@@ -71,9 +72,9 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
             public void onTabSelected(TabLayout.Tab tab) {
 
                 tabPosition = tab.getPosition(); // Get current tab position
-                viewPager.setCurrentItem(tabPosition, true); // Set current position
+                viewPager.setCurrentItem(tabPosition, false); // Set current position
                 switchTabSelection(tabPosition, true); // Switch tab selection
-                switchSearchViewText(tabPosition);
+                switchSearchViewQuery(tabPosition); // Switch SearchView query
             }
 
             @Override
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
                 tabPosition = tab.getPosition(); // Get current tab position
                 switchTabSelection(tabPosition, false); // Switch tab selection
                 hideFabButton(tabPosition); // Hide/show fab button
-                switchSearchViewText(tabPosition);
+                switchSearchViewQuery(tabPosition); // Switch SearchView query
             }
 
             @Override
@@ -121,22 +122,31 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
 
                 // Pass SearchView query to fragments
                 switch (tabPosition) {
+
                     case 0:
 
-                        // Set SearchView query to holding variable
-                        queryPeopleOwingMe = query;
+                        // Check if query is empty
+                        if (!DataUtils.isEmptyString(query)) {
 
-                        // Set SearchView query to visible fragment
-                        peopleOwingMe.setSearchQuery(query);
+                            // Set SearchView query to holding variable
+                            queryPeopleOwingMe = query;
+
+                            // Set SearchView query to visible fragment
+                            peopleOwingMe.setSearchQuery(query);
+                        }
                         break;
 
                     case 1:
 
-                        // Set SearchView query to holding variable
-                        queryPeopleIOwe = query;
+                        // Check if query is empty
+                        if (!DataUtils.isEmptyString(query)) {
 
-                        // Set SearchView query to visible fragment
-                        peopleIOwe.setSearchQuery(query);
+                            // Set SearchView query to holding variable
+                            queryPeopleIOwe = query;
+
+                            // Set SearchView query to visible fragment
+                            peopleIOwe.setSearchQuery(query);
+                        }
                         break;
 
                     default:
@@ -197,17 +207,38 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
 
         // Save SearchView query
         switch (tabPosition) {
+
             case 0:
+
                 searchView.setQuery(savedInstanceState
                         .getString(KEY_QUERY_PEOPLE_OWING_ME), true);
                 break;
+
             case 1:
+
                 searchView.setQuery(savedInstanceState
                         .getString(KEY_QUERY_PEOPLE_I_OWE), true);
                 break;
+
             default:
+
+                searchView.setQuery("", true);
                 break;
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        showSearchView(tabPosition != 2); // Show / Hide SearchView
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        showSearchView(tabPosition != 2); // Show / Hide SearchView
     }
 
     /**
@@ -276,6 +307,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
      * @param viewPager - Associated ViewPager
      */
     private void setupViewPager(ViewPager viewPager) {
+
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         peopleOwingMe = new FragmentPeopleOwingMe();
@@ -303,8 +335,11 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
         showSearchView(position != 2); // Show / Hide SearchView
 
         switch (position) {
+
             case 0:
+
                 if (selected) {
+
                     // Set tab title color
                     textTabPeopleOwingMe.setTextColor(DataUtils.getColorResource(mContext,
                             R.color.colorPrimaryDark));
@@ -314,6 +349,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
                             imageTabPeopleOwingMe);
 
                 } else {
+
                     // Set tab title color
                     textTabPeopleOwingMe.setTextColor(DataUtils.getColorResource(mContext,
                             R.color.colorPrimaryGrey));
@@ -327,6 +363,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
             case 1:
 
                 if (selected) {
+
                     // Set tab title color
                     textTabPeopleIOwe.setTextColor(DataUtils.getColorResource(mContext,
                             R.color.colorPrimaryDark));
@@ -334,7 +371,9 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
                     // Set tab icon color
                     ViewsUtils.loadImageView(mContext, R.drawable.ic_they_100px_primary_dark,
                             imageTabPeopleIOwe);
+
                 } else {
+
                     // Set tab title color
                     textTabPeopleIOwe.setTextColor(DataUtils.getColorResource(mContext,
                             R.color.colorPrimaryGrey));
@@ -344,7 +383,9 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
                             imageTabPeopleIOwe);
                 }
                 break;
+
             case 2:
+
                 if (selected) {
                     // Set tab title color
                     textTabAppMenu.setTextColor(DataUtils.getColorResource(mContext,
@@ -364,6 +405,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
                             imageTabAppMenu);
                 }
                 break;
+
             default:
                 break;
         }
@@ -376,15 +418,14 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
      */
     private void hideFabButton(int position) {
         switch (position) {
-            case 0:
-            case 1:
-                // Those I Owe fragment
-                // Owing Me fragment
+            case 0: // Those I Owe fragment
+            case 1: // Owing Me fragment
+
                 fabAddContact.setVisibility(View.VISIBLE); // Toggle visibility
                 break;
-            case 2:
-            default:
-                // Menu fragment
+
+            default: //Others
+
                 fabAddContact.setVisibility(View.GONE); // Toggle visibility
                 break;
         }
@@ -447,10 +488,12 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
         if (show) {
 
             searchView.setVisibility(View.VISIBLE); // Show SearchView
+            dividerSearchView.setVisibility(View.VISIBLE); // Show SearchView divider
 
         } else {
 
             searchView.setVisibility(View.GONE); // Hide SearchView
+            dividerSearchView.setVisibility(View.GONE); // Hide SearchView divider
         }
     }
 
@@ -459,20 +502,24 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
      *
      * @param tabPosition - TabLayouts' current position
      */
-    private void switchSearchViewText(int tabPosition) {
+    private void switchSearchViewQuery(int tabPosition) {
         switch (tabPosition) {
 
             case 0:
+
                 // Set SearchView query to holding variables' text
                 searchView.setQuery(queryPeopleOwingMe, true);
                 break;
 
             case 1:
+
                 // Set SearchView query to holding variables' text
                 searchView.setQuery(queryPeopleIOwe, true);
                 break;
 
             default:
+                // Set SearchView query to null
+                searchView.setQuery("", false);
                 break;
         }
     }

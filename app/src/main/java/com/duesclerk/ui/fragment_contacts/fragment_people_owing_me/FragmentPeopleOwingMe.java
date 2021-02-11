@@ -47,7 +47,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
     private UserDatabase database;
     private FetchContactsClass fetchContactsClass;
     private RVLA_Contacts rvlaContacts;
-    private String searchQuery;
+    private String searchQuery = "";
 
     public static FragmentPeopleOwingMe newInstance() {
         return new FragmentPeopleOwingMe();
@@ -322,7 +322,9 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
      */
     public void setSearchQuery(String searchQuery) {
 
-        if (searchQuery == null) searchQuery = "";
+        if (searchQuery == null) {
+            searchQuery = "";
+        }
         this.searchQuery = searchQuery;
 
         // Filter text input

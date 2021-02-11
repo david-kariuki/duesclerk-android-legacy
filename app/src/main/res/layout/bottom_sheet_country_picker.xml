@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@drawable/gradient_white_white_primary_dark"
-        android:elevation="@dimen/dimen_toolbar_elevation_medium"
+        android:elevation="@dimen/dimen_toolbar_activity_elevation_medium"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -52,7 +52,7 @@
     <LinearLayout
         android:id="@+id/llCountryPicker_Dismiss"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_bs_toolbar_height"
+        android:layout_height="@dimen/dimen_toolbar_bs_height"
         android:layout_alignParentBottom="true"
         android:background="@drawable/gradient_country_picker_footer"
         android:elevation="5dp"

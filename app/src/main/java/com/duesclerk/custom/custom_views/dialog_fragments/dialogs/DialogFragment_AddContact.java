@@ -74,6 +74,9 @@ public class DialogFragment_AddContact extends DialogFragment {
 
     /**
      * Class constructor
+     *
+     * @param context     - Context
+     * @param tabPosition - TabLayout position
      */
     public DialogFragment_AddContact(Context context, int tabPosition) {
 
@@ -833,7 +836,7 @@ public class DialogFragment_AddContact extends DialogFragment {
 
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(
-                                NetworkTags.Contacts.TAG_ADD_CONTACT_STRING_REQUEST);
+                                NetworkTags.ContactsNetworkTags.TAG_ADD_CONTACT_STRING_REQUEST);
                     }
                 } catch (Exception ignored) {
                 }
@@ -937,7 +940,7 @@ public class DialogFragment_AddContact extends DialogFragment {
 
             // Adding request to request queue
             ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                    NetworkTags.Contacts.TAG_ADD_CONTACT_STRING_REQUEST);
+                    NetworkTags.ContactsNetworkTags.TAG_ADD_CONTACT_STRING_REQUEST);
 
         } else {
 

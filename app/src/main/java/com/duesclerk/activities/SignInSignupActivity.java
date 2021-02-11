@@ -250,7 +250,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
 
         // Pass account type and signup details hashMap
         signupUser(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL,
-                NetworkTags.User.TAG_SIGNUP_PERSONAL_STRING_REQUEST, signupDetailsArray);
+                signupDetailsArray);
     }
 
     /**
@@ -282,7 +282,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
 
         // Pass account type and signup details hashMap
         signupUser(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS,
-                NetworkTags.User.TAG_SIGNUP_BUSINESS_STRING_REQUEST, signupDetailsArray);
+                signupDetailsArray);
     }
 
     /**
@@ -299,7 +299,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
      * @param signupAccountType  - Personal / Business account
      * @param signupDetailsArray - ArrayList with signup details
      */
-    private void signupUser(final String signupAccountType, final String signupTag,
+    private void signupUser(final String signupAccountType,
                             final ArrayList<JB_UserAccountInfo> signupDetailsArray) {
 
         // Hide Keyboard
@@ -339,9 +339,9 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
                                 accountType, successMessage = "";
 
                         // Get signup details
-                        userId        = objectSignUp.getString(UserAccountUtils.FIELD_USER_ID);
-                        emailAddress    = objectSignUp.getString(UserAccountUtils.FIELD_EMAIL_ADDRESS);
-                        accountType     = objectSignUp.getString(UserAccountUtils.FIELD_ACCOUNT_TYPE);
+                        userId = objectSignUp.getString(UserAccountUtils.FIELD_USER_ID);
+                        emailAddress = objectSignUp.getString(UserAccountUtils.FIELD_EMAIL_ADDRESS);
+                        accountType = objectSignUp.getString(UserAccountUtils.FIELD_ACCOUNT_TYPE);
 
                         // Inserting row in users table
                         if (database.storeUserAccountInformation(userId, emailAddress,
@@ -434,7 +434,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
 
                 // Cancel Pending Request
                 ApplicationClass.getClassInstance().cancelPendingRequests(
-                        NetworkTags.User.TAG_SIGNIN_STRING_REQUEST);
+                        NetworkTags.UserNetworkTags.TAG_SIGNIN_STRING_REQUEST);
 
                 // Clear url cache
                 ApplicationClass.getClassInstance().deleteUrlVolleyCache(
@@ -490,7 +490,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
 
             // Adding request to request queue
             ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                    NetworkTags.User.TAG_SIGNUP_PERSONAL_STRING_REQUEST);
+                    NetworkTags.UserNetworkTags.TAG_SIGNUP_PERSONAL_STRING_REQUEST);
 
         } else {
             // Not Connected

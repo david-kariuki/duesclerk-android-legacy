@@ -11,11 +11,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -125,48 +125,6 @@ public class ViewsUtils {
     }
 
     /**
-     * Function to load picture urls to ImageView
-     *
-     * @param context   - to initialize GlideApp
-     * @param strUrl    - String url to be loaded
-     * @param imageView - associated ImageView
-     */
-    public static void loadUrlToImageView(Context context, String strUrl, ImageView imageView) {
-        if (!strUrl.equals("")) {
-            // Load Profile Picture
-            GlideApp.with(context)
-                    .load(strUrl)
-                    .centerCrop()
-                    // .override(450, Target.SIZE_ORIGINAL)
-                    .error(R.drawable.img_placeholder_user_grey)
-                    .placeholder(R.drawable.img_placeholder_user_grey)
-                    .encodeQuality(100)
-                    .skipMemoryCache(false)
-                    .onlyRetrieveFromCache(false)
-                    .priority(Priority.HIGH)
-                    .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
-                    .listener(new RequestListener<Drawable>() {
-                        @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, Object model,
-                                                    Target<Drawable> target,
-                                                    boolean isFirstResource) {
-                            return false; // return false for the error placeholder to be set
-                        }
-
-                        @Override
-                        public boolean onResourceReady(Drawable resource, Object model,
-                                                       Target<Drawable> target,
-                                                       DataSource dataSource,
-                                                       boolean isFirstResource) {
-                            return false;
-                        }
-                    }).into(imageView);
-        } else {
-            imageView.setImageResource(R.drawable.img_placeholder_user_grey);
-        }
-    }
-
-    /**
      * Function to load drawables to ImageView
      *
      * @param context    - to initialize GlideApp
@@ -178,48 +136,6 @@ public class ViewsUtils {
             // Load Profile Picture
             GlideApp.with(context)
                     .load(drawableId)
-                    .centerCrop()
-                    // .override(450, Target.SIZE_ORIGINAL)
-                    .error(R.drawable.img_placeholder_user_grey)
-                    .placeholder(R.drawable.img_placeholder_user_grey)
-                    .encodeQuality(100)
-                    .skipMemoryCache(false)
-                    .onlyRetrieveFromCache(false)
-                    .priority(Priority.HIGH)
-                    .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
-                    .listener(new RequestListener<Drawable>() {
-                        @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, Object model,
-                                                    Target<Drawable> target,
-                                                    boolean isFirstResource) {
-                            return false; // return false for the error placeholder to be set
-                        }
-
-                        @Override
-                        public boolean onResourceReady(Drawable resource, Object model,
-                                                       Target<Drawable> target,
-                                                       DataSource dataSource,
-                                                       boolean isFirstResource) {
-                            return false;
-                        }
-                    }).into(imageView);
-        } else {
-            imageView.setImageResource(R.drawable.img_placeholder_user_grey);
-        }
-    }
-
-    /**
-     * Function to load URI to ImageView
-     *
-     * @param context   - to initialize GlideApp
-     * @param uri       - URI to be loaded
-     * @param imageView - associated ImageView
-     */
-    public static void loadImageView(Context context, String uri, ImageView imageView) {
-        if (uri != null) {
-            // Load Profile Picture
-            GlideApp.with(context)
-                    .load(uri)
                     .centerCrop()
                     // .override(450, Target.SIZE_ORIGINAL)
                     .error(R.drawable.img_placeholder_user_grey)
@@ -426,18 +342,15 @@ public class ViewsUtils {
             swipeRefreshLayout.setColorSchemeColors(DataUtils.getSwipeRefreshColorSchemeResources());
 
             if (refresh) {
+
                 // Check if layout is already refreshing
-                if (!swipeRefreshLayout.isRefreshing()) {
-
-                    swipeRefreshListener.onRefresh(); // Call onRefresh listener
-                    swipeRefreshLayout.setRefreshing(true); // Start refreshing
-
-                } else {
-
+                if (swipeRefreshLayout.isRefreshing()) {
                     swipeRefreshLayout.setRefreshing(false); // Stop refreshing
-                    swipeRefreshListener.onRefresh(); // Call onRefresh listener
-                    swipeRefreshLayout.setRefreshing(true); // Start refreshing
                 }
+
+                swipeRefreshListener.onRefresh(); // Call onRefresh listener
+                swipeRefreshLayout.setRefreshing(true); // Start refreshing
+
             } else {
 
                 // Stop SwipeRefreshLayout
@@ -502,6 +415,7 @@ public class ViewsUtils {
     /**
      * Function to initialize SearchView for Activities
      *
+     * @param activity     - Activity to get SearchView id and context
      * @param searchViewId - Associated SearchView id
      */
     public static SearchView initSearchView(Activity activity, int searchViewId) {
@@ -509,26 +423,15 @@ public class ViewsUtils {
         // Create SearchView
         SearchView searchView = activity.findViewById(searchViewId);
 
-        // Get SearchView id
-        int identifier = searchView.getContext().getResources().getIdentifier(
-                "android:id/search_src_text", null, null);
-
-        // Get SearchView text
-        TextView textView = searchView.findViewById(identifier);
-
-        // Set SearchView text color
-        textView.setTextColor(DataUtils.getColorResource(activity.getApplicationContext(),
-                R.color.colorBlack));
-
-        searchView.setIconifiedByDefault(false); // Disable iconified
-        searchView.clearFocus(); // Clear SearchView focus
-
-        return searchView;
+        // Return setup SearchView
+        return setupSearchView(searchView, activity.getApplicationContext());
     }
 
     /**
      * Function to initialize SearchView for fragments
      *
+     * @param context      - Context to get resources
+     * @param view         - View to get SearchView id
      * @param searchViewId - Associated SearchView id
      */
     public static SearchView initSearchView(Context context, View view, int searchViewId) {
@@ -536,21 +439,36 @@ public class ViewsUtils {
         // Create SearchView
         SearchView searchView = view.findViewById(searchViewId);
 
-        // Get SearchView id
-        int identifier = searchView.getContext().getResources().getIdentifier(
-                "android:id/search_src_text", null, null);
+        // Return setup SearchView
+        return setupSearchView(searchView, context);
+    }
+
+    /**
+     * Function to set up SearchView
+     *
+     * @param searchView - Associated SearchView
+     * @param context    - Context to get resources
+     */
+    private static SearchView setupSearchView(SearchView searchView, Context context) {
 
         // Get SearchView text
-        TextView textView = searchView.findViewById(identifier);
+        TextView textView = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
 
-        // Set SearchView text color
+        // Set SearchView text and hint color
         textView.setTextColor(DataUtils.getColorResource(context,
                 R.color.colorBlack));
-
-        // Set text hint color
         textView.setHintTextColor(DataUtils.getColorResource(context,
                 R.color.colorBlack));
 
+        // Search plate
+        View searchPlate = searchView.findViewById(androidx.appcompat.R.id.search_plate);
+        searchPlate.setBackgroundColor(DataUtils.getColorResource(context,
+                R.color.colorWhite));
+
+        // Search edit frame
+        View searchEditFrame = searchView.findViewById(androidx.appcompat.R.id.search_edit_frame);
+        searchEditFrame.setBackgroundColor(DataUtils.getColorResource(context,
+                R.color.colorWhite));
 
         searchView.setIconifiedByDefault(false); // Disable iconified
         searchView.clearFocus(); // Clear SearchView focus
