@@ -5,7 +5,7 @@ public class NetworkTags {
     /**
      * Class with user network tags
      */
-    public static class User {
+    public static class UserNetworkTags {
 
         // Tag used to cancel SignUp request
         public static final String TAG_SIGNUP_PERSONAL_STRING_REQUEST = "TagStringRequestSignUpPersonal";
@@ -39,7 +39,7 @@ public class NetworkTags {
     /**
      * Class with contacts network tags
      */
-    public static class Contacts {
+    public static class ContactsNetworkTags {
 
         // Tag used to cancel add contact request
         public static final String TAG_ADD_CONTACT_STRING_REQUEST = "TagStringRequestAddContact";
@@ -64,7 +64,7 @@ public class NetworkTags {
     /**
      * Class with debts network tags
      */
-    public static class Debts {
+    public static class DebtsNetworkTags {
 
         // Tag used to cancel add contacts debt request
         public static final String TAG_ADD_CONTACTS_DEBT_STRING_REQUEST =

@@ -898,7 +898,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                             ApplicationClass
                                     .getClassInstance()
                                     .cancelPendingRequests(
-                                            NetworkTags.User.TAG_SEND_EMAIL_VERIFICATION_STRING_REQUEST
+                                            NetworkTags.UserNetworkTags.TAG_SEND_EMAIL_VERIFICATION_STRING_REQUEST
                                     );
                         }
                         ) {
@@ -930,7 +930,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                         // Adding request to request queue
                         ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                                NetworkTags.User.TAG_SEND_EMAIL_VERIFICATION_STRING_REQUEST);
+                                NetworkTags.UserNetworkTags.TAG_SEND_EMAIL_VERIFICATION_STRING_REQUEST);
                     }
             } else {
                 // Not Connected
@@ -1116,7 +1116,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                     // Adding Request to request queue
                     ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                            NetworkTags.User.TAG_VERIFY_EMAIL_STRING_REQUEST);
+                            NetworkTags.UserNetworkTags.TAG_VERIFY_EMAIL_STRING_REQUEST);
 
             } else {
                     // Not Connected
@@ -1270,7 +1270,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                     // Cancel Pending Request
                     ApplicationClass.getClassInstance()
-                            .cancelPendingRequests(NetworkTags.User.TAG_PASSWORD_RESET_REQUEST);
+                            .cancelPendingRequests(NetworkTags.UserNetworkTags.TAG_PASSWORD_RESET_REQUEST);
                 }
                 ) {
                     @Override
@@ -1307,7 +1307,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                 // Adding Request to request queue
                 ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                        NetworkTags.User.TAG_PASSWORD_RESET_REQUEST);
+                        NetworkTags.UserNetworkTags.TAG_PASSWORD_RESET_REQUEST);
 
         } else {
             // Not Connected

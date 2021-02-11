@@ -271,13 +271,13 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
             // Cancel any pending requests
             ApplicationClass.getClassInstance()
-                    .cancelPendingRequests(NetworkTags.User.
+                    .cancelPendingRequests(NetworkTags.UserNetworkTags.
                             TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
         } else {
 
             // Cancel any pending requests
             ApplicationClass.getClassInstance()
-                    .cancelPendingRequests(NetworkTags.User.
+                    .cancelPendingRequests(NetworkTags.UserNetworkTags.
                             TAG_FETCH_USER_PROFILE_STRING_REQUEST);
         }
     }
@@ -782,7 +782,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(
-                                NetworkTags.User.TAG_FETCH_USER_PROFILE_STRING_REQUEST);
+                                NetworkTags.UserNetworkTags.TAG_FETCH_USER_PROFILE_STRING_REQUEST);
                     }
                 } catch (Exception ignored) {
                 }
@@ -866,7 +866,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
             // Adding request to request queue
             ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                    NetworkTags.User.TAG_FETCH_USER_PROFILE_STRING_REQUEST);
+                    NetworkTags.UserNetworkTags.TAG_FETCH_USER_PROFILE_STRING_REQUEST);
         } else {
             // Respond to network connection event
             respondToNetworkConnectionEvent(false, false);
@@ -966,7 +966,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(
-                                NetworkTags.User.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
+                                NetworkTags.UserNetworkTags.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
 
                         enableProfileEdit(true); // Enable profile edit
                     }
@@ -1082,7 +1082,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
             // Adding request to request queue
             ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                    NetworkTags.User.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
+                    NetworkTags.UserNetworkTags.TAG_UPDATE_USER_DETAILS_STRING_REQUEST);
 
         } else {
 

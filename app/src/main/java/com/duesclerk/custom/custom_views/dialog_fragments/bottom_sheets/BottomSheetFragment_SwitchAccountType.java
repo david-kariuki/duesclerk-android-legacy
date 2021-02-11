@@ -339,7 +339,7 @@ public class BottomSheetFragment_SwitchAccountType extends BottomSheetDialogFrag
 
                             // Cancel Pending Request
                             ApplicationClass.getClassInstance().cancelPendingRequests(
-                                    NetworkTags.User.TAG_SWITCH_ACCOUNT_TYPE_REQUEST);
+                                    NetworkTags.UserNetworkTags.TAG_SWITCH_ACCOUNT_TYPE_REQUEST);
                         }
                     } catch (Exception ignored) {
                     }
@@ -440,7 +440,7 @@ public class BottomSheetFragment_SwitchAccountType extends BottomSheetDialogFrag
 
                 // Adding request to request queue
                 ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                        NetworkTags.User.TAG_SWITCH_ACCOUNT_TYPE_REQUEST);
+                        NetworkTags.UserNetworkTags.TAG_SWITCH_ACCOUNT_TYPE_REQUEST);
 
         } else {
 

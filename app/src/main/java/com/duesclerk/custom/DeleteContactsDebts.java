@@ -207,7 +207,7 @@ public class DeleteContactsDebts {
 
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(
-                                NetworkTags.Contacts.TAG_DELETE_CONTACTS_STRING_REQUEST);
+                                NetworkTags.ContactsNetworkTags.TAG_DELETE_CONTACTS_STRING_REQUEST);
                     }
                 } catch (Exception ignored) {
                 }
@@ -295,7 +295,7 @@ public class DeleteContactsDebts {
 
             // Adding request to request queue
             ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                    NetworkTags.Contacts.TAG_DELETE_CONTACTS_STRING_REQUEST);
+                    NetworkTags.ContactsNetworkTags.TAG_DELETE_CONTACTS_STRING_REQUEST);
 
         } else {
 
@@ -379,7 +379,7 @@ public class DeleteContactsDebts {
 
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(
-                                NetworkTags.Debts.TAG_DELETE_CONTACTS_DEBTS_STRING_REQUEST);
+                                NetworkTags.DebtsNetworkTags.TAG_DELETE_CONTACTS_DEBTS_STRING_REQUEST);
                     }
                 } catch (Exception ignored) {
                 }
@@ -466,7 +466,7 @@ public class DeleteContactsDebts {
 
             // Adding request to request queue
             ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                    NetworkTags.Debts.TAG_DELETE_CONTACTS_DEBTS_STRING_REQUEST);
+                    NetworkTags.DebtsNetworkTags.TAG_DELETE_CONTACTS_DEBTS_STRING_REQUEST);
 
         } else {
 

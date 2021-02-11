@@ -281,7 +281,7 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
             );
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                    NetworkUrls.ContactURLS.URL_ADD_CONTACTS_DEBT, response -> {
+                    NetworkUrls.DebtsURLS.URL_ADD_CONTACTS_DEBT, response -> {
 
                 // Log Response
                 //Log.d(TAG, "Add contacts debt response:" + response);
@@ -340,7 +340,7 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
 
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(
-                                NetworkTags.Contacts.TAG_ADD_CONTACTS_DEBT_STRING_REQUEST);
+                                NetworkTags.DebtsNetworkTags.TAG_ADD_CONTACTS_DEBT_STRING_REQUEST);
                     }
                 } catch (Exception ignored) {
                 }
@@ -370,7 +370,7 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
 
                 // Clear url cache
                 ApplicationClass.getClassInstance().deleteUrlVolleyCache(
-                        NetworkUrls.ContactURLS.URL_ADD_CONTACTS_DEBT);
+                        NetworkUrls.DebtsURLS.URL_ADD_CONTACTS_DEBT);
             }) {
                 @Override
                 protected void deliverResponse(String response) {
@@ -439,7 +439,7 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
 
             // Adding request to request queue
             ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                    NetworkTags.Contacts.TAG_ADD_CONTACTS_DEBT_STRING_REQUEST);
+                    NetworkTags.DebtsNetworkTags.TAG_ADD_CONTACTS_DEBT_STRING_REQUEST);
 
         } else {
 

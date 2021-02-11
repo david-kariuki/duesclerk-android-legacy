@@ -639,7 +639,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
 
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(
-                                NetworkTags.Contacts.TAG_FETCH_CONTACT_DETAILS_AND_DEBTS_STRING_REQUEST);
+                                NetworkTags.ContactsNetworkTags.TAG_FETCH_CONTACT_DETAILS_AND_DEBTS_STRING_REQUEST);
                     }
                 } catch (Exception ignored) {
                 }
@@ -727,7 +727,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
 
             // Adding request to request queue
             ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                    NetworkTags.Contacts.TAG_FETCH_CONTACT_DETAILS_AND_DEBTS_STRING_REQUEST);
+                    NetworkTags.ContactsNetworkTags.TAG_FETCH_CONTACT_DETAILS_AND_DEBTS_STRING_REQUEST);
 
         } else {
 
