@@ -25,8 +25,11 @@ public class VolleyUtils {
     public static final String KEY_EMAIL_VERIFICATION = "EmailVerification";
     public static final String KEY_PASSWORD_RESET = "PasswordReset";
 
+    // Contacts
     public static final String KEY_UPDATE_CONTACT = "UpdateContact";
     public static final String KEY_DELETE_CONTACTS = "DeleteContacts";
+
+    public static final String KEY_DELETE_DEBTS = "DeleteDebts";
 
     public static String getApiKey(Context context) {
         return "API_" + DataUtils.getStringResource(context, R.string.app_name).toLowerCase()
