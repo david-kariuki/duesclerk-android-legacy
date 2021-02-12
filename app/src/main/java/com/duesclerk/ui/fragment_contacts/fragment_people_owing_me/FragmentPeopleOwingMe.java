@@ -270,18 +270,12 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
 
             llNoContacts.setVisibility(View.VISIBLE); // Show RecyclerView
 
-            interfaceMainActivity.showAddContactFAB(false); // Hide fab button
-
-            interfaceMainActivity.showSearchView(false); // Hide SearchView
-
         } else {
 
             llNoContacts.setVisibility(View.GONE); // Hide RecyclerView
-
-            interfaceMainActivity.showAddContactFAB(true); // True fab button
-
-            interfaceMainActivity.showSearchView(true); // Show SearchView
         }
+
+        interfaceMainActivity.showAddContactFAB(!show); // Hide fab button
     }
 
     /**
@@ -322,13 +316,15 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
      */
     public void setSearchQuery(String searchQuery) {
 
-        if (searchQuery == null) {
-            searchQuery = "";
-        }
-        this.searchQuery = searchQuery;
+        try {
 
-        // Filter text input
-        rvlaContacts.getFilter().filter(searchQuery);
+            this.searchQuery = searchQuery; // Set received search query to global search query
+
+            // Filter text input
+            rvlaContacts.getFilter().filter(searchQuery);
+
+        } catch (Exception ignored) {
+        }
     }
 
     /**
@@ -346,6 +342,9 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
             // ArrayList not empty
 
             loadContacts(contacts); // Load contacts to RecyclerView
+
+            // Pass contacts o MainActivity
+            interfaceMainActivity.passUserContacts_PeopleOwingMe(contacts);
         }
     }
 
@@ -359,9 +358,16 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
     }
 
     @Override
-    public void setNoContactsFound(boolean found) {
+    public void setNoContactsFound_PeopleOwingMe(boolean notFound) {
 
-        showNoContactsLayout(found); // Show or hide no contacts layout
-        interfaceMainActivity.showAddContactFAB(true); // Show add contacts FAB
+        showNoContactsLayout(notFound); // Show or hide no contacts layout
+        interfaceMainActivity.setNoContactsFound_PeopleOwingMe(notFound);
+        interfaceMainActivity.showAddContactFAB(true); // Show add contacts FAB;
+    }
+
+    @Override
+    public void setNoContactsFound_PeopleIOwe(boolean notFound) {
+
+        interfaceMainActivity.setNoContactsFound_PeopleIOwe(notFound);
     }
 }

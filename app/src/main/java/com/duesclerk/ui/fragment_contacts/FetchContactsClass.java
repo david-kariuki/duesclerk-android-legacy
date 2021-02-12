@@ -1,6 +1,7 @@
 package com.duesclerk.ui.fragment_contacts;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -39,7 +40,7 @@ import java.util.Map;
 
 public class FetchContactsClass {
 
-    //private final String TAG = FetchContactsClass.class.getSimpleName();
+    private final String TAG = FetchContactsClass.class.getSimpleName();
     private final Context mContext;
     private final Interface_Contacts interfaceContacts;
 
@@ -86,7 +87,7 @@ public class FetchContactsClass {
                     NetworkUrls.ContactURLS.URL_FETCH_USER_CONTACTS, response -> {
 
                 // Log Response
-                //Log.d(TAG, "Fetching contacts response:" + response);
+                Log.d(TAG, "Fetching contacts response:" + response);
 
                 // Hide SwipeRefreshLayout
                 ViewsUtils.showSwipeRefreshLayout(false,
@@ -233,61 +234,62 @@ public class FetchContactsClass {
 
         if (jsonArray != null) {
 
-            // Looping through all the elements of the json array
-            for (int i = 0; i < jsonArray.length(); i++) {
+            if (jsonArray.length() > 0)
+                // Looping through all the elements of the json array
+                for (int i = 0; i < jsonArray.length(); i++) {
 
-                // Creating a json object of the current index
-                JSONObject jsonObject;
-                JB_Contacts jbContacts = new JB_Contacts();
+                    // Creating a json object of the current index
+                    JSONObject jsonObject;
+                    JB_Contacts jbContacts = new JB_Contacts();
 
-                try {
+                    try {
 
-                    // Getting Data json object
-                    jsonObject = jsonArray.getJSONObject(i);
+                        // Getting Data json object
+                        jsonObject = jsonArray.getJSONObject(i);
 
-                    // Getting Data from json object
-                    String contactId, contactFullName, contactPhoneNumber, contactEmailAddress,
-                            contactAddress, contactType, contactsTotalDebtsAmount;
+                        // Getting Data from json object
+                        String contactId, contactFullName, contactPhoneNumber, contactEmailAddress,
+                                contactAddress, contactType, contactsTotalDebtsAmount;
 
-                    contactId = jsonObject.getString(ContactUtils.FIELD_CONTACT_ID);
-                    contactFullName = jsonObject.getString(ContactUtils.FIELD_CONTACT_FULL_NAME);
-                    contactPhoneNumber = jsonObject.getString(
-                            ContactUtils.FIELD_CONTACT_PHONE_NUMBER);
-                    contactEmailAddress = jsonObject.getString(
-                            ContactUtils.FIELD_CONTACT_EMAIL_ADDRESS);
-                    contactAddress = jsonObject.getString(ContactUtils.FIELD_CONTACT_ADDRESS);
-                    contactType = jsonObject.getString(ContactUtils.FIELD_CONTACT_TYPE);
-                    contactsTotalDebtsAmount = jsonObject.getString(
-                            DebtUtils.FIELD_DEBTS_TOTAL_AMOUNT);
+                        contactId = jsonObject.getString(ContactUtils.FIELD_CONTACT_ID);
+                        contactFullName = jsonObject.getString(ContactUtils.FIELD_CONTACT_FULL_NAME);
+                        contactPhoneNumber = jsonObject.getString(
+                                ContactUtils.FIELD_CONTACT_PHONE_NUMBER);
+                        contactEmailAddress = jsonObject.getString(
+                                ContactUtils.FIELD_CONTACT_EMAIL_ADDRESS);
+                        contactAddress = jsonObject.getString(ContactUtils.FIELD_CONTACT_ADDRESS);
+                        contactType = jsonObject.getString(ContactUtils.FIELD_CONTACT_TYPE);
+                        contactsTotalDebtsAmount = jsonObject.getString(
+                                DebtUtils.FIELD_DEBTS_TOTAL_AMOUNT);
 
-                    // Check if debts total amount is null to insert 0
-                    if (DataUtils.isEmptyString(contactsTotalDebtsAmount)) {
-                        contactsTotalDebtsAmount = "0";
+                        // Check if debts total amount is null to insert 0
+                        if (DataUtils.isEmptyString(contactsTotalDebtsAmount)) {
+                            contactsTotalDebtsAmount = "0";
+                        }
+
+                        // Set data to java bean
+                        jbContacts.setContactId(contactId);
+                        jbContacts.setContactFullName(contactFullName);
+                        jbContacts.setContactPhoneNumber(contactPhoneNumber);
+                        jbContacts.setContactEmailAddress(contactEmailAddress);
+                        jbContacts.setContactAddress(contactAddress);
+                        jbContacts.setContactType(contactType);
+                        jbContacts.setDebtsTotalAmount(contactsTotalDebtsAmount);
+
+                        if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME)) {
+                            // People owing me
+
+                            contactsPeopleOwingMe.add(jbContacts); // Add java bean to ArrayList
+
+                        } else if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_I_OWE)) {
+                            // People I owe
+
+                            contactsPeopleIOwe.add(jbContacts); // Add java bean to ArrayList
+                        }
+
+                    } catch (Exception ignored) {
                     }
-
-                    // Set data to java bean
-                    jbContacts.setContactId(contactId);
-                    jbContacts.setContactFullName(contactFullName);
-                    jbContacts.setContactPhoneNumber(contactPhoneNumber);
-                    jbContacts.setContactEmailAddress(contactEmailAddress);
-                    jbContacts.setContactAddress(contactAddress);
-                    jbContacts.setContactType(contactType);
-                    jbContacts.setDebtsTotalAmount(contactsTotalDebtsAmount);
-
-                    if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME)) {
-                        // People owing me
-
-                        contactsPeopleOwingMe.add(jbContacts); // Add java bean to ArrayList
-
-                    } else if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_I_OWE)) {
-                        // People I owe
-
-                        contactsPeopleIOwe.add(jbContacts); // Add java bean to ArrayList
-                    }
-
-                } catch (Exception ignored) {
                 }
-            }
 
             // Pass data to interface
             passContactDataToInterface(contactsPeopleOwingMe, contactsPeopleIOwe);
@@ -309,24 +311,24 @@ public class FetchContactsClass {
             // Pass contacts to interface
             interfaceContacts.passUserContacts_PeopleOwingMe(contactsPeopleOwingMe);
 
-            interfaceContacts.setNoContactsFound(false); // Set no contacts found to false
+            interfaceContacts.setNoContactsFound_PeopleOwingMe(false); // Set no contacts found to false
 
         } else {
 
-            interfaceContacts.setNoContactsFound(true); // Set no contacts found to true
+            interfaceContacts.setNoContactsFound_PeopleOwingMe(true); // Set no contacts found to true
         }
 
         // Check for contacts
-        if (!DataUtils.isEmptyArrayList(contactsPeopleOwingMe)) {
+        if (!DataUtils.isEmptyArrayList(contactsPeopleIOwe)) {
 
             // Pass contacts to interface
             interfaceContacts.passUserContacts_PeopleIOwe(contactsPeopleIOwe);
 
-            interfaceContacts.setNoContactsFound(false); // Set no contacts found to false
+            interfaceContacts.setNoContactsFound_PeopleIOwe(false); // Set no contacts found to false
 
         } else {
 
-            interfaceContacts.setNoContactsFound(true); // Set no contacts found to true
+            interfaceContacts.setNoContactsFound_PeopleIOwe(true); // Set no contacts found to true
         }
     }
 }
