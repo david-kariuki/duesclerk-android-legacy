@@ -230,8 +230,8 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                 if (CURRENT_TASK == TaskUtils.TASK_FETCH_USER_PROFILE) {
 
                     // Show SwipeRefreshLayout
-                    ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout,
-                            swipeRefreshListener);
+                    ViewsUtils.showSwipeRefreshLayout(true, true,
+                            swipeRefreshLayout, swipeRefreshListener);
 
                 } else if (CURRENT_TASK == TaskUtils.TASK_UPDATE_USER_PROFILE) {
 
@@ -321,7 +321,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
         ViewsUtils.showShimmerFrameLayout(true, shimmerFrameLayout);
 
         // Show swipe SwipeRefresh
-        ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout,
+        ViewsUtils.showSwipeRefreshLayout(true, true, swipeRefreshLayout,
                 swipeRefreshListener);
 
         // Check for network connection and stop refreshing animation on no connection
@@ -591,7 +591,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
         if (!connected) {
 
             // Stop swipe SwipeRefresh
-            ViewsUtils.showSwipeRefreshLayout(false, swipeRefreshLayout,
+            ViewsUtils.showSwipeRefreshLayout(false, true, swipeRefreshLayout,
                     swipeRefreshListener);
 
             // Check if updating profile
@@ -767,8 +767,8 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                         llUserProfileActivityFABS.setVisibility(View.VISIBLE);
 
                         // Stop swipe SwipeRefresh
-                        ViewsUtils.showSwipeRefreshLayout(false, swipeRefreshLayout,
-                                swipeRefreshListener);
+                        ViewsUtils.showSwipeRefreshLayout(false, true,
+                                swipeRefreshLayout, swipeRefreshListener);
 
                         setFetchedData(objectUser); // Set fetched details
                     } else {
@@ -777,8 +777,8 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                         enableProfileEdit(false); // Disable profile edits
 
                         // Stop swipe SwipeRefresh
-                        ViewsUtils.showSwipeRefreshLayout(false, swipeRefreshLayout,
-                                swipeRefreshListener);
+                        ViewsUtils.showSwipeRefreshLayout(false, true,
+                                swipeRefreshLayout, swipeRefreshListener);
 
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(
@@ -794,8 +794,8 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                 llUserProfileActivityFABS.setVisibility(View.VISIBLE);
 
                 // Stop swipe SwipeRefresh
-                ViewsUtils.showSwipeRefreshLayout(false, swipeRefreshLayout,
-                        swipeRefreshListener);
+                ViewsUtils.showSwipeRefreshLayout(false, true,
+                        swipeRefreshLayout, swipeRefreshListener);
 
                 // Check request response
                 if (volleyError.getMessage() == null || volleyError instanceof NetworkError
@@ -950,8 +950,8 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                                     R.drawable.ic_baseline_person_24_white);
 
                             // Start SwipeRefreshLayout
-                            ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout,
-                                    swipeRefreshListener);
+                            ViewsUtils.showSwipeRefreshLayout(true, true,
+                                    swipeRefreshLayout, swipeRefreshListener);
                         }
                     } else {
                         // Error updating details
