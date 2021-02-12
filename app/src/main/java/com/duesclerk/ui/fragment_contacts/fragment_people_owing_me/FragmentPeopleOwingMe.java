@@ -112,7 +112,8 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
 
                         // Fetch contacts
                         fetchContactsClass.fetchContacts(
-                                database.getUserAccountInfo(null).get(0).getUserId());
+                                database.getUserAccountInfo(null).get(0).getUserId(),
+                                swipeRefreshLayout, swipeRefreshListener);
 
                     } else {
                         // No internet connection
@@ -140,7 +141,8 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
 
                         // Fetch contacts
                         fetchContactsClass.fetchContacts(
-                                database.getUserAccountInfo(null).get(0).getUserId());
+                                database.getUserAccountInfo(null).get(0).getUserId(),
+                                swipeRefreshLayout, swipeRefreshListener);
 
                     } else {
                         // No internet connection
@@ -271,6 +273,8 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
 
             llNoContacts.setVisibility(View.GONE); // Hide RecyclerView
         }
+
+        showSwipeRefreshLayout(!show); // Show / Hide SwipeRefreshLayout
     }
 
     /**
