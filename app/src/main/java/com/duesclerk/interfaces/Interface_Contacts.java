@@ -28,12 +28,12 @@ public interface Interface_Contacts {
      *
      * @param notFound - Boolean  - ( contacts found / not found )
      */
-    void contactsEmpty_PeopleOwingMe(boolean notFound);
+    void setPeopleOwingMeContactsEmpty(boolean notFound);
 
     /**
      * Interface to notify fragment when no contacts were found
      *
      * @param notFound - Boolean  - ( contacts found / not found )
      */
-    void contactsEmpty_PeopleIOwe(boolean notFound);
+    void setPeopleIOweContactsEmpty(boolean notFound);
 }

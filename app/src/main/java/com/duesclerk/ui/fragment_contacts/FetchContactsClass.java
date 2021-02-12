@@ -317,12 +317,12 @@ public class FetchContactsClass {
             interfaceContacts.passUserContacts_PeopleOwingMe(contactsPeopleOwingMe);
 
             // Set no contacts found to false
-            interfaceContacts.contactsEmpty_PeopleOwingMe(false);
+            interfaceContacts.setPeopleOwingMeContactsEmpty(false);
 
         } else {
 
             // Set no contacts found to true
-            interfaceContacts.contactsEmpty_PeopleOwingMe(true);
+            interfaceContacts.setPeopleOwingMeContactsEmpty(true);
         }
 
         // Check for contacts
@@ -332,12 +332,12 @@ public class FetchContactsClass {
             interfaceContacts.passUserContacts_PeopleIOwe(contactsPeopleIOwe);
 
             // Set no contacts found to false
-            interfaceContacts.contactsEmpty_PeopleIOwe(false);
+            interfaceContacts.setPeopleIOweContactsEmpty(false);
 
         } else {
 
             // Set no contacts found to true
-            interfaceContacts.contactsEmpty_PeopleIOwe(true);
+            interfaceContacts.setPeopleIOweContactsEmpty(true);
         }
     }
 

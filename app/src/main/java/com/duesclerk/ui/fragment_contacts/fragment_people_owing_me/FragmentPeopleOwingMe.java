@@ -336,7 +336,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
 
             loadContacts(contacts); // Load contacts to RecyclerView
 
-            // Pass contacts o MainActivity
+            // Pass contacts to MainActivity
             interfaceMainActivity.passUserContacts_PeopleOwingMe(contacts);
         }
     }
@@ -351,16 +351,16 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
     }
 
     @Override
-    public void contactsEmpty_PeopleOwingMe(boolean notFound) {
+    public void setPeopleOwingMeContactsEmpty(boolean notFound) {
 
         showNoContactsLayout(notFound); // Show or hide no contacts layout
 
-        interfaceMainActivity.setNoContactsFound_PeopleOwingMe(notFound);
+        interfaceMainActivity.setPeopleOwingMeContactsEmpty(notFound);
     }
 
     @Override
-    public void contactsEmpty_PeopleIOwe(boolean notFound) {
+    public void setPeopleIOweContactsEmpty(boolean notFound) {
 
-        interfaceMainActivity.setNoContactsFound_PeopleIOwe(notFound);
+        interfaceMainActivity.setPeopleIOweContactsEmpty(notFound);
     }
 }

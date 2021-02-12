@@ -468,7 +468,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
     }
 
     @Override
-    public void setNoContactsFound_PeopleOwingMe(boolean notFound) {
+    public void setPeopleOwingMeContactsEmpty(boolean notFound) {
 
         isEmptyContactsPeopleOwingMe = notFound; // Set contacts empty
 
@@ -476,7 +476,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
     }
 
     @Override
-    public void setNoContactsFound_PeopleIOwe(boolean notFound) {
+    public void setPeopleIOweContactsEmpty(boolean notFound) {
 
         isEmptyContactsPeopleIOwe = notFound; // Set contacts empty
 

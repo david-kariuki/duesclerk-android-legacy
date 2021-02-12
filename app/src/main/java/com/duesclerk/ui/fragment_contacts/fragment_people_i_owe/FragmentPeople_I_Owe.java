@@ -351,15 +351,15 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
     }
 
     @Override
-    public void contactsEmpty_PeopleOwingMe(boolean notFound) {
+    public void setPeopleOwingMeContactsEmpty(boolean notFound) {
 
-        interfaceMainActivity.setNoContactsFound_PeopleOwingMe(notFound);
+        interfaceMainActivity.setPeopleOwingMeContactsEmpty(notFound);
     }
 
     @Override
-    public void contactsEmpty_PeopleIOwe(boolean notFound) {
+    public void setPeopleIOweContactsEmpty(boolean notFound) {
 
         showNoContactsLayout(notFound); // Show or hide no contacts layout
-        interfaceMainActivity.setNoContactsFound_PeopleIOwe(notFound);
+        interfaceMainActivity.setPeopleIOweContactsEmpty(notFound);
     }
 }
