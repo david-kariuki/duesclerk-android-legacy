@@ -39,9 +39,10 @@ import java.util.Map;
 
 public class FetchContactsClass {
 
-    //private final String TAG = FetchContactsClass.class.getSimpleName();
+    private final String TAG = FetchContactsClass.class.getSimpleName();
     private final Context mContext;
     private final Interface_Contacts interfaceContacts;
+    private final MultiSwipeRefreshLayout swipeRefreshLayout;
 
     /**
      * Class constructor for FragmentPeopleOwingMe
@@ -53,6 +54,13 @@ public class FetchContactsClass {
 
         mContext = context; // Initialize context
         interfaceContacts = fragmentPeopleOwingMe; // Initialize interface
+
+        // Initialize SwipeRefreshLayout
+        swipeRefreshLayout = new MultiSwipeRefreshLayout(context);
+
+        // Set color scheme
+        swipeRefreshLayout.setColorSchemeColors(DataUtils.getSwipeRefreshColorSchemeResources());
+        showSwipeRefresh(); // Start swipe refresh
     }
 
     /**
@@ -65,14 +73,18 @@ public class FetchContactsClass {
 
         mContext = context; // Initialize context
         interfaceContacts = fragmentPeopleIOwe; // Initialize interface
+
+        // Initialize SwipeRefreshLayout
+        swipeRefreshLayout = new MultiSwipeRefreshLayout(context);
+
+        // Set color scheme
+        swipeRefreshLayout.setColorSchemeColors(DataUtils.getSwipeRefreshColorSchemeResources());
     }
 
     /**
      * Function to fetch contacts
      *
-     * @param userId               - Users id
-     * @param swipeRefreshLayout   - Loading SwipeRefreshLayout
-     * @param swipeRefreshListener - SwipeRefreshLayouts listener
+     * @param userId - Users id
      */
     public void fetchContacts(final String userId, MultiSwipeRefreshLayout swipeRefreshLayout,
                               SwipeRefreshLayout.OnRefreshListener swipeRefreshListener) {
@@ -89,7 +101,7 @@ public class FetchContactsClass {
                 //Log.d(TAG, "Fetching contacts response:" + response);
 
                 // Hide SwipeRefreshLayout
-                ViewsUtils.showSwipeRefreshLayout(false,
+                ViewsUtils.showSwipeRefreshLayout(false, false,
                         swipeRefreshLayout, swipeRefreshListener);
 
                 try {
@@ -133,7 +145,7 @@ public class FetchContactsClass {
                 //      + volleyError.getMessage());
 
                 // Hide SwipeRefreshLayout
-                ViewsUtils.showSwipeRefreshLayout(false,
+                ViewsUtils.showSwipeRefreshLayout(false, false,
                         swipeRefreshLayout, swipeRefreshListener);
 
 
@@ -233,61 +245,62 @@ public class FetchContactsClass {
 
         if (jsonArray != null) {
 
-            // Looping through all the elements of the json array
-            for (int i = 0; i < jsonArray.length(); i++) {
+            if (jsonArray.length() > 0)
+                // Looping through all the elements of the json array
+                for (int i = 0; i < jsonArray.length(); i++) {
 
-                // Creating a json object of the current index
-                JSONObject jsonObject;
-                JB_Contacts jbContacts = new JB_Contacts();
+                    // Creating a json object of the current index
+                    JSONObject jsonObject;
+                    JB_Contacts jbContacts = new JB_Contacts();
 
-                try {
+                    try {
 
-                    // Getting Data json object
-                    jsonObject = jsonArray.getJSONObject(i);
+                        // Getting Data json object
+                        jsonObject = jsonArray.getJSONObject(i);
 
-                    // Getting Data from json object
-                    String contactId, contactFullName, contactPhoneNumber, contactEmailAddress,
-                            contactAddress, contactType, contactsTotalDebtsAmount;
+                        // Getting Data from json object
+                        String contactId, contactFullName, contactPhoneNumber, contactEmailAddress,
+                                contactAddress, contactType, contactsTotalDebtsAmount;
 
-                    contactId = jsonObject.getString(ContactUtils.FIELD_CONTACT_ID);
-                    contactFullName = jsonObject.getString(ContactUtils.FIELD_CONTACT_FULL_NAME);
-                    contactPhoneNumber = jsonObject.getString(
-                            ContactUtils.FIELD_CONTACT_PHONE_NUMBER);
-                    contactEmailAddress = jsonObject.getString(
-                            ContactUtils.FIELD_CONTACT_EMAIL_ADDRESS);
-                    contactAddress = jsonObject.getString(ContactUtils.FIELD_CONTACT_ADDRESS);
-                    contactType = jsonObject.getString(ContactUtils.FIELD_CONTACT_TYPE);
-                    contactsTotalDebtsAmount = jsonObject.getString(
-                            DebtUtils.FIELD_DEBTS_TOTAL_AMOUNT);
+                        contactId = jsonObject.getString(ContactUtils.FIELD_CONTACT_ID);
+                        contactFullName = jsonObject.getString(ContactUtils.FIELD_CONTACT_FULL_NAME);
+                        contactPhoneNumber = jsonObject.getString(
+                                ContactUtils.FIELD_CONTACT_PHONE_NUMBER);
+                        contactEmailAddress = jsonObject.getString(
+                                ContactUtils.FIELD_CONTACT_EMAIL_ADDRESS);
+                        contactAddress = jsonObject.getString(ContactUtils.FIELD_CONTACT_ADDRESS);
+                        contactType = jsonObject.getString(ContactUtils.FIELD_CONTACT_TYPE);
+                        contactsTotalDebtsAmount = jsonObject.getString(
+                                DebtUtils.FIELD_DEBTS_TOTAL_AMOUNT);
 
-                    // Check if debts total amount is null to insert 0
-                    if (DataUtils.isEmptyString(contactsTotalDebtsAmount)) {
-                        contactsTotalDebtsAmount = "0";
+                        // Check if debts total amount is null to insert 0
+                        if (DataUtils.isEmptyString(contactsTotalDebtsAmount)) {
+                            contactsTotalDebtsAmount = "0";
+                        }
+
+                        // Set data to java bean
+                        jbContacts.setContactId(contactId);
+                        jbContacts.setContactFullName(contactFullName);
+                        jbContacts.setContactPhoneNumber(contactPhoneNumber);
+                        jbContacts.setContactEmailAddress(contactEmailAddress);
+                        jbContacts.setContactAddress(contactAddress);
+                        jbContacts.setContactType(contactType);
+                        jbContacts.setDebtsTotalAmount(contactsTotalDebtsAmount);
+
+                        if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME)) {
+                            // People owing me
+
+                            contactsPeopleOwingMe.add(jbContacts); // Add java bean to ArrayList
+
+                        } else if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_I_OWE)) {
+                            // People I owe
+
+                            contactsPeopleIOwe.add(jbContacts); // Add java bean to ArrayList
+                        }
+
+                    } catch (Exception ignored) {
                     }
-
-                    // Set data to java bean
-                    jbContacts.setContactId(contactId);
-                    jbContacts.setContactFullName(contactFullName);
-                    jbContacts.setContactPhoneNumber(contactPhoneNumber);
-                    jbContacts.setContactEmailAddress(contactEmailAddress);
-                    jbContacts.setContactAddress(contactAddress);
-                    jbContacts.setContactType(contactType);
-                    jbContacts.setDebtsTotalAmount(contactsTotalDebtsAmount);
-
-                    if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME)) {
-                        // People owing me
-
-                        contactsPeopleOwingMe.add(jbContacts); // Add java bean to ArrayList
-
-                    } else if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_I_OWE)) {
-                        // People I owe
-
-                        contactsPeopleIOwe.add(jbContacts); // Add java bean to ArrayList
-                    }
-
-                } catch (Exception ignored) {
                 }
-            }
 
             // Pass data to interface
             passContactDataToInterface(contactsPeopleOwingMe, contactsPeopleIOwe);
@@ -309,24 +322,35 @@ public class FetchContactsClass {
             // Pass contacts to interface
             interfaceContacts.passUserContacts_PeopleOwingMe(contactsPeopleOwingMe);
 
-            interfaceContacts.setNoContactsFound(false); // Set no contacts found to false
+            // Set no contacts found to false
+            interfaceContacts.setPeopleOwingMeContactsEmpty(false);
 
         } else {
 
-            interfaceContacts.setNoContactsFound(true); // Set no contacts found to true
+            // Set no contacts found to true
+            interfaceContacts.setPeopleOwingMeContactsEmpty(true);
         }
 
         // Check for contacts
-        if (!DataUtils.isEmptyArrayList(contactsPeopleOwingMe)) {
+        if (!DataUtils.isEmptyArrayList(contactsPeopleIOwe)) {
 
             // Pass contacts to interface
             interfaceContacts.passUserContacts_PeopleIOwe(contactsPeopleIOwe);
 
-            interfaceContacts.setNoContactsFound(false); // Set no contacts found to false
+            // Set no contacts found to false
+            interfaceContacts.setPeopleIOweContactsEmpty(false);
 
         } else {
 
-            interfaceContacts.setNoContactsFound(true); // Set no contacts found to true
+            // Set no contacts found to true
+            interfaceContacts.setPeopleIOweContactsEmpty(true);
         }
     }
+
+    private void showSwipeRefresh() {
+
+        // Start swipe refresh
+        swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(true));
+    }
+
 }

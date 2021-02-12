@@ -146,8 +146,8 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                 if (action.equals(BroadCastUtils.bcrActionReloadContactDetailsAndDebtsActivity)) {
 
                     // Start/Stop swipe SwipeRefresh
-                    ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout,
-                            swipeRefreshListener);
+                    ViewsUtils.showSwipeRefreshLayout(true, true,
+                            swipeRefreshLayout, swipeRefreshListener);
                 }
             }
         };
@@ -236,7 +236,8 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         llNoConnectionTryAgain.setOnClickListener(v -> {
 
             // Start/Stop swipe SwipeRefresh
-            ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout, swipeRefreshListener);
+            ViewsUtils.showSwipeRefreshLayout(true, true, swipeRefreshLayout,
+                    swipeRefreshListener);
         });
 
         // FAB add debt onClick
@@ -324,7 +325,8 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                 BroadCastUtils.bcrActionReloadContactDetailsAndDebtsActivity);
 
         // Start / Stop swipe SwipeRefresh
-        ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout, swipeRefreshListener);
+        ViewsUtils.showSwipeRefreshLayout(true, true, swipeRefreshLayout,
+                swipeRefreshListener);
     }
 
     @Override
@@ -555,7 +557,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
             // No connection
 
             // Hide swipe SwipeRefresh
-            ViewsUtils.showSwipeRefreshLayout(false, swipeRefreshLayout,
+            ViewsUtils.showSwipeRefreshLayout(false, true, swipeRefreshLayout,
                     swipeRefreshListener);
 
             showContactDetails(false); // Hide contact details
@@ -603,7 +605,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                 showAddDebtFab(false); // Hide add debt FAB
 
                 // Hide SwipeRefreshLayout
-                ViewsUtils.showSwipeRefreshLayout(false,
+                ViewsUtils.showSwipeRefreshLayout(false, true,
                         swipeRefreshLayout, swipeRefreshListener);
 
                 try {
@@ -650,7 +652,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                 // + volleyError.getMessage());
 
                 // Hide SwipeRefreshLayout
-                ViewsUtils.showSwipeRefreshLayout(false,
+                ViewsUtils.showSwipeRefreshLayout(false, true,
                         swipeRefreshLayout, swipeRefreshListener);
 
 

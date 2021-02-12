@@ -61,19 +61,25 @@ public class ViewsUtils {
      *
      * @param editText  - to toggle visibility
      * @param imageView - to change image resource
-     *                  Shows password if hidden and vice versa
+     *                  Toggle password visibility
      *                  Changes the visibility icon colour
      */
-    public static void togglePasswordField(@NonNull EditText editText,
-                                           @NonNull ImageView imageView) {
+    public static void togglePasswordField(@NonNull final EditText editText,
+                                           @NonNull final ImageView imageView) {
+
         if (editText.getTransformationMethod() == null) {
+
             editText.setTransformationMethod(new PasswordTransformationMethod());
             editText.setSelection(Objects.requireNonNull(editText.getText()).length());
+
             // Set image resource
             imageView.setImageResource(R.drawable.ic_baseline_visibility_24_primary_grey);
+
         } else {
+
             editText.setTransformationMethod(null);
             editText.setSelection(Objects.requireNonNull(editText.getText()).length());
+
             // Set image resource
             imageView.setImageResource(R.drawable.ic_baseline_visibility_off_24_primary_dark);
         }
@@ -84,11 +90,15 @@ public class ViewsUtils {
      *
      * @param activity - to get system service
      */
-    public static void hideKeyboard(Activity activity) {
+    public static void hideKeyboard(final Activity activity) {
+
         View view = activity.findViewById(android.R.id.content);
+
         if (view != null) {
+
             InputMethodManager imm = (InputMethodManager)
                     activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
@@ -98,11 +108,16 @@ public class ViewsUtils {
      *
      * @param activity - to get context and content view
      */
-    public static void showKeyboard(Activity activity) {
+    @SuppressWarnings("unused")
+    public static void showKeyboard(final Activity activity) {
+
         View contentView = activity.findViewById(android.R.id.content);
+
         if (contentView != null) {
+
             InputMethodManager inputMethodManager = (InputMethodManager)
                     activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+
             inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
         }
     }
@@ -113,12 +128,17 @@ public class ViewsUtils {
      * @param activity  - to get context and content view
      * @param focusView . to enable and request focus
      */
-    public static void showKeyboardWithFocus(Activity activity, View focusView) {
+    public static void showKeyboardWithFocus(final Activity activity, final View focusView) {
+
         View contentView = activity.findViewById(android.R.id.content);
+
         if (contentView != null && focusView != null) {
+
             InputMethodManager inputMethodManager = (InputMethodManager)
                     activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+
             inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+
             focusView.setFocusable(true);
             focusView.requestFocus();
         }
@@ -131,8 +151,11 @@ public class ViewsUtils {
      * @param drawableId - drawableId of drawable to be loaded
      * @param imageView  - associated ImageView
      */
-    public static void loadImageView(Context context, int drawableId, ImageView imageView) {
+    public static void loadImageView(final Context context, final int drawableId,
+                                     final ImageView imageView) {
+
         if (drawableId != 0) {
+
             // Load Profile Picture
             GlideApp.with(context)
                     .load(drawableId)
@@ -150,6 +173,7 @@ public class ViewsUtils {
                         public boolean onLoadFailed(@Nullable GlideException e, Object model,
                                                     Target<Drawable> target,
                                                     boolean isFirstResource) {
+
                             return false; // return false for the error placeholder to be set
                         }
 
@@ -158,10 +182,12 @@ public class ViewsUtils {
                                                        Target<Drawable> target,
                                                        DataSource dataSource,
                                                        boolean isFirstResource) {
+
                             return false;
                         }
                     }).into(imageView);
         } else {
+
             imageView.setImageResource(R.drawable.img_placeholder_user_grey);
         }
     }
@@ -171,12 +197,15 @@ public class ViewsUtils {
      *
      * @param scrollView - associated ScrollView
      */
-    public static void scrollUpScrollView(ScrollView scrollView) {
+    public static void scrollUpScrollView(final ScrollView scrollView) {
+
         scrollView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {
+
                         scrollView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
                         // Scroll up ScrollView
                         scrollView.fullScroll(View.FOCUS_UP);
                         scrollView.smoothScrollTo(0, 0);
@@ -192,19 +221,25 @@ public class ViewsUtils {
      * @param show            - boolean(show-true/false) - to show or hide
      *                        DialogFragment
      */
-    public static void showDialogFragment(FragmentManager fragmentManager,
-                                          DialogFragment dialogFragment, final boolean show) {
+    public static void showDialogFragment(final FragmentManager fragmentManager,
+                                          final DialogFragment dialogFragment,
+                                          final boolean show) {
         // Check if set to show
         if (show) {
+
             try {
+
                 if (!dialogFragment.isAdded() && !dialogFragment.isRemoving()) {
+
                     // Show BottomSheetDialogFragment
                     dialogFragment.show(fragmentManager, dialogFragment.getTag());
                 }
             } catch (Exception ignored) {
             }
         } else {
+
             if (dialogFragment.isAdded()) {
+
                 dialogFragment.dismiss(); // Dismiss BottomSheet
             }
         }
@@ -218,22 +253,28 @@ public class ViewsUtils {
      * @param show                      - boolean(show-true/false) - to show or hide
      *                                  BottomSheetDialogFragment
      */
-    public static void showBottomSheetDialogFragment(
-            FragmentManager fragmentManager, BottomSheetDialogFragment bottomSheetDialogFragment,
-            final boolean show) {
+    public static void showBottomSheetDialogFragment(final FragmentManager fragmentManager,
+                                                     final BottomSheetDialogFragment
+                                                             bottomSheetDialogFragment,
+                                                     final boolean show) {
 
         // Check if set to show
         if (show) {
+
             try {
+
                 if (!bottomSheetDialogFragment.isAdded()
                         && !bottomSheetDialogFragment.isRemoving()) {
+
                     bottomSheetDialogFragment.show(fragmentManager,
                             bottomSheetDialogFragment.getTag()); // Show BottomSheetDialogFragment
                 }
             } catch (Exception ignored) {
             }
         } else {
+
             if (bottomSheetDialogFragment.isAdded()) {
+
                 bottomSheetDialogFragment.dismiss(); // Dismiss BottomSheet
             }
         }
@@ -244,20 +285,28 @@ public class ViewsUtils {
      *
      * @param fragmentManager          - to show DialogFragment_DatePicker
      * @param dialogFragmentDatePicker - associated DialogFragment_DatePicker
-     * @param show                     - boolean(show-true/false) - to show or hide DialogFragment_DatePicker
+     * @param show                     - boolean(show-true/false) - to show or hide DatePicker
      */
-    public static void showDatePickerFragment(FragmentManager fragmentManager,
-                                              DialogFragment_DatePicker dialogFragmentDatePicker, boolean show) {
+    public static void showDatePickerFragment(final FragmentManager fragmentManager,
+                                              final DialogFragment_DatePicker
+                                                      dialogFragmentDatePicker,
+                                              final boolean show) {
         if (show) {
+
             try {
-                if (!dialogFragmentDatePicker.isAdded() && !dialogFragmentDatePicker.isRemoving()) {
+
+                if (!dialogFragmentDatePicker.isAdded()
+                        && !dialogFragmentDatePicker.isRemoving()) {
+
                     // Show BottomSheetDialogFragment
                     dialogFragmentDatePicker.show(fragmentManager, dialogFragmentDatePicker.getTag());
                 }
             } catch (Exception ignored) {
             }
         } else {
+
             if (dialogFragmentDatePicker.isAdded()) {
+
                 dialogFragmentDatePicker.dismiss(); // Dismiss BottomSheet
             }
         }
@@ -269,17 +318,22 @@ public class ViewsUtils {
      * @param show               - boolean(show-true/false) - to show or hide ShimmerFrameLayout
      * @param shimmerFrameLayout - associated ShimmerFrameLayout
      */
-    public static void showShimmerFrameLayout(boolean show, ShimmerFrameLayout shimmerFrameLayout) {
+    public static void showShimmerFrameLayout(final boolean show, final ShimmerFrameLayout
+            shimmerFrameLayout) {
+
         if (show) {
+
             // Check if Shimmer is started, show layout and start animation
             shimmerFrameLayout.setVisibility(View.VISIBLE);
 
             // Check if shimmer frame layout is started
             if (shimmerFrameLayout.isShimmerStarted()) {
+
                 shimmerFrameLayout.stopShimmer(); // Stop shimmer
             }
 
             shimmerFrameLayout.startShimmer(); // Start shimmer
+
         } else {
 
             // Check if Shimmer is started, stop animation and hide layout
@@ -287,6 +341,7 @@ public class ViewsUtils {
 
             // Check if shimmer frame layout is started
             if (shimmerFrameLayout.isShimmerStarted()) {
+
                 shimmerFrameLayout.stopShimmer();
             }
         }
@@ -298,15 +353,21 @@ public class ViewsUtils {
      * @param expand           - boolean expand (TRUE/FALSE)
      * @param expandableLayout - associated view
      */
-    public static void expandExpandableLayout(boolean expand, ExpandableLayout expandableLayout) {
+    public static void expandExpandableLayout(final boolean expand,
+                                              final ExpandableLayout expandableLayout) {
+
         if (expand) {
+
             // Check if layout is collapsed
             if (!expandableLayout.isExpanded()) {
+
                 expandableLayout.expand(); // Expand ExpandableLayout
             }
         } else {
+
             // Check if layout is expanded
             if (expandableLayout.isExpanded()) {
+
                 expandableLayout.collapse(); // Collapse ExpandableLayout
             }
         }
@@ -318,7 +379,8 @@ public class ViewsUtils {
      * @param position  - tab position
      * @param tabLayout - associated view
      */
-    public static void selectTabPosition(int position, TabLayout tabLayout) {
+    public static void selectTabPosition(final int position, final TabLayout tabLayout) {
+
         Objects.requireNonNull(tabLayout.getTabAt(position)).select();
     }
 
@@ -328,9 +390,10 @@ public class ViewsUtils {
      * @param refresh              - Refresh state
      * @param swipeRefreshListener - Associated SwipeRefreshLayout
      */
-    public static void showSwipeRefreshLayout(boolean refresh,
-                                              MultiSwipeRefreshLayout swipeRefreshLayout,
-                                              SwipeRefreshLayout.OnRefreshListener swipeRefreshListener) {
+    public static void showSwipeRefreshLayout(final boolean refresh, final boolean showAnimation,
+                                              final MultiSwipeRefreshLayout swipeRefreshLayout,
+                                              final SwipeRefreshLayout.OnRefreshListener
+                                                      swipeRefreshListener) {
 
         // Set view offset
 //        swipeRefreshLayout.setProgressViewOffset(false,
@@ -339,18 +402,24 @@ public class ViewsUtils {
         try {
 
             // Set color scheme
-            swipeRefreshLayout.setColorSchemeColors(DataUtils.getSwipeRefreshColorSchemeResources());
+            swipeRefreshLayout.setColorSchemeColors(
+                    DataUtils.getSwipeRefreshColorSchemeResources());
 
             if (refresh) {
 
                 // Check if layout is already refreshing
                 if (swipeRefreshLayout.isRefreshing()) {
+
                     swipeRefreshLayout.setRefreshing(false); // Stop refreshing
                 }
 
                 swipeRefreshListener.onRefresh(); // Call onRefresh listener
-                swipeRefreshLayout.setRefreshing(true); // Start refreshing
 
+                // Check if to show animation
+                if (showAnimation) {
+
+                    swipeRefreshLayout.setRefreshing(true); // Start refreshing
+                }
             } else {
 
                 // Stop SwipeRefreshLayout
@@ -368,12 +437,13 @@ public class ViewsUtils {
      *
      * @return ProgressDialog
      */
-    public static ProgressDialog initProgressDialog(Activity activity,
-                                                    boolean cancelable) {
+    public static ProgressDialog initProgressDialog(final Activity activity,
+                                                    final boolean cancelable) {
 
         // Set ProgressDialog style
         ProgressDialog progressDialog = new ProgressDialog(activity, R.style.Style_ProgressDialog);
         progressDialog.setCancelable(cancelable); // Set cancelable
+
         return progressDialog; // Return ProgressDialog
     }
 
@@ -385,8 +455,8 @@ public class ViewsUtils {
      * @param title          - ProgressBar title
      * @param message        - ProgressBar message
      */
-    public static void showProgressDialog(ProgressDialog progressDialog, String title,
-                                          String message) {
+    public static void showProgressDialog(final ProgressDialog progressDialog, final String title,
+                                          final String message) {
 
         // Check if progress dialog is showing
         if (!progressDialog.isShowing()) {
@@ -397,13 +467,12 @@ public class ViewsUtils {
         }
     }
 
-
     /**
      * Function to hide progress dialog
      *
      * @param progressDialog - associated ProgressDialog
      */
-    public static void dismissProgressDialog(ProgressDialog progressDialog) {
+    public static void dismissProgressDialog(final ProgressDialog progressDialog) {
 
         // Check if ProgressDialog is showing
         if (progressDialog.isShowing()) {
@@ -418,7 +487,7 @@ public class ViewsUtils {
      * @param activity     - Activity to get SearchView id and context
      * @param searchViewId - Associated SearchView id
      */
-    public static SearchView initSearchView(Activity activity, int searchViewId) {
+    public static SearchView initSearchView(final Activity activity, final int searchViewId) {
 
         // Create SearchView
         SearchView searchView = activity.findViewById(searchViewId);
@@ -434,7 +503,8 @@ public class ViewsUtils {
      * @param view         - View to get SearchView id
      * @param searchViewId - Associated SearchView id
      */
-    public static SearchView initSearchView(Context context, View view, int searchViewId) {
+    public static SearchView initSearchView(final Context context, final View view,
+                                            final int searchViewId) {
 
         // Create SearchView
         SearchView searchView = view.findViewById(searchViewId);
@@ -449,7 +519,7 @@ public class ViewsUtils {
      * @param searchView - Associated SearchView
      * @param context    - Context to get resources
      */
-    private static SearchView setupSearchView(SearchView searchView, Context context) {
+    private static SearchView setupSearchView(final SearchView searchView, final Context context) {
 
         // Get SearchView text
         TextView textView = searchView.findViewById(androidx.appcompat.R.id.search_src_text);

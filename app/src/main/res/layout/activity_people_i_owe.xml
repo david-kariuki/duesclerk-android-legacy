@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="top"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <include layout="@layout/content_people_i_owe" />
 
@@ -25,7 +25,7 @@
         <LinearLayout
             android:id="@+id/llContacts_NoContacts"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="top"
             android:orientation="vertical"
             android:visibility="gone">

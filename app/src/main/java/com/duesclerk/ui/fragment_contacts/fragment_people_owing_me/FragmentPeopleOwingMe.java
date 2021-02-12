@@ -113,9 +113,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
                         // Fetch contacts
                         fetchContactsClass.fetchContacts(
                                 database.getUserAccountInfo(null).get(0).getUserId(),
-                                swipeRefreshLayout,
-                                swipeRefreshListener
-                        );
+                                swipeRefreshLayout, swipeRefreshListener);
 
                     } else {
                         // No internet connection
@@ -144,9 +142,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
                         // Fetch contacts
                         fetchContactsClass.fetchContacts(
                                 database.getUserAccountInfo(null).get(0).getUserId(),
-                                swipeRefreshLayout,
-                                swipeRefreshListener
-                        );
+                                swipeRefreshLayout, swipeRefreshListener);
 
                     } else {
                         // No internet connection
@@ -158,7 +154,8 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
         };
 
         // Start/Stop swipe SwipeRefresh
-        ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout, swipeRefreshListener);
+        ViewsUtils.showSwipeRefreshLayout(true, false, swipeRefreshLayout,
+                swipeRefreshListener);
 
         // Add contact onClick
         llAddContact.setOnClickListener(v -> {
@@ -170,7 +167,8 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
         llNoConnection_TryAgain.setOnClickListener(v -> {
 
             // Start/Stop swipe SwipeRefresh
-            ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout, swipeRefreshListener);
+            ViewsUtils.showSwipeRefreshLayout(true, false, swipeRefreshLayout,
+                    swipeRefreshListener);
         });
 
         return view; // Return inflated view
@@ -195,7 +193,8 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
         if (DataUtils.isEmptyArrayList(fetchedContacts)) {
 
             // Start SwipeRefreshLayout
-            ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout, swipeRefreshListener);
+            ViewsUtils.showSwipeRefreshLayout(true, false, swipeRefreshLayout,
+                    swipeRefreshListener);
         }
 
     }
@@ -270,18 +269,12 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
 
             llNoContacts.setVisibility(View.VISIBLE); // Show RecyclerView
 
-            interfaceMainActivity.showAddContactFAB(false); // Hide fab button
-
-            interfaceMainActivity.showSearchView(false); // Hide SearchView
-
         } else {
 
             llNoContacts.setVisibility(View.GONE); // Hide RecyclerView
-
-            interfaceMainActivity.showAddContactFAB(true); // True fab button
-
-            interfaceMainActivity.showSearchView(true); // Show SearchView
         }
+
+        showSwipeRefreshLayout(!show); // Show / Hide SwipeRefreshLayout
     }
 
     /**
@@ -296,7 +289,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
             // No connection
 
             // Hide swipe SwipeRefresh
-            ViewsUtils.showSwipeRefreshLayout(false, swipeRefreshLayout,
+            ViewsUtils.showSwipeRefreshLayout(false, false, swipeRefreshLayout,
                     swipeRefreshListener);
 
             // Check for contacts
@@ -322,13 +315,15 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
      */
     public void setSearchQuery(String searchQuery) {
 
-        if (searchQuery == null) {
-            searchQuery = "";
-        }
-        this.searchQuery = searchQuery;
+        try {
 
-        // Filter text input
-        rvlaContacts.getFilter().filter(searchQuery);
+            this.searchQuery = searchQuery; // Set received search query to global search query
+
+            // Filter text input
+            rvlaContacts.getFilter().filter(searchQuery);
+
+        } catch (Exception ignored) {
+        }
     }
 
     /**
@@ -339,13 +334,14 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
     @Override
     public void passUserContacts_PeopleOwingMe(ArrayList<JB_Contacts> contacts) {
 
-        interfaceMainActivity.showAddContactFAB(true); // Show FAB button
-
         // Check if ArrayList is empty
         if (!DataUtils.isEmptyArrayList(contacts)) {
             // ArrayList not empty
 
             loadContacts(contacts); // Load contacts to RecyclerView
+
+            // Pass contacts to MainActivity
+            interfaceMainActivity.passUserContacts_PeopleOwingMe(contacts);
         }
     }
 
@@ -359,9 +355,16 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
     }
 
     @Override
-    public void setNoContactsFound(boolean found) {
+    public void setPeopleOwingMeContactsEmpty(boolean notFound) {
 
-        showNoContactsLayout(found); // Show or hide no contacts layout
-        interfaceMainActivity.showAddContactFAB(true); // Show add contacts FAB
+        showNoContactsLayout(notFound); // Show or hide no contacts layout
+
+        interfaceMainActivity.setPeopleOwingMeContactsEmpty(notFound);
+    }
+
+    @Override
+    public void setPeopleIOweContactsEmpty(boolean notFound) {
+
+        interfaceMainActivity.setPeopleIOweContactsEmpty(notFound);
     }
 }
