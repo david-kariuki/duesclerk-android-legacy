@@ -42,7 +42,7 @@
     <dimen name="dimen_text_view_labels_size_normal">13sp</dimen>
     <dimen name="dimen_text_view_links_size_normal">13sp</dimen>
     <dimen name="dimen_text_view_message_size_normal">15sp</dimen>
-    <dimen name="dimen_text_view_button_size">15sp</dimen>
+    <dimen name="dimen_text_view_button_size">14sp</dimen>
     <dimen name="dimen_text_view_toolbar_title_size">17sp</dimen>
     <dimen name="dimen_edit_text_min_width">150dp</dimen>
 
