@@ -1,9 +1,6 @@
 package com.duesclerk.ui.fragment_contacts;
 
 import android.content.Context;
-import android.util.Log;
-
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -19,7 +16,6 @@ import com.duesclerk.custom.custom_utilities.ContactUtils;
 import com.duesclerk.custom.custom_utilities.DataUtils;
 import com.duesclerk.custom.custom_utilities.DebtUtils;
 import com.duesclerk.custom.custom_utilities.UserAccountUtils;
-import com.duesclerk.custom.custom_utilities.ViewsUtils;
 import com.duesclerk.custom.custom_utilities.VolleyUtils;
 import com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout;
 import com.duesclerk.custom.custom_views.toast.CustomToast;
@@ -71,27 +67,26 @@ public class FetchContactsClass {
     /**
      * Function to fetch contacts
      *
-     * @param userId               - Users id
-     * @param swipeRefreshLayout   - Loading SwipeRefreshLayout
-     * @param swipeRefreshListener - SwipeRefreshLayouts listener
+     * @param userId - Users id
      */
-    public void fetchContacts(final String userId, MultiSwipeRefreshLayout swipeRefreshLayout,
-                              SwipeRefreshLayout.OnRefreshListener swipeRefreshListener) {
+    public void fetchContacts(final String userId) {
 
         // Check Internet Connection State
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
             // Connected
 
+            showSwipeRefresh(); // Start swipe refresh
+
             // Create string request
             StringRequest stringRequest = new StringRequest(Request.Method.POST,
                     NetworkUrls.ContactURLS.URL_FETCH_USER_CONTACTS, response -> {
 
-                // Log Response
-                Log.d(TAG, "Fetching contacts response:" + response);
+                swipeRefreshLayout.setRefreshing(false); // Stop swipe refresh
 
-                // Hide SwipeRefreshLayout
-                ViewsUtils.showSwipeRefreshLayout(false,
-                        swipeRefreshLayout, swipeRefreshListener);
+                // Log Response
+                // Log.d(TAG, "Fetching contacts response:" + response);
+
+                swipeRefreshLayout.setRefreshing(false); // Hide SwipeRefreshLayout
 
                 try {
 
@@ -130,13 +125,9 @@ public class FetchContactsClass {
             }, volleyError -> {
 
                 // Log Response
-                //Log.e(TAG, "Fetch contacts response error : "
-                //      + volleyError.getMessage());
+                //Log.e(TAG, "Fetch contacts response error : " + volleyError.getMessage());
 
-                // Hide SwipeRefreshLayout
-                ViewsUtils.showSwipeRefreshLayout(false,
-                        swipeRefreshLayout, swipeRefreshListener);
-
+                swipeRefreshLayout.setRefreshing(false); // Hide SwipeRefreshLayout
 
                 // Check request response
                 if (volleyError.getMessage() == null || volleyError instanceof NetworkError
@@ -330,5 +321,11 @@ public class FetchContactsClass {
 
             interfaceContacts.setNoContactsFound_PeopleIOwe(true); // Set no contacts found to true
         }
+    }
+
+    private void showSwipeRefresh() {
+
+        // Start swipe refresh
+        swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(true));
     }
 }

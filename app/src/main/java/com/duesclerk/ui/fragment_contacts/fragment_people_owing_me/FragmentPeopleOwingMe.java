@@ -112,10 +112,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
 
                         // Fetch contacts
                         fetchContactsClass.fetchContacts(
-                                database.getUserAccountInfo(null).get(0).getUserId(),
-                                swipeRefreshLayout,
-                                swipeRefreshListener
-                        );
+                                database.getUserAccountInfo(null).get(0).getUserId());
 
                     } else {
                         // No internet connection
@@ -143,10 +140,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
 
                         // Fetch contacts
                         fetchContactsClass.fetchContacts(
-                                database.getUserAccountInfo(null).get(0).getUserId(),
-                                swipeRefreshLayout,
-                                swipeRefreshListener
-                        );
+                                database.getUserAccountInfo(null).get(0).getUserId());
 
                     } else {
                         // No internet connection
@@ -274,8 +268,6 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
 
             llNoContacts.setVisibility(View.GONE); // Hide RecyclerView
         }
-
-        interfaceMainActivity.showAddContactFAB(!show); // Hide fab button
     }
 
     /**
@@ -335,8 +327,6 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
     @Override
     public void passUserContacts_PeopleOwingMe(ArrayList<JB_Contacts> contacts) {
 
-        interfaceMainActivity.showAddContactFAB(true); // Show FAB button
-
         // Check if ArrayList is empty
         if (!DataUtils.isEmptyArrayList(contacts)) {
             // ArrayList not empty
@@ -361,8 +351,8 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
     public void setNoContactsFound_PeopleOwingMe(boolean notFound) {
 
         showNoContactsLayout(notFound); // Show or hide no contacts layout
+
         interfaceMainActivity.setNoContactsFound_PeopleOwingMe(notFound);
-        interfaceMainActivity.showAddContactFAB(true); // Show add contacts FAB;
     }
 
     @Override

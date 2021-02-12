@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
                 viewPager.setCurrentItem(tabPosition, false); // Set current position
                 switchTabSelection(tabPosition, true); // Switch tab selection
                 switchSearchViewQuery(tabPosition); // Switch SearchView query
-                hideFabButton(tabPosition);
             }
 
             @Override
@@ -83,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
 
                 tabPosition = tab.getPosition(); // Get current tab position
                 switchTabSelection(tabPosition, false); // Switch tab selection
-                hideFabButton(tabPosition); // Hide/show fab button
                 switchSearchViewQuery(tabPosition); // Switch SearchView query
             }
 
@@ -416,27 +414,8 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
     }
 
     private boolean isEmptyContacts(ArrayList<JB_Contacts> contacts) {
+
         return contacts.size() > 0; // Check if array size is greater than 0
-    }
-
-    /**
-     * Function to hide fab button in fragments where its not required
-     *
-     * @param position - tab position
-     */
-    private void hideFabButton(int position) {
-        switch (position) {
-            case 0: // Those I Owe fragment
-            case 1: // Owing Me fragment
-
-                fabAddContact.setVisibility(View.VISIBLE); // Toggle visibility
-                break;
-
-            default: //Others
-
-                fabAddContact.setVisibility(View.GONE); // Toggle visibility
-                break;
-        }
     }
 
     /**
@@ -467,24 +446,6 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
     }
 
     @Override
-    public void showAddContactFAB(boolean show) {
-
-        // Check for current TabLayout position
-        if (tabPosition != 2) {
-            // Not on menu fragment
-
-            if (show) {
-
-                this.fabAddContact.setVisibility(View.VISIBLE); // Show fab button
-
-            } else {
-
-                this.fabAddContact.setVisibility(View.GONE); // Hide fab button
-            }
-        }
-    }
-
-    @Override
     public void showAddContactDialogFragment(boolean show) {
 
         fabAddContact.performClick(); // Click add contact FAB
@@ -494,6 +455,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
     public void passUserContacts_PeopleOwingMe(ArrayList<JB_Contacts> contacts) {
 
         this.isEmptyContactsPeopleOwingMe = isEmptyContacts(contacts); // Set contacts null
+
         showHideSearchView();
     }
 
@@ -501,6 +463,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
     public void passUserContacts_PeopleIOwe(ArrayList<JB_Contacts> contacts) {
 
         this.isEmptyContactsPeopleIOwe = isEmptyContacts(contacts); // Set contacts null
+
         showHideSearchView(); // Show or hide SearchView
     }
 
@@ -508,6 +471,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
     public void setNoContactsFound_PeopleOwingMe(boolean notFound) {
 
         isEmptyContactsPeopleOwingMe = notFound; // Set contacts empty
+
         showHideSearchView(); // Show or hide SearchView
     }
 
@@ -515,6 +479,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
     public void setNoContactsFound_PeopleIOwe(boolean notFound) {
 
         isEmptyContactsPeopleIOwe = notFound; // Set contacts empty
+
         showHideSearchView(); // Show or hide SearchView
     }
 
@@ -524,15 +489,19 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
     public void showHideSearchView() {
 
         switch (tabPosition) {
+
             case 0:
                 if (!isEmptyContactsPeopleOwingMe) {
 
                     searchView.setVisibility(View.VISIBLE); // Show SearchView
                     dividerSearchView.setVisibility(View.VISIBLE); // Show SearchView divider
+                    this.fabAddContact.setVisibility(View.VISIBLE); // Show fab button
 
                 } else {
+
                     searchView.setVisibility(View.GONE); // Hide SearchView
                     dividerSearchView.setVisibility(View.GONE); // Hide SearchView divider
+                    this.fabAddContact.setVisibility(View.GONE); // Hide fab button
                 }
                 break;
 
@@ -542,10 +511,13 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
 
                     searchView.setVisibility(View.VISIBLE); // Show SearchView
                     dividerSearchView.setVisibility(View.VISIBLE); // Show SearchView divider
+                    this.fabAddContact.setVisibility(View.VISIBLE); // Show fab button
 
                 } else {
+
                     searchView.setVisibility(View.GONE); // Hide SearchView
                     dividerSearchView.setVisibility(View.GONE); // Hide SearchView divider
+                    this.fabAddContact.setVisibility(View.GONE); // Hide fab button
                 }
                 break;
 
@@ -553,6 +525,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
 
                 searchView.setVisibility(View.GONE); // Hide SearchView
                 dividerSearchView.setVisibility(View.GONE); // Hide SearchView divider
+                this.fabAddContact.setVisibility(View.GONE); // Hide fab button
                 break;
         }
     }
@@ -563,6 +536,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
      * @param tabPosition - TabLayouts' current position
      */
     private void switchSearchViewQuery(int tabPosition) {
+
         switch (tabPosition) {
 
             case 0:
