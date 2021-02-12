@@ -152,7 +152,8 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
         };
 
         // Start/Stop swipe SwipeRefresh
-        ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout, swipeRefreshListener);
+        ViewsUtils.showSwipeRefreshLayout(true, false, swipeRefreshLayout,
+                swipeRefreshListener);
 
         // Add contact onClick
         llAddContact.setOnClickListener(v -> {
@@ -164,7 +165,8 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
         llNoConnection_TryAgain.setOnClickListener(v -> {
 
             // Start/Stop swipe SwipeRefresh
-            ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout, swipeRefreshListener);
+            ViewsUtils.showSwipeRefreshLayout(true, false, swipeRefreshLayout,
+                    swipeRefreshListener);
         });
 
         return view; // Return inflated view
@@ -189,7 +191,8 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
         if (DataUtils.isEmptyArrayList(fetchedContacts)) {
 
             // Start SwipeRefreshLayout
-            ViewsUtils.showSwipeRefreshLayout(true, swipeRefreshLayout, swipeRefreshListener);
+            ViewsUtils.showSwipeRefreshLayout(true, false, swipeRefreshLayout,
+                    swipeRefreshListener);
         }
 
     }
@@ -282,7 +285,7 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
             // No connection
 
             // Hide swipe SwipeRefresh
-            ViewsUtils.showSwipeRefreshLayout(false, swipeRefreshLayout,
+            ViewsUtils.showSwipeRefreshLayout(false, false, swipeRefreshLayout,
                     swipeRefreshListener);
 
             // Check for contacts
@@ -348,13 +351,13 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
     }
 
     @Override
-    public void setNoContactsFound_PeopleOwingMe(boolean notFound) {
+    public void contactsEmpty_PeopleOwingMe(boolean notFound) {
 
         interfaceMainActivity.setNoContactsFound_PeopleOwingMe(notFound);
     }
 
     @Override
-    public void setNoContactsFound_PeopleIOwe(boolean notFound) {
+    public void contactsEmpty_PeopleIOwe(boolean notFound) {
 
         showNoContactsLayout(notFound); // Show or hide no contacts layout
         interfaceMainActivity.setNoContactsFound_PeopleIOwe(notFound);

@@ -39,6 +39,7 @@ public class FetchContactsClass {
     private final String TAG = FetchContactsClass.class.getSimpleName();
     private final Context mContext;
     private final Interface_Contacts interfaceContacts;
+    private final MultiSwipeRefreshLayout swipeRefreshLayout;
 
     /**
      * Class constructor for FragmentPeopleOwingMe
@@ -50,6 +51,13 @@ public class FetchContactsClass {
 
         mContext = context; // Initialize context
         interfaceContacts = fragmentPeopleOwingMe; // Initialize interface
+
+        // Initialize SwipeRefreshLayout
+        swipeRefreshLayout = new MultiSwipeRefreshLayout(context);
+
+        // Set color scheme
+        swipeRefreshLayout.setColorSchemeColors(DataUtils.getSwipeRefreshColorSchemeResources());
+        showSwipeRefresh(); // Start swipe refresh
     }
 
     /**
@@ -62,6 +70,12 @@ public class FetchContactsClass {
 
         mContext = context; // Initialize context
         interfaceContacts = fragmentPeopleIOwe; // Initialize interface
+
+        // Initialize SwipeRefreshLayout
+        swipeRefreshLayout = new MultiSwipeRefreshLayout(context);
+
+        // Set color scheme
+        swipeRefreshLayout.setColorSchemeColors(DataUtils.getSwipeRefreshColorSchemeResources());
     }
 
     /**
@@ -302,11 +316,13 @@ public class FetchContactsClass {
             // Pass contacts to interface
             interfaceContacts.passUserContacts_PeopleOwingMe(contactsPeopleOwingMe);
 
-            interfaceContacts.setNoContactsFound_PeopleOwingMe(false); // Set no contacts found to false
+            // Set no contacts found to false
+            interfaceContacts.contactsEmpty_PeopleOwingMe(false);
 
         } else {
 
-            interfaceContacts.setNoContactsFound_PeopleOwingMe(true); // Set no contacts found to true
+            // Set no contacts found to true
+            interfaceContacts.contactsEmpty_PeopleOwingMe(true);
         }
 
         // Check for contacts
@@ -315,11 +331,13 @@ public class FetchContactsClass {
             // Pass contacts to interface
             interfaceContacts.passUserContacts_PeopleIOwe(contactsPeopleIOwe);
 
-            interfaceContacts.setNoContactsFound_PeopleIOwe(false); // Set no contacts found to false
+            // Set no contacts found to false
+            interfaceContacts.contactsEmpty_PeopleIOwe(false);
 
         } else {
 
-            interfaceContacts.setNoContactsFound_PeopleIOwe(true); // Set no contacts found to true
+            // Set no contacts found to true
+            interfaceContacts.contactsEmpty_PeopleIOwe(true);
         }
     }
 
