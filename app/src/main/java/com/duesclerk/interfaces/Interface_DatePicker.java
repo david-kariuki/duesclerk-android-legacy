@@ -8,14 +8,16 @@ public interface Interface_DatePicker {
     /**
      * Interface to pass DatePickers selected debt date issued
      *
-     * @param debtDateIssued - Debt date issued
+     * @param debtDateIssuedFull  - Debt date issued (full)
+     * @param debtDateIssuedShort - Debt date issued (short)
      */
-    void passDebtDateIssued(String debtDateIssued);
+    void passDebtDateIssued(String debtDateIssuedFull, String debtDateIssuedShort);
 
     /**
      * Interface to pass DatePickers selected debt date due
      *
-     * @param debtDateDue - Debt date due
+     * @param debtDateDueFull  - Debt date due (full)
+     * @param debtDateDueShort - Debt date due (short)
      */
-    void passDebtDateDue(String debtDateDue);
+    void passDebtDateDue(String debtDateDueFull, String debtDateDueShort);
 }

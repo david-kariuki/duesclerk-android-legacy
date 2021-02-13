@@ -42,6 +42,8 @@
     <string name="error_debt_date_issued_null">Debt issuance date cannot be empty!</string>
     <string name="error_debt_date_due_null">Debt due date cannot be empty!</string>
     <string name="error_debt_date_description_null">Debt description cannot be empty!</string>
+    <string name="error_debt_date_due_behind_date_issued">Date due cannot be before date issued!</string>
+    <string name="error_debt_check_range">Check date range!</string>
 
     <!--Other-->
     <string name="error_profile_update_failed">Profile update failed!</string>

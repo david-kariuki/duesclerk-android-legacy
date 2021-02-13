@@ -394,15 +394,22 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
     @Override
     public void onBackPressed() {
 
-        // Check for expanded views in RecyclerView adapter
-        if (rvlaDebts.isExpandedOptionsOrDetails()) {
+        // Check if adapter is empty
+        if (rvlaDebts != null) {
 
-            // Collapse expanded views in RecyclerView adapter
-            rvlaDebts.setCollapsedExpandedLayouts();
+            // Check for expanded views in RecyclerView adapter
+            if (rvlaDebts.isExpandedOptionsOrDetails()) {
 
+                // Collapse expanded views in RecyclerView adapter
+                rvlaDebts.setCollapsedExpandedLayouts();
+
+            } else {
+
+                super.onBackPressed(); // EXit activity
+            }
         } else {
 
-            super.onBackPressed();
+            super.onBackPressed(); // Exit activity
         }
     }
 

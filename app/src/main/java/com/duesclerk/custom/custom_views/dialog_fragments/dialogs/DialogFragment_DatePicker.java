@@ -17,7 +17,7 @@ import android.widget.TextView;
 import androidx.fragment.app.DialogFragment;
 
 import com.duesclerk.R;
-import com.duesclerk.custom.custom_utilities.DataUtils;
+import com.duesclerk.custom.custom_utilities.user_data.DataUtils;
 import com.duesclerk.interfaces.Interface_DatePicker;
 
 import org.jetbrains.annotations.NotNull;
@@ -34,7 +34,7 @@ public class DialogFragment_DatePicker extends DialogFragment
     private final Interface_DatePicker interfaceDatePicker;
     private final LayoutInflater inflater;
     private final Context mContext;
-    private final boolean isDateIssued, setMaxDateToCurrentDay;
+    private final boolean dateIsDateDebtIssued, setMaxDateToCurrentDay;
 
     public DialogFragment_DatePicker(DialogFragment_AddDebt dialogFragmentAddDebt,
                                      boolean isDateIssued) {
@@ -43,7 +43,7 @@ public class DialogFragment_DatePicker extends DialogFragment
         this.interfaceDatePicker = dialogFragmentAddDebt;
         this.inflater = (LayoutInflater) mContext.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
-        this.isDateIssued = isDateIssued;
+        this.dateIsDateDebtIssued = isDateIssued;
         this.setMaxDateToCurrentDay = isDateIssued;
     }
 
@@ -56,7 +56,7 @@ public class DialogFragment_DatePicker extends DialogFragment
 
         String dialogTitle;
 
-        if (isDateIssued) {
+        if (dateIsDateDebtIssued) {
             // Date is for debt date issued
 
             dialogTitle = DataUtils.getStringResource(mContext, R.string.hint_date_issued);
@@ -104,8 +104,10 @@ public class DialogFragment_DatePicker extends DialogFragment
             posButton.setTypeface(posButton.getTypeface(), Typeface.BOLD);
 
             // Set text size
-            negButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
-            posButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+            negButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, DataUtils.getDimenResource(mContext
+                    ,R.dimen.dimen_text_view_button_size));
+            posButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, DataUtils.getDimenResource(mContext
+                    ,R.dimen.dimen_text_view_button_size));
         });
 
         // Remove window title
@@ -129,41 +131,49 @@ public class DialogFragment_DatePicker extends DialogFragment
         cal.setTimeInMillis(0); // Set time in Millis
         cal.set(year, month, day, 0, 0, 0);
         Date chosenDate = cal.getTime();
-        //DateFormat dfMediumUS, dfMediumUK, dfShort, dfLong;
-        DateFormat dfFull;
-        //String strDFMediumUS, strDFMediumUK, strDFShort, strDFLong;
-        String strDFFull;
+        // DateFormat dfMediumUS, dfMediumUK, dfLong;
+        DateFormat dfShort, dfFull;
+        //String strDFMediumUS, strDFMediumUK, strDFLong;
+        String strDFShort, strDFFull;
 
         // Format the date using style medium and US locale
-        //dfMediumUS = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US);
-        //strDFMediumUS = dfMediumUS.format(chosenDate);
+        // dfMediumUS = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US);
+        // strDFMediumUS = dfMediumUS.format(chosenDate);
 
         // Format the date using style medium and UK locale
-        //dfMediumUK = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.UK);
-        //strDFMediumUK = dfMediumUK.format(chosenDate);
+        // dfMediumUK = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.UK);
+        // strDFMediumUK = dfMediumUK.format(chosenDate);
 
         // Format the date using style short
-        //dfShort = DateFormat.getDateInstance(DateFormat.SHORT);
-        //strDFShort = dfShort.format(chosenDate);
+        dfShort = DateFormat.getDateInstance(DateFormat.SHORT);
+        strDFShort = dfShort.format(chosenDate);
 
         // Format the date using style long
-        //dfLong = DateFormat.getDateInstance(DateFormat.LONG);
-        //strDFLong = dfLong.format(chosenDate);
+        // dfLong = DateFormat.getDateInstance(DateFormat.LONG);
+        // strDFLong = dfLong.format(chosenDate);
 
         // Format the date using style full
         dfFull = DateFormat.getDateInstance(DateFormat.FULL);
         strDFFull = dfFull.format(chosenDate);
 
+//        Toast.makeText(mContext,
+//                "Medium US : " + strDFMediumUS + "\n" +
+//                        "Medium UK : " + strDFMediumUK + "\n" +
+//                        "DF Short  : " + strDFShort + "\n" +
+//                        "DF Long   : " + strDFLong + "\n" +
+//                        "DF Full   : " + strDFFull + "\n"
+//                , Toast.LENGTH_LONG).show();
+
         // Pass formatted date to interface
-        if (isDateIssued) {
+        if (dateIsDateDebtIssued) {
 
             //interfaceDatePicker.passDebtDateIssued(strDFFull); // Debt date issued
-            interfaceDatePicker.passDebtDateIssued(strDFFull); // Debt date issued
+            interfaceDatePicker.passDebtDateIssued(strDFFull, strDFShort); // Debt date issued
 
         } else {
 
             //interfaceDatePicker.passDebtDateDue(strDFFull); // Pass debt date due
-            interfaceDatePicker.passDebtDateDue(strDFFull); // Pass debt date due
+            interfaceDatePicker.passDebtDateDue(strDFFull, strDFShort); // Pass debt date due
         }
     }
 }

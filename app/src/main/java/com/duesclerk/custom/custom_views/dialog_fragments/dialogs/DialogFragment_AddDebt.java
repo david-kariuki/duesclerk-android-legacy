@@ -33,6 +33,7 @@ import com.duesclerk.custom.custom_utilities.application.ViewsUtils;
 import com.duesclerk.custom.custom_utilities.application.VolleyUtils;
 import com.duesclerk.custom.custom_utilities.user_data.ContactUtils;
 import com.duesclerk.custom.custom_utilities.user_data.DataUtils;
+import com.duesclerk.custom.custom_utilities.user_data.DateTimeUtils;
 import com.duesclerk.custom.custom_utilities.user_data.DebtUtils;
 import com.duesclerk.custom.custom_utilities.user_data.InputFiltersUtils;
 import com.duesclerk.custom.custom_utilities.user_data.UserAccountUtils;
@@ -46,6 +47,9 @@ import com.duesclerk.interfaces.Interface_DatePicker;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,7 +63,7 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
     private final String contactFullName, contactId;
     private EditText editDebtAmount, editDebtDescription;
     private EditText editDebtDateIssuedFull, editDebtDateDueFull;
-    private EditText editDebtDateIssuedShort, editDebtDateDueShort;
+    private String shortDateDebtIssued, shortDateDebtDue;
     private ProgressDialog progressDialog;
 
     /**
@@ -253,17 +257,50 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
         return (InputFiltersUtils.checkDebtAmountLengthNotify(mContext, editDebtAmount)
                 && InputFiltersUtils.checkDebtDateIssuedNotify(mContext, editDebtDateIssuedFull)
                 && InputFiltersUtils.checkDebtDateDueNotify(mContext, editDebtDateDueFull)
+                && !dateDifferenceLessThanZero()
         );
     }
 
     /**
-     * Function to get time difference between date issued and date due
+     * Function to check if date difference if greater or equal to zero
+     * This prevents a negative time difference or backdating date due past date issued
      */
-    private boolean timeDifferenceGreaterThanZero() {
-        boolean greaterThanZero = false;
+    private boolean dateDifferenceLessThanZero() {
 
 
-        return greaterThanZero;
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
+
+        try {
+
+            // Convert
+            Date dateDebtIssued = dateFormat.parse(shortDateDebtIssued);
+            Date dateDebtDue = dateFormat.parse(shortDateDebtDue);
+
+            // Check if dates are null
+            if ((dateDebtIssued != null) && (dateDebtDue != null)) {
+
+                // Check if time difference is less than zero
+                if (DateTimeUtils.getDateTimeDifferenceInDays(
+                        dateDebtIssued, dateDebtDue) < 0) {
+
+                    // Toast error message
+                    CustomToast.errorMessage(mContext, DataUtils.getStringResource(mContext,
+                            R.string.error_debt_date_due_behind_date_issued),
+                            R.drawable.ic_baseline_date_range_24_white);
+
+                    // Enable error icon
+                    editDebtDateDueFull.setError(DataUtils.getStringResource(mContext,
+                            R.string.error_debt_check_range));
+
+                } else {
+
+                    return false; // Return false - Time difference is not less than zero
+                }
+            }
+        } catch (ParseException ignored) {
+        }
+
+        return true; // Return status
     }
 
     /**
@@ -468,13 +505,13 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
     public void passDebtDateIssued(String debtDateIssuedFull, String debtDateIssuedShort) {
 
         this.editDebtDateIssuedFull.setText(debtDateIssuedFull); // Set full date
-        this.editDebtDateIssuedShort.setText(debtDateIssuedShort); // Set short date
+        this.shortDateDebtIssued = debtDateIssuedShort; // Set short date
     }
 
     @Override
     public void passDebtDateDue(String debtDateDueFull, String debtDateDueShort) {
 
         this.editDebtDateDueFull.setText(debtDateDueFull); // Set full date
-        this.editDebtDateDueShort.setText(debtDateDueShort); // Set short date
+        this.shortDateDebtDue = debtDateDueShort; // Set short date
     }
 }
