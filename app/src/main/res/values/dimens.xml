@@ -42,7 +42,7 @@
     <dimen name="dimen_text_view_labels_size_normal">13sp</dimen>
     <dimen name="dimen_text_view_links_size_normal">13sp</dimen>
     <dimen name="dimen_text_view_message_size_normal">15sp</dimen>
-    <dimen name="dimen_text_view_button_size">14sp</dimen>
+    <dimen name="dimen_text_view_button_size">13sp</dimen>
     <dimen name="dimen_text_view_toolbar_title_size">17sp</dimen>
     <dimen name="dimen_edit_text_min_width">150dp</dimen>
 
@@ -68,4 +68,8 @@
     <dimen name="dimen_shimmer_text_view_width_small">90dp</dimen>
     <dimen name="dimen_shimmer_text_view_height">15dp</dimen>
     <dimen name="dimen_shimmer_edit_text_height">25dp</dimen>
+
+    <!--Insets-->
+    <dimen name="dimen_inset_dialogs_vertical">20dp</dimen>
+    <dimen name="dimen_inset_dialogs_horizontal">10dp</dimen>
 </resources>

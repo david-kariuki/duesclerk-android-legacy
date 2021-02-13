@@ -1,86 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorWhite"
+    android:background="@drawable/inset_dialog_background_squared"
+    android:fillViewport="true"
     android:orientation="vertical"
-    tools:context=".activities.ContactDetailsAndDebtsActivity">
-
-    <LinearLayout
-        style="@style/Style_Toolbar_Container_Medium"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_toolbar_bs_height"
-        android:layout_marginTop="5dp">
-
-        <TextView
-            android:id="@+id/textDeleteContactOrDebt_Title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:singleLine="true"
-            android:text="@string/label_delete_contact"
-            android:textAlignment="textStart"
-            android:textColor="@color/colorPrimaryRed"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </LinearLayout>
+    tools:context=".activities.ContactDetailsAndDebtsActivity"
+    tools:ignore="UselessParent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="10dp"
         android:orientation="vertical"
-        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textGrantPermission_Title"
-        app:layout_constraintVertical_bias="0"
-        app:layout_constraintWidth_percent=".6">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textDeleteContactOrDebt_DialogMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:hint="@string/msg_delete_contact_confirmation"
-            android:singleLine="false"
-            android:textAlignment="center"
-            android:textColor="@color/colorBlack"
-            android:textSize="15sp"
-            tools:ignore="RtlCompat" />
+        <LinearLayout
+            style="@style/Style_Toolbar_Container_Medium"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_toolbar_bs_height"
+            android:layout_marginStart="10dp">
+
+            <TextView
+                android:id="@+id/textDeleteContactOrDebt_Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp"
+                android:singleLine="true"
+                android:text="@string/label_delete_contact"
+                android:textColor="@color/colorPrimaryRed"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="5dp"
-            android:gravity="end|center_vertical"
-            android:orientation="horizontal">
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="vertical"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textGrantPermission_Title"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintWidth_percent=".6">
 
             <TextView
-                android:id="@+id/textDeleteContactOrDebt_Cancel"
-                style="@style/Style_TextView_Button"
+                android:id="@+id/textDeleteContactOrDebt_DialogMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:text="@string/action_cancel"
-                android:textColor="@color/colorPrimary" />
+                android:layout_gravity="start"
+                android:hint="@string/msg_delete_contact_confirmation"
+                android:singleLine="false"
+                android:textAlignment="center"
+                android:textColor="@color/colorBlack"
+                android:textSize="15sp"
+                tools:ignore="RtlCompat" />
 
-            <TextView
-                android:id="@+id/textDeleteContactOrDebt_Delete"
-                style="@style/Style_TextView_Button"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/action_delete"
-                android:textColor="@color/colorPrimaryRed" />
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="end|center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textDeleteContactOrDebt_Cancel"
+                    style="@style/Style_TextView_Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/action_cancel"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/textDeleteContactOrDebt_Delete"
+                    style="@style/Style_TextView_Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="0dp"
+                    android:text="@string/action_delete"
+                    android:textColor="@color/colorPrimaryRed" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

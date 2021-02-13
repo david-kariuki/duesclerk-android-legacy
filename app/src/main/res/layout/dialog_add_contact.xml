@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bottom_sheet_background_curved"
+    android:background="@drawable/inset_dialog_background_rounded"
     android:fillViewport="true"
     android:orientation="vertical"
     tools:context=".activities.MainActivity"
@@ -65,6 +65,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/Style_ScrollView"
             android:fillViewport="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
