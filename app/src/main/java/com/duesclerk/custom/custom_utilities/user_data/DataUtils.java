@@ -1,4 +1,4 @@
-package com.duesclerk.custom.custom_utilities;
+package com.duesclerk.custom.custom_utilities.user_data;
 
 import android.content.Context;
 import android.net.Uri;
@@ -235,7 +235,7 @@ public class DataUtils {
     }
 
     /**
-     * Function to get string resource
+     * Function to get integer resources
      *
      * @param context   - for getting resources
      * @param integerId - integer resource id
@@ -243,6 +243,17 @@ public class DataUtils {
     public static int getIntegerResource(Context context, int integerId) {
 
         return context.getResources().getInteger(integerId);
+    }
+
+    /**
+     * Function to get dimension resources
+     *
+     * @param context   - for getting resources
+     * @param dimensionId - dimension resource id
+     */
+    public static float getDimenResource(Context context, int dimensionId) {
+
+        return context.getResources().getDimension(dimensionId);
     }
 
     /**

@@ -18,9 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.duesclerk.R;
 import com.duesclerk.activities.UserProfileActivity;
-import com.duesclerk.custom.custom_utilities.DataUtils;
-import com.duesclerk.custom.custom_utilities.UserAccountUtils;
-import com.duesclerk.custom.custom_utilities.ViewsUtils;
+import com.duesclerk.custom.custom_utilities.application.ViewsUtils;
+import com.duesclerk.custom.custom_utilities.user_data.DataUtils;
+import com.duesclerk.custom.custom_utilities.user_data.UserAccountUtils;
 import com.duesclerk.custom.custom_views.recycler_view_adapters.RVLA_CountryPicker;
 import com.duesclerk.custom.custom_views.view_decorators.Decorators;
 import com.duesclerk.custom.java_beans.JB_CountryData;

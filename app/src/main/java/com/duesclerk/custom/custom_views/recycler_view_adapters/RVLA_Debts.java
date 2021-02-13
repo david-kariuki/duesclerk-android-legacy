@@ -15,9 +15,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.duesclerk.R;
-import com.duesclerk.custom.custom_utilities.ContactUtils;
-import com.duesclerk.custom.custom_utilities.DataUtils;
-import com.duesclerk.custom.custom_utilities.ViewsUtils;
+import com.duesclerk.custom.custom_utilities.application.ViewsUtils;
+import com.duesclerk.custom.custom_utilities.user_data.ContactUtils;
+import com.duesclerk.custom.custom_utilities.user_data.DataUtils;
 import com.duesclerk.custom.java_beans.JB_Debts;
 import com.duesclerk.interfaces.Interface_IDS;
 

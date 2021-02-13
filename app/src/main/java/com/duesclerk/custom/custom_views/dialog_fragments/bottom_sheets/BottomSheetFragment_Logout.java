@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 
 import com.duesclerk.R;
 import com.duesclerk.activities.SignInSignupActivity;
-import com.duesclerk.custom.custom_utilities.DataUtils;
+import com.duesclerk.custom.custom_utilities.user_data.DataUtils;
 import com.duesclerk.custom.storage_adapters.SessionManager;
 import com.duesclerk.custom.storage_adapters.UserDatabase;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;

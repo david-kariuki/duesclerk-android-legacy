@@ -17,9 +17,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.duesclerk.R;
-import com.duesclerk.custom.custom_utilities.BroadCastUtils;
-import com.duesclerk.custom.custom_utilities.DataUtils;
-import com.duesclerk.custom.custom_utilities.ViewsUtils;
+import com.duesclerk.custom.custom_utilities.application.BroadCastUtils;
+import com.duesclerk.custom.custom_utilities.application.ViewsUtils;
+import com.duesclerk.custom.custom_utilities.user_data.DataUtils;
 import com.duesclerk.custom.custom_views.recycler_view_adapters.RVLA_Contacts;
 import com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout;
 import com.duesclerk.custom.custom_views.view_decorators.Decorators;

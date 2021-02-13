@@ -6,8 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.duesclerk.custom.custom_utilities.DataUtils;
-import com.duesclerk.custom.custom_utilities.UserAccountUtils;
+import com.duesclerk.custom.custom_utilities.user_data.DataUtils;
+import com.duesclerk.custom.custom_utilities.user_data.UserAccountUtils;
 import com.duesclerk.custom.java_beans.JB_UserAccountInfo;
 
 import java.util.ArrayList;
@@ -339,7 +339,6 @@ public class UserDatabase extends SQLiteOpenHelper {
     /**
      * Function to check if database is empty
      */
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean isEmpty() {
         return this.getUserAccountInfo(null).size() == 0;
     }
