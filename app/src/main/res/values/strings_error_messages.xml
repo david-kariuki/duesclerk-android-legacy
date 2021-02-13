@@ -37,6 +37,8 @@
 
     <!--Debts-->
     <string name="error_debt_amount_null">Debt amount cannot be empty!</string>
+    <string name="error_debt_amount_zero">Debt amount cannot be zero!</string>
+    <string name="error_debt_amount_ends_with_period">Debt amount cannot end with a period!</string>
     <string name="error_debt_date_issued_null">Debt issuance date cannot be empty!</string>
     <string name="error_debt_date_due_null">Debt due date cannot be empty!</string>
     <string name="error_debt_date_description_null">Debt description cannot be empty!</string>
