@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
@@ -395,7 +394,7 @@ public class DialogFragment_AddContact extends DialogFragment {
     private void setSelectedContactInfo(Contact contact) {
 
         // Get required data
-        Uri photoUri = contact.getPhotoUri();
+        // Uri photoUri = contact.getPhotoUri();
         String fullName = (contact.getFirstName() + " " + contact.getLastName())
                 .replace("---", "").trim();
         String phoneNumber = getAllPhoneNumberTypesValues(contact); // Get all phone number types
