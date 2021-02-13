@@ -1,6 +1,6 @@
 package com.duesclerk.custom.java_beans;
 
-import com.duesclerk.custom.custom_utilities.DataUtils;
+import com.duesclerk.custom.custom_utilities.user_data.DataUtils;
 
 import java.io.Serializable;
 

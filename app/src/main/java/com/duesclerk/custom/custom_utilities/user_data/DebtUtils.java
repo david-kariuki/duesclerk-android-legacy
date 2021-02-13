@@ -1,4 +1,4 @@
-package com.duesclerk.custom.custom_utilities;
+package com.duesclerk.custom.custom_utilities.user_data;
 
 public class DebtUtils {
 

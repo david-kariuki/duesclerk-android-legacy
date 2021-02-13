@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.duesclerk.R;
 import com.duesclerk.activities.AccountSettings;
 import com.duesclerk.activities.UserProfileActivity;
-import com.duesclerk.custom.custom_utilities.ViewsUtils;
+import com.duesclerk.custom.custom_utilities.application.ViewsUtils;
 import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.BottomSheetFragment_Logout;
 
 public class FragmentAppMenu extends Fragment {

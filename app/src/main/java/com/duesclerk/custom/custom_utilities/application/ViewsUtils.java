@@ -1,4 +1,4 @@
-package com.duesclerk.custom.custom_utilities;
+package com.duesclerk.custom.custom_utilities.application;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -28,6 +28,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.duesclerk.R;
+import com.duesclerk.custom.custom_utilities.user_data.DataUtils;
 import com.duesclerk.custom.custom_views.custom_glide.GlideApp;
 import com.duesclerk.custom.custom_views.dialog_fragments.dialogs.DialogFragment_DatePicker;
 import com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout;

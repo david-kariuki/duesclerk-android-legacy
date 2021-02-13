@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.duesclerk.R;
 import com.duesclerk.activities.ContactDetailsAndDebtsActivity;
-import com.duesclerk.custom.custom_utilities.ContactUtils;
-import com.duesclerk.custom.custom_utilities.DataUtils;
+import com.duesclerk.custom.custom_utilities.user_data.ContactUtils;
+import com.duesclerk.custom.custom_utilities.user_data.DataUtils;
 import com.duesclerk.custom.java_beans.JB_Contacts;
 
 import org.jetbrains.annotations.NotNull;

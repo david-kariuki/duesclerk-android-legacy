@@ -11,8 +11,8 @@ import androidx.appcompat.widget.SearchView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.duesclerk.R;
-import com.duesclerk.custom.custom_utilities.DataUtils;
-import com.duesclerk.custom.custom_utilities.ViewsUtils;
+import com.duesclerk.custom.custom_utilities.application.ViewsUtils;
+import com.duesclerk.custom.custom_utilities.user_data.DataUtils;
 import com.duesclerk.custom.custom_views.dialog_fragments.dialogs.DialogFragment_AddContact;
 import com.duesclerk.custom.custom_views.view_pager.ViewPagerAdapter;
 import com.duesclerk.custom.java_beans.JB_Contacts;

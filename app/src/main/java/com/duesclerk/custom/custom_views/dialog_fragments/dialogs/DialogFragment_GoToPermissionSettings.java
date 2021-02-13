@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.LayoutInflater;
@@ -16,10 +17,11 @@ import android.view.Window;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
 
 import com.duesclerk.R;
-import com.duesclerk.custom.custom_utilities.DataUtils;
+import com.duesclerk.custom.custom_utilities.user_data.DataUtils;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -63,6 +65,7 @@ public class DialogFragment_GoToPermissionSettings extends DialogFragment {
         activity.startActivityForResult(intent, 101);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public @NotNull Dialog onCreateDialog(Bundle savedInstanceState) {
 

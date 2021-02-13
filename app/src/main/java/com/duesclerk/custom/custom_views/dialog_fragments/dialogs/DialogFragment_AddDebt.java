@@ -27,15 +27,15 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.duesclerk.R;
-import com.duesclerk.custom.custom_utilities.ApplicationClass;
-import com.duesclerk.custom.custom_utilities.BroadCastUtils;
-import com.duesclerk.custom.custom_utilities.ContactUtils;
-import com.duesclerk.custom.custom_utilities.DataUtils;
-import com.duesclerk.custom.custom_utilities.DebtUtils;
-import com.duesclerk.custom.custom_utilities.InputFiltersUtils;
-import com.duesclerk.custom.custom_utilities.UserAccountUtils;
-import com.duesclerk.custom.custom_utilities.ViewsUtils;
-import com.duesclerk.custom.custom_utilities.VolleyUtils;
+import com.duesclerk.custom.custom_utilities.application.ApplicationClass;
+import com.duesclerk.custom.custom_utilities.application.BroadCastUtils;
+import com.duesclerk.custom.custom_utilities.application.ViewsUtils;
+import com.duesclerk.custom.custom_utilities.application.VolleyUtils;
+import com.duesclerk.custom.custom_utilities.user_data.ContactUtils;
+import com.duesclerk.custom.custom_utilities.user_data.DataUtils;
+import com.duesclerk.custom.custom_utilities.user_data.DebtUtils;
+import com.duesclerk.custom.custom_utilities.user_data.InputFiltersUtils;
+import com.duesclerk.custom.custom_utilities.user_data.UserAccountUtils;
 import com.duesclerk.custom.custom_views.toast.CustomToast;
 import com.duesclerk.custom.network.InternetConnectivity;
 import com.duesclerk.custom.network.NetworkTags;
@@ -57,7 +57,9 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
     private final LayoutInflater inflater;
     private final Context mContext;
     private final String contactFullName, contactId;
-    private EditText editDebtAmount, editDebtDateIssued, editDebtDateDue, editDebtDescription;
+    private EditText editDebtAmount, editDebtDescription;
+    private EditText editDebtDateIssuedFull, editDebtDateDueFull;
+    private EditText editDebtDateIssuedShort, editDebtDateDueShort;
     private ProgressDialog progressDialog;
 
     /**
@@ -84,8 +86,8 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
 
         // EditTexts
         this.editDebtAmount = dialogView.findViewById(R.id.editAddDebt_DebtAmount);
-        this.editDebtDateIssued = dialogView.findViewById(R.id.editAddDebt_DateIssued);
-        this.editDebtDateDue = dialogView.findViewById(R.id.editAddDebt_DateDue);
+        this.editDebtDateIssuedFull = dialogView.findViewById(R.id.editAddDebt_DateIssued);
+        this.editDebtDateDueFull = dialogView.findViewById(R.id.editAddDebt_DateDue);
         this.editDebtDescription = dialogView.findViewById(R.id.editAddDebt_DebtDescription);
 
         // LinearLayouts
@@ -123,8 +125,8 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
                 this.addContactsDebt(
                         userId, contactId, contactFullName,
                         editDebtAmount.getText().toString(),
-                        editDebtDateIssued.getText().toString(),
-                        editDebtDateDue.getText().toString(),
+                        editDebtDateIssuedFull.getText().toString(),
+                        editDebtDateDueFull.getText().toString(),
                         editDebtDescription.getText().toString()
                 );
 
@@ -132,7 +134,7 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
         });
 
         // Date issued onClick
-        this.editDebtDateIssued.setOnClickListener(v -> {
+        this.editDebtDateIssuedFull.setOnClickListener(v -> {
 
             // Show add debt dialog
             ViewsUtils.showDialogFragment(getParentFragmentManager(),
@@ -140,7 +142,7 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
         });
 
         // Date due onClick
-        this.editDebtDateDue.setOnClickListener(v -> {
+        this.editDebtDateDueFull.setOnClickListener(v -> {
 
             // Show add debt dialog
             ViewsUtils.showDialogFragment(getParentFragmentManager(),
@@ -187,13 +189,13 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
             // Check for values and set to EditTexts
             if (!DataUtils.isEmptyString(savedDebtDateIssued)) {
 
-                editDebtDateIssued.setText(savedDebtDateIssued); // Set debt date issued
+                editDebtDateIssuedFull.setText(savedDebtDateIssued); // Set debt date issued
             }
 
             // Check for values and set to EditTexts
             if (!DataUtils.isEmptyString(savedDebtDateDue)) {
 
-                editDebtDateDue.setText(savedDebtDateDue); // Set debt date due
+                editDebtDateDueFull.setText(savedDebtDateDue); // Set debt date due
             }
 
             // Check for values and set to EditTexts
@@ -218,19 +220,19 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
         }
 
         // Check for field values and set to outState
-        if (!DataUtils.isEmptyEditText(editDebtDateIssued)) {
+        if (!DataUtils.isEmptyEditText(editDebtDateIssuedFull)) {
 
             // Get and put debt date issued
             outState.putString(DebtUtils.FIELD_DEBT_DATE_ISSUED,
-                    editDebtDateIssued.getText().toString());
+                    editDebtDateIssuedFull.getText().toString());
         }
 
         // Check for field values and set to outState
-        if (!DataUtils.isEmptyEditText(editDebtDateDue)) {
+        if (!DataUtils.isEmptyEditText(editDebtDateDueFull)) {
 
             // Get and put debt date due
             outState.putString(DebtUtils.FIELD_DEBT_DATE_DUE,
-                    editDebtDateDue.getText().toString());
+                    editDebtDateDueFull.getText().toString());
         }
 
         // Check for field values and set to outState
@@ -249,9 +251,19 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
     private boolean checkFieldInputs() {
 
         return (InputFiltersUtils.checkDebtAmountLengthNotify(mContext, editDebtAmount)
-                && InputFiltersUtils.checkDebtDateIssuedNotify(mContext, editDebtDateIssued)
-                && InputFiltersUtils.checkDebtDateDueNotify(mContext, editDebtDateDue)
+                && InputFiltersUtils.checkDebtDateIssuedNotify(mContext, editDebtDateIssuedFull)
+                && InputFiltersUtils.checkDebtDateDueNotify(mContext, editDebtDateDueFull)
         );
+    }
+
+    /**
+     * Function to get time difference between date issued and date due
+     */
+    private boolean timeDifferenceGreaterThanZero() {
+        boolean greaterThanZero = false;
+
+
+        return greaterThanZero;
     }
 
     /**
@@ -452,16 +464,17 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
         }
     }
 
-
     @Override
-    public void passDebtDateIssued(String debtDateIssued) {
+    public void passDebtDateIssued(String debtDateIssuedFull, String debtDateIssuedShort) {
 
-        this.editDebtDateIssued.setText(debtDateIssued); // Set date
+        this.editDebtDateIssuedFull.setText(debtDateIssuedFull); // Set full date
+        this.editDebtDateIssuedShort.setText(debtDateIssuedShort); // Set short date
     }
 
     @Override
-    public void passDebtDateDue(String debtDateDue) {
+    public void passDebtDateDue(String debtDateDueFull, String debtDateDueShort) {
 
-        this.editDebtDateDue.setText(debtDateDue); // Set date
+        this.editDebtDateDueFull.setText(debtDateDueFull); // Set full date
+        this.editDebtDateDueShort.setText(debtDateDueShort); // Set short date
     }
 }

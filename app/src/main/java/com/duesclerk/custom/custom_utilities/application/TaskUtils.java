@@ -1,5 +1,8 @@
-package com.duesclerk.custom.custom_utilities;
+package com.duesclerk.custom.custom_utilities.application;
 
+/**
+ * Class with task within the application to be tracked
+ */
 public class TaskUtils {
 
     /*

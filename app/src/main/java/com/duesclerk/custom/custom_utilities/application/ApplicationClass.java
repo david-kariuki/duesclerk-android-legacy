@@ -1,4 +1,4 @@
-package com.duesclerk.custom.custom_utilities;
+package com.duesclerk.custom.custom_utilities.application;
 
 
 import android.annotation.SuppressLint;

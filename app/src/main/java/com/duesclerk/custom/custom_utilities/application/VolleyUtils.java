@@ -1,8 +1,9 @@
-package com.duesclerk.custom.custom_utilities;
+package com.duesclerk.custom.custom_utilities.application;
 
 import android.content.Context;
 
 import com.duesclerk.R;
+import com.duesclerk.custom.custom_utilities.user_data.DataUtils;
 
 public class VolleyUtils {
 

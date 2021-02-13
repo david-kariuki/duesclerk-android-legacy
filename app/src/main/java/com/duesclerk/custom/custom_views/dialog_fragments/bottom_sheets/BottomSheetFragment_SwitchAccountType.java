@@ -29,13 +29,13 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.duesclerk.R;
-import com.duesclerk.custom.custom_utilities.ApplicationClass;
-import com.duesclerk.custom.custom_utilities.BroadCastUtils;
-import com.duesclerk.custom.custom_utilities.DataUtils;
-import com.duesclerk.custom.custom_utilities.InputFiltersUtils;
-import com.duesclerk.custom.custom_utilities.UserAccountUtils;
-import com.duesclerk.custom.custom_utilities.ViewsUtils;
-import com.duesclerk.custom.custom_utilities.VolleyUtils;
+import com.duesclerk.custom.custom_utilities.application.ApplicationClass;
+import com.duesclerk.custom.custom_utilities.application.BroadCastUtils;
+import com.duesclerk.custom.custom_utilities.application.ViewsUtils;
+import com.duesclerk.custom.custom_utilities.application.VolleyUtils;
+import com.duesclerk.custom.custom_utilities.user_data.DataUtils;
+import com.duesclerk.custom.custom_utilities.user_data.InputFiltersUtils;
+import com.duesclerk.custom.custom_utilities.user_data.UserAccountUtils;
 import com.duesclerk.custom.custom_views.toast.CustomToast;
 import com.duesclerk.custom.network.InternetConnectivity;
 import com.duesclerk.custom.network.NetworkTags;
@@ -52,7 +52,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.duesclerk.custom.custom_utilities.ViewsUtils.showProgressDialog;
+import static com.duesclerk.custom.custom_utilities.application.ViewsUtils.showProgressDialog;
 
 @SuppressWarnings("rawtypes")
 @SuppressLint("ValidFragment")
