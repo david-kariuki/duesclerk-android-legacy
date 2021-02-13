@@ -55,6 +55,7 @@
     <!--Outlines-->
     <dimen name="dimen_outlines_corners">25dp</dimen>
     <dimen name="dimen_outlines_radius">10dp</dimen>
+    <dimen name="dimen_outlines_radius_dialogs">25dp</dimen>
     <dimen name="dimen_outlines_stroke_width_small">.8dp</dimen>
     <dimen name="dimen_outlines_stroke_width_medium">1.2dp</dimen>
     <dimen name="dimen_outlines_bs_radius">25dp</dimen>
