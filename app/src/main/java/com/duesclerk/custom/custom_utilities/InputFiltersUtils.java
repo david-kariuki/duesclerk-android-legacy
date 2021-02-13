@@ -533,9 +533,39 @@ public class InputFiltersUtils {
             editText.setError(DataUtils.getStringResource(context,
                     R.string.error_debt_amount_null));
 
+        } else if (editText.getText().toString().endsWith(".")) {
+
+            // Toast error message
+            CustomToast.errorMessage(context, DataUtils.getStringResource(context,
+                    R.string.error_debt_amount_ends_with_period),
+                    R.drawable.ic_baseline_attach_money_24_white);
+
+            // Enable error icon
+            editText.setError(DataUtils.getStringResource(context,
+                    R.string.error_debt_amount_ends_with_period));
         } else {
 
-            return true; // Return true on value acceptable
+            try {
+
+                if (Integer.parseInt(editText.getText().toString()) == 0) {
+
+                    // Toast error message
+                    CustomToast.errorMessage(context, DataUtils.getStringResource(context,
+                            R.string.error_debt_amount_zero),
+                            R.drawable.ic_baseline_attach_money_24_white);
+
+                    // Enable error icon
+                    editText.setError(DataUtils.getStringResource(context,
+                            R.string.error_debt_amount_zero));
+
+                } else {
+
+                    return true; // Return true on value acceptable
+                }
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
         }
 
         return false; // Return false on value not acceptable

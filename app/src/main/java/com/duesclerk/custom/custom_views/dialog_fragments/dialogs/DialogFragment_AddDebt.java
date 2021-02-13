@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -152,8 +152,8 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
 
         // Set width to match parent and height to wrap content
         Window window = dialogAddContact.getWindow();
-        window.setLayout(ScrollView.LayoutParams.MATCH_PARENT,
-                ScrollView.LayoutParams.WRAP_CONTENT);
+        window.setLayout(RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
 
         // Set dialog transparent background
         dialogAddContact.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

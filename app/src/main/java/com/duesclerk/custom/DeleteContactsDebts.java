@@ -6,9 +6,12 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -134,7 +137,17 @@ public class DeleteContactsDebts {
             }
         });
 
+        // Set width to match parent and height to wrap content
+        Window window = dialog.getWindow();
+
+        window.setLayout(RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // Remove window title
+
+        // Set dialog transparent background
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
         dialog.setContentView(dialogView); // Set content view
         dialog.create(); // Create dialog
         dialog.show(); // Show dialog

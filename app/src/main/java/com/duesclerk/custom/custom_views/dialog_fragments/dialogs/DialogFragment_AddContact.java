@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
@@ -18,7 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.ScrollView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -220,8 +219,8 @@ public class DialogFragment_AddContact extends DialogFragment {
 
         // Set width to match parent and height to wrap content
         Window window = dialogAddContact.getWindow();
-        window.setLayout(ScrollView.LayoutParams.MATCH_PARENT,
-                ScrollView.LayoutParams.WRAP_CONTENT);
+        window.setLayout(RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
 
         // Set dialog transparent background
         dialogAddContact.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -395,7 +394,7 @@ public class DialogFragment_AddContact extends DialogFragment {
     private void setSelectedContactInfo(Contact contact) {
 
         // Get required data
-        Uri photoUri = contact.getPhotoUri();
+        // Uri photoUri = contact.getPhotoUri();
         String fullName = (contact.getFirstName() + " " + contact.getLastName())
                 .replace("---", "").trim();
         String phoneNumber = getAllPhoneNumberTypesValues(contact); // Get all phone number types
