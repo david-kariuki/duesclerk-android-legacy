@@ -47,6 +47,7 @@ import com.duesclerk.custom.network.InternetConnectivity;
 import com.duesclerk.custom.network.NetworkTags;
 import com.duesclerk.custom.network.NetworkUrls;
 import com.duesclerk.custom.storage_adapters.UserDatabase;
+import com.duesclerk.interfaces.Interface_Debts;
 import com.duesclerk.interfaces.Interface_IDS;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.appbar.AppBarLayout;
@@ -61,13 +62,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
-        AppBarLayout.OnOffsetChangedListener, Interface_IDS {
+        AppBarLayout.OnOffsetChangedListener, Interface_IDS, Interface_Debts {
 
     // Get class simple name
-    // private final String TAG = ContactDetailsAndDebtsActivity.class.getSimpleName();
+    private final String TAG = ContactDetailsAndDebtsActivity.class.getSimpleName();
 
     RelativeLayout rlNoConnection;
-    FloatingActionButton fabAddDebt;
+    FloatingActionButton fabAddDebt, fabDeleteSelectedDebts;
     RVLA_Debts rvlaDebts;
     private Context mContext;
     private TextView textTitle, textContactFullName, textContactPhoneNumber, textContactEmailAddress,
@@ -87,6 +88,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
     private SearchView searchView;
     private DialogFragment_UpdateContact dialogFragmentEditContact;
     private DeleteContactsDebts deleteContactsOrDebts;
+    private ImageView imageDeleteDebts, imageHideCheckBoxes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +101,8 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         textTitle = findViewById(R.id.textContactDetailsAndDebtsActivity_Title);
         appBarLayout = findViewById(R.id.appBarLayout);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshContactDetailsAndDebtsActivity);
+        imageDeleteDebts = findViewById(R.id.imageContactDetailsAndDebtsActivity_DeleteDebts);
+        imageHideCheckBoxes = findViewById(R.id.imageContactDetailsAndDebtsActivity_HideCheckBoxes);
 
         LinearLayout llEditContact = findViewById(
                 R.id.llContactDetailsAndDebtsActivity_EditContact);
@@ -107,22 +111,29 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
 
         llContactDetails = findViewById(R.id.llContactDetailsAndDebtsActivity_ContactDetails);
         LinearLayout llNoConnectionTryAgain = findViewById(R.id.llNoConnection_TryAgain);
-        llNoDebts = findViewById(R.id.llDebts_NoDebt);
+        llNoDebts = findViewById(R.id.llContactDetailsAndDebts_NoDebt);
         LinearLayout llAddDebt = findViewById(R.id.llNoDebts_AddDebt);
 
         rlNoConnection = findViewById(R.id.rlContactDetailsAndDebtsActivity_NoConnection);
 
         recyclerView = findViewById(R.id.recyclerViewDebts);
         fabAddDebt = findViewById(R.id.fabContactDetailsAndDebtsActivity_AddDebt);
+        fabDeleteSelectedDebts = findViewById(
+                R.id.fabContactDetailsAndDebtsActivity_DeleteDebts);
 
-        textContactFullName = findViewById(R.id.textContactDetailsAndDebtsActivity_ContactFullName);
-        textContactPhoneNumber = findViewById(R.id.textContactDetailsAndDebtsActivity_ContactPhoneNumber);
-        textContactEmailAddress = findViewById(R.id.textContactDetailsAndDebtsActivity_ContactEmailAddress);
+        textContactFullName = findViewById(
+                R.id.textContactDetailsAndDebtsActivity_ContactFullName);
+        textContactPhoneNumber = findViewById(
+                R.id.textContactDetailsAndDebtsActivity_ContactPhoneNumber);
+        textContactEmailAddress = findViewById(
+                R.id.textContactDetailsAndDebtsActivity_ContactEmailAddress);
         textContactAddress = findViewById(R.id.textContactDetailsAndDebtsActivity_ContactAddress);
-        textDebtsTotalAmount = findViewById(R.id.textContactDetailsAndDebtsActivity_DebtsTotalAmount);
+        textDebtsTotalAmount = findViewById(
+                R.id.textContactDetailsAndDebtsActivity_DebtsTotalAmount);
         textNoDebtMessage = findViewById(R.id.textNoDebt_Message);
 
         shimmerContactDetails = findViewById(R.id.shimmerContactDetailsAndDebtsActivity);
+
 
         // RecyclerView LayoutManager
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL,
@@ -157,13 +168,13 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         // Get intent and values passed
         Intent intent = getIntent();
 
-        this.contactId = intent.getStringExtra(ContactUtils.FIELD_CONTACT_ID); // Get contact id
-        this.contactFullName = intent.getStringExtra(ContactUtils.FIELD_CONTACT_FULL_NAME);
-        this.contactType = intent.getStringExtra(ContactUtils.FIELD_CONTACT_TYPE);
+//        this.contactId = intent.getStringExtra(ContactUtils.FIELD_CONTACT_ID); // Get contact id
+//        this.contactFullName = intent.getStringExtra(ContactUtils.FIELD_CONTACT_FULL_NAME);
+//        this.contactType = intent.getStringExtra(ContactUtils.FIELD_CONTACT_TYPE);
 
-//        this.contactId = "contact79cd3601dd0e36b15e896665c86f94d6"; // Get contact id
-//        this.contactFullName = "Abraham";
-//        this.contactType = "ContactTypePeopleOwingMe";
+        this.contactId = "contacte575defea17103b617c9cab3f68246e9"; // Get contact id
+        this.contactFullName = "Abraham";
+        this.contactType = "ContactTypePeopleOwingMe";
 
         // Set activity title
         setActivityTitle(contactType, contactFullName);
@@ -185,6 +196,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
 
         database = new UserDatabase(mContext); // Initialize database
 
+        // Initialize delete contacts or debts class
         deleteContactsOrDebts = new DeleteContactsDebts(ContactDetailsAndDebtsActivity.this);
 
         // SwipeRefreshLayout listener
@@ -248,6 +260,24 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                     dialogFragmentAddDebt, true);
         });
 
+        // FAB delete debts onClick
+        fabDeleteSelectedDebts.setOnClickListener(v -> {
+
+            // Get selected debt ids
+            String[] debtIds = rvlaDebts.getCheckedDebtsIds();
+
+            // Check if debt ids
+            if (!DataUtils.isEmptyStringArray(debtIds)) {
+
+                // Delete multiple debts
+                deleteContactsOrDebts.confirmAndDeleteContactsOrDebts(false,
+                        contactFullName, contactId, debtIds);
+
+                // Empty selected debt ids ArrayList
+                DataUtils.clearArrayList(rvlaDebts.checkedDebtsIds);
+            }
+        });
+
         // LinearLayout add debt onClick
         llAddDebt.setOnClickListener(v -> {
 
@@ -263,15 +293,38 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         });
 
         // Delete contact onClick - Show delete contact confirmation
-        llDeleteContact.setOnClickListener(v -> {
+        llDeleteContact.setOnClickListener(v ->
 
-                    // Delete contact
-                    deleteContactsOrDebts.confirmAndDeleteContactsOrDebts(
-                            true, contactFullName,
-                            database.getUserAccountInfo(null).get(0).getUserId(),
-                            new String[]{contactId});
-                }
-        );
+                // Delete contact
+                deleteContactsOrDebts.confirmAndDeleteContactsOrDebts(
+                        true, contactFullName,
+                        database.getUserAccountInfo(null).get(0).getUserId(),
+                        new String[]{contactId}));
+
+        // Delete debts onClick
+        imageDeleteDebts.setOnClickListener(v -> {
+
+            // Check if CheckBoxes are not showing
+            if (!rvlaDebts.showingCheckBoxes()) {
+
+                showDeleteButton(false); // Hide delete button
+                rvlaDebts.setShownListCheckBoxes(true); // Show list CheckBoxes
+                fabAddDebt.setVisibility(View.GONE); // Hide add debt FAB
+            }
+        });
+
+        // Hide CheckBoxes onClick
+        imageHideCheckBoxes.setOnClickListener(v -> {
+
+            // Check if CheckBoxes are showing
+            if (rvlaDebts.showingCheckBoxes()) {
+
+                rvlaDebts.setShownListCheckBoxes(false); // Hide list CheckBoxes
+                showDeleteButton(true); // Show delete button
+                showFabAddDebt(true); // Show FAB add debt
+                showFabDeleteSelectedDebts(false); // Hide FAB delete selected debt records
+            }
+        });
 
         // Create ItemTouchHelper call back
         ItemTouchHelper.SimpleCallback touchHelperCallback = new ItemTouchHelper.SimpleCallback(
@@ -397,12 +450,23 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         // Check if adapter is empty
         if (rvlaDebts != null) {
 
-            // Check for expanded views in RecyclerView adapter
-            if (rvlaDebts.isExpandedOptionsOrDetails()) {
+            // CheckBoxes hidden and Expandable views collapsed
+            if (rvlaDebts.showingCheckBoxes() || rvlaDebts.isExpandedOptionsOrDetails()) {
 
-                // Collapse expanded views in RecyclerView adapter
-                rvlaDebts.setCollapsedExpandedLayouts();
+                if (rvlaDebts.showingCheckBoxes()) {
+                    // CheckBoxes showing
 
+                    // Hide CheckBoxes
+                    rvlaDebts.setShownListCheckBoxes(false);
+                    showDeleteButton(true); // Show delete button
+                }
+
+                if (rvlaDebts.isExpandedOptionsOrDetails()) {
+                    // Views expanded in RecyclerView adapter
+
+                    // Collapse expanded views in RecyclerView adapter
+                    rvlaDebts.setCollapsedExpandedLayouts(false);
+                }
             } else {
 
                 super.onBackPressed(); // EXit activity
@@ -457,15 +521,33 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
      *
      * @param show - boolean - (show / hide view)
      */
-    private void showAddDebtFab(boolean show) {
+    private void showFabAddDebt(boolean show) {
 
         if (show) {
 
             fabAddDebt.setVisibility(View.VISIBLE); // Show FAB
+            showFabDeleteSelectedDebts(false); // Hide delete debts FAB
 
         } else {
 
             fabAddDebt.setVisibility(View.GONE); // Hide FAB
+        }
+    }
+
+    /**
+     * Function to show / hide delete selected debts fab
+     *
+     * @param show - boolean - (show / hide view)
+     */
+    private void showFabDeleteSelectedDebts(boolean show) {
+
+        if (show) {
+
+            fabDeleteSelectedDebts.setVisibility(View.VISIBLE); // Show FAB
+
+        } else {
+
+            fabDeleteSelectedDebts.setVisibility(View.GONE); // Hide FAB
         }
     }
 
@@ -543,6 +625,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
 
             llNoDebts.setVisibility(View.VISIBLE); // Show no debts layout
             showRecyclerView(false); // Hide RecyclerView
+            imageHideCheckBoxes.setVisibility(View.GONE); // Hide (hide CheckBoxes button
 
         } else {
 
@@ -572,6 +655,23 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         }
 
         showNoConnectionLayout(!connected); // Show / hide no connection layout
+    }
+
+    /**
+     * Function to show / hide delete button and (Hide CheckBoxes) button
+     */
+    private void showDeleteButton(boolean show) {
+
+        if (show) {
+
+            imageDeleteDebts.setVisibility(View.VISIBLE); // Show delete button
+            imageHideCheckBoxes.setVisibility(View.GONE); // Hide (Hide delete) button
+
+        } else {
+
+            imageDeleteDebts.setVisibility(View.GONE); // HIde delete button
+            imageHideCheckBoxes.setVisibility(View.VISIBLE); // Show (Hide delete) button
+        }
     }
 
     @Override
@@ -609,7 +709,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                 // Log Response
                 // Log.d(TAG, "Fetching contact data response:" + response);
 
-                showAddDebtFab(false); // Hide add debt FAB
+                showFabAddDebt(false); // Hide add debt FAB
 
                 // Hide SwipeRefreshLayout
                 ViewsUtils.showSwipeRefreshLayout(false, true,
@@ -796,7 +896,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
 
                 showContactDetails(true); // Show contact details
 
-                showAddDebtFab(true); // Show add debt FAB
+                showFabAddDebt(true); // Show add debt FAB
 
                 // Pass contact details to
                 dialogFragmentEditContact.setContactDetails(contactId, contactFullName,
@@ -882,6 +982,8 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                     rvlaDebts.notifyDataSetChanged(); // Notify Data Set Changed
 
                     showSearchView(true); // Show SearchView
+                    showDeleteButton(true); // Show delete button
+
                 } else {
 
                     showNoDebtsLayout(true); // Show no debts view
@@ -898,7 +1000,6 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
 
     @Override
     public void passContactsIds(String[] contactsIds) {
-
     }
 
     @Override
@@ -907,5 +1008,14 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         // Delete debt
         deleteContactsOrDebts.confirmAndDeleteContactsOrDebts(false, contactFullName,
                 this.contactId, debtsIds);
+
+        // Empty selected debt ids ArrayList
+        DataUtils.clearArrayList(rvlaDebts.checkedDebtsIds);
+    }
+
+    @Override
+    public void showDeleteDebtsFab(boolean show) {
+
+        showFabDeleteSelectedDebts(show); // Show / hide fab delete selected debts
     }
 }
