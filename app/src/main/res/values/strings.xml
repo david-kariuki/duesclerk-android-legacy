@@ -76,6 +76,7 @@
     <string name="hint_debt_type_you_owe">You owe</string>
     <string name="hint_debt_type_you_are_owed">You are owed</string>
     <string name="hint_not_provided">Not provided</string>
+    <string name="hint_name_abbreviation">N</string>
 
     <!--Actions-->
     <string name="action_sign_in">Sign In</string>
