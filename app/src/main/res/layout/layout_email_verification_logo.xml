@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_margin="6dp"
-                android:background="@drawable/circle_border_primary_dark_fill_primary"
+                android:background="@drawable/circle_border_primary_fill_primary"
                 android:clipToPadding="false"
                 android:minWidth="75dp"
                 android:minHeight="75dp">
