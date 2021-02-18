@@ -21,6 +21,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 public class DataUtils {
     /*
      * This class contains functions/methods for data manipulation(For one single point of change)
