@@ -4,7 +4,8 @@ public class JB_Debts {
 
     private String debtId, debtAmount, debtDateIssued, debtDateDue, debtDescription, contactId,
             contactType, userId;
-    private boolean isExpandedDebtsOptionsMenu = false, isExpandedDebtsDetailsLayout = false;
+    private boolean expandedDebtsOptionsMenu = false, expandedDebtsDetailsLayout = false;
+    private boolean showingCheckBox = false, checkedBox = false, shownButtonsLayout = true;
 
     /**
      * Default constructor
@@ -35,6 +36,7 @@ public class JB_Debts {
      * Function to get debt id
      */
     public String getDebtId() {
+
         return debtId;
     }
 
@@ -44,6 +46,7 @@ public class JB_Debts {
      * @param debtId - Debt id
      */
     public void setDebtId(String debtId) {
+
         this.debtId = debtId;
     }
 
@@ -51,6 +54,7 @@ public class JB_Debts {
      * Function to get debt amount
      */
     public String getDebtAmount() {
+
         return debtAmount;
     }
 
@@ -60,6 +64,7 @@ public class JB_Debts {
      * @param debtAmount - Debt amount
      */
     public void setDebtAmount(String debtAmount) {
+
         this.debtAmount = debtAmount;
     }
 
@@ -67,6 +72,7 @@ public class JB_Debts {
      * Function to get date debt incurred
      */
     public String getDebtDateIssued() {
+
         return debtDateIssued;
     }
 
@@ -76,6 +82,7 @@ public class JB_Debts {
      * @param dateDebtIssued - Date debt incurred
      */
     public void setDebtDateIssued(String dateDebtIssued) {
+
         this.debtDateIssued = dateDebtIssued;
     }
 
@@ -83,6 +90,7 @@ public class JB_Debts {
      * Function to get date debt due
      */
     public String getDebtDateDue() {
+
         return debtDateDue;
     }
 
@@ -92,6 +100,7 @@ public class JB_Debts {
      * @param debtDateDue - Date debt due
      */
     public void setDebtDateDue(String debtDateDue) {
+
         this.debtDateDue = debtDateDue;
     }
 
@@ -99,6 +108,7 @@ public class JB_Debts {
      * Function to get debt description
      */
     public String getDebtDescription() {
+
         return debtDescription;
     }
 
@@ -108,6 +118,7 @@ public class JB_Debts {
      * @param debtDescription - Debt description
      */
     public void setDebtDescription(String debtDescription) {
+
         this.debtDescription = debtDescription;
     }
 
@@ -124,6 +135,7 @@ public class JB_Debts {
      * @param contactId - Contact id
      */
     public void setContactId(String contactId) {
+
         this.contactId = contactId;
     }
 
@@ -131,6 +143,7 @@ public class JB_Debts {
      * Function to get contact type
      */
     public String getContactType() {
+
         return contactType;
     }
 
@@ -140,6 +153,7 @@ public class JB_Debts {
      * @param contactType - Contact type
      */
     public void setContactType(String contactType) {
+
         this.contactType = contactType;
     }
 
@@ -147,6 +161,7 @@ public class JB_Debts {
      * Function to get user id
      */
     public String getUserId() {
+
         return userId;
     }
 
@@ -156,6 +171,7 @@ public class JB_Debts {
      * @param userId - User id
      */
     public void setUserId(String userId) {
+
         this.userId = userId;
     }
 
@@ -163,31 +179,89 @@ public class JB_Debts {
      * Function to check if debts details layout is expanded
      */
     public boolean isExpandedDebtDetailsLayout() {
-        return this.isExpandedDebtsDetailsLayout;
+
+        return this.expandedDebtsDetailsLayout;
     }
 
     /**
      * Function to set debts details layout to expanded
      *
-     * @param isExpandedDebtsDetailsLayout - Set debts details layout to expanded value
+     * @param setExpandedDebtsDetailsLayout - Set debts details layout to expanded value
      */
-    public void setExpandedDebtDetailsLayout(boolean isExpandedDebtsDetailsLayout) {
-        this.isExpandedDebtsDetailsLayout = isExpandedDebtsDetailsLayout;
+    public void setExpandedDebtDetailsLayout(boolean setExpandedDebtsDetailsLayout) {
+
+        this.expandedDebtsDetailsLayout = setExpandedDebtsDetailsLayout;
     }
 
     /**
      * Function to check if debts option menu is expanded
      */
     public boolean isExpandedDebtOptionsMenu() {
-        return this.isExpandedDebtsOptionsMenu;
+
+        return this.expandedDebtsOptionsMenu;
     }
 
     /**
      * Function to set debts options menu to expanded
      *
-     * @param isExpandedDebtsOptionsMenu - Set debts options menu to expanded value
+     * @param setExpandedDebtsOptionsMenu - Set debts options menu to expanded value
      */
-    public void setExpandedDebtOptionsMenu(boolean isExpandedDebtsOptionsMenu) {
-        this.isExpandedDebtsOptionsMenu = isExpandedDebtsOptionsMenu;
+    public void setExpandedDebtOptionsMenu(boolean setExpandedDebtsOptionsMenu) {
+
+        this.expandedDebtsOptionsMenu = setExpandedDebtsOptionsMenu;
+    }
+
+    /**
+     * Function to check if CheckBox is showing
+     */
+    public boolean showingCheckbox() {
+
+        return this.showingCheckBox;
+    }
+
+    /**
+     * Function to set CheckBox to shown
+     *
+     * @param showCheckBox - Set CheckBox showing value
+     */
+    public void setShowCheckBox(boolean showCheckBox) {
+
+        this.showingCheckBox = showCheckBox;
+    }
+
+    /**
+     * Function to check if CheckBox is checked
+     */
+    public boolean checkBoxChecked() {
+
+        return this.checkedBox;
+    }
+
+    /**
+     * Function to set CheckBox to checked
+     *
+     * @param checked - Set CheckBox checked
+     */
+    public void setCheckBoxChecked(boolean checked) {
+
+        this.checkedBox = checked;
+    }
+
+    /**
+     * Function to check if CheckBox is checked
+     */
+    public boolean isShownButtonsLayout() {
+
+        return this.shownButtonsLayout;
+    }
+
+    /**
+     * Function to set buttons layout to shown
+     *
+     * @param shown - Set buttons layout to shown
+     */
+    public void setShownButtonsLayout(boolean shown) {
+
+        this.shownButtonsLayout = shown;
     }
 }

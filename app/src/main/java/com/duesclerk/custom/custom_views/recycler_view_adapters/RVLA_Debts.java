@@ -6,19 +6,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.CheckBox;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.duesclerk.R;
+import com.duesclerk.activities.ContactDetailsAndDebtsActivity;
 import com.duesclerk.custom.custom_utilities.application.ViewsUtils;
 import com.duesclerk.custom.custom_utilities.user_data.ContactUtils;
 import com.duesclerk.custom.custom_utilities.user_data.DataUtils;
 import com.duesclerk.custom.java_beans.JB_Debts;
+import com.duesclerk.interfaces.Interface_Debts;
 import com.duesclerk.interfaces.Interface_IDS;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
@@ -32,11 +36,13 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
 
     private final Context mContext;
     private final ArrayList<JB_Debts> filterList;
+    private final Interface_IDS interfaceIds;
+    private final Interface_Debts interfaceDebts;
+    public final ArrayList<String> checkedDebtsIds;
     private ArrayList<JB_Debts> debts;
     private int lastPosition = 0;
     private DebtsFilter debtsFilter;
     private View viewHolderView; // ViewHolder view
-    private Interface_IDS interfaceIds;
 
     /**
      * Class constructor
@@ -45,12 +51,18 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
      * @param debts   - ArrayList with debts
      */
     public RVLA_Debts(Context context,
-                      ArrayList<JB_Debts> debts, Interface_IDS interfaceIds) {
+                      ArrayList<JB_Debts> debts,
+                      ContactDetailsAndDebtsActivity contactDetailsAndDebtsActivity) {
 
         this.mContext = context;
         this.debts = debts;
         this.filterList = debts;
-        this.interfaceIds = interfaceIds;
+
+        // Initialize interface
+        this.interfaceIds = contactDetailsAndDebtsActivity;
+        this.interfaceDebts = contactDetailsAndDebtsActivity;
+
+        checkedDebtsIds = new ArrayList<>(); // Initialize ArrayList
     }
 
     @Override
@@ -97,42 +109,67 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
         holder.textDateDebtIssued.setText(debts.get(position).getDebtDateIssued());
         holder.textDateDebtDue.setText(debts.get(position).getDebtDateDue());
 
-        // Check if menu at current position is showing
-        if (debts.get(position).isExpandedDebtOptionsMenu()) {
+        // Check if buttons layout is shown so as to show options buttons
+        if (debts.get(position).isShownButtonsLayout()) {
+            // Layout buttons shown
 
-            // Hide ConstraintLayout with debt options
-            holder.consDebtOptions.setVisibility(View.GONE);
+            holder.llButtons.setVisibility(View.VISIBLE); // Show buttons layout
 
-            // Expand debt options menu
-            ViewsUtils.expandExpandableLayout(true, holder.expandableDebtMenu);
+            // Check if debt menu at current position is showing
+            if (debts.get(position).isExpandedDebtOptionsMenu()) {
 
+                // Hide ConstraintLayout with debt options
+                holder.consDebtOptions.setVisibility(View.GONE);
+
+                // Expand debt options menu
+                ViewsUtils.expandExpandableLayout(true, holder.expandableDebtMenu);
+
+            } else {
+
+                // Collapse debt options menu
+                ViewsUtils.expandExpandableLayout(false, holder.expandableDebtMenu);
+
+                // Show ConstraintLayout with debt options
+                holder.consDebtOptions.setVisibility(View.VISIBLE);
+            }
+
+            // Check if menu at current position is showing
+            if (debts.get(position).isExpandedDebtDetailsLayout()) {
+
+                // Show ConstraintLayout with debt options
+                holder.consDebtOptions.setVisibility(View.VISIBLE);
+
+                // Expand ExpandableLayout
+                ViewsUtils.expandExpandableLayout(true, holder.expandableDebtDetails);
+
+                // Rotate dropdown icon to invert it
+                holder.imageDebtDetailsDropDown.setRotation(180);
+
+            } else {
+
+                // Expand ExpandableLayout
+                ViewsUtils.expandExpandableLayout(false, holder.expandableDebtDetails);
+
+                holder.imageDebtDetailsDropDown.setRotation(0); // Revert image rotation
+            }
         } else {
 
-            // Collapse debt options menu
-            ViewsUtils.expandExpandableLayout(false, holder.expandableDebtMenu);
-
-            // Show ConstraintLayout with debt options
-            holder.consDebtOptions.setVisibility(View.VISIBLE);
+            holder.llButtons.setVisibility(View.GONE); // Hide buttons layout
         }
 
-        // Check if menu at current position is showing
-        if (debts.get(position).isExpandedDebtDetailsLayout()) {
+        // Check if CheckBox at current position is shown
+        if (debts.get(position).showingCheckbox()) {
 
-            // Show ConstraintLayout with debt options
-            holder.consDebtOptions.setVisibility(View.VISIBLE);
+            holder.checkBox.setVisibility(View.VISIBLE); // Show CheckBox
+            holder.llDebtNumber.setVisibility(View.GONE); // Hide debt number
 
-            // Expand ExpandableLayout
-            ViewsUtils.expandExpandableLayout(true, holder.expandableDebtDetails);
-
-            // Rotate dropdown icon to invert it
-            holder.imageDebtDetailsDropDown.setRotation(180);
+            // Check / UnCheck CheckBox
+            holder.checkBox.setChecked(debts.get(position).checkBoxChecked());
 
         } else {
 
-            // Expand ExpandableLayout
-            ViewsUtils.expandExpandableLayout(false, holder.expandableDebtDetails);
-
-            holder.imageDebtDetailsDropDown.setRotation(0); // Revert image rotation
+            holder.checkBox.setVisibility(View.GONE); // Hide CheckBox
+            holder.llDebtNumber.setVisibility(View.VISIBLE); // Show debt number
         }
 
         // Debts list item OnClick
@@ -142,9 +179,9 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
 
                 // Set debt options menu to expanded
                 setExpandedDebtOptionsMenu(false, position);
+            }
 
-            } else {
-                // Start Debts activity
+            // Start Debts activity
 //                Intent intent = new Intent(v.getContext(), ContactDetailsAndDebtsActivity.class);
 //
 //                // Pass contact id
@@ -156,15 +193,16 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
 //                        .get(position).getContactId());
 //
 //                v.getContext().startActivity(intent);
-            }
         });
 
         // List item onLongClick
         holder.consContactItem.setOnLongClickListener(v -> {
 
-            // Show / Hide debt item menu based on current state
-            setExpandedDebtOptionsMenu(!debts.get(position).isExpandedDebtOptionsMenu(), position);
+            if (!showingCheckBoxes()) {
 
+                // Show / Hide debt item menu based on current state
+                setExpandedDebtOptionsMenu(!debts.get(position).isExpandedDebtOptionsMenu(), position);
+            }
             return true; // Return true
         });
 
@@ -190,10 +228,34 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
         // Menu items onClick
         holder.imageDeleteDebt.setOnClickListener(v -> {
 
-            // Pass debts ids to interface
-            interfaceIds.passDebtsIds(new String[]{debts.get(position).getDebtId()});
+            // Add debt id to checked debt ids
+            checkedDebtsIds.add(debts.get(position).getDebtId());
 
             setExpandedDebtOptionsMenu(false, position); // Collapse debt item menu
+
+            // Pass debts ids to interface
+            interfaceIds.passDebtsIds(getCheckedDebtsIds());
+
+        });
+
+        holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
+            // Set CheckBox checked to true / false
+            debts.get(position).setCheckBoxChecked(isChecked);
+
+            if (isChecked) {
+
+                // Add debt id to checked debts ids
+                checkedDebtsIds.add(debts.get(position).getDebtId());
+
+            } else {
+
+                // Remove debt id to checked debts ids
+                checkedDebtsIds.remove(debts.get(position).getDebtId());
+            }
+
+            // Show / Hide delete debts FAB if any CheckBox is checked
+            interfaceDebts.showDeleteDebtsFab(anyCheckBoxChecked());
         });
 
         setAnimation(holder.itemView, position); // Set animation
@@ -289,17 +351,68 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
 
     /**
      * Function to collapse debts options menu and debt details
+     *
+     * @param calledWithinAdapter - To prevent multiple calling of notifyDataSetChanged()
+     *                            within methods
      */
-    public void setCollapsedExpandedLayouts() {
+    public void setCollapsedExpandedLayouts(boolean calledWithinAdapter) {
 
         // Loop through debts list
         for (int i = 0; i < debts.size(); i++) {
 
+            // Set debt options menu to expanded
             debts.get(i).setExpandedDebtOptionsMenu(false);
+
+            // Set debt details layout to expanded
             debts.get(i).setExpandedDebtDetailsLayout(false);
         }
 
+        // Check if (method called within adapter) value is false
+        if (!calledWithinAdapter) {
+
+            notifyDataSetChanged(); // Notify data set changed
+        }
+    }
+
+    /**
+     * Function to set CheckBoxes to shown
+     */
+    public void setShownListCheckBoxes(boolean setShown) {
+
+        // Loop through debts list
+        for (int i = 0; i < debts.size(); i++) {
+
+            if (setShown) {
+
+                // Show CheckBox at position
+                debts.get(i).setShowCheckBox(true);
+
+            } else {
+
+                debts.get(i).setCheckBoxChecked(false); // Set CheckBox to unChecked
+                debts.get(i).setShowCheckBox(false); // Hide CheckBox at position
+            }
+        }
+
+        setCollapsedExpandedLayouts(true); // Expand other expanded layout
+        setShownButtonsLayout(!setShown); // Hide buttons layout
+
         notifyDataSetChanged(); // Notify data set changed
+    }
+
+    /**
+     * Function to set buttons layout to shown
+     *
+     * @param setShown - Hidden / shown
+     */
+    public void setShownButtonsLayout(boolean setShown) {
+
+        // Loop through debts list
+        for (int i = 0; i < debts.size(); i++) {
+
+            // Show CheckBox at position
+            debts.get(i).setShownButtonsLayout(setShown);
+        }
     }
 
     /**
@@ -310,13 +423,74 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
         // Loop through debts list
         for (int i = 0; i < debts.size(); i++) {
 
+            // Check if debt option menu or debt details layout is expanded
             if (debts.get(i).isExpandedDebtOptionsMenu()
                     || debts.get(i).isExpandedDebtDetailsLayout()) {
-                return true;
+
+                return true; // Return true
             }
         }
 
-        return false;
+        return false; //  Return false
+    }
+
+    /**
+     * Function to check if CheckBoxes are shown
+     */
+    public boolean showingCheckBoxes() {
+
+        // Loop through debts list
+        for (int i = 0; i < debts.size(); i++) {
+
+            // Check if CheckBox is shown
+            if (debts.get(i).showingCheckbox()) {
+
+                return true; // Return true
+            }
+        }
+
+        return false; //  Return false
+    }
+
+    /**
+     * Function to set CheckBoxes to shown
+     */
+    public void uncheck() {
+
+        // Loop through debts list
+        for (int i = 0; i < debts.size(); i++) {
+
+            debts.get(i).setCheckBoxChecked(false); // Set CheckBox to unChecked
+        }
+
+        notifyDataSetChanged(); // Notify data set changed
+    }
+
+    /**
+     * Function to check if any CheckBox has been checked
+     */
+    private boolean anyCheckBoxChecked() {
+
+        // Loop through debts list
+        for (int i = 0; i < debts.size(); i++) {
+
+            // Check if CheckBox is shown
+            if (debts.get(i).checkBoxChecked()) {
+
+                return true; // Return true
+            }
+        }
+
+        return false; //  Return false
+    }
+
+    /**
+     * Function to get checked debts ids
+     */
+    public String[] getCheckedDebtsIds() {
+
+        // Convert ArrayList to String array and return
+        return checkedDebtsIds.toArray(new String[0]);
     }
 
     @Override
@@ -343,6 +517,8 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
         ImageView imageDebtDetailsDropDown, imageDebtOptions;
         ImageView imageEditDebt, imageDeleteDebt, imageCollapseDebtOptionsMenu;
         ExpandableLayout expandableDebtDetails, expandableDebtMenu;
+        LinearLayout llDebtNumber, llButtons;
+        CheckBox checkBox;
 
         RecyclerViewHolder(View convertView) {
 
@@ -372,6 +548,13 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
             // Debt details and menu expandable layout
             expandableDebtDetails = convertView.findViewById(R.id.expandableDebt_Details);
             expandableDebtMenu = convertView.findViewById(R.id.expandableDebt_Menu);
+
+            // Debt number
+            llDebtNumber = convertView.findViewById(R.id.llDebt_DebtNumber);
+            llButtons = convertView.findViewById(R.id.llDebt_Buttons);
+
+            // CheckBox
+            checkBox = convertView.findViewById(R.id.cbDebt_CheckBox);
         }
 
         /**

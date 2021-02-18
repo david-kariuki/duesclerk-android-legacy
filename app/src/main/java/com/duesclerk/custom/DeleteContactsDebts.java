@@ -37,6 +37,7 @@ import com.duesclerk.custom.network.InternetConnectivity;
 import com.duesclerk.custom.network.NetworkTags;
 import com.duesclerk.custom.network.NetworkUrls;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.Arrays;
@@ -46,7 +47,7 @@ import java.util.Map;
 public class DeleteContactsDebts {
 
     // Get class simple name
-    // private final String TAG = DeleteContactsDebts.class.getSimpleName();
+    private final String TAG = DeleteContactsDebts.class.getSimpleName();
 
     private final Context mContext;
     private final Activity activity;
@@ -68,13 +69,20 @@ public class DeleteContactsDebts {
 
     /**
      * Function to create custom dialog to confirm contact deletion
+     *
+     * @param isContact          - Deleting contact or debt
+     * @param contactFullName    - Contacts full name
+     * @param userOrContactId    - User id or contact id
+     * @param contactsOrDebtsIds - Contacts or debts ids
      */
     public void confirmAndDeleteContactsOrDebts(final boolean isContact,
                                                 final String contactFullName,
                                                 String userOrContactId,
                                                 String[] contactsOrDebtsIds) {
 
-        Dialog dialog = new Dialog(activity);
+        Dialog dialog = new Dialog(activity); // Create and initialize Dialog
+
+        // Create and initialize layout inflater
         LayoutInflater inflater = (LayoutInflater)
                 mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -117,20 +125,20 @@ public class DeleteContactsDebts {
         // Delete contact onClick - Show delete contact confirmation
         textDeleteContactOrDebt.setOnClickListener(v -> {
 
-            // Set details
-
             dialog.dismiss(); // Dismiss dialog
 
             if (isContact) {
 
-                this.userId = userOrContactId;
+                this.userId = userOrContactId; // Set user id
+                DataUtils.clearStringArray(contactsIdsToDelete);
                 contactsIdsToDelete = contactsOrDebtsIds; // Set ids to contact ids
 
                 deleteContacts(); // Delete contacts
 
             } else {
 
-                this.contactIdForDebtsDeletion = userOrContactId;
+                this.contactIdForDebtsDeletion = userOrContactId; // Set contact id
+                DataUtils.clearStringArray(debtsIdsToDelete);
                 debtsIdsToDelete = contactsOrDebtsIds; // Set ids to debts ids
 
                 deleteDebts(); // Delete debts
@@ -228,7 +236,7 @@ public class DeleteContactsDebts {
 
                 // Log Response
                 // Log.e(TAG, "Delete contacts response error : "
-                //        + volleyError.getMessage());
+                //      + volleyError.getMessage());
 
                 ViewsUtils.dismissProgressDialog(progressDialog); // Hide Dialog
 
@@ -442,8 +450,14 @@ public class DeleteContactsDebts {
                     @SuppressWarnings({"unchecked", "rawtypes"}) Map<String, String> params =
                             new HashMap();
 
+                    JSONArray debtsIds = new JSONArray();
+                    for (String s : debtsIdsToDelete) {
+                        debtsIds.put(s);
+                        // create array and add items into that
+                    }
+
                     // Put debts ids to Map params
-                    params.put(DebtUtils.KEY_DEBTS_IDS, Arrays.toString(debtsIdsToDelete));
+                    params.put(DebtUtils.KEY_DEBTS_IDS, debtsIds.toString());
 
                     // Put userId to Map params
                     params.put(ContactUtils.FIELD_CONTACT_ID, contactIdForDebtsDeletion);

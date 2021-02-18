@@ -420,6 +420,24 @@
                 app:fabSize="auto"
                 app:tint="@color/colorWhite" />
 
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabContactDetailsAndDebtsActivity_DeleteDebts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginStart="@dimen/dimen_fab_margin_start"
+                android:layout_marginTop="@dimen/dimen_fab_margin_top"
+                android:layout_marginEnd="@dimen/dimen_fab_margin_end"
+                android:layout_marginBottom="@dimen/dimen_fab_margin_bottom"
+                android:backgroundTint="@color/colorPrimary"
+                android:contentDescription="@string/content_description_fab_add_debt_record"
+                android:elevation="@dimen/dimen_fab_elevation_small"
+                android:src="@drawable/ic_baseline_delete_forever_24_white"
+                android:visibility="gone"
+                app:borderWidth="0dp"
+                app:fabSize="auto"
+                app:tint="@color/colorWhite" />
+
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout>
 </LinearLayout>
