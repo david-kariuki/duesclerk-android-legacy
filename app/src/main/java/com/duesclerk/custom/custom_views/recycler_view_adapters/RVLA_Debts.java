@@ -83,6 +83,20 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
         holder.textDebtCount.setText(String.valueOf(position + 1));
         holder.textDebtAmount.setText(debts.get(position).getDebtAmount());
 
+        // Check ViewHolder position
+        if (position %2 == 0) {
+            // Position is even number
+
+            // Set background resource
+            holder.llDebtNumber.setBackgroundResource(R.drawable.circle_border_primary_fill_primary);
+
+        } else {
+            // Position is odd number
+
+            // Set background resource
+            holder.llDebtNumber.setBackgroundResource(R.drawable.circle_border_accent_fill_accent);
+        }
+
         // Check and set contact type
         String contactType = debts.get(position).getDebtAmount();
         if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME)) {

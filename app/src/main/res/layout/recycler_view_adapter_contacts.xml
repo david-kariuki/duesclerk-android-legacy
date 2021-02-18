@@ -13,31 +13,42 @@
     tools:context=".activities.MainActivity"
     tools:ignore="HardcodedText">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageContact_ContactPhoto"
-        android:layout_width="@dimen/dimen_image_view_icon_size_large"
-        android:layout_height="@dimen/dimen_image_view_icon_size_large"
+    <LinearLayout
+        android:id="@+id/llContact_ContactAvatar"
+        android:layout_width="@dimen/dimen_image_view_avatar_size_small"
+        android:layout_height="@dimen/dimen_image_view_avatar_size_small"
         android:layout_marginStart="10dp"
-        android:contentDescription="@string/content_description_icon_country_flag"
-        android:scaleType="centerCrop"
-        android:src="@drawable/img_placeholder_user_grey"
-        app:border_color="@color/colorPrimary"
-        app:border_width=".5dp"
+        android:background="@drawable/circle_border_primary_fill_primary"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="H,1:1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textContact_ContactAvatarText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="0dp"
+            android:hint="@string/hint_name_abbreviation"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorWhite"
+            android:textSize="@dimen/dimen_text_view_labels_size_normal"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="5dp"
         android:layout_marginEnd="10dp"
         android:background="@color/colorWhite"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/imageContact_ContactPhoto"
+        app:layout_constraintStart_toEndOf="@id/llContact_ContactAvatar"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout

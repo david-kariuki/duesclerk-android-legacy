@@ -32,15 +32,18 @@ public class DataUtils {
      * Check if JSONArray is empty.
      * Check if JSONObject is empty.
      * Check if ArrayList is empty.
+     * Clear string array
+     * Clear ArrayList
      * Convert dp(int/float) to pixels.
      * Get string resources with/without placeholders.
      * Get Color resources.
      * Get integer resources.
+     * Get dimen resource
      * Get animation.
      * Get image drawable by file name.
      * Get data from drawable in byte array.
      * Get SwipeRefreshLayout scheme colors.
-     * Filter network url.
+     * Initialize SearchView
      * */
 
 
@@ -409,5 +412,50 @@ public class DataUtils {
         bigDecimal = bigDecimal.setScale(decimalPoints, RoundingMode.DOWN);
 
         return bigDecimal.doubleValue(); // Return rounded double value
+    }
+
+    /**
+     * Function to convert string to title case
+     *
+     * @param string - Passed string
+     */
+    public static String stringToTitleCase(String string) {
+
+        // Check if String is null
+        if (string == null) {
+
+            return null;
+        }
+
+        boolean whiteSpace = true;
+
+        StringBuilder builder = new StringBuilder(string); // String builder to store string
+        final int builderLength = builder.length();
+
+        // Loop through builder
+        for (int i = 0; i < builderLength; ++i) {
+
+            char c = builder.charAt(i); // Get character at builders position
+
+            if (whiteSpace) {
+
+                // Check if character is not white space
+                if (!Character.isWhitespace(c)) {
+
+                    // Convert to title case and leave whitespace mode.
+                    builder.setCharAt(i, Character.toTitleCase(c));
+                    whiteSpace = false;
+                }
+            } else if (Character.isWhitespace(c)) {
+
+                whiteSpace = true; // Set character is white space
+
+            } else {
+
+                builder.setCharAt(i, Character.toLowerCase(c)); // Set character to lowercase
+            }
+        }
+
+        return builder.toString(); // Return builders text
     }
 }

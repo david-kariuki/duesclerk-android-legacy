@@ -227,7 +227,7 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
                 showSwipeRefreshLayout(true); // Show main layout
 
                 // Creating RecyclerView adapter object
-                rvlaContacts = new RVLA_Contacts(requireActivity(), contacts);
+                rvlaContacts = new RVLA_Contacts(contacts);
 
                 // Check for adapter observers
                 if (!rvlaContacts.hasObservers()) {

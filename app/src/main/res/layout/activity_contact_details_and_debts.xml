@@ -103,20 +103,32 @@
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal">
 
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:id="@+id/imageContactDetailsAndDebtsActivity_ContactPhoto"
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
+                                <LinearLayout
+                                    android:id="@+id/llContact_ContactAvatar"
+                                    android:layout_width="@dimen/dimen_image_view_avatar_size_small"
+                                    android:layout_height="@dimen/dimen_image_view_avatar_size_small"
                                     android:layout_marginStart="10dp"
-                                    android:contentDescription="@string/content_description_icon_country_flag"
-                                    android:scaleType="centerCrop"
-                                    android:src="@drawable/img_placeholder_user_grey"
-                                    app:border_color="@color/colorPrimary"
-                                    app:border_width="1dp"
+                                    android:background="@drawable/circle_border_primary_fill_primary"
+                                    android:gravity="center"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintDimensionRatio="H,1:1"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <TextView
+                                        android:id="@+id/textContactDetailsAndDebtsActivity_ContactAvatarText"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_margin="0dp"
+                                        android:hint="@string/hint_name_abbreviation"
+                                        android:textAllCaps="false"
+                                        android:textColor="@color/colorWhite"
+                                        android:textColorHint="@color/colorWhite"
+                                        android:textSize="@dimen/dimen_text_view_labels_size_normal"
+                                        android:textStyle="bold"
+                                        tools:ignore="TooDeepLayout" />
+                                </LinearLayout>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"

@@ -29,7 +29,7 @@
             android:id="@+id/llDebt_DebtNumber"
             android:layout_width="@dimen/dimen_image_view_icon_size_small"
             android:layout_height="@dimen/dimen_image_view_icon_size_small"
-            android:background="@drawable/circle_border_primary_dark_fill_primary"
+            android:background="@drawable/circle_border_primary_fill_primary"
             android:gravity="center"
             android:visibility="gone">
 
