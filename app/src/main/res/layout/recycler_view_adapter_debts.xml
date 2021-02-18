@@ -14,30 +14,46 @@
     tools:ignore="HardcodedText">
 
     <LinearLayout
-        android:id="@+id/llImageContact_ContactPhoto"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/circle_border_primary_dark_fill_primary"
-        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="H,1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/constraintLayout1"
         app:layout_constraintVertical_bias="0">
 
-        <TextView
-            android:id="@+id/textDebt_Count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:lines="1"
-            android:singleLine="true"
-            android:text="1"
-            android:textColor="@color/colorWhite"
-            android:textSize="11sp"
-            tools:ignore="SmallSp" />
+        <LinearLayout
+            android:id="@+id/llDebt_DebtNumber"
+            android:layout_width="@dimen/dimen_image_view_icon_size_small"
+            android:layout_height="@dimen/dimen_image_view_icon_size_small"
+            android:background="@drawable/circle_border_primary_dark_fill_primary"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/textDebt_Count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:lines="1"
+                android:singleLine="true"
+                android:text="1"
+                android:textColor="@color/colorWhite"
+                android:textSize="11sp"
+                tools:ignore="SmallSp" />
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/cbDebt_CheckBox"
+            android:layout_width="@dimen/dimen_image_view_icon_size_small"
+            android:layout_height="@dimen/dimen_image_view_icon_size_small"
+            android:padding="@dimen/dimen_image_view_icon_padding_small"
+            android:visibility="gone"
+            android:buttonTint="@color/colorPrimary" />
+
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -49,16 +65,16 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/llImageContact_ContactPhoto"
+        app:layout_constraintStart_toEndOf="@id/linearLayout1"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/linearLayout"
+            android:id="@+id/linearLayout2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:orientation="vertical"
-            app:layout_constraintEnd_toStartOf="@id/llDebt_OptionsLayout"
+            app:layout_constraintEnd_toStartOf="@id/llDebt_Buttons"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -246,22 +262,22 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/llDebt_OptionsLayout"
+            android:id="@+id/llDebt_Buttons"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="1"
             app:layout_constraintVertical_bias="-1">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/consDebt_DebtOptions"
                 android:layout_width="@dimen/dimen_image_view_icon_size_medium"
                 android:layout_height="match_parent"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
+                android:layout_gravity="end"
                 android:visibility="gone">
 
                 <ImageView
@@ -270,7 +286,7 @@
                     android:layout_height="@dimen/dimen_image_view_icon_size_small"
                     android:layout_gravity="top|center_horizontal"
                     android:layout_marginBottom="5dp"
-                    android:contentDescription="@string/content_description_icon"
+                    android:contentDescription="@string/content_description_icon_menu"
                     android:padding="@dimen/dimen_image_view_icon_padding_small"
                     android:src="@drawable/ic_baseline_more_vert_24_primary_grey"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -283,7 +299,7 @@
                     android:layout_width="@dimen/dimen_image_view_icon_size_small"
                     android:layout_height="@dimen/dimen_image_view_icon_size_small"
                     android:layout_gravity="bottom|center_horizontal"
-                    android:contentDescription="@string/content_description_icon"
+                    android:contentDescription="@string/content_description_icon_dropdown"
                     android:src="@drawable/ic_baseline_arrow_drop_down_24_black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -297,12 +313,12 @@
                 style="@style/Style_ExpandableLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
+                android:layout_gravity="bottom|end"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
-                app:el_duration="300"
                 android:layout_marginBottom="5dp"
                 android:orientation="horizontal"
+                app:el_duration="300"
                 app:el_expanded="false">
 
                 <LinearLayout
@@ -319,12 +335,11 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="7dp"
                         android:layout_marginBottom="5dp"
-                        android:contentDescription="@string/content_description_icon"
+                        android:contentDescription="@string/content_description_icon_edit"
                         android:padding="@dimen/dimen_image_view_icon_padding_small"
                         android:src="@drawable/ic_baseline_edit_24_black" />
 
                     <ImageView
-
                         android:id="@+id/imageDebt_DeleteDebt"
                         style="@style/Style_Options_List_Icons"
                         android:layout_width="@dimen/dimen_image_view_icon_size_small"
@@ -333,12 +348,11 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
                         android:layout_marginBottom="5dp"
-                        android:contentDescription="@string/content_description_icon"
+                        android:contentDescription="@string/content_description_icon_delete_debt"
                         android:padding="@dimen/dimen_image_view_icon_padding_small"
                         android:src="@drawable/ic_baseline_delete_forever_24_black" />
 
                     <ImageView
-
                         android:id="@+id/imageDebt_CollapseDebtOptionsMenu"
                         style="@style/Style_Options_List_Icons"
                         android:layout_width="@dimen/dimen_image_view_icon_size_small"
@@ -348,7 +362,7 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="5dp"
                         android:background="@null"
-                        android:contentDescription="@string/content_description_icon"
+                        android:contentDescription="@string/content_description_icon_close"
                         android:padding="7dp"
                         android:src="@drawable/ic_baseline_close_24_primary" />
                 </LinearLayout>
