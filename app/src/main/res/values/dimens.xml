@@ -18,6 +18,7 @@
     <dimen name="dimen_image_view_icon_size_small">28dp</dimen>
     <dimen name="dimen_image_view_icon_size_medium">35dp</dimen>
     <dimen name="dimen_image_view_icon_size_large">45dp</dimen>
+    <dimen name="dimen_image_view_avatar_size_small">40dp</dimen>
     <dimen name="dimen_image_view_icon_padding_small">5dp</dimen>
     <dimen name="dimen_image_view_icon_padding_medium">8dp</dimen>
 
