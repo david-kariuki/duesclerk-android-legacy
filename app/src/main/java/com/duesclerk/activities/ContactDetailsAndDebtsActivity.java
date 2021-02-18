@@ -168,13 +168,13 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         // Get intent and values passed
         Intent intent = getIntent();
 
-//        this.contactId = intent.getStringExtra(ContactUtils.FIELD_CONTACT_ID); // Get contact id
-//        this.contactFullName = intent.getStringExtra(ContactUtils.FIELD_CONTACT_FULL_NAME);
-//        this.contactType = intent.getStringExtra(ContactUtils.FIELD_CONTACT_TYPE);
+        this.contactId = intent.getStringExtra(ContactUtils.FIELD_CONTACT_ID); // Get contact id
+        this.contactFullName = intent.getStringExtra(ContactUtils.FIELD_CONTACT_FULL_NAME);
+        this.contactType = intent.getStringExtra(ContactUtils.FIELD_CONTACT_TYPE);
 
-        this.contactId = "contacte575defea17103b617c9cab3f68246e9"; // Get contact id
-        this.contactFullName = "Abraham";
-        this.contactType = "ContactTypePeopleOwingMe";
+//        this.contactId = "contacte575defea17103b617c9cab3f68246e9"; // Get contact id
+//        this.contactFullName = "Abraham";
+//        this.contactType = "ContactTypePeopleOwingMe";
 
         // Set activity title
         setActivityTitle(contactType, contactFullName);
