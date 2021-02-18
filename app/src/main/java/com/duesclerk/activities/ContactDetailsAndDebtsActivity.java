@@ -71,8 +71,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
     FloatingActionButton fabAddDebt, fabDeleteSelectedDebts;
     RVLA_Debts rvlaDebts;
     private Context mContext;
-    private TextView textTitle, textContactFullName, textContactPhoneNumber, textContactEmailAddress,
-            textContactAddress, textNoDebtMessage, textDebtsTotalAmount;
+    private TextView textTitle, textContactAvatarText, textContactFullName, textContactPhoneNumber, textContactEmailAddress, textContactAddress, textNoDebtMessage, textDebtsTotalAmount;
     private MultiSwipeRefreshLayout swipeRefreshLayout;
     private SwipeRefreshLayout.OnRefreshListener swipeRefreshListener;
     private JSONArray fetchedContactDetails;
@@ -121,6 +120,8 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         fabDeleteSelectedDebts = findViewById(
                 R.id.fabContactDetailsAndDebtsActivity_DeleteDebts);
 
+        textContactAvatarText = findViewById(
+                R.id.textContactDetailsAndDebtsActivity_ContactAvatarText);
         textContactFullName = findViewById(
                 R.id.textContactDetailsAndDebtsActivity_ContactFullName);
         textContactPhoneNumber = findViewById(
@@ -890,6 +891,19 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                 this.textContactEmailAddress.setText(contactEmailAddress);
                 this.textContactAddress.setText(contactAddress);
                 this.textDebtsTotalAmount.setText(debtsTotalAmount);
+
+                // Check contact full name length
+                if (this.contactFullName.length() == 1) {
+
+                    // Set text to first character of contact full name
+                    textContactAvatarText.setText(DataUtils.stringToTitleCase(
+                            contactFullName.substring(0, 1)));
+                } else {
+
+                    // Set text to first and second character of contact full name
+                    textContactAvatarText.setText(DataUtils.stringToTitleCase(
+                            contactFullName.substring(0, 2)));
+                }
 
                 // Show ShimmerFrameLayout
                 ViewsUtils.showShimmerFrameLayout(false, shimmerContactDetails);

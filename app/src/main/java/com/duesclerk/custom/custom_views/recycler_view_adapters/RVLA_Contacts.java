@@ -1,6 +1,5 @@
 package com.duesclerk.custom.custom_views.recycler_view_adapters;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -8,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -27,7 +26,6 @@ import java.util.ArrayList;
 public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerViewHolder>
         implements Filterable {
 
-    private final Context mContext;
     private final ArrayList<JB_Contacts> filterList;
     private ArrayList<JB_Contacts> contacts;
     private ContactsFilter contactsFilter;
@@ -36,12 +34,10 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
     /**
      * Class constructor
      *
-     * @param context  - Class context
      * @param contacts - ArrayList with contact
      */
-    public RVLA_Contacts(Context context,ArrayList<JB_Contacts> contacts) {
+    public RVLA_Contacts(ArrayList<JB_Contacts> contacts) {
 
-        this.mContext = context;
         this.contacts = contacts;
         this.filterList = contacts;
     }
@@ -57,10 +53,38 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
     }
 
     @Override
-    public void onBindViewHolder(RecyclerViewHolder holder, final int position) {
+    public void onBindViewHolder(@NotNull RecyclerViewHolder holder, final int position) {
+
+        String contactFullName = this.contacts.get(position).getContactFullName();
+
+        // Check ViewHolder position
+        if (position %2 == 0) {
+            // Position is even number
+
+            // Set background resource
+            holder.llAvatar.setBackgroundResource(R.drawable.circle_border_primary_fill_primary);
+
+        } else {
+            // Position is odd number
+
+            // Set background resource
+            holder.llAvatar.setBackgroundResource(R.drawable.circle_border_accent_fill_accent);
+        }
+
+        if (contactFullName.length() == 1) {
+
+            // Set text to first character of contact full name
+            holder.textContactAvatarText.setText(DataUtils.stringToTitleCase(
+                    contactFullName.substring(0, 1)));
+        } else {
+
+            // Set text to first and second character of contact full name
+            holder.textContactAvatarText.setText(DataUtils.stringToTitleCase(
+                    contactFullName.substring(0, 2)));
+        }
 
         // Set contact data to TextViews
-        holder.textContactFullName.setText(this.contacts.get(position).getContactFullName());
+        holder.textContactFullName.setText(contactFullName);
         holder.textContactPhoneNumber.setText(this.contacts.get(position)
                 .getContactPhoneNumber());
 
@@ -81,14 +105,14 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
         String contactsTotalDebtsAmount = this.contacts.get(position).getDebtsTotalAmount();
 
         // Set contacts total debt amount
-        holder.textContactsDebtTotalAmount.setText(contactsTotalDebtsAmount);
+        holder.textContactDebtTotalAmount.setText(contactsTotalDebtsAmount);
 
         // Check for contacts total debts amount to bold text
         if (!contactsTotalDebtsAmount.equals("0")) {
 
             // Bold contacts total debt amount text
-            holder.textContactsDebtTotalAmount.setTypeface(
-                    holder.textContactsDebtTotalAmount.getTypeface(), Typeface.BOLD);
+            holder.textContactDebtTotalAmount.setTypeface(
+                    holder.textContactDebtTotalAmount.getTypeface(), Typeface.BOLD);
         }
 
         // Check for ViewHolder
@@ -166,9 +190,10 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
             implements View.OnClickListener {
 
         TextView textContactFullName, textContactPhoneNumber, textContactEmailAddress,
-                textContactsDebtTotalAmount;
-        ImageView imageContactPicture;
+                textContactDebtTotalAmount;
+        TextView textContactAvatarText;
         ConstraintLayout consContactItem;
+        LinearLayout llAvatar;
 
         RecyclerViewHolder(View convertView) {
             super(convertView);
@@ -179,8 +204,11 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
             textContactFullName = convertView.findViewById(R.id.textContact_ContactFullName);
             textContactPhoneNumber = convertView.findViewById(R.id.textContact_ContactPhoneNumber);
             textContactEmailAddress = convertView.findViewById(R.id.textContact_ContactEmailAddress);
-            textContactsDebtTotalAmount = convertView.findViewById(R.id.textContact_ContactTotalAmount);
+            textContactDebtTotalAmount = convertView.findViewById(R.id.textContact_ContactTotalAmount);
+            textContactAvatarText = convertView.findViewById(R.id.textContact_ContactAvatarText);
             consContactItem = convertView.findViewById(R.id.constraintLayout);
+
+            llAvatar = convertView.findViewById(R.id.llContact_ContactAvatar);
 
             // Hide email address until set if present
             textContactEmailAddress.setVisibility(View.GONE);
