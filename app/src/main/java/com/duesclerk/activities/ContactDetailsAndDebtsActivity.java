@@ -1003,8 +1003,10 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                     showNoDebtsLayout(true); // Show no debts view
                 }
             } else {
+                // Array is empty
 
                 showNoDebtsLayout(true); // Show no debts view
+                imageDeleteDebts.setVisibility(View.GONE); // Hide delete multiple debts button
             }
         } else {
 
