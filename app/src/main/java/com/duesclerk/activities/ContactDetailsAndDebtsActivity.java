@@ -71,7 +71,8 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
     FloatingActionButton fabAddDebt, fabDeleteSelectedDebts;
     RVLA_Debts rvlaDebts;
     private Context mContext;
-    private TextView textTitle, textContactAvatarText, textContactFullName, textContactPhoneNumber, textContactEmailAddress, textContactAddress, textNoDebtMessage, textDebtsTotalAmount;
+    private TextView textTitle, textContactAvatarText, textContactFullName, textContactPhoneNumber,
+            textContactEmailAddress, textContactAddress, textNoDebtMessage, textDebtsTotalAmount;
     private MultiSwipeRefreshLayout swipeRefreshLayout;
     private SwipeRefreshLayout.OnRefreshListener swipeRefreshListener;
     private JSONArray fetchedContactDetails;
@@ -80,8 +81,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
     private UserDatabase database;
     private String contactId, contactType, contactFullName;
     private ShimmerFrameLayout shimmerContactDetails;
-    private LinearLayout llContactDetails;
-    private LinearLayout llNoDebts;
+    private LinearLayout llContactDetails, llNoDebts, llContactEmailAddress, llContactAddress;
     private RecyclerView recyclerView;
     private BroadcastReceiver bcrReloadDebts;
     private SearchView searchView;
@@ -112,6 +112,10 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         LinearLayout llNoConnectionTryAgain = findViewById(R.id.llNoConnection_TryAgain);
         llNoDebts = findViewById(R.id.llContactDetailsAndDebts_NoDebt);
         LinearLayout llAddDebt = findViewById(R.id.llNoDebts_AddDebt);
+        llContactEmailAddress = findViewById(
+                R.id.llContactDetailsAndDebtsActivity_ContactEmailAddress);
+        llContactAddress = findViewById(
+                R.id.llContactDetailsAndDebtsActivity_ContactAddress);
 
         rlNoConnection = findViewById(R.id.rlContactDetailsAndDebtsActivity_NoConnection);
 
@@ -888,9 +892,37 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                 // Set contact details
                 this.textContactFullName.setText(contactFullName);
                 this.textContactPhoneNumber.setText(contactPhoneNumber);
-                this.textContactEmailAddress.setText(contactEmailAddress);
-                this.textContactAddress.setText(contactAddress);
                 this.textDebtsTotalAmount.setText(debtsTotalAmount);
+
+                // Check if contact email address is null
+                if (!DataUtils.isEmptyString(contactEmailAddress)) {
+
+                    // Set contact email address
+                    this.textContactEmailAddress.setText(contactEmailAddress);
+
+                    // Show contact email address layout
+                    this.llContactEmailAddress.setVisibility(View.VISIBLE);
+
+                } else {
+
+                    // Hide contact email address layout
+                    this.llContactEmailAddress.setVisibility(View.GONE);
+                }
+
+                // Check if contact address is null
+                if (!DataUtils.isEmptyString(contactAddress)) {
+
+                    // Set contact address
+                    this.textContactAddress.setText(contactAddress);
+
+                    // Show contact address layout
+                    this.llContactAddress.setVisibility(View.VISIBLE);
+
+                } else {
+
+                    // Hide contact address layout
+                    this.llContactAddress.setVisibility(View.GONE);
+                }
 
                 // Check contact full name length
                 if (this.contactFullName.length() == 1) {
@@ -1007,6 +1039,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
 
                 showNoDebtsLayout(true); // Show no debts view
                 imageDeleteDebts.setVisibility(View.GONE); // Hide delete multiple debts button
+                showFabAddDebt(false); // Hide add debt FAB for user to use add debt layout button
             }
         } else {
 
