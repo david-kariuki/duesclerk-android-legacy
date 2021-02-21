@@ -199,7 +199,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/llContactActivity_DeleteContact"
                 style="@style/Style_CustomButton_Container_Stroke_Continuous_Primary_Grey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
