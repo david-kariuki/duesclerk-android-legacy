@@ -217,6 +217,7 @@
                                     </LinearLayout>
 
                                     <LinearLayout
+                                        android:id="@+id/llContactDetailsAndDebtsActivity_ContactEmailAddress"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:gravity="center"
@@ -246,12 +247,14 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:hint="@string/hint_not_provided"
+                                            android:textColor="@color/colorBlack"
                                             android:singleLine="true"
                                             android:textColorHint="@color/colorPrimaryGrey"
                                             android:textSize="14sp" />
                                     </LinearLayout>
 
                                     <LinearLayout
+                                        android:id="@+id/llContactDetailsAndDebtsActivity_ContactAddress"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:gravity="center"
