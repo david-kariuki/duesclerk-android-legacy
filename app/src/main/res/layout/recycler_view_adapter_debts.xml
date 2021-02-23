@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:orientation="vertical"
-            app:layout_constraintEnd_toStartOf="@id/llDebt_Buttons"
+            app:layout_constraintEnd_toStartOf="@id/llDebt_ButtonsLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -262,7 +262,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/llDebt_Buttons"
+            android:id="@+id/llDebt_ButtonsLayout"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
