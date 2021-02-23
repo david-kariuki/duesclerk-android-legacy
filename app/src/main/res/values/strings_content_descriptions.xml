@@ -19,8 +19,11 @@
     <string name="content_description_fab_edit_profile">Edit profile button</string>
     <string name="content_description_fab_save_profile_edits">Save profile edits button</string>
     <string name="content_description_fab_cancel_profile_edits">Cancel profile edits button</string>
+    <string name="content_description_fab_add_contact_record">Add contact record button</string>
+    <string name="content_description_fab_delete_contact_record">Delete contact record button</string>
     <string name="content_description_fab_add_debt_record">Add debt record button</string>
     <string name="content_description_icon_delete_debt">Delete debt</string>
+    <string name="content_description_icon_delete_contact">Delete contact</string>
     <string name="content_description_icon_delete_debts">Delete debts</string>
     <string name="content_description_icon_menu">Menu</string>
     <string name="content_description_icon_dropdown">Dropdown</string>

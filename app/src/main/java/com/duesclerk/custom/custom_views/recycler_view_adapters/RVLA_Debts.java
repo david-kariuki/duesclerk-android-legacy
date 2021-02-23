@@ -34,11 +34,11 @@ import java.util.ArrayList;
 public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHolder>
         implements Filterable {
 
+    public final ArrayList<String> checkedDebtsIds;
     private final Context mContext;
     private final ArrayList<JB_Debts> filterList;
     private final Interface_IDS interfaceIds;
     private final Interface_Debts interfaceDebts;
-    public final ArrayList<String> checkedDebtsIds;
     private ArrayList<JB_Debts> debts;
     private int lastPosition = 0;
     private DebtsFilter debtsFilter;
@@ -84,7 +84,7 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
         holder.textDebtAmount.setText(debts.get(position).getDebtAmount());
 
         // Check ViewHolder position
-        if (position %2 == 0) {
+        if (position % 2 == 0) {
             // Position is even number
 
             // Set background resource
@@ -124,13 +124,13 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
         holder.textDateDebtDue.setText(debts.get(position).getDebtDateDue());
 
         // Check if buttons layout is shown so as to show options buttons
-        if (debts.get(position).isShownButtonsLayout()) {
+        if (debts.get(position).shownButtonsLayout()) {
             // Layout buttons shown
 
             holder.llButtons.setVisibility(View.VISIBLE); // Show buttons layout
 
             // Check if debt menu at current position is showing
-            if (debts.get(position).isExpandedDebtOptionsMenu()) {
+            if (debts.get(position).expandedDebtOptionsMenu()) {
 
                 // Hide ConstraintLayout with debt options
                 holder.consDebtOptions.setVisibility(View.GONE);
@@ -148,7 +148,7 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
             }
 
             // Check if menu at current position is showing
-            if (debts.get(position).isExpandedDebtDetailsLayout()) {
+            if (debts.get(position).expandedDebtDetailsLayout()) {
 
                 // Show ConstraintLayout with debt options
                 holder.consDebtOptions.setVisibility(View.VISIBLE);
@@ -187,9 +187,9 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
         }
 
         // Debts list item OnClick
-        holder.consContactItem.setOnClickListener(v -> {
+        holder.consDebtItem.setOnClickListener(v -> {
 
-            if (debts.get(position).isExpandedDebtOptionsMenu()) {
+            if (debts.get(position).expandedDebtOptionsMenu()) {
 
                 // Set debt options menu to expanded
                 setExpandedDebtOptionsMenu(false, position);
@@ -210,13 +210,14 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
         });
 
         // List item onLongClick
-        holder.consContactItem.setOnLongClickListener(v -> {
+        holder.consDebtItem.setOnLongClickListener(v -> {
 
             if (!showingCheckBoxes()) {
 
                 // Show / Hide debt item menu based on current state
-                setExpandedDebtOptionsMenu(!debts.get(position).isExpandedDebtOptionsMenu(), position);
+                setExpandedDebtOptionsMenu(!debts.get(position).expandedDebtOptionsMenu(), position);
             }
+
             return true; // Return true
         });
 
@@ -358,7 +359,7 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
 
         // Set debt details layout to expanded / collapsed based on current state
         debts.get(position).setExpandedDebtDetailsLayout(
-                !debts.get(position).isExpandedDebtDetailsLayout());
+                !debts.get(position).expandedDebtDetailsLayout());
 
         notifyDataSetChanged(); // Notify data set changed
     }
@@ -438,8 +439,7 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
         for (int i = 0; i < debts.size(); i++) {
 
             // Check if debt option menu or debt details layout is expanded
-            if (debts.get(i).isExpandedDebtOptionsMenu()
-                    || debts.get(i).isExpandedDebtDetailsLayout()) {
+            if (debts.get(i).expandedDebtOptionsMenu() || debts.get(i).expandedDebtDetailsLayout()) {
 
                 return true; // Return true
             }
@@ -464,20 +464,6 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
         }
 
         return false; //  Return false
-    }
-
-    /**
-     * Function to set CheckBoxes to shown
-     */
-    public void uncheck() {
-
-        // Loop through debts list
-        for (int i = 0; i < debts.size(); i++) {
-
-            debts.get(i).setCheckBoxChecked(false); // Set CheckBox to unChecked
-        }
-
-        notifyDataSetChanged(); // Notify data set changed
     }
 
     /**
@@ -525,7 +511,7 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
     public class RecyclerViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
-        ConstraintLayout consContactItem, consDebtOptions;
+        ConstraintLayout consDebtItem, consDebtOptions;
         TextView textDebtCount, textDebtAmount, textDebtType, textDebtDescription,
                 textDateDebtIssued, textDateDebtDue;
         ImageView imageDebtDetailsDropDown, imageDebtOptions;
@@ -540,7 +526,7 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
             viewHolderView = convertView;
 
             // Debt item
-            consContactItem = convertView.findViewById(R.id.constraintLayout);
+            consDebtItem = convertView.findViewById(R.id.constraintLayout);
             consDebtOptions = convertView.findViewById(R.id.consDebt_DebtOptions);
 
             // Debt details
@@ -565,7 +551,7 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
 
             // Debt number
             llDebtNumber = convertView.findViewById(R.id.llDebt_DebtNumber);
-            llButtons = convertView.findViewById(R.id.llDebt_Buttons);
+            llButtons = convertView.findViewById(R.id.llDebt_ButtonsLayout);
 
             // CheckBox
             checkBox = convertView.findViewById(R.id.cbDebt_CheckBox);
@@ -595,14 +581,16 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
 
             FilterResults results = new FilterResults();
 
+            // Check if constraint is null
             if (constraint != null && constraint.length() > 0) {
 
-                // Constraint to uppercase
+                // Convert constraint to uppercase
                 constraint = constraint.toString().toUpperCase();
 
+                // Create an ArrayList for filtered data
                 ArrayList<JB_Debts> filters = new ArrayList<>();
 
-                // Get specific items
+                // Loop through list
                 for (int i = 0; i < filterList.size(); i++) {
 
                     if (filterList.get(i).getDebtAmount().contains(constraint)
@@ -611,11 +599,21 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
 
                         // Create new result java bean
                         JB_Debts jbDebts = new JB_Debts(
+
                                 filterList.get(i).getDebtId(),
                                 filterList.get(i).getDebtAmount(),
                                 filterList.get(i).getDebtDateIssued(),
                                 filterList.get(i).getDebtDateDue(),
-                                filterList.get(i).getDebtDescription());
+                                filterList.get(i).getDebtDescription(),
+                                filterList.get(i).getContactId(),
+                                filterList.get(i).getContactType(),
+                                filterList.get(i).getUserId(),
+                                filterList.get(i).expandedDebtOptionsMenu(),
+                                filterList.get(i).expandedDebtDetailsLayout(),
+                                filterList.get(i).showingCheckbox(),
+                                filterList.get(i).checkBoxChecked(),
+                                filterList.get(i).shownButtonsLayout()
+                        );
 
                         filters.add(jbDebts); // Add java bean to ArrayList
                     }
@@ -637,6 +635,7 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
         protected void publishResults(CharSequence constraint, FilterResults results) {
 
             debts = (ArrayList<JB_Debts>) results.values; // Set values to ArrayList
+
             notifyDataSetChanged(); // Notify data set changed
         }
     }

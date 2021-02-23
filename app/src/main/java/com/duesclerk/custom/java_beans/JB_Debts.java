@@ -23,13 +23,26 @@ public class JB_Debts {
      * @param debtDescription - Debt description
      */
     public JB_Debts(final String debtId, final String debtAmount, final String debtDateIssued,
-                    final String debtDateDue, final String debtDescription) {
+                    final String debtDateDue, final String debtDescription, final String contactId,
+                    final String contactType, final String userId,
+                    final boolean expandedDebtsOptionsMenu, final boolean expandedDebtsDetailsLayout,
+                    final boolean showingCheckBox, final boolean checkedBox,
+                    final boolean shownButtonsLayout) {
 
         this.debtId = debtId;
         this.debtAmount = debtAmount;
         this.debtDateIssued = debtDateIssued;
         this.debtDateDue = debtDateDue;
         this.debtDescription = debtDescription;
+        this.contactId = contactId;
+        this.contactType = contactType;
+        this.userId = userId;
+        this.expandedDebtsOptionsMenu = expandedDebtsOptionsMenu;
+        this.expandedDebtsDetailsLayout = expandedDebtsDetailsLayout;
+        this.showingCheckBox = showingCheckBox;
+        this.checkedBox = checkedBox;
+        this.shownButtonsLayout = shownButtonsLayout;
+
     }
 
     /**
@@ -178,7 +191,7 @@ public class JB_Debts {
     /**
      * Function to check if debts details layout is expanded
      */
-    public boolean isExpandedDebtDetailsLayout() {
+    public boolean expandedDebtDetailsLayout() {
 
         return this.expandedDebtsDetailsLayout;
     }
@@ -196,7 +209,7 @@ public class JB_Debts {
     /**
      * Function to check if debts option menu is expanded
      */
-    public boolean isExpandedDebtOptionsMenu() {
+    public boolean expandedDebtOptionsMenu() {
 
         return this.expandedDebtsOptionsMenu;
     }
@@ -250,7 +263,7 @@ public class JB_Debts {
     /**
      * Function to check if CheckBox is checked
      */
-    public boolean isShownButtonsLayout() {
+    public boolean shownButtonsLayout() {
 
         return this.shownButtonsLayout;
     }
