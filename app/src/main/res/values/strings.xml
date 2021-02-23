@@ -134,6 +134,8 @@
     <string name="label_delete_contact">Delete contact!</string>
     <string name="label_delete_debt">Delete debt!</string>
     <string name="label_debt_options">Debt options</string>
+    <string name="label_the_selected_contacts">the selected contacts</string>
+    <string name="label_the_selected_debts">the selected debts</string>
 
     <!--Messages-->
     <string name="msg_company_tag_line">Manage your dues with ease.</string>
