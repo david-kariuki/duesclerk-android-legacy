@@ -65,7 +65,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         AppBarLayout.OnOffsetChangedListener, Interface_IDS, Interface_Debts {
 
     // Get class simple name
-    // private final String TAG = ContactDetailsAndDebtsActivity.class.getSimpleName();
+    private final String TAG = ContactDetailsAndDebtsActivity.class.getSimpleName();
 
     RelativeLayout rlNoConnection;
     FloatingActionButton fabAddDebt, fabDeleteSelectedDebts;
@@ -101,7 +101,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         appBarLayout = findViewById(R.id.appBarLayout);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshContactDetailsAndDebtsActivity);
         imageDeleteDebts = findViewById(R.id.imageContactDetailsAndDebtsActivity_DeleteDebts);
-        imageHideCheckBoxes = findViewById(R.id.imagePeopleOwingMe_HideCheckBoxes);
+        imageHideCheckBoxes = findViewById(R.id.imageContactDetailsAndDebtsActivity_HideCheckBoxes);
 
         LinearLayout llEditContact = findViewById(
                 R.id.llContactDetailsAndDebtsActivity_EditContact);
@@ -134,7 +134,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                 R.id.textContactDetailsAndDebtsActivity_ContactEmailAddress);
         textContactAddress = findViewById(R.id.textContactDetailsAndDebtsActivity_ContactAddress);
         textDebtsTotalAmount = findViewById(
-                R.id.textPeopleOwingMe_DebtsTotalAmount);
+                R.id.textContactDetailsAndDebtsActivity_DebtsTotalAmount);
         textNoDebtMessage = findViewById(R.id.textNoDebt_Message);
 
         shimmerContactDetails = findViewById(R.id.shimmerContactDetailsAndDebtsActivity);
@@ -177,9 +177,9 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         this.contactFullName = intent.getStringExtra(ContactUtils.FIELD_CONTACT_FULL_NAME);
         this.contactType = intent.getStringExtra(ContactUtils.FIELD_CONTACT_TYPE);
 
-//        this.contactId = ""; // Get contact id
-//        this.contactFullName = "";
-//        this.contactType = "";
+//        this.contactId = "contacte575defea17103b617c9cab3f68246e9"; // Get contact id
+//        this.contactFullName = "Abraham";
+//        this.contactType = "ContactTypePeopleOwingMe";
 
         // Set activity title
         setActivityTitle(contactType, contactFullName);
@@ -316,14 +316,10 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                 rvlaDebts.setShownListCheckBoxes(true); // Show list CheckBoxes
                 fabAddDebt.setVisibility(View.GONE); // Hide add debt FAB
             }
-
-            showSearchView(false); // Hide SearchView
         });
 
         // Hide CheckBoxes onClick
         imageHideCheckBoxes.setOnClickListener(v -> {
-
-            showSearchView(true); // Show SearchView
 
             // Check if CheckBoxes are showing
             if (rvlaDebts.showingCheckBoxes()) {
@@ -521,9 +517,6 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
 
         } else {
 
-            // Hide keyboard
-            ViewsUtils.hideKeyboard(ContactDetailsAndDebtsActivity.this);
-
             searchView.setVisibility(View.GONE); // Hide SearchView
         }
     }
@@ -671,8 +664,6 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
 
     /**
      * Function to show / hide delete button and (Hide CheckBoxes) button
-     *
-     * @param show - Show / hide delete button
      */
     private void showDeleteButton(boolean show) {
 
@@ -1022,6 +1013,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                     // Debt records found
 
                     showNoConnectionLayout(false); // Hide no debts view
+                    showRecyclerView(true); // Show RecyclerView
 
                     // Creating RecyclerView adapter object
                     rvlaDebts = new RVLA_Debts(mContext, debtRecords, this);
@@ -1037,15 +1029,6 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
 
                     showSearchView(true); // Show SearchView
                     showDeleteButton(true); // Show delete button
-
-                    // Filter text input
-                    if (!DataUtils.isEmptyString(searchView.getQuery().toString())) {
-
-                        // Set adapter filter query
-                        rvlaDebts.getFilter().filter(searchView.getQuery().toString());
-                    }
-
-                    showRecyclerView(true); // Show RecyclerView
 
                 } else {
 

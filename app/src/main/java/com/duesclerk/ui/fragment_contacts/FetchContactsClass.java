@@ -285,7 +285,7 @@ public class FetchContactsClass {
                         jbContacts.setContactEmailAddress(contactEmailAddress);
                         jbContacts.setContactAddress(contactAddress);
                         jbContacts.setContactType(contactType);
-                        jbContacts.setSingleContactsDebtsTotalAmount(contactsTotalDebtsAmount);
+                        jbContacts.setDebtsTotalAmount(contactsTotalDebtsAmount);
 
                         if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME)) {
                             // People owing me

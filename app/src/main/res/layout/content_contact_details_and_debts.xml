@@ -32,7 +32,7 @@
             tools:ignore="UseCompoundDrawables">
 
             <ImageView
-                android:id="@+id/imagePeopleOwingMe_HideCheckBoxes"
+                android:id="@+id/imageContactDetailsAndDebtsActivity_HideCheckBoxes"
                 android:layout_width="@dimen/dimen_image_view_icon_size_small"
                 android:layout_height="@dimen/dimen_image_view_icon_size_small"
                 android:contentDescription="@string/content_description_icon_menu"
@@ -41,7 +41,7 @@
                 android:visibility="gone" />
 
             <TextView
-                android:id="@+id/textPeopleOwingMe_DebtsTotalAmount"
+                android:id="@+id/textContactDetailsAndDebtsActivity_DebtsTotalAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -50,7 +50,7 @@
                 android:singleLine="true"
                 android:textColor="@color/colorBlack"
                 android:textColorHint="@color/colorPrimaryGrey"
-                android:textSize="@dimen/dimen_text_view_labels_size_normal"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 android:visibility="gone" />
         </LinearLayout>
@@ -60,7 +60,7 @@
             android:layout_width="@dimen/dimen_image_view_icon_size_small"
             android:layout_height="@dimen/dimen_image_view_icon_size_small"
             android:layout_marginStart="15dp"
-            android:layout_marginEnd="5dp"
+            android:layout_marginEnd="15dp"
             android:contentDescription="@string/content_description_icon_menu"
             android:padding="@dimen/dimen_image_view_icon_padding_small"
             android:src="@drawable/ic_baseline_delete_forever_24_primary_grey"

@@ -305,9 +305,6 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
 
     /**
      * Function to animate list items
-     *
-     * @param viewToAnimate - View to animate
-     * @param position      - View position in the list
      */
     private void setAnimation(View viewToAnimate, int position) {
 
@@ -394,8 +391,6 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
 
     /**
      * Function to set CheckBoxes to shown
-     *
-     * @param setShown - Set shown
      */
     public void setShownListCheckBoxes(boolean setShown) {
 
