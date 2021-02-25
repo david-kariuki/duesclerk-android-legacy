@@ -66,7 +66,7 @@ public class DialogFragment_AddContact extends DialogFragment {
 
     private final LayoutInflater inflater;
     private final Context mContext;
-    private final int mainActivityTabPosition;
+    private final int mainActivityTabLayoutPosition;
     private EditText editContactFullName, editContactPhoneNumber, editEmailAddress, editContactAddress;
     private String contactsEmailAddress, contactsAddress, contactType;
     private ProgressDialog progressDialog;
@@ -74,14 +74,15 @@ public class DialogFragment_AddContact extends DialogFragment {
     /**
      * Class constructor
      *
-     * @param context     - Context
-     * @param tabPosition - TabLayout position
+     * @param context - Context
      */
-    public DialogFragment_AddContact(Context context, int tabPosition) {
+    public DialogFragment_AddContact(Context context, int mainActivityTabLayoutPosition) {
 
         this.mContext = context;
-        this.mainActivityTabPosition = tabPosition;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        // Set MainActivity TabLayout position
+        this.mainActivityTabLayoutPosition = mainActivityTabLayoutPosition;
     }
 
     @Override
@@ -117,7 +118,7 @@ public class DialogFragment_AddContact extends DialogFragment {
 
         // Switch MainActivity current TabLayout position and check the radio button with
         // the contact type matching MainActivities current fragment
-        switch (this.mainActivityTabPosition) {
+        switch (this.mainActivityTabLayoutPosition) {
             case 0:
 
                 radioOwingMe.setChecked(true); // Check radio button
@@ -143,14 +144,18 @@ public class DialogFragment_AddContact extends DialogFragment {
 
         // RadioButton onClick
         radioOwingMe.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
             if (isChecked) {
+
                 this.contactType = ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME;
             }
         });
 
         // RadioButton onClick
         radioPeopleIOwe.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
             if (isChecked) {
+
                 this.contactType = ContactUtils.KEY_CONTACT_TYPE_PEOPLE_I_OWE;
             }
         });
@@ -440,6 +445,7 @@ public class DialogFragment_AddContact extends DialogFragment {
      * @param contact - Selected contact
      */
     private String getAllPhoneNumberTypesValues(Contact contact) {
+
         String phoneNumber = null;
 
         // Catch in case of exceptions
@@ -498,6 +504,7 @@ public class DialogFragment_AddContact extends DialogFragment {
 
         } catch (Exception ignored) {
         }
+
         return phoneNumber; // Return phone number
     }
 
@@ -509,6 +516,7 @@ public class DialogFragment_AddContact extends DialogFragment {
      * @param contact - Selected contact
      */
     private String getAllEmailAddressTypesValues(Contact contact) {
+
         String emailAddress = null;
 
         // Catch in case of exceptions
@@ -532,6 +540,7 @@ public class DialogFragment_AddContact extends DialogFragment {
 
         } catch (Exception ignored) {
         }
+
         return emailAddress; // Return email address
     }
 
@@ -543,6 +552,7 @@ public class DialogFragment_AddContact extends DialogFragment {
      * @param contact - Selected contact
      */
     private String getAllContactAddressTypesValues(Contact contact) {
+
         String contactAddress = null;
 
         // Catch in case of exceptions
@@ -564,6 +574,7 @@ public class DialogFragment_AddContact extends DialogFragment {
 
         } catch (Exception ignored) {
         }
+
         return contactAddress; // Return contact address
     }
 
