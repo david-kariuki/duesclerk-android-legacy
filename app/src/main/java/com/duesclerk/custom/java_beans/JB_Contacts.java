@@ -5,7 +5,9 @@ import java.io.Serializable;
 public class JB_Contacts implements Serializable {
 
     String contactId, contactFullName, contactPhoneNumber, contactEmailAddress, contactAddress,
-            contactType, debtsTotalAmount;
+            contactType, singleContactsDebtsTotalAmount;
+    private boolean expandedContactsOptionsMenu = false, showingCheckBox = false, checkedBox = false,
+            shownButtonsLayout = true;
 
     /**
      * Default constructor
@@ -22,12 +24,12 @@ public class JB_Contacts implements Serializable {
      * @param contactEmailAddress - Contact email address
      * @param contactAddress      - Contact address
      * @param contactType         - Contact type
-     * @param debtsTotalAmount    - Debts total amount
+     * @param singleContactsDebtsTotalAmount    - Debts total amount
      */
     public JB_Contacts(final String contactId, final String contactFullName,
                        final String contactPhoneNumber,
                        final String contactEmailAddress, final String contactAddress,
-                       final String contactType, final String debtsTotalAmount) {
+                       final String contactType, final String singleContactsDebtsTotalAmount) {
 
         this.contactId = contactId;
         this.contactFullName = contactFullName;
@@ -35,7 +37,7 @@ public class JB_Contacts implements Serializable {
         this.contactEmailAddress = contactEmailAddress;
         this.contactAddress = contactAddress;
         this.contactType = contactType;
-        this.debtsTotalAmount = debtsTotalAmount;
+        this.singleContactsDebtsTotalAmount = singleContactsDebtsTotalAmount;
     }
 
     /**
@@ -146,19 +148,93 @@ public class JB_Contacts implements Serializable {
 
 
     /**
-     * Function to get total debts amount
+     * Function to get total contacts amount
      */
-    public String getDebtsTotalAmount() {
+    public String getSingleContactsDebtsTotalAmount() {
 
-        return debtsTotalAmount; // Return total debts amount
+        return singleContactsDebtsTotalAmount; // Return total contacts amount
     }
 
     /**
-     * Function to set total debts amount
+     * Function to set total contacts amount
      *
-     * @param debtsTotalAmount - total debts amount
+     * @param singleContactsDebtsTotalAmount - total contacts amount
      */
-    public void setDebtsTotalAmount(String debtsTotalAmount) {
-        this.debtsTotalAmount = debtsTotalAmount; // Set total debts amount
+    public void setSingleContactsDebtsTotalAmount(String singleContactsDebtsTotalAmount) {
+
+        // Set single contact total debts amount
+        this.singleContactsDebtsTotalAmount = singleContactsDebtsTotalAmount;
+    }
+
+    /**
+     * Function to check if contacts option menu is expanded
+     */
+    public boolean isExpandedContactOptionsMenu() {
+
+        return this.expandedContactsOptionsMenu;
+    }
+
+    /**
+     * Function to set contacts options menu to expanded
+     *
+     * @param setExpandedContactsOptionsMenu - Set contacts options menu to expanded value
+     */
+    public void setExpandedContactOptionsMenu(boolean setExpandedContactsOptionsMenu) {
+
+        this.expandedContactsOptionsMenu = setExpandedContactsOptionsMenu;
+    }
+
+    /**
+     * Function to check if CheckBox is showing
+     */
+    public boolean showingCheckbox() {
+
+        return this.showingCheckBox;
+    }
+
+    /**
+     * Function to set CheckBox to shown
+     *
+     * @param showCheckBox - Set CheckBox showing value
+     */
+    public void setShowCheckBox(boolean showCheckBox) {
+
+        this.showingCheckBox = showCheckBox;
+    }
+
+    /**
+     * Function to check if CheckBox is checked
+     */
+    public boolean checkBoxChecked() {
+
+        return this.checkedBox;
+    }
+
+    /**
+     * Function to set CheckBox to checked
+     *
+     * @param checked - Set CheckBox checked
+     */
+    public void setCheckBoxChecked(boolean checked) {
+
+        this.checkedBox = checked;
+    }
+
+    /**
+     * Function to check if CheckBox is checked
+     */
+    public boolean isShownButtonsLayout() {
+
+        return this.shownButtonsLayout;
+    }
+
+    /**
+     * Function to set buttons layout to shown
+     *
+     * @param shown - Set buttons layout to shown
+     */
+    public void setShownButtonsLayout(boolean shown) {
+
+        this.shownButtonsLayout = shown;
     }
 }
