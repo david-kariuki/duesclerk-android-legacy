@@ -8,11 +8,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -36,11 +39,12 @@ import com.duesclerk.custom.custom_views.toast.CustomToast;
 import com.duesclerk.custom.network.InternetConnectivity;
 import com.duesclerk.custom.network.NetworkTags;
 import com.duesclerk.custom.network.NetworkUrls;
+import com.duesclerk.ui.fragment_contacts.fragment_people_i_owe.FragmentPeople_I_Owe;
+import com.duesclerk.ui.fragment_contacts.fragment_people_owing_me.FragmentPeopleOwingMe;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,21 +54,58 @@ public class DeleteContactsDebts {
     private final String TAG = DeleteContactsDebts.class.getSimpleName();
 
     private final Context mContext;
-    private final Activity activity;
     private final ProgressDialog progressDialog;
+    private final boolean calledByActivity;
+    private Activity activity;
     private String userId, contactIdForDebtsDeletion;
     private String[] contactsIdsToDelete, debtsIdsToDelete;
+    private Fragment fragment;
 
     /**
-     * Class constructor
+     * Class constructor for activities
+     *
+     * @param activity - Calling activity
      */
     public DeleteContactsDebts(final ContactDetailsAndDebtsActivity activity) {
 
         this.activity = activity;
         this.mContext = activity.getApplicationContext();
+        this.calledByActivity = true; // Set called by an Activity to true
 
         // Initialize ProgressDialog
         progressDialog = ViewsUtils.initProgressDialog(activity, false);
+    }
+
+    /**
+     * Class constructor for FragmentPeopleOwingMe
+     *
+     * @param peopleOwingMe - Calling activity
+     */
+    public DeleteContactsDebts(final FragmentPeopleOwingMe peopleOwingMe) {
+
+        this.fragment = peopleOwingMe;
+        this.mContext = peopleOwingMe.requireContext();
+        this.calledByActivity = false; // Set called by an Activity to false
+
+        // Initialize ProgressDialog
+        progressDialog = ViewsUtils.initProgressDialog(peopleOwingMe.requireActivity(),
+                false);
+    }
+
+    /**
+     * Class constructor for FragmentPeopleIOwe
+     *
+     * @param fragmentPeopleIOwe - Calling activity
+     */
+    public DeleteContactsDebts(final FragmentPeople_I_Owe fragmentPeopleIOwe) {
+
+        this.fragment = fragmentPeopleIOwe;
+        this.mContext = fragmentPeopleIOwe.requireContext();
+        this.calledByActivity = false; // Set called by an Activity to false
+
+        // Initialize ProgressDialog
+        progressDialog = ViewsUtils.initProgressDialog(fragmentPeopleIOwe.requireActivity(),
+                false);
     }
 
     /**
@@ -80,7 +121,16 @@ public class DeleteContactsDebts {
                                                 String userOrContactId,
                                                 String[] contactsOrDebtsIds) {
 
-        Dialog dialog = new Dialog(activity); // Create and initialize Dialog
+        Dialog dialog; // Create custom dialog
+
+        if (calledByActivity) {
+
+            dialog = new Dialog(activity); // Initialize Dialog
+
+        } else {
+
+            dialog = new Dialog(fragment.requireActivity()); // Initialize Dialog
+        }
 
         // Create and initialize layout inflater
         LayoutInflater inflater = (LayoutInflater)
@@ -102,18 +152,38 @@ public class DeleteContactsDebts {
             // Get dialog title
             dialogTitle = DataUtils.getStringResource(mContext, R.string.label_delete_contact);
 
-            // Get dialog message
-            dialogMessage = DataUtils.getStringResource(mContext,
-                    R.string.msg_delete_contact_confirmation, contactFullName);
+            // Check if contact name is null
+            if (contactFullName != null) {
+
+                // Get dialog message
+                dialogMessage = DataUtils.getStringResource(mContext,
+                        R.string.msg_delete_contact_confirmation, contactFullName);
+            } else {
+
+                // Get dialog message
+                dialogMessage = DataUtils.getStringResource(mContext,
+                        R.string.msg_delete_contact_confirmation,
+                        DataUtils.getStringResource(mContext, R.string.label_the_selected_contacts));
+            }
 
         } else {
 
             // Get dialog title
             dialogTitle = DataUtils.getStringResource(mContext, R.string.label_delete_debt);
 
-            // Get dialog message
-            dialogMessage = DataUtils.getStringResource(mContext,
-                    R.string.msg_delete_debt_confirmation, contactFullName);
+            // Check if contact name is null
+            if (contactFullName != null) {
+
+                // Get dialog message
+                dialogMessage = DataUtils.getStringResource(mContext,
+                        R.string.msg_delete_debt_confirmation, contactFullName);
+            } else {
+
+                // Get dialog message
+                dialogMessage = DataUtils.getStringResource(mContext,
+                        R.string.msg_delete_contact_confirmation,
+                        DataUtils.getStringResource(mContext, R.string.label_the_selected_debts));
+            }
         }
 
         textDialogTitle.setText(dialogTitle); // Set dialog title
@@ -171,7 +241,16 @@ public class DeleteContactsDebts {
             // Connected
 
             // Hide keyboard if showing
-            ViewsUtils.hideKeyboard(activity);
+            if (calledByActivity) {
+                // Called by Activities
+
+                ViewsUtils.hideKeyboard(activity); // Hide keyboard
+
+            } else {
+                // Called by fragments
+
+                ViewsUtils.hideKeyboard(fragment.requireActivity()); // Hide keyboard
+            }
 
             // Show dialog
             ViewsUtils.showProgressDialog(progressDialog,
@@ -183,7 +262,7 @@ public class DeleteContactsDebts {
                     NetworkUrls.ContactURLS.URL_DELETE_CONTACTS, response -> {
 
                 // Log Response
-                // Log.d(TAG, "Delete contacts response:" + response);
+                Log.d(TAG, "Delete contacts response:" + response);
 
                 ViewsUtils.dismissProgressDialog(progressDialog); // Hide Dialog
 
@@ -213,7 +292,56 @@ public class DeleteContactsDebts {
                                     false,
                                     R.drawable.ic_baseline_person_remove_alt_1_24_white);
 
-                            activity.finish(); // Exit activity
+                            // Create refresh broadcasts broadcast
+                            Intent intentBroadcast = null;
+
+                            // Check if delete was called by Activity
+                            if (calledByActivity) {
+                                // Delete called by an activity
+
+                                // Check Activity instance
+                                if (activity instanceof ContactDetailsAndDebtsActivity) {
+                                    // Activity instance of ContactDetailsAndDebtsActivity
+
+                                    // Initialize refresh broadcasts broadcast
+                                    intentBroadcast = new Intent(BroadCastUtils
+                                            .bcrActionReloadContactDetailsAndDebtsActivity);
+                                }
+                            } else {
+                                // Delete called by a fragment
+
+                                // Check Fragment instance
+                                if (fragment instanceof FragmentPeopleOwingMe) {
+                                    // Fragment instance of FragmentPeopleOwingMe
+
+                                    // Initialize refresh broadcasts broadcast
+                                    intentBroadcast = new Intent(BroadCastUtils
+                                            .bcrActionReloadPeopleOwingMe);
+
+                                } else if (fragment instanceof FragmentPeople_I_Owe) {
+                                    // Fragment instance of FragmentPeopleIOwe
+
+                                    // Initialize refresh broadcasts broadcast
+                                    intentBroadcast = new Intent(BroadCastUtils
+                                            .bcrActionReloadPeopleIOwe);
+                                }
+                            }
+
+                            // Check if intent broadcast is null
+                            if (intentBroadcast != null) {
+                                // Intent broadcast not null
+
+                                // Send broadcast
+                                if (calledByActivity) {
+
+                                    activity.sendBroadcast(intentBroadcast); // Send broadcast
+
+                                } else {
+
+                                    // Send broadcast
+                                    fragment.requireActivity().sendBroadcast(intentBroadcast);
+                                }
+                            }
                         }
                     } else {
                         // Error deleting contact
@@ -279,8 +407,17 @@ public class DeleteContactsDebts {
                     @SuppressWarnings({"unchecked", "rawtypes"}) Map<String, String> params =
                             new HashMap();
 
+                    // Create ContactsIds JSONArray
+                    JSONArray contactsIds = new JSONArray();
+
+                    // Loop through contacts ids
+                    for (String s : contactsIdsToDelete) {
+
+                        contactsIds.put(s); // Add contact ids to contactIds array
+                    }
+
                     // Put contact id to Map params
-                    params.put(ContactUtils.KEY_CONTACTS_IDS, Arrays.toString(contactsIdsToDelete));
+                    params.put(ContactUtils.KEY_CONTACTS_IDS, contactsIds.toString());
 
                     // Put userId to Map params
                     params.put(UserAccountUtils.FIELD_USER_ID, userId);
@@ -339,7 +476,16 @@ public class DeleteContactsDebts {
             // Connected
 
             // Hide keyboard if showing
-            ViewsUtils.hideKeyboard(activity);
+            if (calledByActivity) {
+                // Called by Activities
+
+                ViewsUtils.hideKeyboard(activity); // Hide keyboard
+
+            } else {
+                // Called by fragments
+
+                ViewsUtils.hideKeyboard(fragment.requireActivity()); // Hide keyboard
+            }
 
             // Show dialog
             ViewsUtils.showProgressDialog(progressDialog,
@@ -385,7 +531,16 @@ public class DeleteContactsDebts {
                             Intent intentBroadcast = new Intent(BroadCastUtils
                                     .bcrActionReloadContactDetailsAndDebtsActivity);
 
-                            activity.sendBroadcast(intentBroadcast); // Send broadcast
+                            // Send broadcast
+                            if (calledByActivity) {
+
+                                activity.sendBroadcast(intentBroadcast); // Send broadcast
+
+                            } else {
+
+                                // Send broadcast
+                                fragment.requireActivity().sendBroadcast(intentBroadcast);
+                            }
                         }
                     } else {
                         // Error deleting contacts debts
@@ -450,10 +605,14 @@ public class DeleteContactsDebts {
                     @SuppressWarnings({"unchecked", "rawtypes"}) Map<String, String> params =
                             new HashMap();
 
+                    // Create debts ids JSONArray
                     JSONArray debtsIds = new JSONArray();
+
+                    // Loop through debts ids
                     for (String s : debtsIdsToDelete) {
+
+                        // Add debt id to debts ids array
                         debtsIds.put(s);
-                        // create array and add items into that
                     }
 
                     // Put debts ids to Map params
