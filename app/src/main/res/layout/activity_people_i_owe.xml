@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorActivityBackground"
     tools:context="com.duesclerk.ui.People_I_Owe">
 
@@ -31,9 +32,56 @@
             android:visibility="gone">
 
             <include layout="@layout/layout_no_contacts" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llPeopleIOwe_NoConnection"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@color/colorWhite"
+            android:visibility="gone">
+
+            <include layout="@layout/layout_no_connection" />
         </LinearLayout>
     </LinearLayout>
 
     <include layout="@layout/layout_no_connection_bar" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabPeopleIOwe_DeleteContacts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginStart="@dimen/dimen_fab_margin_start"
+        android:layout_marginTop="@dimen/dimen_fab_margin_top"
+        android:layout_marginEnd="@dimen/dimen_fab_margin_end"
+        android:layout_marginBottom="@dimen/dimen_fab_margin_bottom"
+        android:backgroundTint="@color/colorPrimary"
+        android:contentDescription="@string/content_description_fab_delete_contact_record"
+        android:elevation="@dimen/dimen_fab_elevation_small"
+        android:src="@drawable/ic_baseline_delete_forever_24_white"
+        android:visibility="gone"
+        app:borderWidth="0dp"
+        app:fabSize="auto"
+        app:tint="@color/colorWhite" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabPeopleIOwe_AddContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginStart="@dimen/dimen_fab_margin_start"
+        android:layout_marginTop="@dimen/dimen_fab_margin_top"
+        android:layout_marginEnd="@dimen/dimen_fab_margin_end"
+        android:layout_marginBottom="@dimen/dimen_fab_margin_bottom"
+        android:backgroundTint="@color/colorPrimary"
+        android:contentDescription="@string/content_description_fab_add_contact_record"
+        android:elevation="@dimen/dimen_fab_elevation_small"
+        android:src="@drawable/ic_baseline_add_24_white"
+        android:visibility="gone"
+        app:borderWidth="0dp"
+        app:fabSize="auto"
+        app:tint="@color/colorWhite" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
