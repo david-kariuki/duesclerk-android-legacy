@@ -1,5 +1,7 @@
 package com.duesclerk.interfaces;
 
+import androidx.fragment.app.Fragment;
+
 import com.duesclerk.custom.java_beans.JB_Contacts;
 
 import java.util.ArrayList;
@@ -43,4 +45,13 @@ public interface Interface_MainActivity {
      * @param notFound - Boolean  - ( contacts found / not found )
      */
     void setPeopleIOweContactsEmpty(boolean notFound);
+
+    /**
+     * Function to set SearchView hidden to true / false
+     * It also hides and shows the SearchView
+     *
+     * @param setToHiddenAndHide - set to hidden and hide
+     * @param fragment           - Calling Fragment
+     */
+    void setToHiddenAndHideSearchView(boolean setToHiddenAndHide, Fragment fragment);
 }

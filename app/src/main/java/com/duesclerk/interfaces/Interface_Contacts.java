@@ -36,4 +36,11 @@ public interface Interface_Contacts {
      * @param notFound - Boolean  - ( contacts found / not found )
      */
     void setPeopleIOweContactsEmpty(boolean notFound);
+
+    /**
+     * Interface to show / hide FAB delete selected contacts
+     *
+     * @param show - Show / Hide FAB delete selected contacts
+     */
+    void showFabDeleteContacts(boolean show);
 }

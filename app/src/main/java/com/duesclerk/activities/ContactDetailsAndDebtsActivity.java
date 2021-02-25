@@ -212,7 +212,19 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                         fetchedContactDetails = null; // Clear contact details JSONArray
                     }
 
+                    // Check if contact id is empty
                     if (!DataUtils.isEmptyString(contactId)) {
+
+                        // Check if list adapter is null
+                        if (rvlaDebts != null) {
+
+                            // Check if CheckBoxes are showing
+                            if (rvlaDebts.showingCheckBoxes()) {
+
+                                swipeRefreshLayout.setRefreshing(false); // Stop SwipeRefresh
+                                return; // Break
+                            }
+                        }
 
                         // Fetch contact details
                         fetchContactData(contactId);
@@ -659,11 +671,16 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
             // No connection
 
             // Hide swipe SwipeRefresh
-            ViewsUtils.showSwipeRefreshLayout(false, true, swipeRefreshLayout,
+            ViewsUtils.showSwipeRefreshLayout(false, false, swipeRefreshLayout,
                     swipeRefreshListener);
 
             showContactDetails(false); // Hide contact details
 
+            // Toast connection error message
+            CustomToast.errorMessage(mContext,
+                    DataUtils.getStringResource(mContext,
+                            R.string.error_network_connection_error_message_short),
+                    R.drawable.ic_sad_cloud_100px_white);
         }
 
         showNoConnectionLayout(!connected); // Show / hide no connection layout
