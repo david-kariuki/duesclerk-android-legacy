@@ -7,60 +7,72 @@
     android:background="@color/colorActivityBackground"
     tools:context="com.duesclerk.activities.MainActivity">
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorActivityBackground"
         android:descendantFocusability="beforeDescendants"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:focusedByDefault="true"
-        android:orientation="vertical"
+        android:overScrollMode="never"
+        android:id="@+id/appBarLayoutMainActivity"
+        android:theme="@style/AppTheme.AppBarOverlay"
         tools:targetApi="o">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayoutMainActivity"
-            style="@style/Style_Toolbar_Container_Medium"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginEnd="0dp"
-            android:background="@color/colorActivityBackground"
-            android:elevation="@dimen/dimen_toolbar_activity_elevation_large"
-            android:longClickable="false"
+            android:layout_height="wrap_content"
+            android:id="@+id/collapsingToolBarMainActivity"
+            android:fitsSystemWindows="true"
             android:overScrollMode="never"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:tabBackground="@color/colorWhite"
-            app:tabIndicatorHeight=".2dp"
-            app:tabPaddingEnd="0dp"
-            app:tabPaddingStart="0dp"
-            app:tabSelectedTextColor="@color/colorPrimaryDark"
-            app:tabTextColor="@color/colorBlack" />
+            app:contentScrim="@color/colorTransparent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchViewMainActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_gravity="start"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginEnd="10dp"
-            android:gravity="start"
-            android:visibility="gone"
-            app:closeIcon="@drawable/ic_baseline_close_24_primary"
-            app:queryHint="@string/hint_search_contacts"
-            app:searchHintIcon="@drawable/ic_baseline_search_24_primary_dark"
-            app:searchIcon="@drawable/ic_baseline_search_24_primary_dark"
-            app:theme="@style/Style_SearchView" />
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayoutMainActivity"
+                style="@style/Style_Toolbar_Container_Medium"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:background="@color/colorActivityBackground"
+                android:elevation="@dimen/dimen_toolbar_activity_elevation_large"
+                android:longClickable="false"
+                android:overScrollMode="never"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:tabBackground="@color/colorWhite"
+                app:tabIndicatorHeight=".2dp"
+                app:tabPaddingEnd="0dp"
+                app:tabPaddingStart="0dp"
+                app:tabSelectedTextColor="@color/colorPrimaryDark"
+                app:tabTextColor="@color/colorBlack" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        <View
+        <LinearLayout
             android:layout_width="match_parent"
-            android:id="@+id/dividerSearchView"
-            android:layout_height="@dimen/dimen_search_view_divider"
-            style="@style/Style_SearchView_Divider"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <include layout="@layout/content_main" />
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchViewMainActivity"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_gravity="start"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="3dp"
+                android:gravity="start"
+                android:visibility="gone"
+                app:closeIcon="@drawable/ic_baseline_close_24_primary"
+                app:queryHint="@string/hint_search_contacts"
+                app:searchHintIcon="@drawable/ic_baseline_search_24_primary_dark"
+                app:searchIcon="@drawable/ic_baseline_search_24_primary_dark"
+                app:theme="@style/Style_SearchView" />
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    </LinearLayout>
+    <include layout="@layout/content_main" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

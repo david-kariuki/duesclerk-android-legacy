@@ -16,10 +16,13 @@ import com.duesclerk.custom.custom_utilities.application.ViewsUtils;
 import com.duesclerk.custom.custom_utilities.user_data.DataUtils;
 import com.duesclerk.custom.custom_views.view_pager.ViewPagerAdapter;
 import com.duesclerk.custom.java_beans.JB_Contacts;
+import com.duesclerk.enums.States;
 import com.duesclerk.interfaces.Interface_MainActivity;
 import com.duesclerk.ui.fragment_app_menu.FragmentAppMenu;
 import com.duesclerk.ui.fragment_contacts.fragment_people_i_owe.FragmentPeople_I_Owe;
 import com.duesclerk.ui.fragment_contacts.fragment_people_owing_me.FragmentPeopleOwingMe;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.tabs.TabLayout;
 
 import org.jetbrains.annotations.NotNull;
@@ -40,9 +43,11 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
     private FragmentPeopleOwingMe peopleOwingMe;
     private FragmentPeople_I_Owe peopleIOwe;
     private String queryPeopleOwingMe = "", queryPeopleIOwe = "";
-    private View dividerSearchView;
     private boolean searchViewPeopleOwingMeSetToHidden = false;
     private boolean searchViewPeopleIOweSetToHidden = false;
+    private boolean appBarLayoutPeopleExpanded = true;
+    private CollapsingToolbarLayout collapsingToolBar;
+    private AppBarLayout appBarLayout;
 
     // Shared SearchView for all contacts listing fragments
     private SearchView searchView;
@@ -59,7 +64,8 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
 
         // Setup SearchView
         searchView = ViewsUtils.initSearchView(this, R.id.searchViewMainActivity);
-        dividerSearchView = findViewById(R.id.dividerSearchView);
+        collapsingToolBar = findViewById(R.id.collapsingToolBarMainActivity);
+        appBarLayout = findViewById(R.id.appBarLayoutMainActivity);
 
         setupTabLayout(); // Set up TabLayout
         viewPager.setOffscreenPageLimit(2); // Set ViewPager off screen limit
@@ -150,12 +156,67 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
             }
         });
 
+        // AppBarLayout onOffsetChanged
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+
+            private States states;
+
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (verticalOffset == 0) {
+                    if (states != States.APPBAR_LAYOUT_EXPANDED) {
+
+                        // Check TabLayout position
+                        if (tabPosition == 0) {
+
+                            // Set AppBarLayout at FragmentPeopleOwingMe expanded
+                            appBarLayoutPeopleExpanded = true;
+
+                        } else if (tabPosition == 1) {
+
+                            // Set AppBarLayout at FragmentPeopleOwingMe expanded
+                            appBarLayoutPeopleExpanded = true;
+                        }
+                    }
+
+                    states = States.APPBAR_LAYOUT_EXPANDED; // Set states
+
+                } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
+
+                    if (states != States.APPBAR_LAYOUT_COLLAPSED) {
+
+                        // Check TabLayout position
+                        if (tabPosition == 0) {
+
+                            // Set AppBarLayout at FragmentPeopleOwingMe collapsed
+                            appBarLayoutPeopleExpanded = false;
+
+                        } else if (tabPosition == 1) {
+
+                            // Set AppBarLayout at FragmentPeopleOwingMe collapsed
+                            appBarLayoutPeopleExpanded = false;
+                        }
+                    }
+
+                    states = States.APPBAR_LAYOUT_COLLAPSED; // Set states
+
+                } else {
+
+                    //noinspection StatementWithEmptyBody
+                    if (states != States.APPBAR_LAYOUT_IDLE) {
+                    }
+
+                    states = States.APPBAR_LAYOUT_IDLE; // Set states
+                }
+            }
+        });
+
         // Select TabLayout position
         Objects.requireNonNull(tabLayout.getTabAt(0)).select();
     }
 
     /**
-     * Function to saved instance state
+     * Function to saved instance states
      *
      * @param outState - Bundle
      */
@@ -186,7 +247,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
     }
 
     /**
-     * Function to restore saved instance state
+     * Function to restore saved instance states
      *
      * @param savedInstanceState - Bundle
      */
@@ -271,7 +332,6 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
         textTabAppMenu = Objects.requireNonNull(Objects.requireNonNull(tabAppMenu)
                 .getCustomView()).findViewById(R.id.textTabAppMenu);
 
-
         // Set TabLayout titles
         textTabPeopleOwingMe.setText(DataUtils.getStringResource(mContext,
                 R.string.title_fragment_people_owing_me));
@@ -323,13 +383,17 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
     /**
      * Function to switch tab positions
      *
-     * @param position- tab position
-     * @param selected  - boolean
+     * @param position - tab position
+     * @param selected - boolean
      */
     private void switchTabSelection(int position, boolean selected) {
 
         showHideSearchView(); // Show / Hide SearchView
 
+        // Enable / Disable CollapsingToolbarLayout scroll depending on TabLayout position
+        enableAppBarLayoutScroll(position != 2);
+
+        // Switch position
         switch (position) {
 
             case 0:
@@ -409,6 +473,9 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
         }
     }
 
+    /**
+     * Function to check if ArrayList is empty using size
+     */
     private boolean isEmptyContacts(ArrayList<JB_Contacts> contacts) {
 
         return contacts.size() > 0; // Check if array size is greater than 0
@@ -423,6 +490,62 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
     }
 
     /**
+     * Function to enable / disable AppBarLayout scrolling
+     *
+     * @param enable - enable / disable AppBarLayout scrolling
+     */
+    private void enableAppBarLayoutScroll(boolean enable) {
+
+        // Create app bar layout params
+        final AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams)
+                collapsingToolBar.getLayoutParams();
+
+        // Check whether to enable scroll
+        if (enable) {
+            // Enable scroll
+
+            expandAppBarLayout(true); // Expand AppBarLayout
+
+            // Set scroll flags to SCROLL and ENTER_ALWAYS
+            params.setScrollFlags(
+                    AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
+                            | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
+            );
+
+        } else {
+            // Disable scroll
+
+            params.setScrollFlags(0); // Set scroll flags to zero
+        }
+
+        collapsingToolBar.setLayoutParams(params); // Set layout params
+    }
+
+    /**
+     * Function to expand / collapse AppBarLayout
+     *
+     * @param expand - Expand / collapse AppBarLayout
+     */
+    private void expandAppBarLayout(boolean expand) {
+
+        // Switch TabLayout position
+        switch (tabPosition) {
+
+            case 0:
+            case 1:
+
+                // Expand / collapse AppBarLayout
+                appBarLayout.setExpanded(appBarLayoutPeopleExpanded, true);
+                break;
+
+            default:
+
+                appBarLayout.setExpanded(expand, true); // Expand / collapse AppBarLayout
+                break;
+        }
+    }
+
+    /**
      * Function to return to first tab on back pressed
      */
     @Override
@@ -430,6 +553,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
 
         if (tabPosition != 0) {
 
+            // Run thread
             this.runOnUiThread(() -> {
 
                 TabLayout.Tab tab = tabLayout.getTabAt(0);
@@ -514,12 +638,10 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
                     if (!searchViewPeopleOwingMeSetToHidden) {
 
                         searchView.setVisibility(View.VISIBLE); // Show SearchView
-                        dividerSearchView.setVisibility(View.VISIBLE); // Show SearchView divider
                     }
                 } else {
 
                     searchView.setVisibility(View.GONE); // Hide SearchView
-                    dividerSearchView.setVisibility(View.GONE); // Hide SearchView divider
 
                 }
 
@@ -527,7 +649,6 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
                 if (searchViewPeopleOwingMeSetToHidden) {
 
                     searchView.setVisibility(View.GONE); // Hide SearchView
-                    dividerSearchView.setVisibility(View.GONE); // Hide SearchView divider
                 }
                 break;
 
@@ -539,26 +660,22 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
                     if (!searchViewPeopleIOweSetToHidden) {
 
                         searchView.setVisibility(View.VISIBLE); // Show SearchView
-                        dividerSearchView.setVisibility(View.VISIBLE); // Show SearchView divider
                     }
                 } else {
 
                     searchView.setVisibility(View.GONE); // Hide SearchView
-                    dividerSearchView.setVisibility(View.GONE); // Hide SearchView divider
                 }
 
                 // Check if SearchView is set to not hidden
                 if (searchViewPeopleIOweSetToHidden) {
 
                     searchView.setVisibility(View.GONE); // Hide SearchView
-                    dividerSearchView.setVisibility(View.GONE); // Hide SearchView divider
                 }
                 break;
 
             default:
 
                 searchView.setVisibility(View.GONE); // Hide SearchView
-                dividerSearchView.setVisibility(View.GONE); // Hide SearchView divider
                 break;
         }
     }

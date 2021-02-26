@@ -7,6 +7,7 @@
     <dimen name="dimen_fab_margin_start">17dp</dimen>
     <dimen name="dimen_fab_margin_end">@dimen/dimen_fab_margin_start</dimen>
     <dimen name="dimen_fab_margin_bottom">16dp</dimen>
+    <dimen name="dimen_fab_margin_bottom_large">50dp</dimen>
     <dimen name="dimen_fab_elevation_small">5dp</dimen>
 
     <!--CardView-->

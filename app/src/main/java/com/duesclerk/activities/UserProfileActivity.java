@@ -730,7 +730,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
      */
     private void fetchUserAccountInfo(String strEmailAddress, String strPassword) {
 
-        // Check Internet Connection State
+        // Check Internet Connection states
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
             // Connected
 
@@ -878,7 +878,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
      */
     private void updateUserAccountInfo(final String userId, final String accountType) {
 
-        // Check Internet Connection State
+        // Check Internet Connection states
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
             // Connected
 

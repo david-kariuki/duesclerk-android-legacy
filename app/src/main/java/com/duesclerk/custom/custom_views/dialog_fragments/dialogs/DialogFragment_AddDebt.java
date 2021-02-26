@@ -315,7 +315,7 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
             contactFullName, final String debtAmount, final String debtDateIssued, final String
                                          debtDateDue, final String debtDescription) {
 
-        // Check Internet Connection State
+        // Check Internet Connection states
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
             // Connected
 
