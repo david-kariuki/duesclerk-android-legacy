@@ -89,7 +89,7 @@ public class FetchContactsClass {
     public void fetchContacts(final String userId, MultiSwipeRefreshLayout swipeRefreshLayout,
                               SwipeRefreshLayout.OnRefreshListener swipeRefreshListener) {
 
-        // Check Internet Connection State
+        // Check Internet Connection states
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
             // Connected
 
