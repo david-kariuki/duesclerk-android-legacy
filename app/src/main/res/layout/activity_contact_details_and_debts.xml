@@ -10,6 +10,30 @@
     tools:ignore="UseCompoundDrawables"
     tools:targetApi="o">
 
+    <LinearLayout
+        style="@style/Style_Toolbar_Container_Medium"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_toolbar_activity_height_medium"
+        android:elevation="0dp">
+
+        <ImageView
+            android:id="@+id/imageContactDetailsAndDebtsActivity_Exit"
+            style="@style/Style_Toolbar_Icon_Exit"
+            android:layout_width="@dimen/dimen_image_view_icon_size_small"
+            android:layout_height="@dimen/dimen_image_view_icon_size_small"
+            android:contentDescription="@string/content_description_icon_exit" />
+
+        <TextView
+            android:id="@+id/textContactDetailsAndDebtsActivity_Title"
+            style="@style/Style_Toolbar_Title_Medium_Primary_Dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:singleLine="false"
+            android:text="@string/title_debts_people_owing_me" />
+
+    </LinearLayout>
+
     <RelativeLayout
         android:id="@+id/rlContactDetailsAndDebtsActivity_NoConnection"
         android:layout_width="match_parent"
@@ -37,6 +61,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorActivityBackground"
+                android:descendantFocusability="beforeDescendants"
+                android:focusableInTouchMode="true"
+                android:focusedByDefault="true"
                 android:overScrollMode="never"
                 android:theme="@style/AppTheme.AppBarOverlay">
 
@@ -53,29 +80,6 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <LinearLayout
-                            style="@style/Style_Toolbar_Container_Medium"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dimen_toolbar_activity_height_medium">
-
-                            <ImageView
-                                android:id="@+id/imageContactDetailsAndDebtsActivity_Exit"
-                                style="@style/Style_Toolbar_Icon_Exit"
-                                android:layout_width="@dimen/dimen_image_view_icon_size_small"
-                                android:layout_height="@dimen/dimen_image_view_icon_size_small"
-                                android:contentDescription="@string/content_description_icon_exit" />
-
-                            <TextView
-                                android:id="@+id/textContactDetailsAndDebtsActivity_Title"
-                                style="@style/Style_Toolbar_Title_Medium_Primary_Dark"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:maxLines="2"
-                                android:singleLine="false"
-                                android:text="@string/title_debts_people_owing_me" />
-
-                        </LinearLayout>
-
                         <!--Toolbar divider-->
                         <include layout="@layout/divider_toolbar_activities" />
 
@@ -86,7 +90,6 @@
                             android:layout_height="wrap_content">
 
                             <include layout="@layout/layout_shimmer_contact_activity" />
-
                         </com.facebook.shimmer.ShimmerFrameLayout>
 
                         <LinearLayout
@@ -247,8 +250,8 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:hint="@string/hint_not_provided"
-                                            android:textColor="@color/colorBlack"
                                             android:singleLine="true"
+                                            android:textColor="@color/colorBlack"
                                             android:textColorHint="@color/colorPrimaryGrey"
                                             android:textSize="14sp" />
                                     </LinearLayout>
@@ -379,40 +382,26 @@
                             <include layout="@layout/divider_toolbar_activities" />
 
                         </LinearLayout>
-
                     </LinearLayout>
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-                <LinearLayout
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/searchViewDebts"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_gravity="start"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="5dp"
-                    android:descendantFocusability="beforeDescendants"
-                    android:focusableInTouchMode="true"
-                    android:focusedByDefault="true"
-                    android:orientation="vertical">
+                    android:gravity="start"
+                    android:visibility="gone"
+                    app:closeIcon="@drawable/ic_baseline_close_24_primary"
+                    app:queryHint="@string/hint_search_debts"
+                    app:searchHintIcon="@drawable/ic_baseline_search_24_primary_dark"
+                    app:searchIcon="@drawable/ic_baseline_search_24_primary_dark"
+                    app:theme="@style/Style_SearchView" />
 
-                    <androidx.appcompat.widget.SearchView
-                        android:id="@+id/searchViewDebts"
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:layout_gravity="start"
-                        android:elevation="@dimen/dimen_toolbar_bs_elevation"
-                        android:gravity="start"
-                        android:visibility="gone"
-                        app:closeIcon="@drawable/ic_baseline_close_24_primary"
-                        app:queryHint="@string/hint_search_debts"
-                        app:searchHintIcon="@drawable/ic_baseline_search_24_primary_dark"
-                        app:searchIcon="@drawable/ic_baseline_search_24_primary_dark"
-                        app:theme="@style/Style_SearchView" />
-
-                    <!--Toolbar divider-->
-                    <include layout="@layout/divider_toolbar_activities" />
-
-                </LinearLayout>
             </com.google.android.material.appbar.AppBarLayout>
 
             <include layout="@layout/content_contact_details_and_debts" />
@@ -452,7 +441,6 @@
                 app:borderWidth="0dp"
                 app:fabSize="auto"
                 app:tint="@color/colorWhite" />
-
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout>
 </LinearLayout>
