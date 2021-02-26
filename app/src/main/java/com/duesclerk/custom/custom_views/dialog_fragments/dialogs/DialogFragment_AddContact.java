@@ -774,7 +774,7 @@ public class DialogFragment_AddContact extends DialogFragment {
     private void addContact(final String userId, final String contactsFullName,
                             final String contactsPhoneNumber) {
 
-        // Check Internet Connection State
+        // Check Internet Connection states
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
             // Connected
 

@@ -282,7 +282,7 @@ public class DialogFragment_UpdateContact extends DialogFragment {
                                   final String newContactEmailAddress,
                                   final String newContactAddress) {
 
-        // Check Internet Connection State
+        // Check Internet Connection states
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
             // Connected
 

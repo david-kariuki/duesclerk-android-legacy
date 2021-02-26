@@ -259,7 +259,7 @@ public class BottomSheetFragment_SwitchAccountType extends BottomSheetDialogFrag
     private void switchAccountType(final String userId, final String newAccountType,
                                    final String password) {
 
-        // Check Internet Connection State
+        // Check Internet Connection states
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
                 // Connected
 
@@ -281,7 +281,8 @@ public class BottomSheetFragment_SwitchAccountType extends BottomSheetDialogFrag
                         DataUtils.getStringResource(mContext,
                                 R.string.title_switching_account_type),
                         DataUtils.getStringResource(mContext,
-                                R.string.msg_switching_account_type, switchingToValue)
+                                R.string.msg_switching_account_type,
+                                Objects.requireNonNull(switchingToValue))
                 );
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,
@@ -398,7 +399,7 @@ public class BottomSheetFragment_SwitchAccountType extends BottomSheetDialogFrag
                             params.put(UserAccountUtils.FIELD_LAST_NAME,
                                     editLastName.getText().toString());
 
-                        } else if (newAccountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
+                        } else {
 
                             // Put businessName
                             params.put(UserAccountUtils.FIELD_BUSINESS_NAME,

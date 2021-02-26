@@ -236,7 +236,7 @@ public class DeleteContactsDebts {
      */
     public void deleteContacts() {
 
-        // Check Internet Connection State
+        // Check Internet Connection States
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
             // Connected
 
@@ -471,7 +471,7 @@ public class DeleteContactsDebts {
      */
     public void deleteDebts() {
 
-        // Check Internet Connection State
+        // Check Internet Connection States
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
             // Connected
 

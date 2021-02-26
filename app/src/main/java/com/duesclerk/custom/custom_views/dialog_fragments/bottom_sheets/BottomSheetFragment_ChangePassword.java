@@ -239,7 +239,7 @@ public class BottomSheetFragment_ChangePassword extends BottomSheetDialogFragmen
     private void updatePassword(final String userId, final String currentPassword,
                                 final String newPassword) {
 
-        // Check Internet Connection State
+        // Check Internet Connection states
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
             // Connected
 
