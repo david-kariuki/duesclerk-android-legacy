@@ -195,7 +195,15 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
                 setExpandedDebtOptionsMenu(false, position);
             }
 
-            // Start Debts activity
+            // Check if CheckBoxes are showing
+            if (showingCheckBoxes()) {
+                // CheckBoxes showing
+
+                // Check / Uncheck CheckBox
+                holder.checkBox.setChecked(!debts.get(position).checkBoxChecked());
+
+            } else {
+                // Start Debts activity
 //                Intent intent = new Intent(v.getContext(), ContactDetailsAndDebtsActivity.class);
 //
 //                // Pass contact id
@@ -207,6 +215,7 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
 //                        .get(position).getContactId());
 //
 //                v.getContext().startActivity(intent);
+            }
         });
 
         // List item onLongClick

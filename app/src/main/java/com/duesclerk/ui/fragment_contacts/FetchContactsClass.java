@@ -39,7 +39,7 @@ import java.util.Map;
 
 public class FetchContactsClass {
 
-    private final String TAG = FetchContactsClass.class.getSimpleName();
+    //private final String TAG = FetchContactsClass.class.getSimpleName();
     private final Context mContext;
     private final Interface_Contacts interfaceContacts;
     private final MultiSwipeRefreshLayout swipeRefreshLayout;
@@ -113,12 +113,16 @@ public class FetchContactsClass {
                     if (!error) {
                         // Contacts fetched
 
-                        // Get JSONArray From JSONObject
-                        JSONArray jsonArray = jsonObject.getJSONArray(
+                        // Get contacts JSONArray From JSONObject
+                        JSONArray jsonArrayContacts = jsonObject.getJSONArray(
                                 ContactUtils.KEY_CONTACTS);
 
-                        // Split JSONArray to get (People owing me) and (People I owe) contacts
-                        extractSortJSONArray(jsonArray);
+                        // Get all contacts total debts JSONArray
+                        JSONObject jsonObjectContactsDebts = jsonObject.getJSONObject(
+                                DebtUtils.KEY_ALL_CONTACTS_DEBTS_TOTAL_AMOUNT);
+
+                        // Split JSONObject to get (People owing me) and (People I owe) contacts
+                        extractSortJSONArray(jsonArrayContacts, jsonObjectContactsDebts);
 
                     } else {
                         // Error updating details
@@ -236,18 +240,19 @@ public class FetchContactsClass {
     /**
      * Function to split contacts JSONArray into (People owing me) and (People I owe) arrays
      *
-     * @param jsonArray - Contacts JSONArray
+     * @param jsonArrayContacts - Contacts JSONArray
      */
-    private void extractSortJSONArray(JSONArray jsonArray) {
+    private void extractSortJSONArray(JSONArray jsonArrayContacts,
+                                      JSONObject jsonObjectContactsDebtsTotals) {
 
         ArrayList<JB_Contacts> contactsPeopleOwingMe = new ArrayList<>();
         ArrayList<JB_Contacts> contactsPeopleIOwe = new ArrayList<>();
 
-        if (jsonArray != null) {
+        if (jsonArrayContacts != null) {
 
-            if (jsonArray.length() > 0)
+            if (jsonArrayContacts.length() > 0)
                 // Looping through all the elements of the json array
-                for (int i = 0; i < jsonArray.length(); i++) {
+                for (int i = 0; i < jsonArrayContacts.length(); i++) {
 
                     // Creating a json object of the current index
                     JSONObject jsonObject;
@@ -256,7 +261,7 @@ public class FetchContactsClass {
                     try {
 
                         // Getting Data json object
-                        jsonObject = jsonArray.getJSONObject(i);
+                        jsonObject = jsonArrayContacts.getJSONObject(i);
 
                         // Getting Data from json object
                         String contactId, contactFullName, contactPhoneNumber, contactEmailAddress,
@@ -271,7 +276,7 @@ public class FetchContactsClass {
                         contactAddress = jsonObject.getString(ContactUtils.FIELD_CONTACT_ADDRESS);
                         contactType = jsonObject.getString(ContactUtils.FIELD_CONTACT_TYPE);
                         contactsTotalDebtsAmount = jsonObject.getString(
-                                DebtUtils.FIELD_DEBTS_TOTAL_AMOUNT);
+                                DebtUtils.KEY_DEBTS_TOTAL_AMOUNT);
 
                         // Check if debts total amount is null to insert 0
                         if (DataUtils.isEmptyString(contactsTotalDebtsAmount)) {
@@ -304,6 +309,33 @@ public class FetchContactsClass {
 
             // Pass data to interface
             passContactDataToInterface(contactsPeopleOwingMe, contactsPeopleIOwe);
+
+        }
+
+        // Pass data to interface
+        passContactDataToInterface(contactsPeopleOwingMe, contactsPeopleIOwe);
+
+        // Check if JSONArray is null
+        if (jsonObjectContactsDebtsTotals != null) {
+            // Check JSONArray length
+
+            // Check JSONObject length
+            if (jsonObjectContactsDebtsTotals.length() > 0) {
+
+                // Catch error
+                try {
+
+                    // Pass debts totals to interface
+                    passContactsDebtsTotals(
+                            jsonObjectContactsDebtsTotals
+                                    .getString(DebtUtils.KEY_CONTACTS_DEBTS_TOTAL_PEOPLE_OWING_ME),
+                            jsonObjectContactsDebtsTotals
+                                    .getString(DebtUtils.KEY_CONTACTS_DEBTS_TOTAL_PEOPLE_I_OWE)
+                    );
+
+                } catch (Exception ignored) {
+                }
+            }
         }
     }
 
@@ -345,6 +377,23 @@ public class FetchContactsClass {
             // Set no contacts found to true
             interfaceContacts.setPeopleIOweContactsEmpty(true);
         }
+    }
+
+    /**
+     * Function to pass all contacts debts total amount to interface
+     *
+     * @param contactsPeopleOwingMeDebtsTotal - All PeopleOwingMe contacts debts total
+     * @param contactsPeopleIOweDebtsTotal    - All PeopleIOwe contacts debts total
+     */
+    private void passContactsDebtsTotals(String contactsPeopleOwingMeDebtsTotal,
+                                         String contactsPeopleIOweDebtsTotal) {
+
+
+        // Pass PeopleOwingMe contacts debts totals
+        interfaceContacts.passPeopleOwingMeDebtsTotal(contactsPeopleOwingMeDebtsTotal);
+
+        // Pass PeopleIOwe contacts debts totals
+        interfaceContacts.passPeopleIOweDebtsTotal(contactsPeopleIOweDebtsTotal);
     }
 
     private void showSwipeRefresh() {

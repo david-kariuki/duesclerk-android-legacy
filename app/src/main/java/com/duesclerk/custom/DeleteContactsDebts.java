@@ -503,22 +503,28 @@ public class DeleteContactsDebts {
 
                 try {
 
+                    // Create JSONObject
                     JSONObject jsonObject = new JSONObject(response);
+
+                    // Get error from JSONObject
                     boolean error = jsonObject.getBoolean(VolleyUtils.KEY_ERROR);
 
                     // Check for error
                     if (!error) {
                         // Contacts debts deleted successfully
 
+                        // Get JSONObject
                         JSONObject jsonObjectDeleteDebt = jsonObject
                                 .getJSONObject(VolleyUtils.KEY_DELETE_DEBTS);
 
+                        // Check for success message
                         if (!DataUtils.isEmptyString(jsonObjectDeleteDebt
                                 .getString(VolleyUtils.KEY_SUCCESS_MESSAGE))) {
 
                             // Show success message
                             String plurals = "";
                             if (debtsIdsToDelete.length > 1) {
+
                                 plurals = "s";
                             }
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -65,7 +66,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         AppBarLayout.OnOffsetChangedListener, Interface_IDS, Interface_Debts {
 
     // Get class simple name
-    // private final String TAG = ContactDetailsAndDebtsActivity.class.getSimpleName();
+    private final String TAG = ContactDetailsAndDebtsActivity.class.getSimpleName();
 
     RelativeLayout rlNoConnection;
     FloatingActionButton fabAddDebt, fabDeleteSelectedDebts;
@@ -156,15 +157,30 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
             @Override
             public void onReceive(Context arg0, Intent intent) {
 
+                // Empty selected debt ids ArrayList
+                DataUtils.clearArrayList(rvlaDebts.checkedDebtsIds);
+
                 String action = intent.getAction(); // Get action
 
                 // Check for BroadCast action
                 if (action.equals(BroadCastUtils.bcrActionReloadContactDetailsAndDebtsActivity)) {
 
+                    // Check if adapter is null
+                    if (rvlaDebts != null) {
+                        // Adapter not null
+
+                        // Check if CheckBoxes showing
+                        if (rvlaDebts.showingCheckBoxes()) {
+
+                            rvlaDebts.setShownListCheckBoxes(false);
+                        }
+                    }
+
                     // Start/Stop swipe SwipeRefresh
                     ViewsUtils.showSwipeRefreshLayout(true, true,
                             swipeRefreshLayout, swipeRefreshListener);
                 }
+
             }
         };
 
@@ -289,9 +305,6 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                 // Delete multiple debts
                 deleteContactsOrDebts.confirmAndDeleteContactsOrDebts(false,
                         contactFullName, contactId, debtIds);
-
-                // Empty selected debt ids ArrayList
-                DataUtils.clearArrayList(rvlaDebts.checkedDebtsIds);
             }
         });
 
@@ -738,7 +751,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                     NetworkUrls.ContactURLS.URL_FETCH_CONTACT_DETAILS_AND_DEBTS, response -> {
 
                 // Log Response
-                // Log.d(TAG, "Fetching contact data response:" + response);
+                Log.d(TAG, "Fetching contact data response:" + response);
 
                 showFabAddDebt(false); // Hide add debt FAB
 
@@ -758,8 +771,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                         extractContactDetails(jsonObject); // Extract contact details
 
                         // Get JSONArray From JSONObject
-                        JSONArray contactDebts;
-                        contactDebts = jsonObject.getJSONArray(
+                        JSONArray contactDebts = jsonObject.getJSONArray(
                                 DebtUtils.KEY_DEBTS);
 
                         // Split JSONArray to get contact debts records
@@ -910,7 +922,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                 String debtsTotalAmount = DataUtils.getStringResource(
                         mContext,
                         R.string.label_debts_total_amount,
-                        contactDetails.getString(DebtUtils.FIELD_DEBTS_TOTAL_AMOUNT)
+                        contactDetails.getString(DebtUtils.KEY_DEBTS_TOTAL_AMOUNT)
                 );
 
                 setActivityTitle(contactType, contactFullName); // Update activity title
