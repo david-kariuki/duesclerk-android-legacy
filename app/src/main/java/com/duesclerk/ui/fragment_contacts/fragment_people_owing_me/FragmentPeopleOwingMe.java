@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -60,6 +61,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
     private ImageView imageDeleteContacts, imageHideCheckBoxes;
     private FloatingActionButton fabAddContact, fabDeleteSelectedContacts;
     private DialogFragment_AddContact dialogFragmentAddContact;
+    private TextView textTotalDebtsAmount;
     private String searchQuery = "";
 
     public static FragmentPeopleOwingMe newInstance() {
@@ -92,6 +94,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
         LinearLayout llNoConnection_TryAgain = view.findViewById(R.id.llNoConnection_TryAgain);
         llNoContacts = view.findViewById(R.id.llContacts_NoContacts);
         LinearLayout llAddContact = view.findViewById(R.id.llNoContacts_AddContact);
+        textTotalDebtsAmount = view.findViewById(R.id.textPeopleOwingMe_DebtsTotalAmount);
 
         // ImageViews
         imageDeleteContacts = view.findViewById(R.id.imagePeopleOwingMe_DeleteContacts);
@@ -172,6 +175,13 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
 
                 if (action.equals(BroadCastUtils.bcrActionReloadPeopleOwingMe)) {
 
+                    // Check if adapter is null
+                    if (rvlaContacts != null) {
+
+                        // Empty selected contact ids ArrayList
+                        DataUtils.clearArrayList(rvlaContacts.checkedContactsIds);
+                    }
+
                     if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
                         // Network connection established
 
@@ -232,9 +242,6 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
                         null,
                         database.getUserAccountInfo(null).get(0).getUserId(),
                         contactIds);
-
-                // Empty selected contact ids ArrayList
-                DataUtils.clearArrayList(rvlaContacts.checkedContactsIds);
             }
         });
 
@@ -585,6 +592,24 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
     }
 
     @Override
+    public void passPeopleOwingMeDebtsTotal(String peopleOwingMeDebtsTotal) {
+
+        // Set total debts amount
+        textTotalDebtsAmount.setText(
+                DataUtils.getStringResource(mContext, R.string.label_debts_total_amount,
+                        peopleOwingMeDebtsTotal)
+        );
+    }
+
+    @Override
+    public void passPeopleIOweDebtsTotal(String peopleIOweDebtsTotal) {
+
+    }
+
+    /**
+     * Interface method to set contacts PeopleOwingMe to empty
+     */
+    @Override
     public void setPeopleOwingMeContactsEmpty(boolean empty) {
 
         showNoContactsLayout(empty); // Show or hide no contacts layout
@@ -599,6 +624,9 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
         }
     }
 
+    /**
+     * Interface method to set contacts PeopleIOwe to empty
+     */
     @Override
     public void setPeopleIOweContactsEmpty(boolean notFound) {
 
