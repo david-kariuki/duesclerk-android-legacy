@@ -18,5 +18,4 @@ public class ContactUtils {
     public static final String KEY_CONTACTS = "Contacts";
     public static final String KEY_CONTACTS_IDS = "ContactsIds";
     public static final String KEY_CONTACT_DETAILS = "ContactDetails";
-    public static final String KEY_CONTACT_RECORDS = "ContactsRecords";
 }
