@@ -8,9 +8,18 @@ public class DebtUtils {
     public static final String FIELD_DEBT_DATE_ISSUED = "DebtDateIssued";
     public static final String FIELD_DEBT_DATE_DUE = "DebtDateDue";
     public static final String FIELD_DEBT_DESCRIPTION = "DebtDescription";
-    public static final String FIELD_DEBTS_TOTAL_AMOUNT = "DebtsTotalAmount";
 
-    // Debts
+    // Debts keys
     public static final String KEY_DEBTS = "Debts";
     public static final String KEY_DEBTS_IDS = "DebtsIds";
+
+    // Debts total amount
+    public static final String KEY_DEBTS_TOTAL_AMOUNT = "DebtsTotalAmount";
+    public static final String KEY_ALL_CONTACTS_DEBTS_TOTAL_AMOUNT = "AllContactsDebtsTotalAmount";
+
+    public static final String KEY_CONTACTS_DEBTS_TOTAL_PEOPLE_OWING_ME =
+        "ContactsDebtsTotalPeopleOwingMe";
+
+    public static final String KEY_CONTACTS_DEBTS_TOTAL_PEOPLE_I_OWE =
+        "ContactsDebtsTotalPeopleIOwe";
 }
