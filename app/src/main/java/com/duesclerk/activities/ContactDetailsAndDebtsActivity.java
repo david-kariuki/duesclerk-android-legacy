@@ -157,8 +157,12 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
             @Override
             public void onReceive(Context arg0, Intent intent) {
 
-                // Empty selected debt ids ArrayList
-                DataUtils.clearArrayList(rvlaDebts.checkedDebtsIds);
+                // Check if adapter is null
+                if (rvlaDebts != null) {
+
+                    // Empty selected debt ids ArrayList
+                    DataUtils.clearArrayList(rvlaDebts.checkedDebtsIds);
+                }
 
                 String action = intent.getAction(); // Get action
 

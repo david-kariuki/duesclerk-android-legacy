@@ -323,6 +323,10 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
         // Attach ItemTouchHelper to RecyclerView
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
+        // Fetch contacts
+        ViewsUtils.showSwipeRefreshLayout(true, true, swipeRefreshLayout,
+                swipeRefreshListener);
+
         return view; // Return inflated view
     }
 
@@ -341,10 +345,6 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
         // Register broadcast
         BroadCastUtils.registerBroadCasts(requireActivity(), bcrReloadContacts,
                 BroadCastUtils.bcrActionReloadPeopleIOwe);
-
-        // Start SwipeRefreshLayout
-        ViewsUtils.showSwipeRefreshLayout(true, true, swipeRefreshLayout,
-                swipeRefreshListener);
     }
 
     @Override
