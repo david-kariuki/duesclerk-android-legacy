@@ -101,204 +101,204 @@ public class RVLA_Contacts extends RecyclerView.Adapter<RVLA_Contacts.RecyclerVi
     @Override
     public void onBindViewHolder(@NotNull RecyclerViewHolder holder, final int position) {
 
-        String contactFullName = this.contacts.get(position).getContactFullName();
+            String contactFullName = this.contacts.get(position).getContactFullName();
 
-        // Check ViewHolder position
-        if (position % 2 == 0) {
-            // Position is even number
+            // Check ViewHolder position
+            if (position % 2 == 0) {
+                // Position is even number
 
-            // Set background resource
-            holder.llContactAvatar.setBackgroundResource(R.drawable.circle_border_primary_fill_primary);
+                // Set background resource
+                holder.llContactAvatar.setBackgroundResource(R.drawable.circle_border_primary_fill_primary);
 
-        } else {
-            // Position is odd number
+            } else {
+                // Position is odd number
 
-            // Set background resource
-            holder.llContactAvatar.setBackgroundResource(R.drawable.circle_border_accent_fill_accent);
-        }
+                // Set background resource
+                holder.llContactAvatar.setBackgroundResource(R.drawable.circle_border_accent_fill_accent);
+            }
 
-        if (contactFullName.length() == 1) {
+            if (contactFullName.length() == 1) {
 
-            // Set text to first character of contact full name
-            holder.textContactAvatarText.setText(DataUtils.stringToTitleCase(
-                    contactFullName.substring(0, 1)));
-        } else {
+                // Set text to first character of contact full name
+                holder.textContactAvatarText.setText(DataUtils.stringToTitleCase(
+                        contactFullName.substring(0, 1)));
+            } else {
 
-            // Set text to first and second character of contact full name
-            holder.textContactAvatarText.setText(DataUtils.stringToTitleCase(
-                    contactFullName.substring(0, 2)));
-        }
+                // Set text to first and second character of contact full name
+                holder.textContactAvatarText.setText(DataUtils.stringToTitleCase(
+                        contactFullName.substring(0, 2)));
+            }
 
-        // Set contact data to TextViews
-        holder.textContactFullName.setText(contactFullName);
-        holder.textContactPhoneNumber.setText(this.contacts.get(position)
-                .getContactPhoneNumber());
+            // Set contact data to TextViews
+            holder.textContactFullName.setText(contactFullName);
+            holder.textContactPhoneNumber.setText(this.contacts.get(position)
+                    .getContactPhoneNumber());
 
-        // Get contact email address
-        String contactEmailAddress = this.contacts.get(position).getContactEmailAddress();
+            // Get contact email address
+            String contactEmailAddress = this.contacts.get(position).getContactEmailAddress();
 
-        // Check for email address
-        if (!DataUtils.isEmptyString(contactEmailAddress)) {
+            // Check for email address
+            if (!DataUtils.isEmptyString(contactEmailAddress)) {
 
-            // Show contact email address
-            holder.textContactEmailAddress.setVisibility(View.VISIBLE);
+                // Show contact email address
+                holder.textContactEmailAddress.setVisibility(View.VISIBLE);
 
-            // Set contact email address
-            holder.textContactEmailAddress.setText(contactEmailAddress);
-        }
+                // Set contact email address
+                holder.textContactEmailAddress.setText(contactEmailAddress);
+            }
 
-        // Get contacts total contacts amount
-        String singleContactsTotalDebtsAmount = this.contacts.get(position)
-                .getSingleContactsDebtsTotalAmount();
+            // Get contacts total contacts amount
+            String singleContactsTotalDebtsAmount = this.contacts.get(position)
+                    .getSingleContactsDebtsTotalAmount();
 
-        // Set contacts total contact amount
-        holder.textSingleContactsDebtsTotalAmount.setText(singleContactsTotalDebtsAmount);
+            // Set contacts total contact amount
+            holder.textSingleContactsDebtsTotalAmount.setText(singleContactsTotalDebtsAmount);
 
-        // Check for contacts total contacts amount to bold text
-        if (!singleContactsTotalDebtsAmount.equals("0")) {
+            // Check for contacts total contacts amount to bold text
+            if (!singleContactsTotalDebtsAmount.equals("0")) {
 
-            // Bold contacts total contact amount text
-            holder.textSingleContactsDebtsTotalAmount.setTypeface(
-                    holder.textSingleContactsDebtsTotalAmount.getTypeface(), Typeface.BOLD);
-        }
+                // Bold contacts total contact amount text
+                holder.textSingleContactsDebtsTotalAmount.setTypeface(
+                        holder.textSingleContactsDebtsTotalAmount.getTypeface(), Typeface.BOLD);
+            }
 
-        // Check if buttons layout is shown so as to show options buttons
-        if (contacts.get(position).isShownButtonsLayout()) {
-            // Layout buttons shown
+            // Check if buttons layout is shown so as to show options buttons
+            if (contacts.get(position).isShownButtonsLayout()) {
+                // Layout buttons shown
 
-            holder.llButtonsLayout.setVisibility(View.VISIBLE); // Show buttons layout
+                holder.llButtonsLayout.setVisibility(View.VISIBLE); // Show buttons layout
 
-            // Check if contact menu at current position is showing
-            if (contacts.get(position).isExpandedContactOptionsMenu()) {
+                // Check if contact menu at current position is showing
+                if (contacts.get(position).isExpandedContactOptionsMenu()) {
 
-                // Hide ConstraintLayout with contact options
-                holder.consContactOptions.setVisibility(View.GONE);
+                    // Hide ConstraintLayout with contact options
+                    holder.consContactOptions.setVisibility(View.GONE);
 
-                // Expand contact options menu
-                ViewsUtils.expandExpandableLayout(true, holder.expandableContactMenu);
+                    // Expand contact options menu
+                    ViewsUtils.expandExpandableLayout(true, holder.expandableContactMenu);
+
+                } else {
+
+                    // Collapse contact options menu
+                    ViewsUtils.expandExpandableLayout(false, holder.expandableContactMenu);
+
+                    // Show ConstraintLayout with contact options
+                    holder.consContactOptions.setVisibility(View.VISIBLE);
+                }
+            } else {
+
+                holder.llButtonsLayout.setVisibility(View.GONE); // Hide buttons layout
+            }
+
+            // Check if CheckBox at current position is shown
+            if (contacts.get(position).showingCheckbox()) {
+
+                holder.checkBox.setVisibility(View.VISIBLE); // Show CheckBox
+                holder.llContactAvatar.setVisibility(View.GONE); // Hide contact avatar
+
+                // Check / UnCheck CheckBox
+                holder.checkBox.setChecked(contacts.get(position).checkBoxChecked());
 
             } else {
 
-                // Collapse contact options menu
-                ViewsUtils.expandExpandableLayout(false, holder.expandableContactMenu);
-
-                // Show ConstraintLayout with contact options
-                holder.consContactOptions.setVisibility(View.VISIBLE);
+                holder.checkBox.setVisibility(View.GONE); // Hide CheckBox
+                holder.llContactAvatar.setVisibility(View.VISIBLE); // Show contact avatar
             }
-        } else {
-
-            holder.llButtonsLayout.setVisibility(View.GONE); // Hide buttons layout
-        }
-
-        // Check if CheckBox at current position is shown
-        if (contacts.get(position).showingCheckbox()) {
-
-            holder.checkBox.setVisibility(View.VISIBLE); // Show CheckBox
-            holder.llContactAvatar.setVisibility(View.GONE); // Hide contact avatar
-
-            // Check / UnCheck CheckBox
-            holder.checkBox.setChecked(contacts.get(position).checkBoxChecked());
-
-        } else {
-
-            holder.checkBox.setVisibility(View.GONE); // Hide CheckBox
-            holder.llContactAvatar.setVisibility(View.VISIBLE); // Show contact avatar
-        }
 
 
-        // List item OnClick
-        holder.consContactItem.setOnClickListener(v -> {
+            // List item OnClick
+            holder.consContactItem.setOnClickListener(v -> {
 
-            if (contacts.get(position).isExpandedContactOptionsMenu()) {
+                if (contacts.get(position).isExpandedContactOptionsMenu()) {
+
+                    // Set contact options menu to expanded
+                    setExpandedContactOptionsMenu(false, position);
+                }
+
+                // Check if CheckBoxes are showing
+                if (!showingCheckBoxes()) {
+                    // CheckBoxes not showing
+
+                    // Start debts activity
+                    Intent intent = new Intent(v.getContext(), ContactDetailsAndDebtsActivity.class);
+
+                    intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+
+                    // Pass contact id
+                    intent.putExtra(ContactUtils.FIELD_CONTACT_ID,
+                            this.contacts.get(position).getContactId());
+
+                    // Pass contact full name
+                    intent.putExtra(ContactUtils.FIELD_CONTACT_FULL_NAME,
+                            this.contacts.get(position).getContactFullName());
+
+                    // Pass contact type
+                    intent.putExtra(ContactUtils.FIELD_CONTACT_TYPE,
+                            this.contacts.get(position).getContactType());
+
+                    v.getContext().startActivity(intent); // Start activity
+                } else {
+
+                    // Check / UnCheck CheckBoxes
+                    holder.checkBox.setChecked(!this.contacts.get(position).checkBoxChecked());
+                }
+            });
+
+            // List item onLongClick
+            holder.consContactItem.setOnLongClickListener(v -> {
+
+                if (!showingCheckBoxes()) {
+
+                    // Show / Hide contact item menu based on current state
+                    setExpandedContactOptionsMenu(!contacts.get(position).isExpandedContactOptionsMenu(), position);
+                }
+                return true; // Return true
+            });
+
+            // Image contact options button onClick
+            holder.imageContactOptions.setOnClickListener(v -> {
 
                 // Set contact options menu to expanded
-                setExpandedContactOptionsMenu(false, position);
-            }
+                setExpandedContactOptionsMenu(true, position);
+            });
 
-            // Check if CheckBoxes are showing
-            if (!showingCheckBoxes()) {
-                // CheckBoxes not showing
+            holder.imageCollapseContactOptionsMenu.setOnClickListener(v -> {
 
-                // Start debts activity
-                Intent intent = new Intent(v.getContext(), ContactDetailsAndDebtsActivity.class);
+                setExpandedContactOptionsMenu(false, position); // Collapse contact item menu
+            });
 
-                intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+            // Menu items onClick
+            holder.imageDeleteContact.setOnClickListener(v -> {
 
-                // Pass contact id
-                intent.putExtra(ContactUtils.FIELD_CONTACT_ID,
-                        this.contacts.get(position).getContactId());
-
-                // Pass contact full name
-                intent.putExtra(ContactUtils.FIELD_CONTACT_FULL_NAME,
-                        this.contacts.get(position).getContactFullName());
-
-                // Pass contact type
-                intent.putExtra(ContactUtils.FIELD_CONTACT_TYPE,
-                        this.contacts.get(position).getContactType());
-
-                v.getContext().startActivity(intent);
-            } else {
-
-                // Check / UnCheck CheckBoxes
-                holder.checkBox.setChecked(!this.contacts.get(position).checkBoxChecked());
-            }
-        });
-
-        // List item onLongClick
-        holder.consContactItem.setOnLongClickListener(v -> {
-
-            if (!showingCheckBoxes()) {
-
-                // Show / Hide contact item menu based on current state
-                setExpandedContactOptionsMenu(!contacts.get(position).isExpandedContactOptionsMenu(), position);
-            }
-            return true; // Return true
-        });
-
-        // Image contact options button onClick
-        holder.imageContactOptions.setOnClickListener(v -> {
-
-            // Set contact options menu to expanded
-            setExpandedContactOptionsMenu(true, position);
-        });
-
-        holder.imageCollapseContactOptionsMenu.setOnClickListener(v -> {
-
-            setExpandedContactOptionsMenu(false, position); // Collapse contact item menu
-        });
-
-        // Menu items onClick
-        holder.imageDeleteContact.setOnClickListener(v -> {
-
-            // Add contact id to checked contact ids
-            checkedContactsIds.add(contacts.get(position).getContactId());
-
-            setExpandedContactOptionsMenu(false, position); // Collapse contact item menu
-
-            // Pass contacts ids to interface
-            interfaceIds.passContactsIds(getCheckedContactsIds());
-
-        });
-
-        holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-
-            // Set CheckBox checked to true / false
-            contacts.get(position).setCheckBoxChecked(isChecked);
-
-            if (isChecked) {
-
-                // Add contact id to checked contacts ids
+                // Add contact id to checked contact ids
                 checkedContactsIds.add(contacts.get(position).getContactId());
 
-            } else {
+                setExpandedContactOptionsMenu(false, position); // Collapse contact item menu
 
-                // Remove contact id to checked contacts ids
-                checkedContactsIds.remove(contacts.get(position).getContactId());
-            }
+                // Pass contacts ids to interface
+                interfaceIds.passContactsIds(getCheckedContactsIds());
 
-            // Show / Hide delete contacts FAB if any CheckBox is checked
-            interfaceContacts.showFabDeleteContacts(anyCheckBoxChecked());
-        });
+            });
+
+            holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
+                // Set CheckBox checked to true / false
+                contacts.get(position).setCheckBoxChecked(isChecked);
+
+                if (isChecked) {
+
+                    // Add contact id to checked contacts ids
+                    checkedContactsIds.add(contacts.get(position).getContactId());
+
+                } else {
+
+                    // Remove contact id to checked contacts ids
+                    checkedContactsIds.remove(contacts.get(position).getContactId());
+                }
+
+                // Show / Hide delete contacts FAB if any CheckBox is checked
+                interfaceContacts.showFabDeleteContacts(anyCheckBoxChecked());
+            });
     }
 
     @Override
