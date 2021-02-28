@@ -57,10 +57,10 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
         mContext = this; // Get Context
+
 
         // Setup SearchView
         searchView = ViewsUtils.initSearchView(this, R.id.searchViewMainActivity);
@@ -526,7 +526,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
      *
      * @param expand - Expand / collapse AppBarLayout
      */
-    private void expandAppBarLayout(boolean expand) {
+    private void expandAppBarLayout(@SuppressWarnings("SameParameterValue") boolean expand) {
 
         // Switch TabLayout position
         switch (tabPosition) {

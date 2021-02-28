@@ -8,6 +8,7 @@
     tools:context="com.duesclerk.activities.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayoutMainActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorActivityBackground"
@@ -16,14 +17,13 @@
         android:focusableInTouchMode="true"
         android:focusedByDefault="true"
         android:overScrollMode="never"
-        android:id="@+id/appBarLayoutMainActivity"
         android:theme="@style/AppTheme.AppBarOverlay"
         tools:targetApi="o">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolBarMainActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/collapsingToolBarMainActivity"
             android:fitsSystemWindows="true"
             android:overScrollMode="never"
             app:contentScrim="@color/colorTransparent"
@@ -61,7 +61,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_gravity="start"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="3dp"
                 android:gravity="start"
                 android:visibility="gone"
