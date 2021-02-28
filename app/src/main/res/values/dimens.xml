@@ -16,7 +16,7 @@
     <dimen name="dimen_card_view_corner_radius">15dp</dimen>
 
     <!--ImageView dimensions-->
-    <dimen name="dimen_image_view_icon_size_small">28dp</dimen>
+    <dimen name="dimen_image_view_icon_size_small">29dp</dimen>
     <dimen name="dimen_image_view_icon_size_medium">35dp</dimen>
     <dimen name="dimen_image_view_icon_size_large">45dp</dimen>
     <dimen name="dimen_image_view_avatar_size_small">35dp</dimen>
