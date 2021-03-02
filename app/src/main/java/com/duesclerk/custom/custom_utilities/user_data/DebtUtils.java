@@ -17,9 +17,12 @@ public class DebtUtils {
     public static final String KEY_DEBTS_TOTAL_AMOUNT = "DebtsTotalAmount";
     public static final String KEY_ALL_CONTACTS_DEBTS_TOTAL_AMOUNT = "AllContactsDebtsTotalAmount";
 
+    // Contacts debts totals
     public static final String KEY_CONTACTS_DEBTS_TOTAL_PEOPLE_OWING_ME =
         "ContactsDebtsTotalPeopleOwingMe";
-
     public static final String KEY_CONTACTS_DEBTS_TOTAL_PEOPLE_I_OWE =
         "ContactsDebtsTotalPeopleIOwe";
+
+    // Contacts number of debts
+    public static final String KEY_CONTACTS_NUMBER_OF_DEBTS = "ContactsNumberOfDebts";
 }

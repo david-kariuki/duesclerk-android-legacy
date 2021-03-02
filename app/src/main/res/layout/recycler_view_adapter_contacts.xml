@@ -119,17 +119,6 @@
                     android:textColorHint="@color/colorPrimaryGrey"
                     android:textSize="13sp" />
 
-                <TextView
-                    android:id="@+id/textContact_ContactEmailAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:hint="@string/hint_email_address"
-                    android:singleLine="true"
-                    android:textColor="@color/colorPrimaryGrey"
-                    android:textColorHint="@color/colorPrimaryGrey"
-                    android:textSize="13sp" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -178,6 +167,17 @@
                         android:textColorHint="@color/colorPrimaryGrey"
                         android:textSize="13sp" />
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textContact_ContactNumberOfDebts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:hint="@string/hint_number_of_debts"
+                    android:singleLine="true"
+                    android:textColor="@color/colorPrimaryGrey"
+                    android:textColorHint="@color/colorPrimaryGrey"
+                    android:textSize="13sp" />
             </LinearLayout>
         </LinearLayout>
 

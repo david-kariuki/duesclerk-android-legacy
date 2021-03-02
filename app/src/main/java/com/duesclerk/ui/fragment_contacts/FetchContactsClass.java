@@ -1,6 +1,7 @@
 package com.duesclerk.ui.fragment_contacts;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -39,7 +40,7 @@ import java.util.Map;
 
 public class FetchContactsClass {
 
-    //private final String TAG = FetchContactsClass.class.getSimpleName();
+    private final String TAG = FetchContactsClass.class.getSimpleName();
     private final Context mContext;
     private final Interface_Contacts interfaceContacts;
     private final MultiSwipeRefreshLayout swipeRefreshLayout;
@@ -98,7 +99,7 @@ public class FetchContactsClass {
                     NetworkUrls.ContactURLS.URL_FETCH_USER_CONTACTS, response -> {
 
                 // Log Response
-                //Log.d(TAG, "Fetching contacts response:" + response);
+                Log.d(TAG, "Fetching contacts response:" + response);
 
                 // Hide SwipeRefreshLayout
                 ViewsUtils.showSwipeRefreshLayout(false, false,
@@ -265,16 +266,20 @@ public class FetchContactsClass {
 
                         // Getting Data from json object
                         String contactId, contactFullName, contactPhoneNumber, contactEmailAddress,
-                                contactAddress, contactType, contactsTotalDebtsAmount;
+                                contactAddress, contactType, contactsNumberOfDebts,
+                                contactsTotalDebtsAmount;
 
                         contactId = jsonObject.getString(ContactUtils.FIELD_CONTACT_ID);
-                        contactFullName = jsonObject.getString(ContactUtils.FIELD_CONTACT_FULL_NAME);
+                        contactFullName = jsonObject
+                                .getString(ContactUtils.FIELD_CONTACT_FULL_NAME);
                         contactPhoneNumber = jsonObject.getString(
                                 ContactUtils.FIELD_CONTACT_PHONE_NUMBER);
                         contactEmailAddress = jsonObject.getString(
                                 ContactUtils.FIELD_CONTACT_EMAIL_ADDRESS);
                         contactAddress = jsonObject.getString(ContactUtils.FIELD_CONTACT_ADDRESS);
                         contactType = jsonObject.getString(ContactUtils.FIELD_CONTACT_TYPE);
+                        contactsNumberOfDebts = jsonObject
+                                .getString(DebtUtils.KEY_CONTACTS_NUMBER_OF_DEBTS);
                         contactsTotalDebtsAmount = jsonObject.getString(
                                 DebtUtils.KEY_DEBTS_TOTAL_AMOUNT);
 
@@ -290,6 +295,7 @@ public class FetchContactsClass {
                         jbContacts.setContactEmailAddress(contactEmailAddress);
                         jbContacts.setContactAddress(contactAddress);
                         jbContacts.setContactType(contactType);
+                        jbContacts.setContactsNumberOfDebts(contactsNumberOfDebts);
                         jbContacts.setSingleContactsDebtsTotalAmount(contactsTotalDebtsAmount);
 
                         if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME)) {
@@ -297,7 +303,8 @@ public class FetchContactsClass {
 
                             contactsPeopleOwingMe.add(jbContacts); // Add java bean to ArrayList
 
-                        } else if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_I_OWE)) {
+                        } else if (contactType
+                                .equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_I_OWE)) {
                             // People I owe
 
                             contactsPeopleIOwe.add(jbContacts); // Add java bean to ArrayList
