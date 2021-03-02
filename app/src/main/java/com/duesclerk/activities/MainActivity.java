@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
     private boolean appBarLayoutPeopleExpanded = true;
     private CollapsingToolbarLayout collapsingToolBar;
     private AppBarLayout appBarLayout;
+    private States appBarState;
 
     // Shared SearchView for all contacts listing fragments
     private SearchView searchView;
@@ -159,12 +160,11 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
         // AppBarLayout onOffsetChanged
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
 
-            private States states;
 
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if (verticalOffset == 0) {
-                    if (states != States.APPBAR_LAYOUT_EXPANDED) {
+                    if (appBarState != States.APPBAR_LAYOUT_EXPANDED) {
 
                         // Check TabLayout position
                         if (tabPosition == 0) {
@@ -179,11 +179,11 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
                         }
                     }
 
-                    states = States.APPBAR_LAYOUT_EXPANDED; // Set states
+                    appBarState = States.APPBAR_LAYOUT_EXPANDED; // Set states
 
                 } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
 
-                    if (states != States.APPBAR_LAYOUT_COLLAPSED) {
+                    if (appBarState != States.APPBAR_LAYOUT_COLLAPSED) {
 
                         // Check TabLayout position
                         if (tabPosition == 0) {
@@ -198,15 +198,15 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
                         }
                     }
 
-                    states = States.APPBAR_LAYOUT_COLLAPSED; // Set states
+                    appBarState = States.APPBAR_LAYOUT_COLLAPSED; // Set states
 
                 } else {
 
                     //noinspection StatementWithEmptyBody
-                    if (states != States.APPBAR_LAYOUT_IDLE) {
+                    if (appBarState != States.APPBAR_LAYOUT_IDLE) {
                     }
 
-                    states = States.APPBAR_LAYOUT_IDLE; // Set states
+                    appBarState = States.APPBAR_LAYOUT_IDLE; // Set states
                 }
             }
         });
