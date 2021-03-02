@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class JB_Contacts implements Serializable {
 
     String contactId, contactFullName, contactPhoneNumber, contactEmailAddress, contactAddress,
-            contactType, singleContactsDebtsTotalAmount;
+            contactType, contactsNumberOfDebts, singleContactsDebtsTotalAmount;
     private boolean expandedContactsOptionsMenu = false, showingCheckBox = false, checkedBox = false,
             shownButtonsLayout = true;
 
@@ -45,7 +45,7 @@ public class JB_Contacts implements Serializable {
      */
     public String getContactId() {
 
-        return contactId; // Return contact full name
+        return this.contactId; // Return contact full name
     }
 
     /**
@@ -63,7 +63,7 @@ public class JB_Contacts implements Serializable {
      */
     public String getContactFullName() {
 
-        return contactFullName; // Return contact full name
+        return this.contactFullName; // Return contact full name
     }
 
     /**
@@ -81,7 +81,7 @@ public class JB_Contacts implements Serializable {
      */
     public String getContactPhoneNumber() {
 
-        return contactPhoneNumber; // Return contact phone number
+        return this.contactPhoneNumber; // Return contact phone number
     }
 
     /**
@@ -99,7 +99,7 @@ public class JB_Contacts implements Serializable {
      */
     public String getContactEmailAddress() {
 
-        return contactEmailAddress; // Return contact email address
+        return this.contactEmailAddress; // Return contact email address
     }
 
     /**
@@ -117,7 +117,7 @@ public class JB_Contacts implements Serializable {
      */
     public String getContactAddress() {
 
-        return contactAddress; // Return contact address
+        return this.contactAddress; // Return contact address
     }
 
     /**
@@ -126,6 +126,7 @@ public class JB_Contacts implements Serializable {
      * @param contactAddress - Contact address
      */
     public void setContactAddress(String contactAddress) {
+
         this.contactAddress = contactAddress; // Set contact address
     }
 
@@ -134,7 +135,7 @@ public class JB_Contacts implements Serializable {
      */
     public String getContactType() {
 
-        return contactType; // Return contact type
+        return this.contactType; // Return contact type
     }
 
     /**
@@ -143,16 +144,34 @@ public class JB_Contacts implements Serializable {
      * @param contactType - Contact type
      */
     public void setContactType(String contactType) {
+
         this.contactType = contactType; // Set contact type
     }
 
+    /**
+     * Function to get contacts number of debts
+     */
+    public String getContactsNumberOfDebts() {
+
+        return this.contactsNumberOfDebts; // Return contact type
+    }
 
     /**
-     * Function to get total contacts amount
+     * Function to set contacts number of debts
+     *
+     * @param contactsNumberOfDebts - Contacts number of debts
+     */
+    public void setContactsNumberOfDebts(String contactsNumberOfDebts) {
+
+        this.contactsNumberOfDebts = contactsNumberOfDebts; // Set contacts number of debts
+    }
+
+    /**
+     * Function to get contacts number of debts
      */
     public String getSingleContactsDebtsTotalAmount() {
 
-        return singleContactsDebtsTotalAmount; // Return total contacts amount
+        return this.singleContactsDebtsTotalAmount; // Return total contacts amount
     }
 
     /**
