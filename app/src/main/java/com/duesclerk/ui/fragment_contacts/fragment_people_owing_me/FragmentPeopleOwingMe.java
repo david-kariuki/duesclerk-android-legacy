@@ -112,7 +112,6 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
 
         recyclerView.addItemDecoration(decorators); // Add item decoration
         recyclerView.setLayoutManager(layoutManager); // Set layout manager
-        recyclerView.setHasFixedSize(false); // Set has fixed size to false
 
         // Initialize class objects
         database = new UserDatabase(mContext);
@@ -323,12 +322,14 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
         // Attach ItemTouchHelper to RecyclerView
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
+
         // Fetch contacts
         ViewsUtils.showSwipeRefreshLayout(true, true, swipeRefreshLayout,
-                      swipeRefreshListener);
+                swipeRefreshListener);
 
         return view; // Return inflated view
     }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -345,10 +346,6 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
         // Register broadcast
         BroadCastUtils.registerBroadCasts(requireActivity(), bcrReloadContacts,
                 BroadCastUtils.bcrActionReloadPeopleOwingMe);
-
-        // Start SwipeRefreshLayout
-        //ViewsUtils.showSwipeRefreshLayout(true, true, swipeRefreshLayout,
-          //      swipeRefreshListener);
     }
 
     @Override

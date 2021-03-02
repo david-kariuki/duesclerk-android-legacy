@@ -1,86 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorActivityBackground"
+    android:descendantFocusability="beforeDescendants"
+    android:focusable="true"
+    android:fillViewport="true"
+    android:focusableInTouchMode="true"
     tools:context=".activities.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/llPeopleOwingMe_Options"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="UseCompoundDrawables">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imagePeopleOwingMe_HideCheckBoxes"
-            android:layout_width="@dimen/dimen_image_view_icon_size_small"
-            android:layout_height="@dimen/dimen_image_view_icon_size_small"
-            android:contentDescription="@string/content_description_icon_menu"
-            android:padding="@dimen/dimen_image_view_icon_padding_small"
-            android:src="@drawable/ic_baseline_close_24_primary_grey"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/consPeopleOwingMe_Options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0" />
+            tools:ignore="UseCompoundDrawables">
 
-        <TextView
-            android:id="@+id/textPeopleOwingMe_DebtsTotalAmount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="7dp"
-            android:hint="@string/label_debts_total_amount"
-            android:singleLine="true"
-            android:textColor="@color/colorBlack"
-            android:textColorHint="@color/colorPrimaryGrey"
-            android:textSize="@dimen/dimen_text_view_labels_size_normal"
-            android:textStyle="bold"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imagePeopleOwingMe_HideCheckBoxes"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0" />
+            <ImageView
+                android:id="@+id/imagePeopleOwingMe_HideCheckBoxes"
+                android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                android:layout_height="@dimen/dimen_image_view_icon_size_small"
+                android:contentDescription="@string/content_description_icon_menu"
+                android:padding="@dimen/dimen_image_view_icon_padding_small"
+                android:src="@drawable/ic_baseline_close_24_primary_grey"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="-1" />
 
-        <ImageView
-            android:id="@+id/imagePeopleOwingMe_DeleteContacts"
-            android:layout_width="@dimen/dimen_image_view_icon_size_small"
-            android:layout_height="@dimen/dimen_image_view_icon_size_small"
-            android:layout_marginStart="10dp"
-            android:contentDescription="@string/content_description_icon_menu"
-            android:padding="@dimen/dimen_image_view_icon_padding_small"
-            android:src="@drawable/ic_baseline_delete_forever_24_primary_grey"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0" />
+            <TextView
+                android:id="@+id/textPeopleOwingMe_DebtsTotalAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:hint="@string/label_debts_total_amount"
+                android:singleLine="true"
+                android:textColor="@color/colorBlack"
+                android:textColorHint="@color/colorPrimaryGrey"
+                android:textSize="@dimen/dimen_text_view_labels_size_normal"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imagePeopleOwingMe_HideCheckBoxes"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="-1" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/imagePeopleOwingMe_DeleteContacts"
+                android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                android:layout_height="@dimen/dimen_image_view_icon_size_small"
+                android:layout_marginStart="10dp"
+                android:contentDescription="@string/content_description_icon_menu"
+                android:padding="@dimen/dimen_image_view_icon_padding_small"
+                android:src="@drawable/ic_baseline_delete_forever_24_primary_grey"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="-1" />
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0"
-        app:layout_constraintTop_toBottomOf="@+id/llPeopleOwingMe_Options">
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/consPeopleOwingMe_Options"
+            app:layout_constraintVertical_bias="0">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewPeopleOwingMe"
@@ -91,5 +95,5 @@
 
             <include layout="@layout/layout_page_footer_recycler_view" />
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

@@ -78,6 +78,7 @@ public class SplashActivity extends AppCompatActivity {
                     }
 
                     startActivity(intent); // Start activity
+                    SplashActivity.this.finish(); // Exit Activity
 
                 } catch (Exception ignored) {
                 } finally {
@@ -86,14 +87,22 @@ public class SplashActivity extends AppCompatActivity {
                 }
             }
         };
+
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
         counterThread.start(); // Start thread
     }
+
 
     @Override
     protected void onDestroy() {
@@ -107,7 +116,7 @@ public class SplashActivity extends AppCompatActivity {
 
         counterThread.interrupt(); // Stop thread
 
-        super.onBackPressed();
+        super.onBackPressed(); // Exit
 
     }
 }
