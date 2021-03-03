@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -52,6 +54,8 @@ import com.onegravity.contactpicker.contact.ContactSortOrder;
 import com.onegravity.contactpicker.core.ContactPickerActivity;
 import com.onegravity.contactpicker.picture.ContactPictureType;
 
+import net.cachapa.expandablelayout.ExpandableLayout;
+
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
@@ -67,9 +71,12 @@ public class DialogFragment_AddContact extends DialogFragment {
     private final LayoutInflater inflater;
     private final Context mContext;
     private final int mainActivityTabLayoutPosition;
-    private EditText editContactFullName, editContactPhoneNumber, editEmailAddress, editContactAddress;
+    private EditText editContactFullName, editContactPhoneNumber, editEmailAddress,
+            editContactAddress;
     private String contactsEmailAddress, contactsAddress, contactType;
     private ProgressDialog progressDialog;
+    private ExpandableLayout expandableLayoutDropDown;
+    private ImageView imageDropDown;
 
     /**
      * Class constructor
@@ -91,11 +98,12 @@ public class DialogFragment_AddContact extends DialogFragment {
         final Dialog dialogAddContact = super.onCreateDialog(savedInstanceState);
 
         @SuppressLint("InflateParams")
-        View dialogView = inflater.inflate(
-                R.layout.dialog_add_contact, null, false);
+        View dialogView = inflater.inflate(R.layout.dialog_add_contact,
+                null, false);
 
         // ImageViews
         ImageView imageAddContact = dialogView.findViewById(R.id.imageAddContact_AddContact);
+        this.imageDropDown = dialogView.findViewById(R.id.imageAddContact_DropDown);
 
         // EditTexts
         this.editContactFullName = dialogView.findViewById(R.id.editAddContact_FullName);
@@ -103,13 +111,21 @@ public class DialogFragment_AddContact extends DialogFragment {
         this.editEmailAddress = dialogView.findViewById(R.id.editAddContact_EmailAddress);
         this.editContactAddress = dialogView.findViewById(R.id.editAddContact_Address);
 
+        // TextViews
+        TextView textPeopleOwingMe = dialogView.findViewById(R.id.textAddContact_PeopleOwingMe);
+        TextView textPeopleIOwe = dialogView.findViewById(R.id.textAddContact_PeopleIOwe);
+
         // LinearLayouts
         LinearLayout llCancel = dialogView.findViewById(R.id.llAddContact_Cancel);
         LinearLayout llAddContact = dialogView.findViewById(R.id.llAddContact_Add);
 
         // Radio buttons
-        RadioButton radioOwingMe = dialogView.findViewById(R.id.radioAddContact_OwingMe);
+        RadioButton radioPeopleOwingMe = dialogView.findViewById(R.id.radioAddContact_PeopleOwingMe);
         RadioButton radioPeopleIOwe = dialogView.findViewById(R.id.radioAddContact_PeopleIOwe);
+
+        // ExpandableLayout
+        this.expandableLayoutDropDown = dialogView.findViewById(
+                R.id.expandableAddContact_OptionalContactInformation);
 
         // Initialize ProgressDialog
         this.progressDialog = ViewsUtils.initProgressDialog(requireActivity(), false);
@@ -121,7 +137,7 @@ public class DialogFragment_AddContact extends DialogFragment {
         switch (this.mainActivityTabLayoutPosition) {
             case 0:
 
-                radioOwingMe.setChecked(true); // Check radio button
+                radioPeopleOwingMe.setChecked(true); // Check radio button
 
                 // Set contact type
                 this.contactType = ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME;
@@ -138,16 +154,47 @@ public class DialogFragment_AddContact extends DialogFragment {
             default:
 
                 radioPeopleIOwe.setChecked(false); // Uncheck radio button
-                radioOwingMe.setChecked(false); // Uncheck radio button
+                radioPeopleOwingMe.setChecked(false); // Uncheck radio button
                 break;
         }
 
+        // RadioButton ColorStateList
+        ColorStateList colorStateList = new ColorStateList(
+
+                new int[][]{
+
+                        new int[]{-android.R.attr.state_checked}, // Unchecked
+                        new int[]{android.R.attr.state_checked} // Checked
+                },
+
+                new int[]{
+
+                        DataUtils.getColorResource(mContext, R.color.colorBlack), // Unchecked
+                        DataUtils.getColorResource(mContext, R.color.colorPrimary) // Checked
+                }
+        );
+
+        // Set button tint list
+        radioPeopleOwingMe.setButtonTintList(colorStateList);
+        radioPeopleIOwe.setButtonTintList(colorStateList);
+
         // RadioButton onClick
-        radioOwingMe.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        radioPeopleOwingMe.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
             if (isChecked) {
 
+                // Get contact type
                 this.contactType = ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME;
+
+                // Change label text color
+                textPeopleOwingMe.setTextColor(DataUtils.getColorResource(mContext,
+                        R.color.colorPrimary));
+
+            } else {
+
+                // Change label text color
+                textPeopleOwingMe.setTextColor(DataUtils.getColorResource(mContext,
+                        R.color.colorBlack));
             }
         });
 
@@ -156,7 +203,18 @@ public class DialogFragment_AddContact extends DialogFragment {
 
             if (isChecked) {
 
+                // Get contact type
                 this.contactType = ContactUtils.KEY_CONTACT_TYPE_PEOPLE_I_OWE;
+
+                // Change label text color
+                textPeopleIOwe.setTextColor(DataUtils.getColorResource(mContext,
+                        R.color.colorPrimary));
+
+            } else {
+
+                // Change label text color
+                textPeopleIOwe.setTextColor(DataUtils.getColorResource(mContext,
+                        R.color.colorBlack));
             }
         });
 
@@ -177,7 +235,6 @@ public class DialogFragment_AddContact extends DialogFragment {
                         .putExtra(ContactPickerActivity.EXTRA_CONTACT_SORT_ORDER,
                                 ContactSortOrder.AUTOMATIC.name())
                         .putExtra(ContactPickerActivity.EXTRA_SELECT_CONTACTS_LIMIT, 1)
-                        .putExtra(ContactPickerActivity.EXTRA_ONLY_CONTACTS_WITH_PHONE, true)
                         .putExtra(ContactPickerActivity.EXTRA_ONLY_CONTACTS_WITH_PHONE, true);
 
                 // Start activity
@@ -218,6 +275,28 @@ public class DialogFragment_AddContact extends DialogFragment {
 
             }
         });
+
+        // Dropdown onClick
+        imageDropDown.setOnClickListener(
+                v -> {
+
+                    // Check if ExpandableLayout is expanded
+                    if (!expandableLayoutDropDown.isExpanded()) {
+
+                        // Expand ExpandableLayout
+                        ViewsUtils.expandExpandableLayout(true, expandableLayoutDropDown);
+
+                        imageDropDown.setRotation(180); // Rotate drop down image
+
+                    } else {
+
+                        // Collapse ExpandableLayout
+                        ViewsUtils.expandExpandableLayout(false, expandableLayoutDropDown);
+
+                        imageDropDown.setRotation(0); // Rotate drop down image
+                    }
+                }
+        );
 
         // Remove window title
         dialogAddContact.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
