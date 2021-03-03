@@ -19,9 +19,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.duesclerk.R;
-import com.duesclerk.custom.custom_utilities.application.ViewsUtils;
-import com.duesclerk.custom.custom_utilities.user_data.InputFiltersUtils;
-import com.duesclerk.custom.custom_views.dialog_fragments.bottom_sheets.BottomSheetFragment_CountryPicker;
+import com.duesclerk.classes.custom_utilities.application.ViewsUtils;
+import com.duesclerk.classes.custom_utilities.user_data.InputFiltersUtils;
+import com.duesclerk.classes.custom_views.dialog_fragments.bottom_sheets.BottomSheetFragment_CountryPicker;
 import com.duesclerk.interfaces.Interface_CountryPicker;
 import com.duesclerk.interfaces.Interface_SignInSignup;
 import com.google.android.material.textfield.TextInputEditText;

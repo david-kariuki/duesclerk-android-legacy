@@ -1,6 +1,6 @@
 package com.duesclerk.interfaces;
 
-import com.duesclerk.custom.java_beans.JB_Contacts;
+import com.duesclerk.classes.java_beans.JB_Contacts;
 
 import java.util.ArrayList;
 

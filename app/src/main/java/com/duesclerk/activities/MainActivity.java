@@ -12,10 +12,10 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.duesclerk.R;
-import com.duesclerk.custom.custom_utilities.application.ViewsUtils;
-import com.duesclerk.custom.custom_utilities.user_data.DataUtils;
-import com.duesclerk.custom.custom_views.view_pager.ViewPagerAdapter;
-import com.duesclerk.custom.java_beans.JB_Contacts;
+import com.duesclerk.classes.custom_utilities.application.ViewsUtils;
+import com.duesclerk.classes.custom_utilities.user_data.DataUtils;
+import com.duesclerk.classes.custom_views.view_pager.ViewPagerAdapter;
+import com.duesclerk.classes.java_beans.JB_Contacts;
 import com.duesclerk.enums.States;
 import com.duesclerk.interfaces.Interface_MainActivity;
 import com.duesclerk.ui.fragment_app_menu.FragmentAppMenu;
@@ -158,56 +158,51 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
         });
 
         // AppBarLayout onOffsetChanged
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+        appBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
+            if (verticalOffset == 0) {
+                if (appBarState != States.APPBAR_LAYOUT_EXPANDED) {
 
+                    // Check TabLayout position
+                    if (tabPosition == 0) {
 
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (verticalOffset == 0) {
-                    if (appBarState != States.APPBAR_LAYOUT_EXPANDED) {
+                        // Set AppBarLayout at FragmentPeopleOwingMe expanded
+                        appBarLayoutPeopleExpanded = true;
 
-                        // Check TabLayout position
-                        if (tabPosition == 0) {
+                    } else if (tabPosition == 1) {
 
-                            // Set AppBarLayout at FragmentPeopleOwingMe expanded
-                            appBarLayoutPeopleExpanded = true;
-
-                        } else if (tabPosition == 1) {
-
-                            // Set AppBarLayout at FragmentPeopleOwingMe expanded
-                            appBarLayoutPeopleExpanded = true;
-                        }
+                        // Set AppBarLayout at FragmentPeopleOwingMe expanded
+                        appBarLayoutPeopleExpanded = true;
                     }
-
-                    appBarState = States.APPBAR_LAYOUT_EXPANDED; // Set states
-
-                } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
-
-                    if (appBarState != States.APPBAR_LAYOUT_COLLAPSED) {
-
-                        // Check TabLayout position
-                        if (tabPosition == 0) {
-
-                            // Set AppBarLayout at FragmentPeopleOwingMe collapsed
-                            appBarLayoutPeopleExpanded = false;
-
-                        } else if (tabPosition == 1) {
-
-                            // Set AppBarLayout at FragmentPeopleOwingMe collapsed
-                            appBarLayoutPeopleExpanded = false;
-                        }
-                    }
-
-                    appBarState = States.APPBAR_LAYOUT_COLLAPSED; // Set states
-
-                } else {
-
-                    //noinspection StatementWithEmptyBody
-                    if (appBarState != States.APPBAR_LAYOUT_IDLE) {
-                    }
-
-                    appBarState = States.APPBAR_LAYOUT_IDLE; // Set states
                 }
+
+                appBarState = States.APPBAR_LAYOUT_EXPANDED; // Set states
+
+            } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
+
+                if (appBarState != States.APPBAR_LAYOUT_COLLAPSED) {
+
+                    // Check TabLayout position
+                    if (tabPosition == 0) {
+
+                        // Set AppBarLayout at FragmentPeopleOwingMe collapsed
+                        appBarLayoutPeopleExpanded = false;
+
+                    } else if (tabPosition == 1) {
+
+                        // Set AppBarLayout at FragmentPeopleOwingMe collapsed
+                        appBarLayoutPeopleExpanded = false;
+                    }
+                }
+
+                appBarState = States.APPBAR_LAYOUT_COLLAPSED; // Set states
+
+            } else {
+
+                //noinspection StatementWithEmptyBody
+                if (appBarState != States.APPBAR_LAYOUT_IDLE) {
+                }
+
+                appBarState = States.APPBAR_LAYOUT_IDLE; // Set states
             }
         });
 

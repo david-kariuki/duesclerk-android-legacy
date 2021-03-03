@@ -29,18 +29,18 @@ import com.android.volley.toolbox.StringRequest;
 import com.duesclerk.R;
 import com.duesclerk.activities.ForgotPasswordActivity;
 import com.duesclerk.activities.MainActivity;
-import com.duesclerk.custom.custom_utilities.application.ApplicationClass;
-import com.duesclerk.custom.custom_utilities.application.ViewsUtils;
-import com.duesclerk.custom.custom_utilities.application.VolleyUtils;
-import com.duesclerk.custom.custom_utilities.user_data.DataUtils;
-import com.duesclerk.custom.custom_utilities.user_data.InputFiltersUtils;
-import com.duesclerk.custom.custom_utilities.user_data.UserAccountUtils;
-import com.duesclerk.custom.custom_views.toast.CustomToast;
-import com.duesclerk.custom.network.InternetConnectivity;
-import com.duesclerk.custom.network.NetworkTags;
-import com.duesclerk.custom.network.NetworkUrls;
-import com.duesclerk.custom.storage_adapters.SessionManager;
-import com.duesclerk.custom.storage_adapters.UserDatabase;
+import com.duesclerk.classes.custom_utilities.application.ApplicationClass;
+import com.duesclerk.classes.custom_utilities.application.ViewsUtils;
+import com.duesclerk.classes.custom_utilities.application.VolleyUtils;
+import com.duesclerk.classes.custom_utilities.user_data.DataUtils;
+import com.duesclerk.classes.custom_utilities.user_data.InputFiltersUtils;
+import com.duesclerk.classes.custom_utilities.user_data.UserAccountUtils;
+import com.duesclerk.classes.custom_views.toast.CustomToast;
+import com.duesclerk.classes.network.InternetConnectivity;
+import com.duesclerk.classes.network.NetworkTags;
+import com.duesclerk.classes.network.NetworkUrls;
+import com.duesclerk.classes.storage_adapters.SessionManager;
+import com.duesclerk.classes.storage_adapters.UserDatabase;
 import com.duesclerk.interfaces.Interface_SignInSignup;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -51,7 +51,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.duesclerk.custom.custom_utilities.application.ViewsUtils.showProgressDialog;
+import static com.duesclerk.classes.custom_utilities.application.ViewsUtils.showProgressDialog;
 
 public class FragmentSignIn extends Fragment {
 
