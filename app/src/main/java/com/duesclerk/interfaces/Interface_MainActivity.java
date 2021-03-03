@@ -12,13 +12,6 @@ import java.util.ArrayList;
 public interface Interface_MainActivity {
 
     /**
-     * Interface method to show/hide add contact fab button
-     *
-     * @param show - Boolean - show/hide dialog fragment
-     */
-    void showAddContactDialogFragment(boolean show);
-
-    /**
      * Interface to pass contacts JSONArray for people owing me to MainActivity
      *
      * @param contacts - People owing me contacts ArrayList
