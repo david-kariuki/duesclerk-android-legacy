@@ -1,4 +1,4 @@
-package com.duesclerk.ui.fragment_contacts;
+package com.duesclerk.classes.contacts;
 
 import android.content.Context;
 import android.util.Log;
