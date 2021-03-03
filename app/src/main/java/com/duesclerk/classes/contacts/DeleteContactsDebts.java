@@ -1,4 +1,4 @@
-package com.duesclerk.classes;
+package com.duesclerk.classes.contacts;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

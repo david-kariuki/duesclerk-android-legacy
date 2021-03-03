@@ -28,7 +28,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.duesclerk.R;
-import com.duesclerk.classes.DeleteContactsDebts;
+import com.duesclerk.classes.contacts.DeleteContactsDebts;
 import com.duesclerk.classes.custom_utilities.application.ApplicationClass;
 import com.duesclerk.classes.custom_utilities.application.BroadCastUtils;
 import com.duesclerk.classes.custom_utilities.application.ViewsUtils;

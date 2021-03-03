@@ -21,8 +21,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.duesclerk.R;
-import com.duesclerk.classes.DeleteContactsDebts;
-import com.duesclerk.classes.FetchContactsClass;
+import com.duesclerk.classes.contacts.DeleteContactsDebts;
+import com.duesclerk.classes.contacts.FetchContactsClass;
 import com.duesclerk.classes.custom_utilities.application.BroadCastUtils;
 import com.duesclerk.classes.custom_utilities.application.ViewsUtils;
 import com.duesclerk.classes.custom_utilities.user_data.DataUtils;
