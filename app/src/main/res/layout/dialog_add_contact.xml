@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/inset_dialog_background_rounded"
     android:fillViewport="true"
+    android:animateLayoutChanges="true"
     android:orientation="vertical"
     tools:context=".activities.MainActivity"
     tools:ignore="UselessParent">
@@ -59,13 +60,13 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_toolbar_activity_divider_height"
-            android:background="@color/colorDividerGrey"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:background="@color/colorDividerGrey" />
 
         <ScrollView
+            style="@style/Style_ScrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Style_ScrollView"
             android:fillViewport="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -102,7 +103,7 @@
                                 style="@style/Style_Text_Labels"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="20dp"
+                                android:layout_marginTop="10dp"
                                 android:layout_marginEnd="0dp"
                                 android:layout_marginBottom="5dp"
                                 android:text="@string/hint_contacts_type"
@@ -118,7 +119,7 @@
                                 android:orientation="horizontal">
 
                                 <RadioButton
-                                    android:id="@+id/radioAddContact_OwingMe"
+                                    android:id="@+id/radioAddContact_PeopleOwingMe"
                                     android:layout_width="@dimen/dimen_image_view_icon_size_small"
                                     android:layout_height="@dimen/dimen_image_view_icon_size_small"
                                     android:buttonTint="@color/colorPrimary"
@@ -128,25 +129,27 @@
                                     style="@style/Style_Text_Labels"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:id="@+id/textAddContact_PeopleOwingMe"
                                     android:layout_marginStart="5dp"
-                                    android:text="@string/title_fragment_people_owing_me"
-                                    android:textColor="@color/colorPrimaryGrey" />
+                                    android:text="@string/label_fragment_people_owing_me"
+                                    android:textColor="@color/colorPrimary" />
 
                                 <RadioButton
                                     android:id="@+id/radioAddContact_PeopleIOwe"
                                     android:layout_width="@dimen/dimen_image_view_icon_size_small"
                                     android:layout_height="@dimen/dimen_image_view_icon_size_small"
                                     android:layout_marginStart="15dp"
-                                    android:buttonTint="@color/colorPrimary"
+                                    android:buttonTint="@color/colorBlack"
                                     android:padding="@dimen/dimen_image_view_icon_padding_small" />
 
                                 <TextView
                                     style="@style/Style_Text_Labels"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:id="@+id/textAddContact_PeopleIOwe"
                                     android:layout_marginStart="5dp"
-                                    android:text="@string/title_fragment_people_i_owe"
-                                    android:textColor="@color/colorPrimaryGrey" />
+                                    android:text="@string/label_fragment_people_i_owe"
+                                    android:textColor="@color/colorBlack" />
                             </RadioGroup>
 
                             <LinearLayout
@@ -289,141 +292,199 @@
                                     android:layout_height="10dp"
                                     android:layout_marginTop="10dp"
                                     android:layout_marginBottom="5dp"
-                                    android:background="@color/colorGreyLight100" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:orientation="vertical">
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        style="@style/Style_Text_Labels"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginEnd="0dp"
-                                        android:text="@string/hint_email_address" />
-
-                                    <TextView
-                                        style="@style/Style_Text_Labels"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="5dp"
-                                        android:text="@string/hint_optional"
-                                        android:textColor="@color/colorPrimaryGrey"
-                                        android:textSize="12sp"
-                                        android:textStyle="bold" />
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="10dp"
-                                    android:layout_marginEnd="10dp"
-                                    android:layout_marginBottom="5dp"
-                                    android:gravity="center_vertical"
-                                    android:orientation="horizontal">
-
-                                    <ImageView
-                                        android:layout_width="@dimen/dimen_image_view_icon_size_small"
-                                        android:layout_height="@dimen/dimen_image_view_icon_size_small"
-                                        android:layout_marginEnd="10dp"
-                                        android:contentDescription="@string/content_description_icon_first_name"
-                                        android:padding="@dimen/dimen_image_view_icon_padding_small"
-                                        android:scaleType="centerCrop"
-                                        android:src="@drawable/ic_baseline_email_24_primary" />
-
-                                    <EditText
-                                        android:id="@+id/editAddContact_EmailAddress"
-                                        style="@style/Style_TextInputLayout"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:autofillHints="@string/hint_email_address"
-                                        android:background="@null"
-                                        android:hint="@string/hint_email_address"
-                                        android:imeActionLabel="Next"
-                                        android:inputType="textEmailAddress" />
-                                </LinearLayout>
-
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/dimen_field_divider_height"
-                                    android:layout_marginStart="49dp"
-                                    android:layout_marginEnd="30dp"
-                                    android:background="@color/colorDividerGrey" />
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        style="@style/Style_Text_Labels"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginEnd="0dp"
-                                        android:text="@string/hint_address" />
-
-                                    <TextView
-                                        style="@style/Style_Text_Labels"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="5dp"
-                                        android:text="@string/hint_optional"
-                                        android:textColor="@color/colorPrimaryGrey"
-                                        android:textSize="12sp"
-                                        android:textStyle="bold" />
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="10dp"
-                                    android:layout_marginEnd="10dp"
-                                    android:gravity="center_vertical"
-                                    android:orientation="horizontal">
-
-                                    <ImageView
-                                        android:layout_width="@dimen/dimen_image_view_icon_size_small"
-                                        android:layout_height="@dimen/dimen_image_view_icon_size_small"
-                                        android:layout_marginEnd="10dp"
-                                        android:contentDescription="@string/content_description_icon_first_name"
-                                        android:padding="@dimen/dimen_image_view_icon_padding_small"
-                                        android:scaleType="centerCrop"
-                                        android:src="@drawable/ic_address_100px_primary" />
-
-                                    <EditText
-                                        android:id="@+id/editAddContact_Address"
-                                        style="@style/Style_TextInputLayout"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:autofillHints=""
-                                        android:background="@null"
-                                        android:hint="@string/hint_address"
-                                        android:imeActionLabel="Next"
-                                        android:inputType="textPersonName|textCapWords" />
-                                </LinearLayout>
-
-
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/dimen_field_divider_height"
-                                    android:layout_marginStart="49dp"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_marginEnd="30dp"
-                                    android:background="@color/colorDividerGrey" />
+                                    android:background="@color/colorGreyLight100"
+                                    android:visibility="gone" />
                             </LinearLayout>
 
                             <View
                                 android:layout_width="match_parent"
+                                android:layout_height="5dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@color/colorGreyLight100" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/Style_Text_Labels"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_gravity="start"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:textStyle="bold"
+                                    android:layout_marginBottom="3dp"
+                                    android:layout_toStartOf="@+id/imageAddContact_DropDown"
+                                    android:singleLine="false"
+                                    android:text="@string/label_add_optional_contact_info"
+                                    android:textColor="@color/colorPrimaryDark" />
+
+                                <ImageView
+                                    android:id="@+id/imageAddContact_DropDown"
+                                    android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                                    android:layout_height="@dimen/dimen_image_view_icon_size_small"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_gravity="end"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:contentDescription="@string/content_description_icon_dropdown"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/ic_baseline_arrow_drop_down_24_black" />
+                            </RelativeLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="3dp"
+                                android:background="@color/colorGreyLight100" />
+
+                            <net.cachapa.expandablelayout.ExpandableLayout
+                                android:id="@+id/expandableAddContact_OptionalContactInformation"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:el_duration="@integer/int_expandable_layout_duration"
+                                android:orientation="vertical"
+                                app:el_expanded="false">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="vertical">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            style="@style/Style_Text_Labels"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="0dp"
+                                            android:text="@string/hint_email_address" />
+
+                                        <TextView
+                                            style="@style/Style_Text_Labels"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginStart="5dp"
+                                            android:text="@string/hint_optional"
+                                            android:textColor="@color/colorPrimaryGrey"
+                                            android:textSize="12sp"
+                                            android:textStyle="bold" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginEnd="10dp"
+                                        android:layout_marginBottom="5dp"
+                                        android:gravity="center_vertical"
+                                        android:orientation="horizontal">
+
+                                        <ImageView
+                                            android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                                            android:layout_height="@dimen/dimen_image_view_icon_size_small"
+                                            android:layout_marginEnd="10dp"
+                                            android:contentDescription="@string/content_description_icon_first_name"
+                                            android:padding="@dimen/dimen_image_view_icon_padding_small"
+                                            android:scaleType="centerCrop"
+                                            android:src="@drawable/ic_baseline_email_24_primary" />
+
+                                        <EditText
+                                            android:id="@+id/editAddContact_EmailAddress"
+                                            style="@style/Style_TextInputLayout"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:autofillHints="@string/hint_email_address"
+                                            android:background="@null"
+                                            android:hint="@string/hint_email_address"
+                                            android:imeActionLabel="Next"
+                                            android:inputType="textEmailAddress" />
+                                    </LinearLayout>
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/dimen_field_divider_height"
+                                        android:layout_marginStart="49dp"
+                                        android:layout_marginEnd="30dp"
+                                        android:background="@color/colorDividerGrey" />
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            style="@style/Style_Text_Labels"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="0dp"
+                                            android:text="@string/hint_address" />
+
+                                        <TextView
+                                            style="@style/Style_Text_Labels"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginStart="5dp"
+                                            android:text="@string/hint_optional"
+                                            android:textColor="@color/colorPrimaryGrey"
+                                            android:textSize="12sp"
+                                            android:textStyle="bold" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginEnd="10dp"
+                                        android:gravity="center_vertical"
+                                        android:orientation="horizontal">
+
+                                        <ImageView
+                                            android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                                            android:layout_height="@dimen/dimen_image_view_icon_size_small"
+                                            android:layout_marginEnd="10dp"
+                                            android:contentDescription="@string/content_description_icon_first_name"
+                                            android:padding="@dimen/dimen_image_view_icon_padding_small"
+                                            android:scaleType="centerCrop"
+                                            android:src="@drawable/ic_address_100px_primary" />
+
+                                        <EditText
+                                            android:id="@+id/editAddContact_Address"
+                                            style="@style/Style_TextInputLayout"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:autofillHints=""
+                                            android:background="@null"
+                                            android:hint="@string/hint_address"
+                                            android:imeActionLabel="Next"
+                                            android:inputType="textPersonName|textCapWords" />
+                                    </LinearLayout>
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/dimen_field_divider_height"
+                                        android:layout_marginStart="49dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginEnd="30dp"
+                                        android:background="@color/colorDividerGrey" />
+                                </LinearLayout>
+                            </net.cachapa.expandablelayout.ExpandableLayout>
+
+                            <View
+                                android:layout_width="match_parent"
                                 android:layout_height="25dp" />
+
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 

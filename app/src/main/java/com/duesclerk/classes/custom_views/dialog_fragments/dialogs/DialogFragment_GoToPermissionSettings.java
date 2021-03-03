@@ -83,9 +83,11 @@ public class DialogFragment_GoToPermissionSettings extends DialogFragment {
         TextView textCancel = dialogView.findViewById(R.id.textGrantPermission_Cancel);
         TextView textGOTOSettings = dialogView.findViewById(R.id.textGrantPermission_GOTOSettings);
 
-        // Set dialog title and message
+        // Set dialog title
         textTitle.setText(DataUtils.getStringResource(callingActivity.getApplicationContext(),
                 R.string.msg_grant_permission_title, permissionTagStringId));
+
+        // Set dialog message
         textMessage.setText(DataUtils.getStringResource(callingActivity.getApplicationContext(),
                 R.string.msg_grant_permission_message,
                 permissionTagStringId, permissionPurposeStringId));
@@ -120,7 +122,5 @@ public class DialogFragment_GoToPermissionSettings extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        //PermissionUtils.grantedPermissions(mContext, permissions);
     }
 }

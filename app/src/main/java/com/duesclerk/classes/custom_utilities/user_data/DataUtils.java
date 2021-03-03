@@ -235,7 +235,21 @@ public class DataUtils {
         }
 
         // Return string with placeholders
-        return context.getResources().getString(stringId, Arrays.stream((newArgs)).toArray());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
+            return context.getResources().getString(stringId, Arrays.stream((newArgs)).toArray());
+
+        } else {
+
+            //noinspection ConfusingArgumentToVarargsMethod
+            return context.getResources().getString(
+                    stringId,
+                    Arrays.copyOf(newArgs,
+                            newArgs.length,
+                            String[].class
+                    )
+            );
+        }
     }
 
     /**

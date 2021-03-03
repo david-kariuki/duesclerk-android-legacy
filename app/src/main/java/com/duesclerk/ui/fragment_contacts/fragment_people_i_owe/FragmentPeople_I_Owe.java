@@ -554,11 +554,6 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
     }
 
     @Override
-    public void showAddContactDialogFragment(boolean show) {
-
-    }
-
-    @Override
     public void setToHiddenAndHideSearchView(boolean setToHiddenAndHide, Fragment fragment) {
 
     }

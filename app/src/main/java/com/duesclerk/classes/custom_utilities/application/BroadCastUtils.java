@@ -17,11 +17,21 @@ public class BroadCastUtils {
             = "ReloadPeopleIOwe";
     public static final String bcrActionReloadContactDetailsAndDebtsActivity
             = "ReloadContactActivity";
+    public static final String bcrActionSwitchMainActivityTabLayoutPosition
+            = "SwitchMainActivityTabLayoutPosition";
 
+    /**
+     * Function to register BroadCast
+     *
+     * @param activity          - Calling activity
+     * @param broadcastReceiver - BroadCastReceiver
+     * @param broadCastAction   - Broadcast action
+     */
     public static void registerBroadCasts(Activity activity,
                                           BroadcastReceiver broadcastReceiver,
                                           String broadCastAction) {
 
+        // Catch errors
         try {
 
             // Register BroadCast
@@ -31,9 +41,16 @@ public class BroadCastUtils {
         }
     }
 
+    /**
+     * Function to un-register BroadCast
+     *
+     * @param activity          - Calling activity
+     * @param broadcastReceiver - BroadcastReceiver
+     */
     public static void unRegisterBroadCast(Activity activity,
                                            BroadcastReceiver broadcastReceiver) {
 
+        // Catch errors
         try {
 
             // Check If BroadCast Exists

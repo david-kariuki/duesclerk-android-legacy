@@ -111,7 +111,7 @@
     <string name="action_did_not_receive_code">I did not receive my code!</string>
     <string name="action_add_contact">Add contact</string>
     <string name="action_add_debt">Add debt</string>
-    <string name="action_goto_settings">GOTO SETTINGS</string>
+    <string name="action_goto_settings">GoTo Settings</string>
 
     <!--Labels-->
     <string name="label_create_personal_account">Create A Personal Account</string>
@@ -131,6 +131,9 @@
     <string name="label_delete_debt">Delete debt!</string>
     <string name="label_the_selected_contacts">the selected contacts</string>
     <string name="label_the_selected_debts">the selected debts</string>
+    <string name="label_add_optional_contact_info">Add optional contact information</string>
+    <string name="label_fragment_people_i_owe">Those I\nOwe</string>
+    <string name="label_fragment_people_owing_me">Owing\nMe</string>
 
     <!--Messages-->
     <string name="msg_company_tag_line">Manage your dues with ease.</string>
