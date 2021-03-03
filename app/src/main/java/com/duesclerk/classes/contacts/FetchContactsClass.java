@@ -90,6 +90,7 @@ public class FetchContactsClass {
     public void fetchContacts(final String userId, MultiSwipeRefreshLayout swipeRefreshLayout,
                               SwipeRefreshLayout.OnRefreshListener swipeRefreshListener) {
 
+
         // Check Internet Connection states
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
             // Connected
@@ -105,6 +106,7 @@ public class FetchContactsClass {
                 ViewsUtils.showSwipeRefreshLayout(false, false,
                         swipeRefreshLayout, swipeRefreshListener);
 
+                // Catch error
                 try {
 
                     JSONObject jsonObject = new JSONObject(response);
@@ -123,7 +125,7 @@ public class FetchContactsClass {
                                 DebtUtils.KEY_ALL_CONTACTS_DEBTS_TOTAL_AMOUNT);
 
                         // Split JSONObject to get (People owing me) and (People I owe) contacts
-                        extractSortJSONArray(jsonArrayContacts, jsonObjectContactsDebts);
+                        extractSortJSONArrayAndObject(jsonArrayContacts, jsonObjectContactsDebts);
 
                     } else {
                         // Error updating details
@@ -243,25 +245,30 @@ public class FetchContactsClass {
      *
      * @param jsonArrayContacts - Contacts JSONArray
      */
-    private void extractSortJSONArray(JSONArray jsonArrayContacts,
-                                      JSONObject jsonObjectContactsDebtsTotals) {
+    private void extractSortJSONArrayAndObject(JSONArray jsonArrayContacts,
+                                               JSONObject jsonObjectContactsDebtsTotals) {
 
+        // Create ArrayList
         ArrayList<JB_Contacts> contactsPeopleOwingMe = new ArrayList<>();
         ArrayList<JB_Contacts> contactsPeopleIOwe = new ArrayList<>();
 
+        // Check if JSONArray is null
         if (jsonArrayContacts != null) {
 
+            // Check JsonArray length
             if (jsonArrayContacts.length() > 0)
-                // Looping through all the elements of the json array
+
+                // Loop through all the elements of the JSONArray
                 for (int i = 0; i < jsonArrayContacts.length(); i++) {
 
-                    // Creating a json object of the current index
+                    // Create a json object of the current index
                     JSONObject jsonObject;
                     JB_Contacts jbContacts = new JB_Contacts();
 
+                    // Catch error
                     try {
 
-                        // Getting Data json object
+                        // Get contacts json object
                         jsonObject = jsonArrayContacts.getJSONObject(i);
 
                         // Getting Data from json object
