@@ -893,19 +893,32 @@ public class DialogFragment_AddContact extends DialogFragment {
                         try {
 
                             // Send broadcast to set switch account type action text
-                            Intent intentBroadcast = null;
-                            if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME)) {
+                            Intent intentBroadcastReload = null;
+                            Intent intentBroadcastSwitch = new Intent(BroadCastUtils
+                                    .bcrActionSwitchMainActivityTabLayoutPosition);
 
-                                intentBroadcast = new Intent(
+                            if (contactType
+                                    .equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME)) {
+
+                                intentBroadcastReload = new Intent(
                                         BroadCastUtils.bcrActionReloadPeopleOwingMe);
 
-                            } else if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_I_OWE)) {
+                            } else if (contactType
+                                    .equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_I_OWE)) {
 
-                                intentBroadcast = new Intent(
+                                intentBroadcastReload = new Intent(
                                         BroadCastUtils.bcrActionReloadPeopleIOwe);
                             }
 
-                            requireActivity().sendBroadcast(intentBroadcast); // Send broadcast
+                            // Add Fragment as extra
+                            intentBroadcastSwitch.putExtra(ContactUtils.FIELD_CONTACT_TYPE,
+                                    contactType);
+
+                            // Send reload contacts broadcast
+                            requireActivity().sendBroadcast(intentBroadcastReload);
+
+                            // Send switch TabLayout position broadcast
+                            requireActivity().sendBroadcast(intentBroadcastSwitch);
 
                         } finally {
 

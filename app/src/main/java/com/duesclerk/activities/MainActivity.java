@@ -1,6 +1,8 @@
 package com.duesclerk.activities;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,7 +14,9 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.duesclerk.R;
+import com.duesclerk.classes.custom_utilities.application.BroadCastUtils;
 import com.duesclerk.classes.custom_utilities.application.ViewsUtils;
+import com.duesclerk.classes.custom_utilities.user_data.ContactUtils;
 import com.duesclerk.classes.custom_utilities.user_data.DataUtils;
 import com.duesclerk.classes.custom_views.view_pager.ViewPagerAdapter;
 import com.duesclerk.classes.java_beans.JB_Contacts;
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
     private CollapsingToolbarLayout collapsingToolBar;
     private AppBarLayout appBarLayout;
     private States appBarState;
+    private BroadcastReceiver bcrChangeTabLayoutPosition;
 
     // Shared SearchView for all contacts listing fragments
     private SearchView searchView;
@@ -78,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
 
                 tabPosition = tab.getPosition(); // Get current tab position
                 viewPager.setCurrentItem(tabPosition, false); // Set current position
-                switchTabSelection(tabPosition, true); // Switch tab selection
+                switchViewsOnTabSelection(tabPosition, true); // Switch tab selection
                 switchSearchViewQuery(tabPosition); // Switch SearchView query
             }
 
@@ -86,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
             public void onTabUnselected(TabLayout.Tab tab) {
 
                 tabPosition = tab.getPosition(); // Get current tab position
-                switchTabSelection(tabPosition, false); // Switch tab selection
+                switchViewsOnTabSelection(tabPosition, false); // Switch tab selection
                 switchSearchViewQuery(tabPosition); // Switch SearchView query
             }
 
@@ -95,13 +100,40 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
 
                 tabPosition = tab.getPosition(); // Get current tab position
                 viewPager.setCurrentItem(tabPosition, false); // Set current position
-                switchTabSelection(tabPosition, true); // Switch tab selection
+                switchViewsOnTabSelection(tabPosition, true); // Switch tab selection
                 switchSearchViewQuery(tabPosition); // Switch SearchView query
             }
         });
 
         // Add page change listener
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        // Broadcast receiver
+        bcrChangeTabLayoutPosition = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context arg0, Intent intent) {
+
+                String action = intent.getAction(); // Get action
+
+                // Check Broadcast action
+                if (action.equals(BroadCastUtils.bcrActionSwitchMainActivityTabLayoutPosition)) {
+
+                    // Get contact type
+                    String contactType = intent.getStringExtra(ContactUtils.FIELD_CONTACT_TYPE);
+
+                    // Check contact type
+                    if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME)) {
+
+                        ViewsUtils.selectTabPosition(0, tabLayout); // Switch to position 0
+
+                    } else if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_I_OWE)) {
+
+                        ViewsUtils.selectTabPosition(1, tabLayout); // Switch to position 1
+                    }
+
+                }
+            }
+        };
 
         /*
         Add query text listener
@@ -207,7 +239,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
         });
 
         // Select TabLayout position
-        Objects.requireNonNull(tabLayout.getTabAt(0)).select();
+        ViewsUtils.selectTabPosition(0, tabLayout);
     }
 
     /**
@@ -276,6 +308,23 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
                 searchView.setQuery("", true);
                 break;
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // Register broadcast
+        BroadCastUtils.registerBroadCasts(this, bcrChangeTabLayoutPosition,
+                BroadCastUtils.bcrActionSwitchMainActivityTabLayoutPosition);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // Unregister BroadcastReceiver
+        BroadCastUtils.unRegisterBroadCast(this, bcrChangeTabLayoutPosition);
     }
 
     @Override
@@ -381,7 +430,7 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
      * @param position - tab position
      * @param selected - boolean
      */
-    private void switchTabSelection(int position, boolean selected) {
+    private void switchViewsOnTabSelection(int position, boolean selected) {
 
         showHideSearchView(); // Show / Hide SearchView
 
@@ -559,10 +608,6 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
 
             finish(); // Exit Activity
         }
-    }
-
-    @Override
-    public void showAddContactDialogFragment(boolean show) {
     }
 
     @Override
