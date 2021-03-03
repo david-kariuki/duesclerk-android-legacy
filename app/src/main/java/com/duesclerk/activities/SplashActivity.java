@@ -21,6 +21,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private SessionManager sessionManager;
     private Thread counterThread;
+    Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +33,8 @@ public class SplashActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
 
-        Context mContext = getApplicationContext();
-
-        sessionManager = new SessionManager(mContext); // Initialize Session manager object
+        // Get application context
+        mContext = getApplicationContext();
 
         TextView textAppName = findViewById(R.id.textSplashActivity_AppName);
 
@@ -46,7 +46,11 @@ public class SplashActivity extends AppCompatActivity {
         textAppName.setTypeface(EasyFonts.ostrichBold(this));
         textAppName.setTextSize(35);
         textAppName.setTextColor(ContextCompat.getColor(mContext, R.color.colorBlack));
-        textAppName.startAnimation(animSlideDown); // set animation
+        textAppName.startAnimation(animSlideDown); // Start TextView animation
+
+        sessionManager = new SessionManager(mContext); // Initialize Session manager object
+
+        // Check if SessionManager is null
 
         // Counter thread
         counterThread = new Thread() {
@@ -57,9 +61,10 @@ public class SplashActivity extends AppCompatActivity {
 
                     int wait = 0; // Thread wait time
 
+                    // Loop
                     while (wait < 3500) {
 
-                        sleep(100);
+                        sleep(100); // Sleep
                         wait += 100;
                     }
 
@@ -78,22 +83,23 @@ public class SplashActivity extends AppCompatActivity {
                     }
 
                     startActivity(intent); // Start activity
-                    SplashActivity.this.finish(); // Exit Activity
+                    finish(); // Exit Activity
 
                 } catch (Exception ignored) {
                 } finally {
 
-                    SplashActivity.this.finish(); // Exit Activity
+                    finish(); // Exit Activity
                 }
             }
         };
-
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
+        // Initialize SessionManager object if it was not initialize in onCreate method
+        sessionManager = new SessionManager(mContext);
     }
 
     @Override
@@ -114,7 +120,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        counterThread.interrupt(); // Stop thread
+        counterThread.interrupt(); // Interrupt thread on activity exit
 
         super.onBackPressed(); // Exit
 
