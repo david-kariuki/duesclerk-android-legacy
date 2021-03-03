@@ -7,7 +7,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_signup_sign_in">
 
-    <com.duesclerk.custom.custom_views.view_pager.CustomViewPager
+    <com.duesclerk.classes.custom_views.view_pager.CustomViewPager
         android:id="@+id/viewPagerSignup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

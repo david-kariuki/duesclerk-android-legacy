@@ -5,8 +5,6 @@
     <string name="error_network_connection_error_message_short">"Can't connect at the moment!"</string>
 
     <!--Input fields errors-->
-    <string name="error_cannot_start_with_a_period">%1$s cannot start with a period!</string>
-    <string name="error_periods_cannot_be_repeated_in">Periods cannot be repeated in %1$s!</string>
     <string name="error_first_name_null">First name cannot be empty!</string>
     <string name="error_first_name_length">First names should be %1$d character or longer!</string>
     <string name="error_full_name_null">Full name cannot be empty!</string>
@@ -27,8 +25,6 @@
     <string name="error_new_password_mismatch">Your new passwords do not match!</string>
     <string name="error_country_null">Please select your country to continue!</string>
     <string name="error_contact_type_null">Please select contact type to continue!</string>
-    <string name="error_city_null">City cannot be empty!</string>
-    <string name="error_date_of_birth_null">Please select your date of birth to continue!</string>
 
     <!--Email verification-->
     <string name="error_email_verification_code_length">The verification code you entered is too short</string>
@@ -41,7 +37,6 @@
     <string name="error_debt_amount_ends_with_period">Debt amount cannot end with a period!</string>
     <string name="error_debt_date_issued_null">Debt issuance date cannot be empty!</string>
     <string name="error_debt_date_due_null">Debt due date cannot be empty!</string>
-    <string name="error_debt_date_description_null">Debt description cannot be empty!</string>
     <string name="error_debt_date_due_behind_date_issued">Date due cannot be before date issued!</string>
     <string name="error_debt_check_range">Check date range!</string>
 

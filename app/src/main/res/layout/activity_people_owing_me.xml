@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout
+            <com.duesclerk.classes.custom_views.swipe_refresh.MultiSwipeRefreshLayout
                 android:id="@+id/swipeRefreshPeopleOwingMe"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -31,7 +31,7 @@
 
                 <include layout="@layout/content_people_owing_me" />
 
-            </com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout>
+            </com.duesclerk.classes.custom_views.swipe_refresh.MultiSwipeRefreshLayout>
 
             <LinearLayout
                 android:id="@+id/llContacts_NoContacts"

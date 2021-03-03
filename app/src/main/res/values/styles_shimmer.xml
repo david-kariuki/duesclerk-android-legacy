@@ -20,10 +20,4 @@
         <item name="android:width">@dimen/dimen_shimmer_text_view_width_small</item>
     </style>
 
-    <style name="Style_Shimmer_TextView_Medium" parent="Style_Shimmer_Background">
-
-        <item name="android:height">@dimen/dimen_shimmer_text_view_height</item>
-        <item name="android:width">@dimen/dimen_shimmer_text_view_width_medium</item>
-    </style>
-
 </resources>

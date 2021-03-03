@@ -70,7 +70,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/linearLayout2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
@@ -102,7 +101,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textDebt_AmountCurrency"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"

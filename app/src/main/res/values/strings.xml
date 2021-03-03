@@ -31,7 +31,6 @@
     <string name="title_updating_contact">Updating contact</string>
     <string name="title_deleting_contact">Deleting contact</string>
     <string name="title_deleting_debt">Deleting debt</string>
-    <string name="title_adding_debt">Adding debt</string>
     <string name="title_mailing_email_verification_code">Sending verification code</string>
     <string name="title_verifying_email_address">Verifying email address</string>
     <string name="title_resetting_password">Verifying email address</string>
@@ -41,7 +40,6 @@
     <!--Hints-->
     <string name="hint_first_name">First name</string>
     <string name="hint_last_name">Last name</string>
-    <string name="hint_usernames">Usernames</string>
     <string name="hint_email_address">Email address</string>
     <string name="hint_password">Password</string>
     <string name="hint_current_password">Current password</string>
@@ -94,8 +92,6 @@
     <string name="action_view_profile">View Profile</string>
     <string name="action_cancel">Cancel</string>
     <string name="action_delete">Delete</string>
-    <string name="action_set_to_paid">Paid</string>
-    <string name="action_edit">Edit</string>
     <string name="action_edit_contact">Edit contact</string>
     <string name="action_update_contact">Update contact</string>
     <string name="action_delete_contact">Delete contact</string>
@@ -115,7 +111,6 @@
     <string name="action_did_not_receive_code">I did not receive my code!</string>
     <string name="action_add_contact">Add contact</string>
     <string name="action_add_debt">Add debt</string>
-    <string name="action_debt">Add contact</string>
     <string name="action_goto_settings">GOTO SETTINGS</string>
 
     <!--Labels-->
@@ -134,7 +129,6 @@
     <string name="label_debts_total_amount">Total debts amount : %1$s</string>
     <string name="label_delete_contact">Delete contact!</string>
     <string name="label_delete_debt">Delete debt!</string>
-    <string name="label_debt_options">Debt options</string>
     <string name="label_the_selected_contacts">the selected contacts</string>
     <string name="label_the_selected_debts">the selected debts</string>
 

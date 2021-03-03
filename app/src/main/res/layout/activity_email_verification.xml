@@ -34,12 +34,12 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout
+        <com.duesclerk.classes.custom_views.swipe_refresh.MultiSwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="visible">
 
             <include layout="@layout/content_email_verification" />
-        </com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout>
+        </com.duesclerk.classes.custom_views.swipe_refresh.MultiSwipeRefreshLayout>
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

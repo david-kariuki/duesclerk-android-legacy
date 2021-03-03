@@ -27,7 +27,7 @@
     </queries>
 
     <application
-        android:name=".custom.custom_utilities.application.ApplicationClass"
+        android:name=".classes.custom_utilities.application.ApplicationClass"
         android:allowBackup="true"
         android:appCategory="productivity"
         android:fullBackupContent="false"

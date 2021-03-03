@@ -44,7 +44,7 @@
         <include layout="@layout/layout_no_connection" />
     </RelativeLayout>
 
-    <com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout
+    <com.duesclerk.classes.custom_views.swipe_refresh.MultiSwipeRefreshLayout
         android:id="@+id/swipeRefreshContactDetailsAndDebtsActivity"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -442,5 +442,5 @@
                 app:fabSize="auto"
                 app:tint="@color/colorWhite" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
-    </com.duesclerk.custom.custom_views.swipe_refresh.MultiSwipeRefreshLayout>
+    </com.duesclerk.classes.custom_views.swipe_refresh.MultiSwipeRefreshLayout>
 </LinearLayout>

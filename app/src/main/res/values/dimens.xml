@@ -18,7 +18,6 @@
     <!--ImageView dimensions-->
     <dimen name="dimen_image_view_icon_size_small">29dp</dimen>
     <dimen name="dimen_image_view_icon_size_medium">35dp</dimen>
-    <dimen name="dimen_image_view_icon_size_large">45dp</dimen>
     <dimen name="dimen_image_view_avatar_size_small">35dp</dimen>
     <dimen name="dimen_image_view_icon_padding_small">5dp</dimen>
     <dimen name="dimen_image_view_icon_padding_medium">8dp</dimen>
@@ -37,7 +36,6 @@
 
     <!--Bottom Sheets-->
     <dimen name="dimen_bs_text_buttons_size">13sp</dimen>
-    <dimen name="dimen_bs_list_text_labels_size">14sp</dimen>
 
     <!--Text Dimensions-->
     <dimen name="dimen_edit_text_size_normal">14sp</dimen>
@@ -52,7 +50,6 @@
     <dimen name="dimen_list_divider_height">.3dp</dimen>
     <dimen name="dimen_field_divider_height">0.5dp</dimen>
     <dimen name="dimen_field_divider_margin_top">6dp</dimen>
-    <dimen name="dimen_search_view_divider">.4dp</dimen>
 
     <!--Outlines-->
     <dimen name="dimen_outlines_corners">25dp</dimen>
