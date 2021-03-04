@@ -24,7 +24,6 @@
             android:elevation="@dimen/dimen_toolbar_bs_elevation">
 
             <TextView
-                android:id="@+id/textSwitchAccountType_Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -168,7 +167,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginEnd="0dp"
-                                        android:text="@string/hint_full_name"
+                                        android:text="@string/hint_full_name_or_business_name"
                                         tools:ignore="TooDeepLayout" />
 
                                     <TextView
@@ -206,7 +205,7 @@
                                         android:layout_height="match_parent"
                                         android:autofillHints="@string/hint_first_name"
                                         android:background="@null"
-                                        android:hint="@string/hint_full_name"
+                                        android:hint="@string/hint_full_name_or_business_name"
                                         android:imeActionLabel="Next"
                                         android:inputType="textPersonName|textCapWords" />
                                 </LinearLayout>

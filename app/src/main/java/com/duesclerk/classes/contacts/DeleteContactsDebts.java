@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -51,7 +50,7 @@ import java.util.Map;
 public class DeleteContactsDebts {
 
     // Get class simple name
-    private final String TAG = DeleteContactsDebts.class.getSimpleName();
+    // private final String TAG = DeleteContactsDebts.class.getSimpleName();
 
     private final Context mContext;
     private final ProgressDialog progressDialog;
@@ -262,7 +261,7 @@ public class DeleteContactsDebts {
                     NetworkUrls.ContactURLS.URL_DELETE_CONTACTS, response -> {
 
                 // Log Response
-                Log.d(TAG, "Delete contacts response:" + response);
+                // Log.d(TAG, "Delete contacts response:" + response);
 
                 ViewsUtils.dismissProgressDialog(progressDialog); // Hide Dialog
 

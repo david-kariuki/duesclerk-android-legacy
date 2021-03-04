@@ -2,27 +2,29 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/Style_ScrollView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/colorActivityBackground"
-    android:fillViewport="true">
+    android:descendantFocusability="beforeDescendants"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:focusedByDefault="true"
+    tools:context=".ui.Signup"
+    tools:ignore="UnusedAttribute"
+    tools:showIn="@layout/activity_signup">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/Style_ScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:descendantFocusability="beforeDescendants"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:focusedByDefault="true"
-        tools:context=".ui.BusinessSignup"
-        tools:ignore="UnusedAttribute"
-        tools:showIn="@layout/activity_business_signup">
+        android:background="@color/colorActivityBackground"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:background="@color/colorActivityBackground"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,46 +46,110 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="@dimen/dimen_image_view_icon_size_small"
-                        android:layout_height="@dimen/dimen_image_view_icon_size_small"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="8dp"
-                        android:contentDescription="@string/content_description_icon_business_name"
-                        android:padding="@dimen/dimen_image_view_icon_padding_small"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_baseline_business_24_primary" />
+                    <TextView
+                        style="@style/Style_Text_Labels"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hint_full_name_or_business_name" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Style_TextInputLayout"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:background="@color/colorWhite"
-                        android:hint="@string/hint_business_name"
-                        app:boxBackgroundColor="@color/colorWhite"
-                        app:boxStrokeWidth="0dp">
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editSignUpActivity_BusinessName"
-                            style="@style/Style_SignInSignUp_Profile_TextInputEditText"
+                        <ImageView
+                            android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                            android:layout_height="@dimen/dimen_image_view_icon_size_small"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:contentDescription="@string/content_description_icon_first_name"
+                            android:padding="@dimen/dimen_image_view_icon_padding_small"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_baseline_person_24_primary" />
+
+                        <EditText
+                            android:id="@+id/editSignUpActivity_FullNameOrBusinessName"
+                            style="@style/Style_TextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingTop="25dp"
-                            android:paddingBottom="0dp"
+                            android:layout_marginTop="5dp"
+                            android:autofillHints=""
                             android:background="@null"
+                            android:hint="@string/hint_full_name_or_business_name"
                             android:imeActionLabel="Next"
-                            android:inputType="textNoSuggestions|textCapWords" />
+                            android:inputType="textPersonName|textCapWords" />
+                    </LinearLayout>
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_field_divider_height"
+                        android:layout_marginStart="49dp"
+                        android:layout_marginTop="@dimen/dimen_field_divider_margin_top"
+                        android:layout_marginEnd="10dp"
+                        android:background="@color/colorDividerGrey" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                style="@style/Style_SignInSignUp_Profile_CardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/dimen_card_view_corner_radius"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Style_Text_Labels"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hint_email_address" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                            android:layout_height="@dimen/dimen_image_view_icon_size_small"
+                            android:layout_marginEnd="10dp"
+                            android:contentDescription="@string/content_description_icon_email_address"
+                            android:padding="@dimen/dimen_image_view_icon_padding_small"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_baseline_email_24_primary" />
+
+                        <EditText
+                            android:id="@+id/editSignUpActivity_EmailAddress"
+                            style="@style/Style_TextInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:autofillHints=""
+                            android:background="@null"
+                            android:hint="@string/hint_email_address"
+                            android:imeActionLabel="Next"
+                            android:inputType="textEmailAddress" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
 
             <androidx.cardview.widget.CardView
                 style="@style/Style_SignInSignUp_Profile_CardView"
@@ -166,69 +232,11 @@
                 app:cardCornerRadius="@dimen/dimen_card_view_corner_radius"
                 app:cardUseCompatPadding="true">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="15dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/Style_Text_Labels"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/hint_email_address" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="10dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/dimen_image_view_icon_size_small"
-                            android:layout_height="@dimen/dimen_image_view_icon_size_small"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:contentDescription="@string/content_description_icon_email_address"
-                            android:padding="@dimen/dimen_image_view_icon_padding_small"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/ic_baseline_email_24_primary" />
-
-                        <EditText
-                            android:id="@+id/editSignUpActivity_EmailAddress"
-                            style="@style/Style_TextInputLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:autofillHints=""
-                            android:background="@null"
-                            android:hint="@string/hint_email_address"
-                            android:imeActionLabel="Next"
-                            android:inputType="textEmailAddress" />
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-
-            <androidx.cardview.widget.CardView
-                style="@style/Style_SignInSignUp_Profile_CardView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/colorWhite"
-                app:cardCornerRadius="@dimen/dimen_card_view_corner_radius"
-                app:cardUseCompatPadding="true">
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -263,9 +271,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@null"
-                            android:imeActionLabel="Done"
                             android:paddingTop="25dp"
                             android:paddingBottom="0dp"
+                            android:imeActionLabel="Done"
                             android:imeOptions="actionDone"
                             android:inputType="textPassword|textNoSuggestions"
                             android:minEms="7" />
@@ -292,16 +300,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
-                android:gravity="center_horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="40dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:id="@+id/llSignUpActivity_SignIn"
+                    style="@style/Style_CustomButton_Container_Stroke_Dotted_Primary_Dark"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginEnd="20dp"
-                    style="@style/Style_CustomButton_Container_Stroke_Dotted_Primary_Dark"
                     android:layout_marginBottom="0dp"
                     android:gravity="center"
                     android:orientation="horizontal"
@@ -331,49 +340,30 @@
 
                 <LinearLayout
                     android:id="@+id/llSignUpActivity_SignUp"
+                    style="@style/Style_CustomButton_Container_Fill_Primary_Dark"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    style="@style/Style_CustomButton_Container_Fill_Primary_Dark"
-                    android:gravity="center"
                     android:layout_marginBottom="0dp"
+                    android:gravity="center"
                     android:orientation="horizontal"
-                    tools:ignore="UseCompoundDrawables,UselessParent">
+                    tools:ignore="UselessParent">
 
                     <TextView
                         style="@style/Base.TextAppearance.AppCompat.Button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginStart="31dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginEnd="5dp"
+                        android:layout_marginEnd="31dp"
                         android:layout_marginBottom="10dp"
                         android:text="@string/action_sign_up"
                         android:textColor="@color/colorWhite"
                         android:textSize="13sp"
                         android:textStyle="bold" />
 
-                    <ImageView
-                        android:layout_width="@dimen/dimen_image_view_icon_size_small"
-                        android:layout_height="@dimen/dimen_image_view_icon_size_small"
-                        android:layout_marginEnd="13dp"
-                        android:contentDescription="@string/content_description_icon_sign_up"
-                        android:padding="@dimen/dimen_image_view_icon_padding_small"
-                        android:src="@drawable/ic_baseline_arrow_forward_24_white" />
                 </LinearLayout>
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/textCreatePersonalAccount"
-                style="@style/Style_PageLinks"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="50dp"
-                android:text="@string/action_create_a_personal_account"
-                android:textColor="@color/colorPrimary"
-                android:textSize="13sp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

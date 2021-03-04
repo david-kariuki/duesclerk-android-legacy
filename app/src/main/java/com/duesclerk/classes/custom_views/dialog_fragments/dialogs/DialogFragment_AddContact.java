@@ -178,6 +178,10 @@ public class DialogFragment_AddContact extends DialogFragment {
         radioPeopleOwingMe.setButtonTintList(colorStateList);
         radioPeopleIOwe.setButtonTintList(colorStateList);
 
+        // RadioButton text labels onClick
+        textPeopleOwingMe.setOnClickListener(v -> radioPeopleOwingMe.setChecked(true));
+        textPeopleIOwe.setOnClickListener(v -> radioPeopleIOwe.setChecked(true));
+
         // RadioButton onClick
         radioPeopleOwingMe.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
@@ -280,21 +284,8 @@ public class DialogFragment_AddContact extends DialogFragment {
         imageDropDown.setOnClickListener(
                 v -> {
 
-                    // Check if ExpandableLayout is expanded
-                    if (!expandableLayoutDropDown.isExpanded()) {
-
-                        // Expand ExpandableLayout
-                        ViewsUtils.expandExpandableLayout(true, expandableLayoutDropDown);
-
-                        imageDropDown.setRotation(180); // Rotate drop down image
-
-                    } else {
-
-                        // Collapse ExpandableLayout
-                        ViewsUtils.expandExpandableLayout(false, expandableLayoutDropDown);
-
-                        imageDropDown.setRotation(0); // Rotate drop down image
-                    }
+                    // Check if ExpandableLayout is expanded and expand / collapse
+                    expandOptionalContactOptions(!expandableLayoutDropDown.isExpanded());
                 }
         );
 
@@ -385,6 +376,29 @@ public class DialogFragment_AddContact extends DialogFragment {
             // Get and put contacts address
             outState.putString(ContactUtils.FIELD_CONTACT_ADDRESS,
                     editContactAddress.getText().toString());
+        }
+    }
+
+    /**
+     * Function to expand optional contact information
+     *
+     * @param expand - Expand / collapse optional contact information
+     */
+    private void expandOptionalContactOptions(boolean expand) {
+
+        if (expand) {
+
+            // Expand ExpandableLayout
+            ViewsUtils.expandExpandableLayout(true, expandableLayoutDropDown);
+
+            imageDropDown.setRotation(180); // Rotate drop down image
+
+        } else {
+
+            // Collapse ExpandableLayout
+            ViewsUtils.expandExpandableLayout(false, expandableLayoutDropDown);
+
+            imageDropDown.setRotation(0); // Rotate drop down image
         }
     }
 
@@ -481,9 +495,17 @@ public class DialogFragment_AddContact extends DialogFragment {
         // Uri photoUri = contact.getPhotoUri();
         String fullName = (contact.getFirstName() + " " + contact.getLastName())
                 .replace("---", "").trim();
-        String phoneNumber = getAllPhoneNumberTypesValues(contact); // Get all phone number types
-        String emailAddress = getAllEmailAddressTypesValues(contact);
-        String address = getAllContactAddressTypesValues(contact);
+
+        String phoneNumber, emailAddress, contactAddress;
+
+        // Get all phone number types
+        phoneNumber = getAllPhoneNumberTypesValues(contact);
+
+        // Get all email address types
+        emailAddress = getAllEmailAddressTypesValues(contact);
+
+        // Get all contact address types
+        contactAddress = getAllContactAddressTypesValues(contact);
 
         clearFieldInputsFocusAndError(); // Clear input fields
 
@@ -505,12 +527,29 @@ public class DialogFragment_AddContact extends DialogFragment {
             if (!DataUtils.isEmptyString(emailAddress)) {
 
                 editEmailAddress.setText(emailAddress); // Set phone number
+
+                // Expand optional contact information after email address is set
+                expandOptionalContactOptions(true);
+
             }
 
-            // Check for address
-            if (!DataUtils.isEmptyString(address)) {
+            // Check for contact address
+            if (!DataUtils.isEmptyString(contactAddress)) {
 
-                editContactAddress.setText(address); // Set address
+                editContactAddress.setText(contactAddress); // Set address
+
+                // Expand optional contact information after contact address is set
+                expandOptionalContactOptions(true);
+
+            }
+
+            // Check if both contact email address and contact address are not empty to expand
+            // optional contact information
+            if (DataUtils.isEmptyString(emailAddress) && DataUtils.isEmptyString(contactAddress)) {
+
+
+                // Expand optional contact information after contact address is set
+                expandOptionalContactOptions(false);
             }
         } catch (Exception ignored) {
         }
@@ -525,7 +564,7 @@ public class DialogFragment_AddContact extends DialogFragment {
      */
     private String getAllPhoneNumberTypesValues(Contact contact) {
 
-        String phoneNumber = null;
+        String phoneNumber = "";
 
         // Catch in case of exceptions
         try {
@@ -596,7 +635,7 @@ public class DialogFragment_AddContact extends DialogFragment {
      */
     private String getAllEmailAddressTypesValues(Contact contact) {
 
-        String emailAddress = null;
+        String emailAddress = "";
 
         // Catch in case of exceptions
         try {
@@ -632,7 +671,7 @@ public class DialogFragment_AddContact extends DialogFragment {
      */
     private String getAllContactAddressTypesValues(Contact contact) {
 
-        String contactAddress = null;
+        String contactAddress = "";
 
         // Catch in case of exceptions
         try {

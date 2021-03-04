@@ -32,8 +32,6 @@ public class NetworkTags {
         // Tag used to cancel password reset request
         public static final String TAG_PASSWORD_RESET_REQUEST = "TagStringRequestPasswordReset";
 
-        // Tag used to cancel switch account type request
-        public static final String TAG_SWITCH_ACCOUNT_TYPE_REQUEST = "TagStringRequestSwitchAccountType";
     }
 
     /**

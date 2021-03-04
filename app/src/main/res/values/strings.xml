@@ -15,7 +15,6 @@
     <string name="title_fragment_people_i_owe">Those I Owe</string>
     <string name="title_fragment_people_owing_me">Owing Me</string>
     <string name="tittle_fragment_app_menu">Menu</string>
-    <string name="title_fragment_signup">SignUpActivity</string>
     <string name="title_fragment_sign_in">SignIn</string>
     <string name="title_fragment_personal_account">SignUp Personal Account</string>
     <string name="title_fragment_business_account">SignUp Business Account</string>
@@ -26,7 +25,6 @@
     <string name="title_signing_in">Signing you in</string>
     <string name="title_updating_profile">Updating profile</string>
     <string name="title_updating_password">Updating password</string>
-    <string name="title_switching_account_type">Switching account type</string>
     <string name="title_adding_contact">Adding contact</string>
     <string name="title_updating_contact">Updating contact</string>
     <string name="title_deleting_contact">Deleting contact</string>
@@ -39,7 +37,6 @@
 
     <!--Hints-->
     <string name="hint_first_name">First name</string>
-    <string name="hint_last_name">Last name</string>
     <string name="hint_email_address">Email address</string>
     <string name="hint_password">Password</string>
     <string name="hint_current_password">Current password</string>
@@ -48,15 +45,13 @@
     <string name="hint_confirm_password">Confirm password</string>
     <string name="hint_country_name">Country</string>
     <string name="hint_date_of_birth">Date of birth</string>
-    <string name="hint_business_name">Business name</string>
     <string name="hint_phone_number">Phone number</string>
-    <string name="hint_first_and_last_name">First and last name</string>
     <string name="hint_account_type">Account type</string>
     <string name="hint_signup_date">Signup date</string>
     <string name="hint_feedback">Feedback</string>
-    <string name="hint_personal_account">Personal Account</string>
-    <string name="hint_business_account">Business Account</string>
-    <string name="hint_full_name">Full name</string>
+    <string name="hint_account_type_free">Free Account</string>
+    <string name="hint_account_type_pro">Pro Account</string>
+    <string name="hint_full_name_or_business_name">Full name or business name</string>
     <string name="hint_address">Address</string>
     <string name="hint_contacts_type">Contacts type</string>
     <string name="hint_optional">(Optional)</string>
@@ -81,8 +76,6 @@
     <string name="action_sign_in">Sign In</string>
     <string name="action_sign_up">Sign Up</string>
     <string name="action_forgot_password">Forgot Password?</string>
-    <string name="action_create_a_business_account">Create a business account instead?</string>
-    <string name="action_create_a_personal_account">Create a personal account instead?</string>
     <string name="action_close">Close</string>
     <string name="action_account_settings">Account Settings</string>
     <string name="action_help_center">Help Center</string>
@@ -99,7 +92,6 @@
     <string name="action_try_again">Try again</string>
     <string name="action_change_password">Change Password</string>
     <string name="action_change">Change</string>
-    <string name="action_switch">Switch</string>
     <string name="action_switch_account_type">Switch to %1$s</string>
     <string name="action_resend_code">Resend code</string>
     <string name="action_next">Next</string>
@@ -115,7 +107,6 @@
 
     <!--Labels-->
     <string name="label_create_personal_account">Create A Personal Account</string>
-    <string name="label_create_business_account">Create A Business Account</string>
     <string name="label_sign_in_to_your_account">Sign In to your account</string>
     <string name="label_change_account_password">Change account password</string>
     <string name="label_forgot_password">Forgot Password?</string>
@@ -141,7 +132,6 @@
     <string name="msg_signing_in">We are signing you in! Please wait…</string>
     <string name="msg_updating_profile">Updating your profile! Please wait…</string>
     <string name="msg_updating_password">Updating your password! Please wait…</string>
-    <string name="msg_switching_account_type">Switching to %1$s! Please wait…</string>
     <string name="msg_adding_contact">Adding %1$ss\' contact! Please wait…</string>
     <string name="msg_updating_contact">Updating contact! Please wait…</string>
     <string name="msg_deleting_contact">Deleting contact! Please wait…</string>
@@ -154,7 +144,6 @@
     <string name="msg_contact_deleted_successfully">Contact%1$s deleted successfully.</string>
     <string name="msg_debt_deleted_successfully">Debt%1$s deleted successfully.</string>
     <string name="msg_password_updated">Password updated successfully.</string>
-    <string name="msg_account_switching_successful">Account switched successfully.</string>
     <string name="msg_contact_adding_successful">%1$s has been added successfully.</string>
     <string name="msg_debt_adding_successful">%1$s has been added to %2$s.</string>
     <string name="msg_mailing_email_verification_code">Mailing you a verification code! Please wait…</string>

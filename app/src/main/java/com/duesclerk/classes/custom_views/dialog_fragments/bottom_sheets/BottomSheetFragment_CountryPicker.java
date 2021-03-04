@@ -25,8 +25,7 @@ import com.duesclerk.classes.custom_views.recycler_view_adapters.RVLA_CountryPic
 import com.duesclerk.classes.custom_views.view_decorators.Decorators;
 import com.duesclerk.classes.java_beans.JB_CountryData;
 import com.duesclerk.interfaces.Interface_CountryPicker;
-import com.duesclerk.ui.fragment_business_signup.FragmentBusinessSignup;
-import com.duesclerk.ui.fragment_personal_signup.FragmentPersonalSignup;
+import com.duesclerk.ui.fragment_signup.FragmentSignup;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -66,25 +65,13 @@ public class BottomSheetFragment_CountryPicker extends BottomSheetDialogFragment
     /**
      * Constructor for Personal signup fragment
      *
-     * @param fragmentPersonalSignup - Personal signup fragment
+     * @param fragmentSignup - Personal signup fragment
      */
-    public BottomSheetFragment_CountryPicker(FragmentPersonalSignup fragmentPersonalSignup) {
+    public BottomSheetFragment_CountryPicker(FragmentSignup fragmentSignup) {
 
-        this.mContext = fragmentPersonalSignup.requireActivity();
-        this.interfaceCountryPicker = fragmentPersonalSignup;
-        this.activity = fragmentPersonalSignup.requireActivity();
-    }
-
-    /**
-     * Constructor for Business signup fragment
-     *
-     * @param fragmentBusinessSignup - Business signup fragment
-     */
-    public BottomSheetFragment_CountryPicker(FragmentBusinessSignup fragmentBusinessSignup) {
-
-        this.mContext = fragmentBusinessSignup.requireActivity();
-        this.interfaceCountryPicker = fragmentBusinessSignup;
-        this.activity = fragmentBusinessSignup.requireActivity();
+        this.mContext = fragmentSignup.requireActivity();
+        this.interfaceCountryPicker = fragmentSignup;
+        this.activity = fragmentSignup.requireActivity();
     }
 
     @NonNull
