@@ -5,13 +5,10 @@
     <string name="error_network_connection_error_message_short">"Can't connect at the moment!"</string>
 
     <!--Input fields errors-->
-    <string name="error_first_name_null">First name cannot be empty!</string>
-    <string name="error_first_name_length">First names should be %1$d character or longer!</string>
-    <string name="error_full_name_null">Full name cannot be empty!</string>
-    <string name="error_first_name_length_short">First name too short!</string>
-    <string name="error_last_name_null">Last name cannot be empty!</string>
-    <string name="error_last_name_length">Last names should be %1$d character or longer!</string>
-    <string name="error_last_name_length_short">Last name too short!</string>
+    <string name="error_full_name_or_business_name_null">First name cannot be empty!</string>
+    <string name="error_full_name_or_business_name_length">Names should be %1$d character or longer!</string>
+    <string name="error_full_name_null">Name cannot be empty!</string>
+    <string name="error_full_name_or_business_name_length_short">Name too short!</string>
     <string name="error_email_address_invalid">The email address you entered is invalid!</string>
     <string name="error_email_address_invalid_short">Invalid email address!</string>
     <string name="error_phone_number_invalid">The phone number you entered is invalid!</string>
