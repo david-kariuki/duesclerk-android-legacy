@@ -46,5 +46,4 @@
 
     <!--SignUp and SignIn-->
     <string name="content_description_icon_sign_in">Sign in icon</string>
-    <string name="content_description_icon_sign_up">Sign up icon</string>
 </resources>
