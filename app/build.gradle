@@ -3,12 +3,15 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "23.0.3"
 
-    useLibrary 'org.apache.http.legacy'
+    compileSdkVersion 30 // Compile SDK version
+    buildToolsVersion "23.0.3" // Build tools version
 
+    useLibrary 'org.apache.http.legacy' // Use apache HTTP legacy library
+
+    // Default configuration
     defaultConfig {
+
         applicationId "com.duesclerk"
         minSdkVersion 23
         targetSdkVersion 30
@@ -18,14 +21,20 @@ android {
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+        // Java compile options
         javaCompileOptions {
+
+            // Annotation processor options
             annotationProcessorOptions {
+
                 includeCompileClasspath = true
             }
         }
     }
 
+    // Packaging options
     packagingOptions {
+
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE.txt'
@@ -54,28 +63,40 @@ android {
         pickFirst 'lib/x86/libassmidi.so'
     }
 
+    // Build types
     buildTypes {
+
         release {
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
+    // Lint options
     lintOptions {
+
         checkReleaseBuilds false
         abortOnError false
     }
 
+    // Compile options
     compileOptions {
+
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    // Build features
     buildFeatures {
+
         viewBinding true
     }
 }
 
+// Dependencies
 dependencies {
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     // View libraries
@@ -163,5 +184,4 @@ dependencies {
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
 }
