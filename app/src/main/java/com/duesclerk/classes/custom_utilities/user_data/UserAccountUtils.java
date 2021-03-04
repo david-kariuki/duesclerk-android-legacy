@@ -9,7 +9,7 @@ public class UserAccountUtils {
     public static final String FIELD_USER_ID = "UserId";
 
     // Field names
-    public static final String FIELD_FULL_NAME_OR_BUSINESS_NAME = "FullName";
+    public static final String FIELD_FULL_NAME_OR_BUSINESS_NAME = "FullNameOrBusinessName";
     public static final String KEY_NAME = "Name";
     public static final String FIELD_EMAIL_ADDRESS = "EmailAddress";
     public static final String FIELD_COUNTRY_NAME = "CountryName";
@@ -29,6 +29,8 @@ public class UserAccountUtils {
 
     // Account type
     public static final String FIELD_ACCOUNT_TYPE = "AccountType";
+    public static final String KEY_ACCOUNT_TYPE_FREE = "AccountTypeFree";
+    public static final String KEY_ACCOUNT_TYPE_PRO = "AccountTypePro";
     public static final String FIELD_NEW_ACCOUNT_TYPE = "NewAccountType";
 
     // Email Verification
