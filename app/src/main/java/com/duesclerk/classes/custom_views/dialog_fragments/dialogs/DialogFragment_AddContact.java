@@ -178,6 +178,10 @@ public class DialogFragment_AddContact extends DialogFragment {
         radioPeopleOwingMe.setButtonTintList(colorStateList);
         radioPeopleIOwe.setButtonTintList(colorStateList);
 
+        // RadioButton text labels onClick
+        textPeopleOwingMe.setOnClickListener(v -> radioPeopleOwingMe.setChecked(true));
+        textPeopleIOwe.setOnClickListener(v -> radioPeopleIOwe.setChecked(true));
+
         // RadioButton onClick
         radioPeopleOwingMe.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
