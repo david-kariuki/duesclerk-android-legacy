@@ -8,7 +8,6 @@
     <string name="error_first_name_null">First name cannot be empty!</string>
     <string name="error_first_name_length">First names should be %1$d character or longer!</string>
     <string name="error_full_name_null">Full name cannot be empty!</string>
-    <string name="error_business_name_null">Business name cannot be empty!</string>
     <string name="error_first_name_length_short">First name too short!</string>
     <string name="error_last_name_null">Last name cannot be empty!</string>
     <string name="error_last_name_length">Last names should be %1$d character or longer!</string>
