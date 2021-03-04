@@ -89,7 +89,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
-                android:hint="@string/hint_full_name"
+                android:hint="@string/hint_full_name_or_business_name"
                 android:singleLine="true"
                 android:textColor="@color/colorBlack"
                 android:textColorHint="@color/colorBlack"
