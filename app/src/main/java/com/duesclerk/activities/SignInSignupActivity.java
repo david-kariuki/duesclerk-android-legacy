@@ -34,9 +34,8 @@ import com.duesclerk.classes.network.NetworkUrls;
 import com.duesclerk.classes.storage_adapters.SessionManager;
 import com.duesclerk.classes.storage_adapters.UserDatabase;
 import com.duesclerk.interfaces.Interface_SignInSignup;
-import com.duesclerk.ui.fragment_business_signup.FragmentBusinessSignup;
-import com.duesclerk.ui.fragment_personal_signup.FragmentPersonalSignup;
 import com.duesclerk.ui.fragment_signin.FragmentSignIn;
+import com.duesclerk.ui.fragment_signup.FragmentSignup;
 import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONException;
@@ -133,20 +132,19 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
      * @param viewPager - Associated ViewPager
      */
     private void setupViewPager(ViewPager viewPager) {
+
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         FragmentSignIn fragmentSignIn = new FragmentSignIn();
-        FragmentPersonalSignup fragmentPersonalSignup = new FragmentPersonalSignup();
-        FragmentBusinessSignup fragmentBusinessSignup = new FragmentBusinessSignup();
+        FragmentSignup fragmentSignup = new FragmentSignup();
 
         // Add Fragments To ViewPager Adapter
         viewPagerAdapter.addFragment(fragmentSignIn, DataUtils.getStringResource(mContext,
                 R.string.title_fragment_sign_in));
-        viewPagerAdapter.addFragment(fragmentPersonalSignup, DataUtils.getStringResource(mContext,
+        viewPagerAdapter.addFragment(fragmentSignup, DataUtils.getStringResource(mContext,
                 R.string.title_fragment_personal_account));
-        viewPagerAdapter.addFragment(fragmentBusinessSignup, DataUtils.getStringResource(mContext,
-                R.string.title_fragment_business_account));
-        viewPager.setAdapter(viewPagerAdapter);
+
+        viewPager.setAdapter(viewPagerAdapter); // Set ViewPagerAdapter to adapter
     }
 
     /**
@@ -230,9 +228,9 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
      */
 
     @Override
-    public void passPersonalAccountSignupDetails(String firstName, String lastName,
-                                                 String emailAddress, String countryCode,
-                                                 String countryAlpha2, String password) {
+    public void passSignupDetails(String firstName, String lastName,
+                                  String emailAddress, String countryCode,
+                                  String countryAlpha2, String password) {
         // Clear java bean and ArrayList for re-use
         jbUserAccountInfo.clear();
         signupDetailsArray.clear();
@@ -248,41 +246,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
         // Add java bean to ArrayList
         signupDetailsArray.add(jbUserAccountInfo);
 
-        // Pass account type and signup details hashMap
-        signupUser(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL,
-                signupDetailsArray);
-    }
-
-    /**
-     * Method to receive business account signup details from interface
-     *
-     * @param businessName  - Business name
-     * @param countryCode   - Country code
-     * @param countryAlpha2 - Country alpha2
-     * @param emailAddress  - Email address
-     * @param password      - Password
-     */
-    @Override
-    public void passBusinessAccountSignupDetails(String businessName, String countryCode,
-                                                 String countryAlpha2, String emailAddress,
-                                                 String password) {
-        // Clear java bean and ArrayList for re-use
-        jbUserAccountInfo.clear();
-        signupDetailsArray.clear();
-
-        // Add details
-        jbUserAccountInfo.setBusinessName(businessName);
-        jbUserAccountInfo.setCountryCode(countryCode);
-        jbUserAccountInfo.setCountryAlpha2(countryAlpha2);
-        jbUserAccountInfo.setEmailAddress(emailAddress);
-        jbUserAccountInfo.setPassword(password);
-
-        // Add java bean to ArrayList
-        signupDetailsArray.add(jbUserAccountInfo);
-
-        // Pass account type and signup details hashMap
-        signupUser(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS,
-                signupDetailsArray);
+        signupUser(signupDetailsArray); // Pass signup details hashMap
     }
 
     /**
@@ -296,11 +260,9 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
     /**
      * Function to SignUp user
      *
-     * @param signupAccountType  - Personal / Business account
      * @param signupDetailsArray - ArrayList with signup details
      */
-    private void signupUser(final String signupAccountType,
-                            final ArrayList<JB_UserAccountInfo> signupDetailsArray) {
+    private void signupUser(final ArrayList<JB_UserAccountInfo> signupDetailsArray) {
 
         // Hide Keyboard
         ViewsUtils.hideKeyboard(this);
@@ -335,7 +297,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
                         // Get Signup Object
                         JSONObject objectSignUp = jsonObject.getJSONObject(VolleyUtils.KEY_SIGNUP);
 
-                        String userId, firstName, lastName, businessName, emailAddress,
+                        String userId, fullNameOrBusinessName, emailAddress,
                                 accountType, successMessage = "";
 
                         // Get signup details
@@ -350,39 +312,19 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
                             // Create login sessionManager
                             sessionManager.setSignedIn(true);
 
-                            if (signupAccountType.equals(
-                                    UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
+                            // Get FullNameOrBusinessName
+                            fullNameOrBusinessName = objectSignUp
+                                    .getString(UserAccountUtils.FIELD_FULL_NAME_OR_BUSINESS_NAME);
 
-                                // Get first name and last name
-                                firstName = objectSignUp.getString(UserAccountUtils.FIELD_FIRST_NAME);
-                                lastName = objectSignUp.getString(UserAccountUtils.FIELD_LAST_NAME);
+                            if (!DataUtils.isEmptyString(fullNameOrBusinessName)) {
 
-                                if (!DataUtils.isEmptyString(firstName)
-                                        && !DataUtils.isEmptyString(lastName)) {
-
-                                    successMessage = DataUtils.getStringResource(
-                                            mContext,
-                                            R.string.msg_welcome_to,
-                                            DataUtils.getStringResource(
-                                                    mContext,
-                                                    R.string.app_name)
-                                                    + ", " + (firstName + " " + lastName));
-                                }
-                            } else if (signupAccountType.equals(
-                                    UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
-
-                                // Get business name
-                                businessName = objectSignUp.getString(UserAccountUtils.FIELD_BUSINESS_NAME);
-
-                                if (!DataUtils.isEmptyString(businessName)) {
-                                    successMessage = DataUtils.getStringResource(
-                                            mContext,
-                                            R.string.msg_welcome_to,
-                                            DataUtils.getStringResource(
-                                                    mContext,
-                                                    R.string.app_name)
-                                                    + ", " + businessName);
-                                }
+                                successMessage = DataUtils.getStringResource(
+                                        mContext,
+                                        R.string.msg_welcome_to,
+                                        DataUtils.getStringResource(
+                                                mContext,
+                                                R.string.app_name)
+                                                + ", " + (fullNameOrBusinessName));
                             }
 
                             // Toast welcome message
@@ -446,23 +388,8 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
                     // Posting params to sign up url
                     Map<String, String> params = new HashMap<>();
 
-                    // Personal account related fields
-                    if (signupAccountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
-                        params.put(UserAccountUtils.FIELD_FIRST_NAME,
-                                signupDetailsArray.get(0).getFirstName());
-                        params.put(UserAccountUtils.FIELD_LAST_NAME,
-                                signupDetailsArray.get(0).getLastName());
-                        params.put(UserAccountUtils.FIELD_ACCOUNT_TYPE,
-                                UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL);
-                    }
-
-                    // Business account related fields
-                    if (signupAccountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
-                        params.put(UserAccountUtils.FIELD_BUSINESS_NAME,
-                                signupDetailsArray.get(0).getBusinessName());
-                        params.put(UserAccountUtils.FIELD_ACCOUNT_TYPE,
-                                UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS);
-                    }
+                    params.put(UserAccountUtils.FIELD_FULL_NAME_OR_BUSINESS_NAME,
+                            signupDetailsArray.get(0).getFirstName());
 
                     // Other shared fields
                     params.put(UserAccountUtils.FIELD_EMAIL_ADDRESS,
