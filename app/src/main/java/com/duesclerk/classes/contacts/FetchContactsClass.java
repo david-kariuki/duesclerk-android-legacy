@@ -1,7 +1,6 @@
 package com.duesclerk.classes.contacts;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -40,7 +39,7 @@ import java.util.Map;
 
 public class FetchContactsClass {
 
-    private final String TAG = FetchContactsClass.class.getSimpleName();
+    // private final String TAG = FetchContactsClass.class.getSimpleName();
     private final Context mContext;
     private final Interface_Contacts interfaceContacts;
     private final MultiSwipeRefreshLayout swipeRefreshLayout;
@@ -100,7 +99,7 @@ public class FetchContactsClass {
                     NetworkUrls.ContactURLS.URL_FETCH_USER_CONTACTS, response -> {
 
                 // Log Response
-                Log.d(TAG, "Fetching contacts response:" + response);
+                // Log.d(TAG, "Fetching contacts response:" + response);
 
                 // Hide SwipeRefreshLayout
                 ViewsUtils.showSwipeRefreshLayout(false, false,
