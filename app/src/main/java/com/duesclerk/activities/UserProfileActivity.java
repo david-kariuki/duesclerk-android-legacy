@@ -656,6 +656,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
      */
     private void resetNewValueFields() {
 
+        // Set string values to empty
         this.newFullNameOrBusinessName = "";
         this.newEmailAddress = "";
         this.newCountryCode = "";
