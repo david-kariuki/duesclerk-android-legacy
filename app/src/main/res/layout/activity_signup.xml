@@ -11,6 +11,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/content_personal_signup" />
+        <include layout="@layout/content_signup" />
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

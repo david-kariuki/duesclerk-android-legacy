@@ -9,9 +9,9 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:focusedByDefault="true"
-    tools:context=".ui.PersonalSignup"
+    tools:context=".ui.Signup"
     tools:ignore="UnusedAttribute"
-    tools:showIn="@layout/activity_personal_signup">
+    tools:showIn="@layout/activity_signup">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/Style_ScrollView"

@@ -1,4 +1,4 @@
-package com.duesclerk.ui.fragment_personal_signup;
+package com.duesclerk.ui.fragment_signup;
 
 import android.content.Context;
 import android.graphics.Paint;
@@ -28,7 +28,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
 
-public class FragmentPersonalSignup extends Fragment implements Interface_CountryPicker {
+public class FragmentSignup extends Fragment implements Interface_CountryPicker {
 
     private Context mContext;
     private EditText editFirstName, editLastName, editEmailAddress, editCountry;
@@ -37,8 +37,8 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
     private ImageView imagePasswordToggle, imageCountryFlag;
     private BottomSheetFragment_CountryPicker bottomSheetFragmentCountryPicker;
 
-    public static FragmentPersonalSignup newInstance() {
-        return new FragmentPersonalSignup();
+    public static FragmentSignup newInstance() {
+        return new FragmentSignup();
     }
 
     @Nullable
@@ -46,7 +46,7 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.activity_personal_signup, container, false);
+        View view = inflater.inflate(R.layout.activity_signup, container, false);
 
         mContext = getContext(); // Context
 
@@ -129,7 +129,7 @@ public class FragmentPersonalSignup extends Fragment implements Interface_Countr
         // Pass personal signup details to parent activity for signup
         llSignUp.setOnClickListener(v -> {
             if (checkFieldLengths()) {
-                Objects.requireNonNull(interfaceSignUpSignIn).passPersonalAccountSignupDetails(
+                Objects.requireNonNull(interfaceSignUpSignIn).passSignupDetails(
                         editFirstName.getText().toString(),
                         editLastName.getText().toString(),
                         editEmailAddress.getText().toString(),
