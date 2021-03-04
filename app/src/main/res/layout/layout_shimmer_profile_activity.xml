@@ -43,54 +43,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="vertical">
-
-                    <View
-                        style="@style/Style_Shimmer_TextView_Labels"
-                        android:layout_width="@dimen/dimen_shimmer_text_view_width_medium"
-                        android:layout_height="@dimen/dimen_shimmer_text_view_height"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginBottom="5dp" />
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/dimen_image_view_icon_size_small"
-                            android:layout_height="@dimen/dimen_image_view_icon_size_small"
-                            android:layout_marginEnd="8dp"
-                            android:contentDescription="@string/content_description_icon_business_name"
-                            android:padding="@dimen/dimen_image_view_icon_padding_small"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/ic_baseline_business_24_primary_grey" />
-
-                        <View
-                            style="@style/Style_Shimmer_EditText"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dimen_shimmer_edit_text_height" />
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                style="@style/Style_SignInSignUp_Profile_CardView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/colorWhite"
-                app:cardCornerRadius="@dimen/dimen_card_view_corner_radius"
-                app:cardUseCompatPadding="true">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="12dp"
                     android:orientation="vertical">
 
@@ -131,31 +83,6 @@
                         android:layout_marginStart="49dp"
                         android:layout_marginEnd="10dp"
                         android:background="@color/colorDividerGrey" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="10dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/dimen_image_view_icon_size_small"
-                            android:layout_height="@dimen/dimen_image_view_icon_size_small"
-                            android:layout_marginEnd="8dp"
-                            android:contentDescription="@string/content_description_icon_last_name"
-                            android:padding="@dimen/dimen_image_view_icon_padding_small"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/ic_baseline_person_24_primary_grey"
-                            android:visibility="invisible" />
-
-                        <View
-                            style="@style/Style_Shimmer_EditText"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dimen_shimmer_edit_text_height" />
-                    </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
