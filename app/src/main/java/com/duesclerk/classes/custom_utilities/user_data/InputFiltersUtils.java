@@ -206,37 +206,6 @@ public class InputFiltersUtils {
     }
 
     /**
-     * Function to check business name length then notify on error
-     *
-     * @param context  - To show toast
-     * @param editText - Character Sequence
-     *
-     * @return boolean
-     */
-    public static boolean checkBusinessNameLengthNotify(Context context,
-                                                        @NonNull EditText editText) {
-
-        if (Objects.requireNonNull(editText.getText()).length() == 0) {
-
-            // Toast error message
-            CustomToast.errorMessage(context, DataUtils.getStringResource(context,
-                    R.string.error_business_name_null),
-                    R.drawable.ic_baseline_business_24_white);
-
-            // Enable error icon
-            editText.setError(DataUtils.getStringResource(context,
-                    R.string.error_business_name_null));
-
-        } else {
-
-            return true; // Return true on value acceptable
-        }
-
-        return false; // Return false on value not acceptable
-    }
-
-
-    /**
      * Function to check email address length and format validity then notify on error
      *
      * @param context      - To show toast
@@ -496,7 +465,7 @@ public class InputFiltersUtils {
             CustomToast.errorMessage(context, DataUtils.getStringResource(context,
                     R.string.error_verification_code_length,
                     String.valueOf(LENGTH_VERIFICATION_CODE)),
-                    R.drawable.ic_baseline_business_24_white);
+                    0);
 
             // Enable error icon
             editText.setError(DataUtils.getStringResource(context,
