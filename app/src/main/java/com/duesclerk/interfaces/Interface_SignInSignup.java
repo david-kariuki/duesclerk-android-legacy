@@ -10,21 +10,6 @@ public interface Interface_SignInSignup {
     void setTabPosition(int position);
 
     /**
-     * Method to signup details
-     *
-     * @param firstName     - First name
-     * @param lastName      - Last name
-     * @param emailAddress  - Email address
-     * @param countryCode   - Country code
-     * @param countryAlpha2 - Country alpha2
-     * @param password      - Password
-     */
-    void passSignupDetails(String firstName, String lastName, String emailAddress,
-                           String countryCode, String countryAlpha2,
-                           String password
-    );
-
-    /**
      * Method to exit activity
      */
     void finishActivity();
