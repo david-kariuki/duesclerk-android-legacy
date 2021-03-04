@@ -37,7 +37,6 @@
 
     <!--Hints-->
     <string name="hint_first_name">First name</string>
-    <string name="hint_last_name">Last name</string>
     <string name="hint_email_address">Email address</string>
     <string name="hint_password">Password</string>
     <string name="hint_current_password">Current password</string>
@@ -47,7 +46,6 @@
     <string name="hint_country_name">Country</string>
     <string name="hint_date_of_birth">Date of birth</string>
     <string name="hint_phone_number">Phone number</string>
-    <string name="hint_first_and_last_name">First and last name</string>
     <string name="hint_account_type">Account type</string>
     <string name="hint_signup_date">Signup date</string>
     <string name="hint_feedback">Feedback</string>
@@ -78,7 +76,6 @@
     <string name="action_sign_in">Sign In</string>
     <string name="action_sign_up">Sign Up</string>
     <string name="action_forgot_password">Forgot Password?</string>
-    <string name="action_create_a_business_account">Create a business account instead?</string>
     <string name="action_close">Close</string>
     <string name="action_account_settings">Account Settings</string>
     <string name="action_help_center">Help Center</string>
@@ -110,7 +107,6 @@
 
     <!--Labels-->
     <string name="label_create_personal_account">Create A Personal Account</string>
-    <string name="label_create_business_account">Create A Business Account</string>
     <string name="label_sign_in_to_your_account">Sign In to your account</string>
     <string name="label_change_account_password">Change account password</string>
     <string name="label_forgot_password">Forgot Password?</string>

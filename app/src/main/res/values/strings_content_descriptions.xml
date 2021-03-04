@@ -26,7 +26,6 @@
 
     <!--User profile and signup-->
     <string name="content_description_icon_first_name">First name icon</string>
-    <string name="content_description_icon_last_name">Last name icon</string>
     <string name="content_description_icon_business_name">Business name icon</string>
     <string name="content_description_icon_email_address">Email address icon</string>
     <string name="content_description_icon_phone_number">Phone number icon</string>
