@@ -1,13 +1,13 @@
 package com.duesclerk.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
-import com.duesclerk.R;
-import com.duesclerk.ui.fragment_personal_signup.FragmentPersonalSignup;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class PersonalSignup extends AppCompatActivity {
+import com.duesclerk.R;
+import com.duesclerk.ui.fragment_signup.FragmentSignup;
+
+public class Signup extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,7 +15,7 @@ public class PersonalSignup extends AppCompatActivity {
         setContentView(R.layout.activity_personal_signup);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, FragmentPersonalSignup.newInstance())
+                    .replace(R.id.container, FragmentSignup.newInstance())
                     .commitNow();
         }
     }
