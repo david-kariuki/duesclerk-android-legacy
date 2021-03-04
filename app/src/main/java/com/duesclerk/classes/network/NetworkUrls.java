@@ -5,18 +5,18 @@ public class NetworkUrls {
     // This class holds all network urls and network tags needed to handle network requests
 
     // Domain and Url constants
-    private static final String PROTOCOL            = "https://";
-    private static final String URL_SEPARATOR       = "/"; // Url separator
-    private static final String WEBSITE_URL         = (PROTOCOL + "www.duesclerk.com"
+    private static final String PROTOCOL = "https://";
+    private static final String URL_SEPARATOR = "/"; // Url separator
+    private static final String WEBSITE_URL = (PROTOCOL + "www.duesclerk.com"
             + URL_SEPARATOR).trim();
-    private static final String FOLDER_ANDROID      = (WEBSITE_URL + "android" + URL_SEPARATOR)
+    private static final String FOLDER_ANDROID = (WEBSITE_URL + "android" + URL_SEPARATOR)
             .trim();
-    private static final String FOLDER_APP          =
+    private static final String FOLDER_APP =
             (FOLDER_ANDROID + "application" + URL_SEPARATOR)
+                    .trim();
+    private static final String FOLDER_VENDOR_NAME = (FOLDER_APP + "duesclerk" + URL_SEPARATOR)
             .trim();
-    private static final String FOLDER_VENDOR_NAME  = (FOLDER_APP + "duesclerk" + URL_SEPARATOR)
-            .trim();
-    private static final String FOLDER_CONTROLLERS  = (FOLDER_VENDOR_NAME + "controllers"
+    private static final String FOLDER_CONTROLLERS = (FOLDER_VENDOR_NAME + "controllers"
             + URL_SEPARATOR).trim();
 
     /**
@@ -51,10 +51,6 @@ public class NetworkUrls {
 
         // URL to reset password
         public static final String URL_PASSWORD_RESET = FOLDER_CONTROLLERS_USER + "resetPassword.php";
-
-        // URL to switch account type
-        public static final String URL_SWITCH_ACCOUNT_TYPE = FOLDER_CONTROLLERS_USER
-                + "switchAccountType.php";
     }
 
     /**
