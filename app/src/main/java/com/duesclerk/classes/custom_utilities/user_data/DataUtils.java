@@ -52,9 +52,17 @@ public class DataUtils {
      *
      * @param string - associated string
      */
-    public static boolean isEmptyString(@NonNull String string) {
+    public static boolean isEmptyString(String string) {
 
-        return (string.equals(""));
+        // Check if string is null
+        if (string == null) {
+
+            return true; // Return true when string is null
+
+        } else {
+
+            return string.equals(""); // Return string equals ""
+        }
     }
 
     /**
