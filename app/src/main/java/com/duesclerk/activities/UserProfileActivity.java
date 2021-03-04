@@ -62,10 +62,9 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
     private SwipeRefreshLayout.OnRefreshListener swipeRefreshListener;
     private ScrollView scrollView;
     private ProgressDialog progressDialog;
-    private CardView cardBusinessName, cardPersonsNames, cardAccountType,
+    private CardView cardPersonsNames, cardAccountType,
             cardSignupDate;
-    private EditText editBusinessName, editFirstName, editLastName,
-            editEmailAddress, editCountry;
+    private EditText editFullNameOrBusinessName, editEmailAddress, editCountry;
     private TextView textAccountType, textSignupDate;
     private FloatingActionButton fabEdit, fabSaveEdits, fabCancelEdits;
     private ImageView imageCountryFlag, imageEmailVerificationError;
@@ -75,16 +74,14 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
     private BottomSheetFragment_EmailNotVerified bottomSheetFragmentEmailNotVerified;
     private ShimmerFrameLayout shimmerFrameLayout;
     private LinearLayout llUserProfileActivity, llUserProfileActivityFABS, llNoConnection;
-    private String fetchedFirstName = "", fetchedLastName = "", fetchedBusinessName = "",
-            fetchedEmailAddress = "", fetchedCountryName,
-            fetchedCountryCode = "", fetchedCountryFlag = "", fetchedCountryAlpha2 = "";
-    private boolean profileFetched = false, emailVerified = false, emailNotVerifiedDialogShown =
-            false, fetchedUserProfile = false;
-    private EditText newSelectedCountryCode = null,
-            newSelectedCountryAlpha2 = null;
-    private String newFirstName = "", newLastName = "", newBusinessName = "",
-            newEmailAddress = "", newCountryCode = "", newCountryAlpha2 = "";
-    private String accountType;
+    private String fetchedFullNameOrBusinessName = "",
+            fetchedEmailAddress = "", fetchedCountryName, fetchedCountryCode = "",
+            fetchedCountryFlag = "", fetchedCountryAlpha2 = "";
+    private boolean profileFetched = false, emailVerified = false,
+            emailNotVerifiedDialogShown = false, fetchedUserProfile = false;
+    private EditText newSelectedCountryCode = null, newSelectedCountryAlpha2 = null;
+    private String newFullNameOrBusinessName = "", newEmailAddress = "", newCountryCode = "",
+            newCountryAlpha2 = "";
     private int CURRENT_TASK;
 
     @Override
@@ -102,14 +99,12 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
         progressDialog.setCancelable(false);
 
         // CardViews
-        cardBusinessName = findViewById(R.id.cardUserProfileActivity_BusinessName);
         cardPersonsNames = findViewById(R.id.cardUserProfileActivity_PersonsNames);
         cardAccountType = findViewById(R.id.cardUserProfileActivity_AccountType);
         cardSignupDate = findViewById(R.id.cardUserProfileActivity_SignupDate);
 
-        editBusinessName = findViewById(R.id.editUserProfileActivity_BusinessName);
-        editFirstName = findViewById(R.id.editUserProfileActivity_FirstName);
-        editLastName = findViewById(R.id.editUserProfileActivity_LastName);
+        // EDitTexts
+        editFullNameOrBusinessName = findViewById(R.id.editUserProfileActivity_FullNameOrBusinessName);
         editEmailAddress = findViewById(R.id.editUserProfileActivity_EmailAddress);
         editCountry = findViewById(R.id.editUserProfileActivity_Country);
 
@@ -122,17 +117,13 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
         newSelectedCountryAlpha2 = new EditText(mContext);
 
         // Set Input Filters
-        editFirstName.setFilters(new InputFilter[]{InputFiltersUtils.filterNames,
-                new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_SINGLE_NAME)});
-        editLastName.setFilters(new InputFilter[]{InputFiltersUtils.filterNames,
+        editFullNameOrBusinessName.setFilters(new InputFilter[]{InputFiltersUtils.filterNames,
                 new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_SINGLE_NAME)});
         editEmailAddress.setFilters(new InputFilter[]{InputFiltersUtils.filterEmailAddress,
                 new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_EMAIL_ADDRESS)});
 
         // Add text change listeners
-        editFirstName.addTextChangedListener(this);
-        editLastName.addTextChangedListener(this);
-        editBusinessName.addTextChangedListener(this);
+        editFullNameOrBusinessName.addTextChangedListener(this);
         editEmailAddress.addTextChangedListener(this);
         editCountry.addTextChangedListener(this);
         newSelectedCountryCode.addTextChangedListener(this);
@@ -158,9 +149,6 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
         swipeRefreshLayout.setSwipeableChildren(scrollView.getId()); // Set scrollable children
 
         database = new UserDatabase(mContext); // Initialize database object
-
-        // Get accountType from SQLite database
-        accountType = database.getUserAccountInfo(null).get(0).getAccountType();
 
         // CountryPicker
         bottomSheetFragmentCountryPicker = new BottomSheetFragment_CountryPicker(this);
@@ -216,8 +204,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
         });
 
         imageEmailVerificationError.setOnClickListener(v -> {
-            if ((!fetchedFirstName.equals("") || !fetchedBusinessName.equals(""))
-                    && (!editingProfile)) {
+            if ((!fetchedFullNameOrBusinessName.equals("")) && (!editingProfile)) {
 
                 // Start email not verified bottom sheet
                 ViewsUtils.showBottomSheetDialogFragment(getSupportFragmentManager(),
@@ -236,10 +223,9 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                 } else if (CURRENT_TASK == TaskUtils.TASK_UPDATE_USER_PROFILE) {
 
                     if (editingProfile) {
-                        if (fieldValuesChanged(database.getUserAccountInfo(null)
-                                .get(0).getAccountType().equals(
-                                        UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL))) {
-                            fabSaveEdits.performClick();
+                        if (fieldValuesChanged()) {
+
+                            fabSaveEdits.performClick(); // Click on FAB save edits
                         }
                     }
                 }
@@ -288,22 +274,16 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
     private void initEmailVerificationFragment() {
 
         // Email not verified
-        bottomSheetFragmentEmailNotVerified = new BottomSheetFragment_EmailNotVerified(this);
+        bottomSheetFragmentEmailNotVerified = new BottomSheetFragment_EmailNotVerified(
+                this);
         bottomSheetFragmentEmailNotVerified.setCancelable(true);
         bottomSheetFragmentEmailNotVerified.setRetainInstance(true);
 
-        if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
-            if (!fetchedFirstName.equals("")) {
+        // Check if FullNameOrBusinessName is null
+        if (!fetchedFullNameOrBusinessName.equals("")) {
 
-                // Pass first name to bottom sheet
-                bottomSheetFragmentEmailNotVerified.setUsersName(fetchedFirstName);
-            }
-        } else if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
-            if (!fetchedBusinessName.equals("")) {
-
-                // Pass business name to bottom sheet
-                bottomSheetFragmentEmailNotVerified.setUsersName(fetchedBusinessName);
-            }
+            // Pass first name to bottom sheet
+            bottomSheetFragmentEmailNotVerified.setUsersName(fetchedFullNameOrBusinessName);
         }
     }
 
@@ -393,31 +373,15 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
         // Enable field focus
         enableEditTexts(enable, editEmailAddress);
+        enableEditTexts(enable, editFullNameOrBusinessName);
 
-        if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
-            // Personal
+        editFullNameOrBusinessName.requestFocus(); // Focus on full name or business name
 
-            enableEditTexts(enable, editFirstName);
-            enableEditTexts(enable, editLastName);
-
-            editFirstName.requestFocus(); // Focus on first name
-
-            if (!enable) {
-
-                // Revert previously set details in case they changed
-                editFirstName.setText(fetchedFirstName);
-                editLastName.setText(fetchedLastName);
-            }
-
-        } else if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
-            // Business
-
-            enableEditTexts(enable, editBusinessName);
-
-            editBusinessName.requestFocus(); // Focus on first name
+        // Check if enabled
+        if (!enable) {
 
             // Revert previously set details in case they changed
-            editBusinessName.setText(fetchedBusinessName);
+            editFullNameOrBusinessName.setText(fetchedFullNameOrBusinessName);
         }
 
         swipeRefreshLayout.setEnabled(!enable); // Enable/Disable swipe refresh
@@ -441,23 +405,23 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
     /**
      * Function to set fetched details to respective fields
      *
-     * @param user - JSONObject with user details
+     * @param jsonObjectUser - JSONObject with user details
      */
-    private void setFetchedData(JSONObject user) {
+    private void setFetchedData(JSONObject jsonObjectUser) {
 
         // Check if JSONObject is null
-        if (user != null) {
+        if (jsonObjectUser != null) {
 
             // Get profile details
             try {
 
                 profileFetched = true; // Set profile fetched to true
-                fetchedEmailAddress = user.getString(UserAccountUtils.FIELD_EMAIL_ADDRESS);
-                fetchedCountryName = user.getString(UserAccountUtils.FIELD_COUNTRY_NAME);
-                fetchedCountryCode = user.getString(UserAccountUtils.FIELD_COUNTRY_CODE);
-                fetchedCountryAlpha2 = user.getString(UserAccountUtils.FIELD_COUNTRY_ALPHA2);
-                fetchedCountryFlag = user.getString(UserAccountUtils.FIELD_COUNTRY_FLAG);
-                emailVerified = Boolean.parseBoolean(user.getString(
+                fetchedEmailAddress = jsonObjectUser.getString(UserAccountUtils.FIELD_EMAIL_ADDRESS);
+                fetchedCountryName = jsonObjectUser.getString(UserAccountUtils.FIELD_COUNTRY_NAME);
+                fetchedCountryCode = jsonObjectUser.getString(UserAccountUtils.FIELD_COUNTRY_CODE);
+                fetchedCountryAlpha2 = jsonObjectUser.getString(UserAccountUtils.FIELD_COUNTRY_ALPHA2);
+                fetchedCountryFlag = jsonObjectUser.getString(UserAccountUtils.FIELD_COUNTRY_FLAG);
+                emailVerified = Boolean.parseBoolean(jsonObjectUser.getString(
                         UserAccountUtils.FIELD_EMAIL_VERIFIED));
                 fetchedUserProfile = true;
 
@@ -467,7 +431,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                         mContext,
                         R.string.placeholder_in_brackets,
                         fetchedCountryCode)
-                        + " " + user.getString(UserAccountUtils.FIELD_COUNTRY_NAME);
+                        + " " + jsonObjectUser.getString(UserAccountUtils.FIELD_COUNTRY_NAME);
 
                 // Set country details
                 editCountry.setText(countryCodeAndName);
@@ -477,48 +441,25 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                         DataUtils.getDrawableFromName(mContext, fetchedCountryFlag),
                         imageCountryFlag);
 
-                textSignupDate.setText(user.getString(UserAccountUtils.FIELD_SIGNUP_DATE_TIME));
+                textSignupDate.setText(jsonObjectUser.getString(UserAccountUtils.FIELD_SIGNUP_DATE_TIME));
 
                 // Set to newly EditText to avoid showing save button during field check
                 newSelectedCountryCode.setText(fetchedCountryCode);
                 newSelectedCountryAlpha2.setText(fetchedCountryAlpha2);
 
-                if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
-                    // Business account
+                fetchedFullNameOrBusinessName = jsonObjectUser
+                        .getString(UserAccountUtils.FIELD_FULL_NAME_OR_BUSINESS_NAME);
 
-                    fetchedFirstName = user.getString(UserAccountUtils.FIELD_FIRST_NAME);
-                    fetchedLastName = user.getString(UserAccountUtils.FIELD_LAST_NAME);
+                // Show views
+                cardPersonsNames.setVisibility(View.VISIBLE);
 
-                    // Hide views
-                    cardBusinessName.setVisibility(View.GONE);
+                // Set profile details
+                editFullNameOrBusinessName.setText(fetchedFullNameOrBusinessName);
 
-                    // Show views
-                    cardPersonsNames.setVisibility(View.VISIBLE);
+                // Set account type
+                textAccountType.setText(DataUtils.getStringResource(mContext,
+                        R.string.hint_personal_account));
 
-                    // Set profile details
-                    editFirstName.setText(fetchedFirstName);
-                    editLastName.setText(fetchedLastName);
-
-                    // Set account type
-                    textAccountType.setText(DataUtils.getStringResource(mContext,
-                            R.string.hint_personal_account));
-
-                } else if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
-                    // Business account
-
-                    fetchedBusinessName = user.getString(UserAccountUtils.FIELD_BUSINESS_NAME);
-
-                    // Hide views
-                    cardPersonsNames.setVisibility(View.GONE);
-
-                    // Show views
-                    cardBusinessName.setVisibility(View.VISIBLE);
-
-                    // Set profile details
-                    editBusinessName.setText(fetchedBusinessName);
-                    textAccountType.setText(DataUtils.getStringResource(mContext,
-                            R.string.hint_business_account));
-                }
 
                 resetNewValueFields(); // Reset new value fields to null
 
@@ -635,7 +576,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
     private void enableFabButtons() {
 
         // Check account type and hide edit fab
-        if (fieldValuesChanged(accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL))) {
+        if (fieldValuesChanged()) {
 
             fabSaveEdits.setVisibility(View.VISIBLE);  // Show save edits fab
         } else {
@@ -648,21 +589,12 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
     /**
      * Function to check for field value changes from the initial fetched value
      */
-    private boolean fieldValuesChanged(boolean isPersonal) {
-        if (isPersonal) {
-            return ((!editFirstName.getText().toString().equals(fetchedFirstName))
-                    || (!editLastName.getText().toString().equals(fetchedLastName))
-                    || (!editEmailAddress.getText().toString().equals(fetchedEmailAddress))
-                    || (!newSelectedCountryCode.getText().toString().equals(fetchedCountryCode))
-                    || (!newSelectedCountryAlpha2.getText().toString().equals(fetchedCountryAlpha2)));
-        } else {
-            return (
-                    (!editBusinessName.getText().toString().equals(fetchedBusinessName))
-                            || (!editEmailAddress.getText().toString().equals(fetchedEmailAddress))
-                            || (!newSelectedCountryCode.getText().toString().equals(fetchedCountryCode))
-                            || (!newSelectedCountryAlpha2.getText().toString().equals(fetchedCountryAlpha2))
-            );
-        }
+    private boolean fieldValuesChanged() {
+
+        return ((!editFullNameOrBusinessName.getText().toString().equals(fetchedFullNameOrBusinessName))
+                || (!editEmailAddress.getText().toString().equals(fetchedEmailAddress))
+                || (!newSelectedCountryCode.getText().toString().equals(fetchedCountryCode))
+                || (!newSelectedCountryAlpha2.getText().toString().equals(fetchedCountryAlpha2)));
     }
 
     /**
@@ -671,52 +603,38 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
     private void compareAndGetUpdatedValues() {
         // Check account type
 
-        if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
-            // Personal account
+        // FullName or business name and Gender
+        if (!editFullNameOrBusinessName.getText().toString()
+                .equals(fetchedFullNameOrBusinessName)) {
 
-            // FirstName, LastName and Gender
-            if (!editFirstName.getText().toString().equals(fetchedFirstName)) {
-                newFirstName = editFirstName.getText().toString();
-            }
-
-            if (!editLastName.getText().toString().equals(fetchedLastName)) {
-                newLastName = editLastName.getText().toString();
-            }
-
-        } else if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
-            // Business account
-
-            // BusinessName
-            if (!editBusinessName.getText().toString().equals(fetchedBusinessName)) {
-                newBusinessName = editBusinessName.getText().toString();
-            }
-
+            newFullNameOrBusinessName = editFullNameOrBusinessName.getText().toString();
         }
 
-        // EmailAddress, CountryCode and CountryAlpha2
-
-
+        // Check EmailAddress
         if (!editEmailAddress.getText().toString().equals(fetchedEmailAddress)) {
+
             newEmailAddress = editEmailAddress.getText().toString();
         }
 
+        // Check CountryCode
         if (!newSelectedCountryCode.getText().toString().equals(fetchedCountryCode)) {
+
             newCountryCode = newSelectedCountryCode.getText().toString();
         }
 
+        // Check CountryAlpha2
         if (!newSelectedCountryAlpha2.getText().toString().equals(fetchedCountryAlpha2)) {
+
             newCountryAlpha2 = newSelectedCountryAlpha2.getText().toString();
         }
-
     }
 
     /**
      * Function to reset newly selected values in case of concurrent updates
      */
     private void resetNewValueFields() {
-        this.newFirstName = "";
-        this.newLastName = "";
-        this.newBusinessName = "";
+
+        this.newFullNameOrBusinessName = "";
         this.newEmailAddress = "";
         this.newCountryCode = "";
         this.newCountryAlpha2 = "";
@@ -1022,34 +940,36 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                 protected Map<String, String> getParams() {
                     @SuppressWarnings({"unchecked", "rawtypes"}) Map<String, String> params =
                             new HashMap();
-                    if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_PERSONAL)) {
-                        // Check for changed values for personal account
-                        if (!DataUtils.isEmptyString(newFirstName)) {
-                            params.put(UserAccountUtils.FIELD_FIRST_NAME, newFirstName);
-                        }
-                        if (!DataUtils.isEmptyString(newLastName)) {
-                            params.put(UserAccountUtils.FIELD_LAST_NAME, newLastName);
-                        }
 
-                    } else if (accountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_BUSINESS)) {
-                        // Check for changed values for business account
+                    // Check for changed values for FullNameOrBusinessName
+                    if (!DataUtils.isEmptyString(newFullNameOrBusinessName)) {
 
-                        if (!DataUtils.isEmptyString(newBusinessName)) {
-                            params.put(UserAccountUtils.FIELD_BUSINESS_NAME, newBusinessName);
-                        }
+                        // Put FullNameOrBusinessName
+                        params.put(UserAccountUtils.FIELD_FULL_NAME_OR_BUSINESS_NAME,
+                                newFullNameOrBusinessName);
                     }
 
-                    // Check for changed values for shared details
+                    // Check for changed EmailAddress values
                     if (!DataUtils.isEmptyString(newEmailAddress)) {
+
+                        // Put EmailAddress
                         params.put(UserAccountUtils.FIELD_EMAIL_ADDRESS, newEmailAddress);
                     }
+
+                    // Check for changed country details values
                     if ((!DataUtils.isEmptyString(newCountryCode))
                             && (!DataUtils.isEmptyString(newCountryAlpha2))) {
+
+                        // Put CountryCode
                         params.put(UserAccountUtils.FIELD_COUNTRY_CODE, newCountryCode);
+
+                        // Put CountryAlpha2
                         params.put(UserAccountUtils.FIELD_COUNTRY_ALPHA2, newCountryAlpha2);
                     }
 
-                    params.put(UserAccountUtils.FIELD_USER_ID, userId);
+                    params.put(UserAccountUtils.FIELD_USER_ID, userId); // Put UserId
+
+                    // Put AccountType
                     params.put(UserAccountUtils.FIELD_ACCOUNT_TYPE, accountType);
 
                     return params; // Return params
@@ -1057,6 +977,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
                 @Override
                 protected VolleyError parseNetworkError(VolleyError volleyError) {
+
                     return super.parseNetworkError(volleyError);
                 }
 
