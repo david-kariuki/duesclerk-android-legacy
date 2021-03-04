@@ -74,9 +74,12 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
     private BottomSheetFragment_EmailNotVerified bottomSheetFragmentEmailNotVerified;
     private ShimmerFrameLayout shimmerFrameLayout;
     private LinearLayout llUserProfileActivity, llUserProfileActivityFABS, llNoConnection;
-    private String fetchedFullNameOrBusinessName = "",
-            fetchedEmailAddress = "", fetchedCountryName, fetchedCountryCode = "",
-            fetchedCountryFlag = "", fetchedCountryAlpha2 = "";
+    private String fetchedFullNameOrBusinessName = "";
+    private String fetchedEmailAddress = "";
+    private String fetchedCountryName;
+    private String fetchedCountryCode = "";
+    private String fetchedCountryFlag = "";
+    private String fetchedCountryAlpha2 = "";
     private boolean profileFetched = false, emailVerified = false,
             emailNotVerifiedDialogShown = false, fetchedUserProfile = false;
     private EditText newSelectedCountryCode = null, newSelectedCountryAlpha2 = null;
@@ -421,6 +424,8 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                 fetchedCountryCode = jsonObjectUser.getString(UserAccountUtils.FIELD_COUNTRY_CODE);
                 fetchedCountryAlpha2 = jsonObjectUser.getString(UserAccountUtils.FIELD_COUNTRY_ALPHA2);
                 fetchedCountryFlag = jsonObjectUser.getString(UserAccountUtils.FIELD_COUNTRY_FLAG);
+                String fetchedAccountType = jsonObjectUser.getString(UserAccountUtils.FIELD_ACCOUNT_TYPE);
+
                 emailVerified = Boolean.parseBoolean(jsonObjectUser.getString(
                         UserAccountUtils.FIELD_EMAIL_VERIFIED));
                 fetchedUserProfile = true;
@@ -457,14 +462,31 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                 editFullNameOrBusinessName.setText(fetchedFullNameOrBusinessName);
 
                 // Set account type
-                textAccountType.setText(DataUtils.getStringResource(mContext,
-                        R.string.hint_personal_account));
+                String accountTypeLabel;
+                if (fetchedAccountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_FREE)) {
+
+                    // Set account type label to free account
+                    accountTypeLabel = DataUtils.getStringResource(mContext,
+                            R.string.hint_account_type_free);
+
+                } else {
+
+                    // Set account type label to PRO account
+                    accountTypeLabel = DataUtils.getStringResource(mContext,
+                            R.string.hint_account_type_pro);
+                }
+
+                // Set account type label
+                textAccountType.setText(accountTypeLabel);
 
 
                 resetNewValueFields(); // Reset new value fields to null
 
                 // Hide ShimmerFrameLayout
                 ViewsUtils.showShimmerFrameLayout(false, shimmerFrameLayout);
+
+                // Show FABS layout
+                llUserProfileActivityFABS.setVisibility(View.VISIBLE);
 
                 // Show profile layout
                 llUserProfileActivity.setVisibility(View.VISIBLE);
@@ -668,7 +690,7 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                     NetworkUrls.UserURLS.URL_FETCH_USER_PROFILE_DETAILS, response -> {
 
                 // Log Response
-                // Log.d(TAG, "Profile Response:" + response);
+                // Log.d(TAG, "Profile Response : " + response);
 
                 try {
                     JSONObject jsonObject = new JSONObject(response);
@@ -681,14 +703,12 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                     // Check for error
                     if (!error) {
 
-                        // Show FABS layout
-                        llUserProfileActivityFABS.setVisibility(View.VISIBLE);
-
                         // Stop swipe SwipeRefresh
                         ViewsUtils.showSwipeRefreshLayout(false, true,
                                 swipeRefreshLayout, swipeRefreshListener);
 
                         setFetchedData(objectUser); // Set fetched details
+
                     } else {
                         // Error fetching details
 
