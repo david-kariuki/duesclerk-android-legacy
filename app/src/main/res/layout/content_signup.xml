@@ -54,7 +54,7 @@
                         style="@style/Style_Text_Labels"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/hint_first_and_last_name" />
+                        android:text="@string/hint_full_name_or_business_name" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -76,14 +76,14 @@
                             android:src="@drawable/ic_baseline_person_24_primary" />
 
                         <EditText
-                            android:id="@+id/editSignUpActivity_FirstName"
+                            android:id="@+id/editSignUpActivity_FullNameOrBusinessName"
                             style="@style/Style_TextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:autofillHints=""
                             android:background="@null"
-                            android:hint="@string/hint_first_name"
+                            android:hint="@string/hint_full_name_or_business_name"
                             android:imeActionLabel="Next"
                             android:inputType="textPersonName|textCapWords" />
                     </LinearLayout>
@@ -95,37 +95,6 @@
                         android:layout_marginTop="@dimen/dimen_field_divider_margin_top"
                         android:layout_marginEnd="10dp"
                         android:background="@color/colorDividerGrey" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="10dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/dimen_image_view_icon_size_small"
-                            android:layout_height="@dimen/dimen_image_view_icon_size_small"
-                            android:layout_marginEnd="10dp"
-                            android:contentDescription="@string/content_description_icon_last_name"
-                            android:padding="@dimen/dimen_image_view_icon_padding_small"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/ic_baseline_email_24_primary"
-                            android:visibility="invisible" />
-
-                        <EditText
-                            android:id="@+id/editSignUpActivity_LastName"
-                            style="@style/Style_TextInputLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:autofillHints=""
-                            android:background="@null"
-                            android:hint="@string/hint_last_name"
-                            android:imeActionLabel="Next"
-                            android:inputType="textPersonName|textCapWords" />
-                    </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -332,6 +301,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
                 android:gravity="center"
+                android:layout_marginBottom="40dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -394,19 +364,6 @@
 
                 </LinearLayout>
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/textCreateBusinessAccount"
-                style="@style/Style_PageLinks"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="50dp"
-                android:text="@string/action_create_a_business_account"
-                android:textColor="@color/colorPrimary"
-                android:textSize="13sp" />
-
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

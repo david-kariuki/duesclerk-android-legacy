@@ -110,63 +110,38 @@ public class InputFiltersUtils {
     /**
      * Function to check persons name length and notify on error
      *
-     * @param context     - Context to get string resources
-     * @param editText    - Associated EditText
-     * @param isFirstName - Boolean to get first name or last name resources
+     * @param context  - Context to get string resources
+     * @param editText - Associated EditText
      *
      * @return boolean
      */
-    public static boolean checkPersonNameLengthNotify(Context context, @NonNull EditText editText,
-                                                      boolean isFirstName) {
+    public static boolean checkFullNameOrBusinessNameLengthNotify(Context context,
+                                                                  @NonNull EditText editText) {
 
         if (DataUtils.isEmptyEditText(editText)) {
-            if (isFirstName) {
 
-                // Toast error message
-                CustomToast.errorMessage(context, DataUtils.getStringResource(context,
-                        R.string.error_first_name_null), R.drawable.ic_baseline_person_24_white);
+            // Toast error message
+            CustomToast.errorMessage(context, DataUtils.getStringResource(context,
+                    R.string.error_full_name_or_business_name_null),
+                    R.drawable.ic_baseline_person_24_white);
 
-                editText.setError(DataUtils.getStringResource(context,
-                        R.string.error_first_name_null)); // Enable error icon
+            editText.setError(DataUtils.getStringResource(context,
+                    R.string.error_full_name_or_business_name_null)); // Enable error icon
 
-            } else {
-
-                // Toast error message
-                CustomToast.errorMessage(context, DataUtils.getStringResource(context,
-                        R.string.error_last_name_null), R.drawable.ic_baseline_person_24_white);
-
-                // Enable error icon
-                editText.setError(DataUtils.getStringResource(context,
-                        R.string.error_last_name_null));
-            }
 
         } else if (Objects.requireNonNull(editText.getText()).length()
                 < InputFiltersUtils.LENGTH_MIN_SINGLE_NAME) {
 
-            if (isFirstName) {
+            // Toast error message
+            CustomToast.errorMessage(context, DataUtils.getStringResource(context,
+                    R.string.error_full_name_or_business_name_length,
+                    String.valueOf(InputFiltersUtils.LENGTH_MIN_SINGLE_NAME)),
+                    R.drawable.ic_baseline_person_24_white);
 
-                // Toast error message
-                CustomToast.errorMessage(context, DataUtils.getStringResource(context,
-                        R.string.error_first_name_length,
-                        String.valueOf(InputFiltersUtils.LENGTH_MIN_SINGLE_NAME)),
-                        R.drawable.ic_baseline_person_24_white);
+            // Enable error icon
+            editText.setError(DataUtils.getStringResource(context,
+                    R.string.error_full_name_or_business_name_length_short));
 
-                // Enable error icon
-                editText.setError(DataUtils.getStringResource(context,
-                        R.string.error_first_name_length_short));
-
-            } else {
-
-                // Toast error message
-                CustomToast.errorMessage(context, DataUtils.getStringResource(context,
-                        R.string.error_last_name_length,
-                        String.valueOf(InputFiltersUtils.LENGTH_MIN_SINGLE_NAME)),
-                        R.drawable.ic_baseline_person_24_white);
-
-                // Enable error icon
-                editText.setError(DataUtils.getStringResource(context,
-                        R.string.error_last_name_length_short));
-            }
         } else {
 
             return true; // Return true on value acceptable
@@ -221,7 +196,8 @@ public class InputFiltersUtils {
 
             // Toast error message
             CustomToast.errorMessage(context, DataUtils.getStringResource(context,
-                    R.string.error_email_address_invalid), R.drawable.ic_baseline_email_24_white);
+                    R.string.error_email_address_invalid),
+                    R.drawable.ic_baseline_email_24_white);
 
         } else {
 
@@ -250,7 +226,8 @@ public class InputFiltersUtils {
 
             // Toast error message
             CustomToast.errorMessage(context, DataUtils.getStringResource(context,
-                    R.string.error_email_address_invalid), R.drawable.ic_baseline_email_24_white);
+                    R.string.error_email_address_invalid),
+                    R.drawable.ic_baseline_email_24_white);
 
             // Enable error icon
             editText.setError(DataUtils.getStringResource(context,
@@ -436,7 +413,8 @@ public class InputFiltersUtils {
 
             // Toast error message
             CustomToast.errorMessage(context, DataUtils.getStringResource(context,
-                    R.string.error_country_null), R.drawable.ic_baseline_location_on_24_white);
+                    R.string.error_country_null),
+                    R.drawable.ic_baseline_location_on_24_white);
 
             editText.setError(null); // Enable error icon
 
