@@ -156,7 +156,7 @@
                                             android:layout_height="wrap_content"
                                             android:ems="6"
                                             android:singleLine="true"
-                                            android:text="@string/hint_full_name"
+                                            android:text="@string/hint_full_name_or_business_name"
                                             android:textColor="@color/colorPrimaryGrey"
                                             android:textSize="13sp" />
 
