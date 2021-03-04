@@ -51,7 +51,8 @@
     <string name="hint_account_type">Account type</string>
     <string name="hint_signup_date">Signup date</string>
     <string name="hint_feedback">Feedback</string>
-    <string name="hint_personal_account">Personal Account</string>
+    <string name="hint_account_type_free">Free Account</string>
+    <string name="hint_account_type_pro">Pro Account</string>
     <string name="hint_full_name_or_business_name">Full name or business name</string>
     <string name="hint_address">Address</string>
     <string name="hint_contacts_type">Contacts type</string>
