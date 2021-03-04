@@ -10,7 +10,7 @@ public interface Interface_SignInSignup {
     void setTabPosition(int position);
 
     /**
-     * Method to pass personal account signup details
+     * Method to signup details
      *
      * @param firstName     - First name
      * @param lastName      - Last name
@@ -19,23 +19,9 @@ public interface Interface_SignInSignup {
      * @param countryAlpha2 - Country alpha2
      * @param password      - Password
      */
-    void passPersonalAccountSignupDetails(String firstName, String lastName, String emailAddress,
-                                          String countryCode, String countryAlpha2,
-                                          String password
-    );
-
-    /**
-     * Method to pass personal account signup details
-     *
-     * @param businessName  - Business name
-     * @param countryCode   - Country code
-     * @param countryAlpha2 - Country alpha2
-     * @param emailAddress  - Email address
-     * @param password      - Password
-     */
-    void passBusinessAccountSignupDetails(String businessName, String countryCode,
-                                          String countryAlpha2, String emailAddress,
-                                          String password
+    void passSignupDetails(String firstName, String lastName, String emailAddress,
+                           String countryCode, String countryAlpha2,
+                           String password
     );
 
     /**
