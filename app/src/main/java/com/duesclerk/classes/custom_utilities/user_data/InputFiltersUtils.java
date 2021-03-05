@@ -1,6 +1,7 @@
 package com.duesclerk.classes.custom_utilities.user_data;
 
 import android.content.Context;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.util.Patterns;
 import android.widget.EditText;
@@ -40,46 +41,14 @@ public class InputFiltersUtils {
     // It also capitalizes the first character of a name and sets the rest to lower case
     public static InputFilter filterNames = (source, start, end, dest, dstart,
                                              dend) -> {
+
         for (int i = start; i < end; i++) {
+
             if (!Character.isLetter(source.charAt(i))) {
 
-                return "";
+                if (!Character.isWhitespace(source.charAt(i))) {
 
-            } else {
-                // Character is letter
-
-                // Check for single character input
-                if (source.length() > 1) {
-
-                    // Get last character
-                    char last = source.charAt(source.length() - 1);
-
-                    // Check if last character is uppercase
-                    if (Character.isUpperCase(last)) {
-
-                        // Convert character to lower case
-                        char lastLower = Character.toLowerCase(last);
-
-                        String currentValue, trimmed;
-                        currentValue = source.toString();
-
-                        // Remove last character
-                        trimmed = currentValue.substring(0, source.length() - 1);
-                        trimmed = trimmed + lastLower;
-
-                        StringBuilder sourceBuilder = new StringBuilder();
-
-                        for (int loop = 0; loop < trimmed.length(); loop++) {
-                            char c = trimmed.charAt(loop);
-                            sourceBuilder.append(c); // Set char to textView
-                        }
-
-                        source = sourceBuilder.toString();
-                        return source;
-
-                        //editNamesField.setText(null);
-                        //editNamesField.setText(sourceBuilder.toString());
-                    }
+                    return "";
                 }
             }
         }
@@ -106,6 +75,62 @@ public class InputFiltersUtils {
         }
         return null;
     };
+
+    /**
+     * This function prevents the EditText value from starting with a specified character
+     * If the specified character is detected as the first, it will be deleted
+     *
+     * @param context       - for Toast
+     * @param editable      - Changing text
+     * @param editText      - Associated input field
+     * @param specifiedChar - Specified character
+     */
+    public static void blockLeadingSpaces(final Context context, final Editable editable,
+                                          final EditText editText, final String specifiedChar) {
+
+        // Check editable length
+        if (editable.length() > 0) {
+
+            // Check if first char on editable is the specified character
+            if (String.valueOf(editable.charAt(0)).equals(specifiedChar)) {
+
+                String currentValue, trimmed;
+
+                // Check editable length
+                if (editable.length() > 0) {
+
+                    currentValue = editable.toString();
+                    trimmed = currentValue.substring(1); // Remove the leading specified character
+
+                    editText.setText(null); // Set text to null
+
+                    for (int i = 0; i < trimmed.length(); i++) {
+
+                        char c = trimmed.charAt(i);
+                        editText.append(String.valueOf(c)); // Set char to textView
+                    }
+                } else {
+
+                    editText.setText(null); // Set text to null
+                }
+
+                // Set error message
+                String errorMessage = DataUtils.getStringResource(context,
+                        R.string.error_full_name_cannot_start_with_a, editable.charAt(0));
+
+                // Check if specified character is a space
+                if (specifiedChar.equals(" ")) {
+
+                    // Set error message
+                    errorMessage = DataUtils.getStringResource(context,
+                            R.string.error_full_name_cannot_start_with_spaces);
+                }
+
+                // Toast error message
+                CustomToast.errorMessage(context, errorMessage, 0);
+            }
+        }
+    }
 
     /**
      * Function to check persons name length and notify on error
