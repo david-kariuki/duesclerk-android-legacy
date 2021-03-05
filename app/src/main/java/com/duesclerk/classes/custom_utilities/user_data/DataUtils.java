@@ -444,33 +444,40 @@ public class DataUtils {
     public static String stringToTitleCase(String string) {
 
         // Check if String is null
-        if (string == null) {
+        if (isEmptyString(string)) {
 
             return null;
         }
 
-        boolean whiteSpace = true;
+        // Variable to check if character is white space
+        boolean charIsWhiteSpace = true;
 
-        StringBuilder builder = new StringBuilder(string); // String builder to store string
+        // String builder to build string
+        StringBuilder builder = new StringBuilder(string);
+
+        // Get StringBuilder length
         final int builderLength = builder.length();
 
         // Loop through builder
         for (int i = 0; i < builderLength; ++i) {
 
-            char c = builder.charAt(i); // Get character at builders position
+            // Get character at builders position
+            char c = builder.charAt(i);
 
-            if (whiteSpace) {
+            // Check if character is white space
+            if (charIsWhiteSpace) {
 
                 // Check if character is not white space
                 if (!Character.isWhitespace(c)) {
 
                     // Convert to title case and leave whitespace mode.
                     builder.setCharAt(i, Character.toTitleCase(c));
-                    whiteSpace = false;
+
+                    charIsWhiteSpace = false; // Set character is white space to false
                 }
             } else if (Character.isWhitespace(c)) {
 
-                whiteSpace = true; // Set character is white space
+                charIsWhiteSpace = true; // Set character is white space to true
 
             } else {
 
