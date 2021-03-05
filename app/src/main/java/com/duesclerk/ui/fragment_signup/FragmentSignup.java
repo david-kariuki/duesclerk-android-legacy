@@ -108,6 +108,24 @@ public class FragmentSignup extends Fragment implements Interface_CountryPicker 
         editEmailAddress.setFilters(new InputFilter[]{InputFiltersUtils.filterEmailAddress,
                 new InputFilter.LengthFilter(InputFiltersUtils.LENGTH_MAX_EMAIL_ADDRESS)});
 
+        editFullNameOrBusinessName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                // Block leading spaces
+                InputFiltersUtils.blockLeadingSpaces(mContext, s,
+                        editFullNameOrBusinessName, " ");
+            }
+        });
+
         // ProgressDialog
         progressDialog = ViewsUtils.initProgressDialog(requireActivity(), false);
 
