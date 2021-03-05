@@ -40,7 +40,6 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
 
         mContext = this; // Get Context
 
-
         imageBack = findViewById(R.id.imageSignupBack);
         textTitle = findViewById(R.id.textSignupTitle);
 
@@ -75,9 +74,10 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
 
         // Set TabLayout titles
         tabLayout.addTab(tabLayout.newTab().setText(DataUtils.getStringResource(mContext,
-                R.string.title_fragment_personal_account)));
+                R.string.title_fragment_sign_in)));
+
         tabLayout.addTab(tabLayout.newTab().setText(DataUtils.getStringResource(mContext,
-                R.string.title_fragment_business_account)));
+                R.string.title_fragment_sign_up)));
 
         // Set Mode and Gravity
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
@@ -100,7 +100,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
         viewPagerAdapter.addFragment(fragmentSignIn, DataUtils.getStringResource(mContext,
                 R.string.title_fragment_sign_in));
         viewPagerAdapter.addFragment(fragmentSignup, DataUtils.getStringResource(mContext,
-                R.string.title_fragment_personal_account));
+                R.string.title_fragment_sign_up));
 
         viewPager.setAdapter(viewPagerAdapter); // Set ViewPagerAdapter to adapter
     }
@@ -111,8 +111,10 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
     private void setupTabLayoutAndViewPager() {
 
         setupTabLayout(); // Set up TabLayout
+
         viewPager.setPagingEnabled(false); // Disabling paging on view pager
         viewPager.setOffscreenPageLimit(1); // Set ViewPager off screen limit
+
         setupViewPager(viewPager); // Setup ViewPager
 
         tabLayout.setupWithViewPager(viewPager); // Setup TabLayout with ViewPager
@@ -137,7 +139,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
 
                         // Set tab title
                         textTitle.setText(DataUtils.getStringResource(mContext,
-                                R.string.label_create_personal_account));
+                                R.string.label_create_your_account));
                         imageBack.setVisibility(View.VISIBLE); // Show back button
                         break;
 
@@ -187,6 +189,7 @@ public class SignInSignupActivity extends AppCompatActivity implements Interface
         if (tabPosition != 0) {
 
             this.runOnUiThread(() -> {
+
                 // Return 1 step back
                 TabLayout.Tab tab = tabLayout.getTabAt(tabPosition - 1);
                 Objects.requireNonNull(tab).select();
