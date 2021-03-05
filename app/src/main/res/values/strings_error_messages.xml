@@ -9,6 +9,8 @@
     <string name="error_full_name_or_business_name_length">Names should be %1$d character or longer!</string>
     <string name="error_full_name_null">Name cannot be empty!</string>
     <string name="error_full_name_or_business_name_length_short">Name too short!</string>
+    <string name="error_full_name_cannot_start_with_spaces">Names cannot start with spaces!</string>
+    <string name="error_full_name_cannot_start_with_a">Names cannot start with a %1$s!</string>
     <string name="error_email_address_invalid">The email address you entered is invalid!</string>
     <string name="error_email_address_invalid_short">Invalid email address!</string>
     <string name="error_phone_number_invalid">The phone number you entered is invalid!</string>
