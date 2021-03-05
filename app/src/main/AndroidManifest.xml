@@ -103,39 +103,32 @@
             android:colorMode="wideColorGamut"
             android:label="@string/title_activity_profile"
             android:theme="@style/Theme.DuesClerk.NoActionBar" />
+
         <activity
             android:name=".ui.SignInActivity"
             android:colorMode="wideColorGamut"
             android:label="@string/title_fragment_sign_in"
             android:parentActivityName=".activities.SignInSignupActivity"
             android:theme="@style/Theme.DuesClerk.NoActionBar" />
-        <activity
-            android:name=".ui.BusinessSignup"
-            android:colorMode="wideColorGamut"
-            android:label="@string/title_fragment_signup"
-            android:parentActivityName=".activities.SignInSignupActivity"
-            android:theme="@style/Theme.DuesClerk.NoActionBar" />
-        <activity
-            android:name=".ui.PersonalSignup"
-            android:colorMode="wideColorGamut"
-            android:label="@string/title_activity_signin_signup"
-            android:parentActivityName=".activities.SignInSignupActivity"
-            android:theme="@style/Theme.DuesClerk.NoActionBar" />
+
         <activity
             android:name=".activities.SignInSignupActivity"
             android:colorMode="wideColorGamut"
             android:label="@string/title_fragment_sign_in_sign_up"
             android:theme="@style/Theme.DuesClerk.NoActionBar" />
+
         <activity
             android:name=".ui.AppMenu"
             android:colorMode="wideColorGamut"
             android:label="@string/tittle_fragment_app_menu"
             android:parentActivityName=".activities.MainActivity" />
+
         <activity
             android:name=".ui.PeopleOwingMe"
             android:colorMode="wideColorGamut"
             android:label="@string/title_fragment_people_owing_me"
             android:parentActivityName=".activities.MainActivity" />
+
         <activity
             android:name=".ui.People_I_Owe"
             android:colorMode="wideColorGamut"
@@ -150,6 +143,7 @@
             android:theme="@style/Theme.DuesClerk.NoActionBar">
 
         </activity>
+
         <activity
             android:name=".activities.SplashActivity"
             android:colorMode="wideColorGamut"
