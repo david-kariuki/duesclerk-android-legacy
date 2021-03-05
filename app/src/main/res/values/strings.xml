@@ -16,8 +16,7 @@
     <string name="title_fragment_people_owing_me">Owing Me</string>
     <string name="tittle_fragment_app_menu">Menu</string>
     <string name="title_fragment_sign_in">SignIn</string>
-    <string name="title_fragment_personal_account">SignUp Personal Account</string>
-    <string name="title_fragment_business_account">SignUp Business Account</string>
+    <string name="title_fragment_sign_up">SignUp</string>
     <string name="title_fragment_sign_in_sign_up">SignIn SignUp Activity</string>
 
     <!--Other titles-->
@@ -106,7 +105,7 @@
     <string name="action_goto_settings">GoTo Settings</string>
 
     <!--Labels-->
-    <string name="label_create_personal_account">Create A Personal Account</string>
+    <string name="label_create_your_account">Create Your Account</string>
     <string name="label_sign_in_to_your_account">Sign In to your account</string>
     <string name="label_change_account_password">Change account password</string>
     <string name="label_forgot_password">Forgot Password?</string>
