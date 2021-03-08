@@ -66,8 +66,8 @@ public class InputFiltersUtils {
     };
 
     //  This filter ensures only letters and digits input to the verification code field
-    public static InputFilter filterVerificationCodes = (source, start, end, dest, dstart, dend) ->
-    {
+    public static InputFilter filterVerificationCodes = (source, start, end,
+                                                         dest, dstart, dend) -> {
         for (int i = start; i < end; i++) {
             if (!Character.isLetterOrDigit(source.charAt(i))) {
                 return "";
@@ -208,34 +208,6 @@ public class InputFiltersUtils {
     /**
      * Function to check email address length and format validity then notify on error
      *
-     * @param context      - To show toast
-     * @param emailAddress - String email address
-     *
-     * @return boolean
-     */
-    public static boolean checkEmailAddressValidNotify(@NonNull Context context,
-                                                       @NonNull String emailAddress) {
-
-        if (emailAddress.length() > InputFiltersUtils.LENGTH_MAX_EMAIL_ADDRESS
-                || (!Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches())) {
-
-            // Toast error message
-            CustomToast.errorMessage(context, DataUtils.getStringResource(context,
-                    R.string.error_email_address_invalid),
-                    R.drawable.ic_baseline_email_24_white);
-
-        } else {
-
-            return true; // Return true on value acceptable
-        }
-
-        return false; // Return false on value not acceptable
-    }
-
-
-    /**
-     * Function to check email address length and format validity then notify on error
-     *
      * @param context  - To show toast
      * @param editText - Character Sequence
      *
@@ -257,34 +229,6 @@ public class InputFiltersUtils {
             // Enable error icon
             editText.setError(DataUtils.getStringResource(context,
                     R.string.error_email_address_invalid_short));
-
-        } else {
-
-            return true; // Return true on value acceptable
-        }
-
-        return false; // Return false on value not acceptable
-    }
-
-
-    /**
-     * Function to check phone number length and format validity then notify on error
-     *
-     * @param context     - Context used to show toast
-     * @param phoneNumber - String phone number
-     *
-     * @return boolean
-     */
-    public static boolean checkPhoneNumberValidNotify(@NonNull Context context,
-                                                      @NonNull String phoneNumber) {
-
-        if (phoneNumber.length() < InputFiltersUtils.LENGTH_MIN_PHONE_NUMBER
-                || (!Patterns.PHONE.matcher(phoneNumber).matches())) {
-
-            // Toast error message
-            CustomToast.errorMessage(context, DataUtils.getStringResource(context,
-                    R.string.error_phone_number_invalid),
-                    R.drawable.ic_baseline_phone_24_white);
 
         } else {
 
@@ -492,112 +436,52 @@ public class InputFiltersUtils {
      * @return boolean
      */
     public static boolean checkDebtAmountLengthNotify(Context context,
-                                                      @NonNull EditText editText) {
+                                                      @NonNull EditText editText,
+                                                      final boolean notify) {
 
+        String errorMessage; // Error message
+
+        // Check text length
         if (Objects.requireNonNull(editText.getText()).length() == 0) {
 
-            // Toast error message
-            CustomToast.errorMessage(context, DataUtils.getStringResource(context,
-                    R.string.error_debt_amount_null),
-                    R.drawable.ic_baseline_attach_money_24_white);
+            errorMessage = DataUtils.getStringResource(context,
+                    R.string.error_debt_amount_null);
 
-            // Enable error icon
-            editText.setError(DataUtils.getStringResource(context,
-                    R.string.error_debt_amount_null));
-
+        // Check for period at the end of the string
         } else if (editText.getText().toString().endsWith(".")) {
 
             // Toast error message
-            CustomToast.errorMessage(context, DataUtils.getStringResource(context,
-                    R.string.error_debt_amount_ends_with_period),
-                    R.drawable.ic_baseline_attach_money_24_white);
+            errorMessage = DataUtils.getStringResource(context,
+                    R.string.error_debt_amount_ends_with_period);
 
-            // Enable error icon
-            editText.setError(DataUtils.getStringResource(context,
-                    R.string.error_debt_amount_ends_with_period));
         } else {
 
-            try {
+            // Check if value is zero as a string in case of float number
+            if (editText.getText().toString().equals("0")) {
 
-                if (Integer.parseInt(editText.getText().toString()) == 0) {
+                // Toast error message
+                errorMessage = DataUtils.getStringResource(context,
+                        R.string.error_debt_amount_zero);
 
-                    // Toast error message
-                    CustomToast.errorMessage(context, DataUtils.getStringResource(context,
-                            R.string.error_debt_amount_zero),
-                            R.drawable.ic_baseline_attach_money_24_white);
+            } else {
 
-                    // Enable error icon
-                    editText.setError(DataUtils.getStringResource(context,
-                            R.string.error_debt_amount_zero));
-
-                } else {
-
-                    return true; // Return true on value acceptable
-                }
-            } catch (Exception e) {
-
-                e.printStackTrace();
+                return true; // Return true on value acceptable
             }
         }
 
-        return false; // Return false on value not acceptable
-    }
+        // Check if error message is empty
+        if (!DataUtils.isEmptyString(errorMessage)) {
 
-    /**
-     * Function to check debt date issued then notify on error
-     *
-     * @param context  - To show toast
-     * @param editText - Character Sequence
-     *
-     * @return boolean
-     */
-    public static boolean checkDebtDateIssuedNotify(Context context,
-                                                    @NonNull EditText editText) {
+            // Check if notify permitted
+            if (notify) {
 
-        if (Objects.requireNonNull(editText.getText()).length() == 0) {
+                // Toast error message
+                CustomToast.errorMessage(context, errorMessage,
+                        R.drawable.ic_baseline_attach_money_24_white);
 
-            // Toast error message
-            CustomToast.errorMessage(context, DataUtils.getStringResource(context,
-                    R.string.error_debt_date_issued_null),
-                    R.drawable.ic_baseline_calendar_today_24_white);
-
-            // Enable error icon
-            editText.setError(DataUtils.getStringResource(context,
-                    R.string.error_debt_date_issued_null));
-
-        } else {
-
-            return true; // Return true on value acceptable
-        }
-
-        return false; // Return false on value not acceptable
-    }
-
-    /**
-     * Function to check debt date due then notify on error
-     *
-     * @param context  - To show toast
-     * @param editText - Character Sequence
-     *
-     * @return boolean
-     */
-    public static boolean checkDebtDateDueNotify(Context context,
-                                                 @NonNull EditText editText) {
-
-        if (Objects.requireNonNull(editText.getText()).length() == 0) {
-
-            // Toast error message
-            CustomToast.errorMessage(context, DataUtils.getStringResource(context,
-                    R.string.error_debt_date_due_null),
-                    R.drawable.ic_baseline_date_range_24_white);
-
-            // Enable error icon
-            editText.setError(DataUtils.getStringResource(context,
-                    R.string.error_debt_date_due_null));
-
-        } else {
-
-            return true; // Return true on value acceptable
+                // Enable error icon
+                editText.setError(errorMessage);
+            }
         }
 
         return false; // Return false on value not acceptable
