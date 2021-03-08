@@ -94,6 +94,10 @@ public class NetworkUrls {
         public static final String URL_ADD_CONTACTS_DEBT = FOLDER_CONTROLLERS_DEBTS +
                 "addContactsDebt.php";
 
+        // URL to update contacts debt
+        public static final String URL_UPDATE_CONTACTS_DEBT = FOLDER_CONTROLLERS_DEBTS +
+                "updateContactsDebt.php";
+
         // URL to delete contacts debts
         public static final String URL_DELETE_CONTACTS_DEBTS = FOLDER_CONTROLLERS_DEBTS +
                 "deleteContactsDebts.php";
