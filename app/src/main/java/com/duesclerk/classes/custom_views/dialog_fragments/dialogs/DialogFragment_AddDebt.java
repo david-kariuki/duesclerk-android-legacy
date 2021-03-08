@@ -544,10 +544,20 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
                     @SuppressWarnings({"unchecked", "rawtypes"}) Map<String, String> params =
                             new HashMap();
 
-                    // Pud debt details to Map params
+                    // Pud DebtAmount details to Map params
                     params.put(DebtUtils.FIELD_DEBT_AMOUNT, debtAmount);
-                    params.put(DebtUtils.FIELD_DEBT_DATE_ISSUED, debtDateIssued);
-                    params.put(DebtUtils.FIELD_DEBT_DATE_DUE, debtDateDue);
+
+                    // Check for debt date issued
+                    if (!DataUtils.isEmptyString(debtDateIssued)) {
+
+                        params.put(DebtUtils.FIELD_DEBT_DATE_ISSUED, debtDateIssued);
+                    }
+
+                    // Check for debt date due
+                    if (!DataUtils.isEmptyString(debtDateDue)) {
+
+                        params.put(DebtUtils.FIELD_DEBT_DATE_DUE, debtDateDue);
+                    }
 
                     // Check for debt description
                     if (!DataUtils.isEmptyString(debtDescription)) {
@@ -556,11 +566,9 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
                         params.put(DebtUtils.FIELD_DEBT_DESCRIPTION, debtDescription);
                     }
 
-                    // Put userId and contactId to Map params
+                    // Put UserId and ContactId to Map params
                     params.put(UserAccountUtils.FIELD_USER_ID, userId);
                     params.put(ContactUtils.FIELD_CONTACT_ID, contactId);
-
-                    // Log.e(TAG, params.toString());
 
                     return params; // Return params
                 }
