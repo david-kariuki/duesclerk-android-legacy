@@ -287,7 +287,7 @@ public class DeleteContactsDebts {
                             }
 
                             CustomToast.infoMessage(mContext, DataUtils.getStringResource(mContext,
-                                    R.string.msg_contact_deleted_successfully, plurals),
+                                    R.string.msg_deleting_contact_successful, plurals),
                                     false,
                                     R.drawable.ic_baseline_person_remove_alt_1_24_white);
 
@@ -528,7 +528,7 @@ public class DeleteContactsDebts {
                             }
 
                             CustomToast.infoMessage(mContext, DataUtils.getStringResource(mContext,
-                                    R.string.msg_debt_deleted_successfully, plurals),
+                                    R.string.msg_deleting_debt_successful, plurals),
                                     false,
                                     R.drawable.ic_baseline_attach_money_24_white);
 

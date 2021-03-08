@@ -280,7 +280,7 @@ public class BottomSheetFragment_ChangePassword extends BottomSheetDialogFragmen
                             // Show update successful message
                             CustomToast.infoMessage(mContext,
                                     DataUtils.getStringResource(mContext,
-                                            R.string.msg_password_updated), false,
+                                            R.string.msg_updating_password_successful), false,
                                     R.drawable.ic_baseline_person_24_white);
 
                             dismiss(); // Dismiss dialog
