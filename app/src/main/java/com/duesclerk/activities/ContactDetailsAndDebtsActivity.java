@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,6 +38,7 @@ import com.duesclerk.classes.custom_utilities.user_data.DebtUtils;
 import com.duesclerk.classes.custom_utilities.user_data.UserAccountUtils;
 import com.duesclerk.classes.custom_views.dialog_fragments.dialogs.DialogFragment_AddDebt;
 import com.duesclerk.classes.custom_views.dialog_fragments.dialogs.DialogFragment_UpdateContact;
+import com.duesclerk.classes.custom_views.dialog_fragments.dialogs.DialogFragment_UpdateDebt;
 import com.duesclerk.classes.custom_views.recycler_view_adapters.RVLA_Debts;
 import com.duesclerk.classes.custom_views.swipe_refresh.MultiSwipeRefreshLayout;
 import com.duesclerk.classes.custom_views.toast.CustomToast;
@@ -66,7 +66,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         AppBarLayout.OnOffsetChangedListener, Interface_IDS, Interface_Debts {
 
     // Get class simple name
-    private final String TAG = ContactDetailsAndDebtsActivity.class.getSimpleName();
+    // private final String TAG = ContactDetailsAndDebtsActivity.class.getSimpleName();
 
     RelativeLayout rlNoConnection;
     FloatingActionButton fabAddDebt, fabDeleteSelectedDebts;
@@ -86,7 +86,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
     private RecyclerView recyclerView;
     private BroadcastReceiver bcrReloadDebts;
     private SearchView searchView;
-    private DialogFragment_UpdateContact dialogFragmentEditContact;
+    private DialogFragment_UpdateContact dialogFragmentUpdateContact;
     private DeleteContactsDebts deleteContactsOrDebts;
     private ImageView imageDeleteDebts, imageHideCheckBoxes;
 
@@ -192,14 +192,9 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
 
         // Get intent and values passed
         Intent intent = getIntent();
-
         this.contactId = intent.getStringExtra(ContactUtils.FIELD_CONTACT_ID); // Get contact id
         this.contactFullName = intent.getStringExtra(ContactUtils.FIELD_CONTACT_FULL_NAME);
         this.contactType = intent.getStringExtra(ContactUtils.FIELD_CONTACT_TYPE);
-
-//        this.contactId = ""; // Get contact id
-//        this.contactFullName = "";
-//        this.contactType = "";
 
         // Set activity title
         setActivityTitle(contactType, contactFullName);
@@ -211,10 +206,10 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
         dialogFragmentAddDebt.setRetainInstance(true); // Set retain instance
 
         // Dialog fragment to edit contact
-        dialogFragmentEditContact = new DialogFragment_UpdateContact(
+        dialogFragmentUpdateContact = new DialogFragment_UpdateContact(
                 mContext);
-        dialogFragmentEditContact.setCancelable(false); // Disable cancelable
-        dialogFragmentEditContact.setRetainInstance(true); // Set retain instance
+        dialogFragmentUpdateContact.setCancelable(false); // Disable cancelable
+        dialogFragmentUpdateContact.setRetainInstance(true); // Set retain instance
 
         // Add CoordinatorLayout as swipeable child
         swipeRefreshLayout.setSwipeableChildren(R.id.coordinator);
@@ -323,7 +318,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
 
             // Show add debt dialog
             ViewsUtils.showDialogFragment(getSupportFragmentManager(),
-                    dialogFragmentEditContact, true);
+                    dialogFragmentUpdateContact, true);
         });
 
         // Delete contact onClick - Show delete contact confirmation
@@ -755,7 +750,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                     NetworkUrls.ContactURLS.URL_FETCH_CONTACT_DETAILS_AND_DEBTS, response -> {
 
                 // Log Response
-                Log.d(TAG, "Fetching contact data response:" + response);
+                // Log.d(TAG, "Fetching contact data response:" + response);
 
                 showFabAddDebt(false); // Hide add debt FAB
 
@@ -987,7 +982,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                 showFabAddDebt(true); // Show add debt FAB
 
                 // Pass contact details to
-                dialogFragmentEditContact.setContactDetails(contactId, contactFullName,
+                dialogFragmentUpdateContact.setContactDetails(contactId, contactFullName,
                         contactPhoneNumber, contactEmailAddress, contactAddress);
 
             } catch (Exception ignored) {
@@ -1116,5 +1111,27 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
     public void showDeleteDebtsFab(boolean show) {
 
         showFabDeleteSelectedDebts(show); // Show / hide fab delete selected debts
+    }
+
+    @Override
+    public void passDebtDetails(JB_Debts jbDebt) {
+
+        // Initialize DialogFragment_UpdateDebt
+        DialogFragment_UpdateDebt dialogFragmentUpdateDebt = new DialogFragment_UpdateDebt(
+                mContext,
+                contactId,
+                jbDebt.getDebtId(),
+                jbDebt.getDebtAmount(),
+                jbDebt.getDebtDateIssued(),
+                jbDebt.getDebtDateDue(),
+                jbDebt.getDebtDescription()
+        );
+
+        // Set to retain instance
+        dialogFragmentUpdateDebt.setRetainInstance(true);
+
+        // Show DialogFragment_UpdateDebt
+        ViewsUtils.showDialogFragment(getSupportFragmentManager(), dialogFragmentUpdateDebt,
+                true);
     }
 }
