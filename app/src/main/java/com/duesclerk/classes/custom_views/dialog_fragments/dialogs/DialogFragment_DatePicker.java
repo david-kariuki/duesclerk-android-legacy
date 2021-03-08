@@ -36,11 +36,34 @@ public class DialogFragment_DatePicker extends DialogFragment
     private final Context mContext;
     private final boolean dateIsDateDebtIssued, setMaxDateToCurrentDay;
 
+    /**
+     * Class constructor
+     *
+     * @param dialogFragmentAddDebt - Calling Fragment
+     * @param isDateIssued          - DebtDateIssued / DebtDateDue
+     */
     public DialogFragment_DatePicker(DialogFragment_AddDebt dialogFragmentAddDebt,
                                      boolean isDateIssued) {
 
         this.mContext = dialogFragmentAddDebt.requireActivity();
         this.interfaceDatePicker = dialogFragmentAddDebt;
+        this.inflater = (LayoutInflater) mContext.getSystemService(
+                Context.LAYOUT_INFLATER_SERVICE);
+        this.dateIsDateDebtIssued = isDateIssued;
+        this.setMaxDateToCurrentDay = isDateIssued;
+    }
+
+    /**
+     * Class constructor
+     *
+     * @param dialogFragmentUpdate - Calling Fragment
+     * @param isDateIssued         - DebtDateIssued / DebtDateDue
+     */
+    public DialogFragment_DatePicker(DialogFragment_UpdateDebt dialogFragmentUpdate,
+                                     boolean isDateIssued) {
+
+        this.mContext = dialogFragmentUpdate.requireActivity();
+        this.interfaceDatePicker = dialogFragmentUpdate;
         this.inflater = (LayoutInflater) mContext.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
         this.dateIsDateDebtIssued = isDateIssued;
@@ -105,9 +128,9 @@ public class DialogFragment_DatePicker extends DialogFragment
 
             // Set text size
             negButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, DataUtils.getDimenResource(mContext
-                    ,R.dimen.dimen_text_view_button_size));
+                    , R.dimen.dimen_text_view_button_size));
             posButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, DataUtils.getDimenResource(mContext
-                    ,R.dimen.dimen_text_view_button_size));
+                    , R.dimen.dimen_text_view_button_size));
         });
 
         // Remove window title
