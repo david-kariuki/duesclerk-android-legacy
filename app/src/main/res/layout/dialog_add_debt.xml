@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@drawable/inset_dialog_background_rounded"
     android:fillViewport="true"
     android:orientation="vertical"
@@ -11,73 +11,152 @@
     tools:ignore="UselessParent">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_toolbar_bs_height"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             android:elevation="@dimen/dimen_toolbar_bs_elevation">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="20dp"
                 android:singleLine="true"
                 android:text="@string/label_add_debt"
                 android:textColor="@color/colorPrimaryDark"
                 android:textColorHint="@color/colorPrimaryDark"
                 android:textSize="@dimen/dimen_text_view_toolbar_title_size"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="-1" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_toolbar_activity_divider_height"
             android:layout_marginBottom="5dp"
+
             android:background="@color/colorDividerGrey" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true">
 
         <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/scrollView"
             style="@style/Style_ScrollView"
-            android:fillViewport="true">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent=".9">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:fillViewport="true"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <androidx.cardview.widget.CardView
+                    style="@style/Style_SignInSignUp_Profile_CardView"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintWidth_percent=".9">
+                    android:layout_marginTop="0dp"
+                    app:cardBackgroundColor="@color/colorWhite"
+                    app:cardCornerRadius="@dimen/dimen_card_view_corner_radius"
+                    app:cardUseCompatPadding="true">
 
-                    <androidx.cardview.widget.CardView
-                        style="@style/Style_SignInSignUp_Profile_CardView"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@color/colorWhite"
-                        app:cardCornerRadius="@dimen/dimen_card_view_corner_radius"
-                        app:cardUseCompatPadding="true">
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/Style_Text_Labels"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="0dp"
+                                    android:text="@string/hint_debt_amount"
+                                    tools:ignore="TooDeepLayout" />
+
+                                <TextView
+                                    style="@style/Style_Text_Labels"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    android:text="@string/symbol_asterisk"
+                                    android:textColor="@color/colorPrimaryGrey"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                                    android:layout_height="@dimen/dimen_image_view_icon_size_small"
+                                    android:layout_marginEnd="10dp"
+                                    android:contentDescription="@string/content_description_icon_debt_amount"
+                                    android:padding="@dimen/dimen_image_view_icon_padding_small"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/ic_baseline_attach_money_24_primary" />
+
+                                <EditText
+                                    android:id="@+id/editAddDebt_DebtAmount"
+                                    style="@style/Style_TextInputLayout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:autofillHints="@string/hint_first_name"
+                                    android:background="@null"
+                                    android:hint="@string/hint_debt_amount"
+                                    android:imeActionLabel="Next"
+                                    android:inputType="numberDecimal" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dimen_field_divider_height"
+                                android:layout_marginStart="49dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="30dp"
+                                android:background="@color/colorDividerGrey" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dimen_divider_dialog_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@color/colorGreyLight100" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -85,375 +164,324 @@
                             android:orientation="vertical">
 
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:orientation="vertical">
+                                android:layout_marginTop="5dp"
+                                android:orientation="horizontal">
 
-                                <LinearLayout
+                                <TextView
+                                    style="@style/Style_Text_Labels"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
+                                    android:layout_marginEnd="0dp"
+                                    android:text="@string/hint_date_issued" />
 
-                                    <TextView
-                                        style="@style/Style_Text_Labels"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginEnd="0dp"
-                                        android:text="@string/hint_debt_amount"
-                                        tools:ignore="TooDeepLayout" />
-
-                                    <TextView
-                                        style="@style/Style_Text_Labels"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="5dp"
-                                        android:text="@string/symbol_asterisk"
-                                        android:textColor="@color/colorPrimaryGrey"
-                                        android:textSize="12sp"
-                                        android:textStyle="bold" />
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
+                                <TextView
+                                    style="@style/Style_Text_Labels"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="10dp"
-                                    android:layout_marginEnd="10dp"
-                                    android:gravity="center_vertical"
-                                    android:orientation="horizontal">
-
-                                    <ImageView
-                                        android:layout_width="@dimen/dimen_image_view_icon_size_small"
-                                        android:layout_height="@dimen/dimen_image_view_icon_size_small"
-                                        android:layout_marginEnd="10dp"
-                                        android:contentDescription="@string/content_description_icon_debt_amount"
-                                        android:padding="@dimen/dimen_image_view_icon_padding_small"
-                                        android:scaleType="centerCrop"
-                                        android:src="@drawable/ic_baseline_attach_money_24_primary" />
-
-                                    <EditText
-                                        android:id="@+id/editAddDebt_DebtAmount"
-                                        style="@style/Style_TextInputLayout"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:autofillHints="@string/hint_first_name"
-                                        android:background="@null"
-                                        android:hint="@string/hint_debt_amount"
-                                        android:imeActionLabel="Next"
-                                        android:inputType="numberDecimal" />
-                                </LinearLayout>
-
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/dimen_field_divider_height"
-                                    android:layout_marginStart="49dp"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_marginEnd="30dp"
-                                    android:background="@color/colorDividerGrey" />
+                                    android:layout_marginStart="5dp"
+                                    android:text="@string/symbol_asterisk"
+                                    android:textColor="@color/colorPrimaryGrey"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
                             </LinearLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/imageAddDebt_DateIssued"
+                                    android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                                    android:layout_height="@dimen/dimen_image_view_icon_size_small"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_marginEnd="8dp"
+                                    android:contentDescription="@string/content_description_icon_debt_date_issued"
+                                    android:padding="@dimen/dimen_image_view_icon_padding_small"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/ic_baseline_calendar_today_24_primary" />
+
+                                <EditText
+                                    android:id="@+id/editAddDebt_DateIssued"
+                                    style="@style/Style_TextInputLayout"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="0dp"
+                                    android:layout_toStartOf="@id/imageAddDebt_DateIssued_Delete"
+                                    android:layout_toEndOf="@+id/imageAddDebt_DateIssued"
+                                    android:autofillHints="@string/hint_date_issued"
+                                    android:background="@null"
+                                    android:focusable="false"
+                                    android:focusableInTouchMode="false"
+                                    android:hint="@string/hint_date_issued"
+                                    android:imeActionLabel="Next"
+                                    android:inputType="datetime" />
+
+                                <ImageView
+                                    android:id="@+id/imageAddDebt_DateIssued_Delete"
+                                    android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                                    android:layout_height="@dimen/dimen_image_view_icon_size_small"
+                                    android:layout_alignParentEnd="true"
+                                    android:contentDescription="@string/content_description_icon_debt_date_issued"
+                                    android:padding="@dimen/dimen_image_view_icon_padding_small"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/ic_baseline_delete_forever_24_primary_grey"
+                                    android:visibility="gone" />
+                            </RelativeLayout>
 
                             <View
                                 android:layout_width="match_parent"
-                                android:layout_height="10dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="5dp"
-                                android:background="@color/colorGreyLight100" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="5dp"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        style="@style/Style_Text_Labels"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginEnd="0dp"
-                                        android:text="@string/hint_date_issued" />
-
-                                    <TextView
-                                        style="@style/Style_Text_Labels"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="5dp"
-                                        android:text="@string/symbol_asterisk"
-                                        android:textColor="@color/colorPrimaryGrey"
-                                        android:textSize="12sp"
-                                        android:textStyle="bold" />
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="10dp"
-                                    android:layout_marginEnd="10dp"
-                                    android:gravity="center_vertical"
-                                    android:orientation="horizontal">
-
-                                    <ImageView
-                                        android:layout_width="@dimen/dimen_image_view_icon_size_small"
-                                        android:layout_height="@dimen/dimen_image_view_icon_size_small"
-                                        android:layout_marginEnd="8dp"
-                                        android:contentDescription="@string/content_description_icon_debt_date_issued"
-                                        android:padding="@dimen/dimen_image_view_icon_padding_small"
-                                        android:scaleType="centerCrop"
-                                        android:src="@drawable/ic_baseline_calendar_today_24_primary" />
-
-                                    <EditText
-                                        android:id="@+id/editAddDebt_DateIssued"
-                                        style="@style/Style_TextInputLayout"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:layout_marginStart="0dp"
-                                        android:autofillHints="@string/hint_date_issued"
-                                        android:background="@null"
-                                        android:focusable="false"
-                                        android:focusableInTouchMode="false"
-                                        android:hint="@string/hint_date_issued"
-                                        android:imeActionLabel="Next"
-                                        android:inputType="datetime" />
-                                </LinearLayout>
-
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/dimen_field_divider_height"
-                                    android:layout_marginStart="49dp"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_marginEnd="30dp"
-                                    android:background="@color/colorDividerGrey" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="5dp"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        style="@style/Style_Text_Labels"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginEnd="0dp"
-                                        android:text="@string/hint_date_due" />
-
-                                    <TextView
-                                        style="@style/Style_Text_Labels"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="5dp"
-                                        android:text="@string/symbol_asterisk"
-                                        android:textColor="@color/colorPrimaryGrey"
-                                        android:textSize="12sp"
-                                        android:textStyle="bold" />
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="10dp"
-                                    android:layout_marginEnd="10dp"
-                                    android:gravity="center_vertical"
-                                    android:orientation="horizontal">
-
-                                    <ImageView
-                                        android:layout_width="@dimen/dimen_image_view_icon_size_small"
-                                        android:layout_height="@dimen/dimen_image_view_icon_size_small"
-                                        android:layout_marginEnd="8dp"
-                                        android:contentDescription="@string/content_description_icon_debt_date_due"
-                                        android:padding="@dimen/dimen_image_view_icon_padding_small"
-                                        android:scaleType="centerCrop"
-                                        android:src="@drawable/ic_baseline_date_range_24_primary" />
-
-                                    <EditText
-                                        android:id="@+id/editAddDebt_DateDue"
-                                        style="@style/Style_TextInputLayout"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:layout_marginStart="0dp"
-                                        android:autofillHints="@string/hint_phone_number"
-                                        android:background="@null"
-                                        android:focusable="false"
-                                        android:focusableInTouchMode="false"
-                                        android:hint="@string/hint_date_due"
-                                        android:imeActionLabel="Next"
-                                        android:inputType="datetime" />
-                                </LinearLayout>
-
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/dimen_field_divider_height"
-                                    android:layout_marginStart="49dp"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_marginEnd="30dp"
-                                    android:background="@color/colorDividerGrey" />
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="10dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="5dp"
-                                android:background="@color/colorGreyLight100" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:orientation="vertical">
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        style="@style/Style_Text_Labels"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginEnd="0dp"
-                                        android:text="@string/hint_debt_description" />
-
-                                    <TextView
-                                        style="@style/Style_Text_Labels"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="5dp"
-                                        android:text="@string/hint_optional"
-                                        android:textColor="@color/colorPrimaryGrey"
-                                        android:textSize="12sp"
-                                        android:textStyle="bold" />
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="10dp"
-                                    android:layout_marginEnd="10dp"
-                                    android:layout_marginBottom="5dp"
-                                    android:gravity="center_vertical"
-                                    android:orientation="horizontal">
-
-                                    <ImageView
-                                        android:layout_width="@dimen/dimen_image_view_icon_size_small"
-                                        android:layout_height="@dimen/dimen_image_view_icon_size_small"
-                                        android:layout_marginEnd="10dp"
-                                        android:contentDescription="@string/content_description_icon_debt_description"
-                                        android:padding="@dimen/dimen_image_view_icon_padding_small"
-                                        android:scaleType="centerCrop"
-                                        android:src="@drawable/ic_baseline_description_24_primary" />
-
-                                    <EditText
-                                        android:id="@+id/editAddDebt_DebtDescription"
-                                        style="@style/Style_TextInputLayout"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:autofillHints=""
-                                        android:background="@null"
-                                        android:hint="@string/hint_debt_description"
-                                        android:imeActionLabel="Next"
-                                        android:inputType="textMultiLine|textCapSentences"
-                                        android:lines="2"
-                                        android:maxLength="50"
-                                        android:minLines="2"
-                                        android:singleLine="false" />
-                                </LinearLayout>
-
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/dimen_field_divider_height"
-                                    android:layout_marginStart="49dp"
-                                    android:layout_marginEnd="30dp"
-                                    android:background="@color/colorDividerGrey" />
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="25dp" />
-
+                                android:layout_height="@dimen/dimen_field_divider_height"
+                                android:layout_marginStart="49dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="30dp"
+                                android:background="@color/colorDividerGrey" />
                         </LinearLayout>
-                    </androidx.cardview.widget.CardView>
 
-                    <androidx.cardview.widget.CardView
-                        style="@style/Style_SignInSignUp_Profile_CardView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@color/colorWhite"
-                        app:cardCornerRadius="@dimen/dimen_card_view_corner_radius"
-                        app:cardUseCompatPadding="true">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:orientation="horizontal">
 
-                    </androidx.cardview.widget.CardView>
+                                <TextView
+                                    style="@style/Style_Text_Labels"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="0dp"
+                                    android:text="@string/hint_date_due" />
+
+                                <TextView
+                                    style="@style/Style_Text_Labels"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    android:text="@string/symbol_asterisk"
+                                    android:textColor="@color/colorPrimaryGrey"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/imageAddDebt_DateDue"
+                                    android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                                    android:layout_height="@dimen/dimen_image_view_icon_size_small"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_marginEnd="8dp"
+                                    android:contentDescription="@string/content_description_icon_debt_date_due"
+                                    android:padding="@dimen/dimen_image_view_icon_padding_small"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/ic_baseline_date_range_24_primary" />
+
+                                <EditText
+                                    android:id="@+id/editAddDebt_DateDue"
+                                    style="@style/Style_TextInputLayout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="0dp"
+                                    android:layout_toStartOf="@id/imageAddDebt_DateDue_Delete"
+                                    android:layout_toEndOf="@+id/imageAddDebt_DateDue"
+                                    android:autofillHints="@string/hint_phone_number"
+                                    android:background="@null"
+                                    android:focusable="false"
+                                    android:focusableInTouchMode="false"
+                                    android:hint="@string/hint_date_due"
+                                    android:imeActionLabel="Next"
+                                    android:inputType="datetime" />
+
+                                <ImageView
+                                    android:id="@+id/imageAddDebt_DateDue_Delete"
+                                    android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                                    android:layout_height="@dimen/dimen_image_view_icon_size_small"
+                                    android:layout_alignParentEnd="true"
+                                    android:contentDescription="@string/content_description_icon_debt_date_issued"
+                                    android:padding="@dimen/dimen_image_view_icon_padding_small"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/ic_baseline_delete_forever_24_primary_grey"
+                                    android:visibility="gone" />
+                            </RelativeLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dimen_field_divider_height"
+                                android:layout_marginStart="49dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="30dp"
+                                android:background="@color/colorDividerGrey" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dimen_divider_dialog_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@color/colorGreyLight100" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/Style_Text_Labels"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="0dp"
+                                    android:text="@string/hint_debt_description" />
+
+                                <TextView
+                                    style="@style/Style_Text_Labels"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    android:text="@string/hint_optional"
+                                    android:textColor="@color/colorPrimaryGrey"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginBottom="5dp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                                    android:layout_height="@dimen/dimen_image_view_icon_size_small"
+                                    android:layout_marginEnd="10dp"
+                                    android:contentDescription="@string/content_description_icon_debt_description"
+                                    android:padding="@dimen/dimen_image_view_icon_padding_small"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/ic_baseline_description_24_primary" />
+
+                                <EditText
+                                    android:id="@+id/editAddDebt_DebtDescription"
+                                    style="@style/Style_TextInputLayout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:autofillHints=""
+                                    android:background="@null"
+                                    android:hint="@string/hint_debt_description"
+                                    android:imeActionLabel="Next"
+                                    android:inputType="textMultiLine|textCapSentences"
+                                    android:lines="2"
+                                    android:maxLength="50"
+                                    android:minLines="2"
+                                    android:singleLine="false" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dimen_field_divider_height"
+                                android:layout_marginStart="49dp"
+                                android:layout_marginEnd="30dp"
+                                android:background="@color/colorDividerGrey" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <include layout="@layout/layout_page_footer_bottom_sheets" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="15dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/scrollView">
 
                     <LinearLayout
+                        android:id="@+id/llAddDebt_Cancel"
+                        style="@style/Style_CustomButton_Container_Stroke_Dotted_Primary_Dark"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="20dp"
-                        android:gravity="center_vertical"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="0dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:id="@+id/llAddDebt_Cancel"
-                            style="@style/Style_CustomButton_Container_Stroke_Dotted_Primary_Dark"
+                        <TextView
+                            style="@style/Style_LinearLayout_Button_Text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginTop="0dp"
-                            android:layout_marginEnd="15dp"
-                            android:layout_marginBottom="0dp"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                style="@style/Style_LinearLayout_Button_Text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/action_cancel"
-                                android:textColor="@color/colorPrimaryDark" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/llAddDebt_Add"
-                            style="@style/Style_CustomButton_Container_Fill_Primary_Dark"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginTop="0dp"
-                            android:layout_marginBottom="0dp"
-                            android:gravity="center">
-
-                            <TextView
-                                style="@style/Style_LinearLayout_Button_Text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/action_add_debt"
-                                android:textColor="@color/colorWhite" />
-
-                        </LinearLayout>
+                            android:text="@string/action_cancel"
+                            android:textColor="@color/colorPrimaryDark" />
                     </LinearLayout>
-
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:id="@+id/llAddDebt_Enabled_Add"
+                        style="@style/Style_CustomButton_Container_Fill_Primary_Dark"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp">
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginBottom="0dp"
+                        android:gravity="center"
+                        android:visibility="gone">
 
-                        <include layout="@layout/layout_page_footer_bottom_sheets" />
+                        <TextView
+                            style="@style/Style_LinearLayout_Button_Text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/action_add_debt"
+                            android:textColor="@color/colorWhite" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llAddDebt_Disabled_Add"
+                        style="@style/Style_CustomButton_Container_Fill_Primary_Grey"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginBottom="0dp"
+                        android:gravity="center">
+
+                        <TextView
+                            style="@style/Style_LinearLayout_Button_Text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/action_add_debt"
+                            android:textColor="@color/colorWhite" />
+
                     </LinearLayout>
                 </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
         </ScrollView>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>

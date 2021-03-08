@@ -151,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:ellipsize="marquee"
-                    android:hint="@string/hint_date_due"
+                    android:hint="@string/hint_not_provided"
                     android:minEms="3"
                     android:singleLine="true"
                     android:textAlignment="textStart"
@@ -200,7 +200,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
                             android:ellipsize="marquee"
-                            android:hint="@string/hint_date_issued"
+                            android:hint="@string/hint_not_provided"
                             android:minEms="3"
                             android:singleLine="true"
                             android:textAlignment="textStart"
@@ -276,7 +276,6 @@
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-                android:layout_gravity="end"
                 android:visibility="gone">
 
                 <ImageView
@@ -318,7 +317,7 @@
                 android:layout_marginBottom="5dp"
                 android:orientation="horizontal"
                 app:el_duration="300"
-                app:el_expanded="false">
+                app:el_expanded="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
