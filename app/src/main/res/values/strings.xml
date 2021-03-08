@@ -2,7 +2,9 @@
 <resources>
     <string name="app_name">DuesClerk</string>
 
-    <!--Activity titles-->
+
+    <!--Titles-->
+    <!--Titles - Activities-->
     <string name="title_activity_signin_signup">SignInSignUp</string>
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="title_activity_account_settings">Account Settings</string>
@@ -10,30 +12,34 @@
     <string name="title_activity_email_verification">Email verification</string>
     <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
     <string name="title_activity_contact_data">ContactsActivity</string>
+    <string name="title_updating_profile">Updating profile</string>
+    <string name="title_updating_password">Updating password</string>
+    <string name="title_mailing_email_verification_code">Sending verification code</string>
+    <string name="title_verifying_email_address">Verifying email address</string>
+    <string name="title_resetting_password">Verifying email address</string>
 
-    <!--Fragment titles-->
+    <!--Titles - Fragments-->
     <string name="title_fragment_people_i_owe">Those I Owe</string>
     <string name="title_fragment_people_owing_me">Owing Me</string>
     <string name="tittle_fragment_app_menu">Menu</string>
     <string name="title_fragment_sign_in">SignIn</string>
     <string name="title_fragment_sign_up">SignUp</string>
     <string name="title_fragment_sign_in_sign_up">SignIn SignUp Activity</string>
-
-    <!--Other titles-->
     <string name="title_signing_up">Signing you up</string>
     <string name="title_signing_in">Signing you in</string>
-    <string name="title_updating_profile">Updating profile</string>
-    <string name="title_updating_password">Updating password</string>
-    <string name="title_adding_contact">Adding contact</string>
-    <string name="title_updating_contact">Updating contact</string>
-    <string name="title_deleting_contact">Deleting contact</string>
-    <string name="title_deleting_debt">Deleting debt</string>
-    <string name="title_mailing_email_verification_code">Sending verification code</string>
-    <string name="title_verifying_email_address">Verifying email address</string>
-    <string name="title_resetting_password">Verifying email address</string>
     <string name="title_debts_people_owing_me">Money %1$s owes me.</string>
     <string name="title_debts_people_i_owe">Money I owe %1$s.</string>
 
+    <!--Titles - Dialogs-->
+    <string name="title_adding_contact">Adding contact</string>
+    <string name="title_updating_contact">Updating contact</string>
+    <string name="title_deleting_contact">Deleting contact</string>
+    <string name="title_adding_debt">Adding debt</string>
+    <string name="title_updating_debt">Updating debt</string>
+    <string name="title_deleting_debt">Deleting debt</string>
+    <!--_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________-->
+
+    
     <!--Hints-->
     <string name="hint_first_name">First name</string>
     <string name="hint_email_address">Email address</string>
@@ -70,7 +76,9 @@
     <string name="hint_not_provided">Not provided</string>
     <string name="hint_name_abbreviation">N</string>
     <string name="hint_number_of_debts">%1$s debts</string>
+    <!--_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________-->
 
+    
     <!--Actions-->
     <string name="action_sign_in">Sign In</string>
     <string name="action_sign_up">Sign Up</string>
@@ -102,7 +110,10 @@
     <string name="action_did_not_receive_code">I did not receive my code!</string>
     <string name="action_add_contact">Add contact</string>
     <string name="action_add_debt">Add debt</string>
+    <string name="action_update_debt">Update debt</string>
     <string name="action_goto_settings">GoTo Settings</string>
+    <!--_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________-->
+    
 
     <!--Labels-->
     <string name="label_create_your_account">Create Your Account</string>
@@ -115,6 +126,7 @@
     <string name="label_add_contact_or_person">Add contact or person</string>
     <string name="label_edit_contact_or_person">Edit contact or person</string>
     <string name="label_add_debt">Add debt</string>
+    <string name="label_update_debt">Update debt</string>
     <string name="label_grant_permissions">Grant Permissions</string>
     <string name="label_debts_total_amount">Total debts amount : %1$s</string>
     <string name="label_delete_contact">Delete contact!</string>
@@ -124,27 +136,16 @@
     <string name="label_add_optional_contact_info">Add optional contact information</string>
     <string name="label_fragment_people_i_owe">Those I\nOwe</string>
     <string name="label_fragment_people_owing_me">Owing\nMe</string>
+    <!--_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________-->
+    
 
-    <!--Messages-->
+    <!--Messages - Activities-->
     <string name="msg_company_tag_line">Manage your dues with ease.</string>
-    <string name="msg_signing_up">We are creating your account! Please wait…</string>
-    <string name="msg_signing_in">We are signing you in! Please wait…</string>
-    <string name="msg_updating_profile">Updating your profile! Please wait…</string>
-    <string name="msg_updating_password">Updating your password! Please wait…</string>
-    <string name="msg_adding_contact">Adding %1$ss\' contact! Please wait…</string>
-    <string name="msg_updating_contact">Updating contact! Please wait…</string>
-    <string name="msg_deleting_contact">Deleting contact! Please wait…</string>
-    <string name="msg_deleting_debt">Deleting debt! Please wait…</string>
-    <string name="msg_adding_debt">Adding %1$ss\' debt! Please wait…</string>
     <string name="msg_welcome_to">Welcome to %1$s.</string>
-    <string name="msg_logout">Are you sure you want to log out %1$s?</string>
-    <string name="msg_profile_updated_successfully">Profile updated successfully.</string>
-    <string name="msg_contact_updated_successfully">Contact updated successfully.</string>
-    <string name="msg_contact_deleted_successfully">Contact%1$s deleted successfully.</string>
-    <string name="msg_debt_deleted_successfully">Debt%1$s deleted successfully.</string>
-    <string name="msg_password_updated">Password updated successfully.</string>
-    <string name="msg_contact_adding_successful">%1$s has been added successfully.</string>
-    <string name="msg_debt_adding_successful">%1$s has been added to %2$s.</string>
+    <string name="msg_updating_profile">Updating your profile! Please wait…</string>
+    <string name="msg_updating_profile_successful">Profile updated successfully.</string>
+    <string name="msg_updating_password">Updating your password! Please wait…</string>
+    <string name="msg_updating_password_successful">Password updated successfully.</string>
     <string name="msg_mailing_email_verification_code">Mailing you a verification code! Please wait…</string>
     <string name="msg_email_address_verified">Your email address has been verified!</string>
     <string name="msg_verification_code_sent">Verification code sent to your email.</string>
@@ -152,22 +153,49 @@
     <string name="msg_resetting_password">We are resetting your password! Please wait…</string>
     <string name="msg_send_verification_code_message">"We\'re glad you're here.\n\nWe just need to confirm that the email you are using belongs to you.\nClick the button below to receive your email verification code."</string>
     <string name="msg_email_verification_message">"Check your email for the verification code and enter it below.\nIf you didn't receive a code, click send verification code below to receive your code on email."</string>
-    <string name="msg_password_reset_successfully">Password Reset Successfully</string>
-    <string name="msg_password_reset_successfully_long">Your password has ben reset.\nClick sign in below to sign in into you account!</string>
+    <string name="msg_password_reset_successful">Password Reset Successfully</string>
+    <string name="msg_password_reset_successful_long">Your password has ben reset.\nClick sign in below to sign in into you account!</string>
     <string name="msg_enter_password_confirm_password">Enter your new password below\nand confirm it.</string>
     <string name="msg_enter_email_address_associated_with_account">Please enter the email address associated\nwith your account</string>
     <string name="msg_we_will_email_you_a_code">We will email you a code to reset your password</string>
     <string name="msg_enter_verification_code_to_verify_account">Please enter the code below to verify your account.</string>
-    <string name="msg_grant_permission_message">This application needs %1$s permission to %2$s. You can grant them in the app settings.</string>
+
+    <!--Messages - BottomSheets-->
+    <string name="msg_logout">Are you sure you want to log out %1$s?</string>
+
+    <!--Messages - Fragments-->
+    <string name="msg_signing_up">We are creating your account! Please wait…</string>
+    <string name="msg_signing_in">We are signing you in! Please wait…</string>
     <string name="msg_contacts_empty">You have not added any contacts yet.\nAll your saved contacts will be shown here.\n\nYou can add new ones.</string>
     <string name="msg_debts_empty">No debts found for %1$s.\nAll added debts will be shown here.\n\nYou can add new ones.</string>
+
+    <!--Messages - Dialogs-->
+    <string name="msg_adding_contact">Adding %1$ss\' contact! Please wait…</string>
+    <string name="msg_contact_adding_successful">%1$s has been added successfully.</string>
+    <string name="msg_adding_debt">Adding %1$ss\' debt! Please wait…</string>
+    <string name="msg_debt_adding_successful">%1$s has been added to %2$s.</string>
+    <string name="msg_updating_contact">Updating contact! Please wait…</string>
+    <string name="msg_updating_contact_successful">Contact updated successfully.</string>
+    <string name="msg_updating_debt">Updating debt! Please wait…</string>
+    <string name="msg_updating_debt_successful">Debt updated successfully.</string>
+    <string name="msg_deleting_contact">Deleting contact! Please wait…</string>
+    <string name="msg_deleting_contact_successful">Contact%1$s deleted successfully.</string>
+    <string name="msg_deleting_debt">Deleting debt! Please wait…</string>
+    <string name="msg_deleting_debt_successful">Debt%1$s deleted successfully.</string>
     <string name="msg_delete_contact_confirmation">You are about to delete %1$s and all associated debt records. This cannot be undone.\n\nDo you wish to proceed?</string>
     <string name="msg_delete_debt_confirmation">You are deleting this debt record. This cannot be undone.\n\nDo you wish to proceed?</string>
+    <!--_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________-->
+    
 
-    <!--Permissions tags and purpose messages-->
+    <!--Messages - Permissions-->
     <string name="msg_grant_permission_title">Grant %1$s Permissions.</string>
+    <string name="msg_grant_permission_message">This application needs %1$s permission to %2$s. You can grant them in the app settings.</string>
+
+    <!--Tags - Permissions-->
     <string name="permission_tag_contacts">Contacts</string>
     <string name="permission_purpose_contact">read contacts</string>
+    <!--_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________-->
+
 
     <!--Others-->
     <string name="placeholder_in_brackets">(%1$s)</string>
@@ -176,8 +204,8 @@
     <string name="symbol_asterisk">*</string>
     <string name="symbol_full_colon">:</string>
 
-    <!--Number-->
+    <!--Numbers-->
     <string name="number_decimal_zero">0.0</string>
-
+    <!--_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________-->
 
 </resources>
