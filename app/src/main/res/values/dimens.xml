@@ -50,6 +50,7 @@
     <dimen name="dimen_list_divider_height">.3dp</dimen>
     <dimen name="dimen_field_divider_height">0.5dp</dimen>
     <dimen name="dimen_field_divider_margin_top">6dp</dimen>
+    <dimen name="dimen_divider_dialog_content">7dp</dimen>
 
     <!--Outlines-->
     <dimen name="dimen_outlines_corners">25dp</dimen>

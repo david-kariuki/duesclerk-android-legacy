@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,29 +41,30 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
     private final Interface_IDS interfaceIds;
     private final Interface_Debts interfaceDebts;
     private ArrayList<JB_Debts> debts;
-    private int lastPosition = 0;
     private DebtsFilter debtsFilter;
+    private int lastPosition = 0;
     private View viewHolderView; // ViewHolder view
 
     /**
      * Class constructor
      *
-     * @param context - Class context
-     * @param debts   - ArrayList with debts
+     * @param context                        - Activity context
+     * @param debts                          - ArrayList with debts
+     * @param contactDetailsAndDebtsActivity - ContactDetailsAndDebtsActivity
      */
-    public RVLA_Debts(Context context,
-                      ArrayList<JB_Debts> debts,
-                      ContactDetailsAndDebtsActivity contactDetailsAndDebtsActivity) {
+    public RVLA_Debts(final @NonNull Context context, @NonNull ArrayList<JB_Debts> debts,
+                      final @NonNull ContactDetailsAndDebtsActivity contactDetailsAndDebtsActivity) {
 
-        this.mContext = context;
+        this.mContext = context; // Initialize context
+
+        // Initialize ArrayLists
         this.debts = debts;
         this.filterList = debts;
+        this.checkedDebtsIds = new ArrayList<>();
 
-        // Initialize interface
+        // Initialize interfaces
         this.interfaceIds = contactDetailsAndDebtsActivity;
         this.interfaceDebts = contactDetailsAndDebtsActivity;
-
-        checkedDebtsIds = new ArrayList<>(); // Initialize ArrayList
     }
 
     @Override
@@ -88,7 +90,8 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
             // Position is even number
 
             // Set background resource
-            holder.llDebtNumber.setBackgroundResource(R.drawable.circle_border_primary_fill_primary);
+            holder.llDebtNumber.setBackgroundResource(
+                    R.drawable.circle_border_primary_fill_primary);
 
         } else {
             // Position is odd number
@@ -171,6 +174,8 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
             holder.llButtons.setVisibility(View.GONE); // Hide buttons layout
         }
 
+        setAnimation(holder.itemView, position); // Set animation
+
         // Check if CheckBox at current position is shown
         if (debts.get(position).showingCheckbox()) {
 
@@ -218,6 +223,27 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
             }
         });
 
+        // CheckBox check change listener
+        holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
+            // Set CheckBox checked to true / false
+            debts.get(position).setCheckBoxChecked(isChecked);
+
+            if (isChecked) {
+
+                // Add debt id to checked debts ids
+                checkedDebtsIds.add(debts.get(position).getDebtId());
+
+            } else {
+
+                // Remove debt id to checked debts ids
+                checkedDebtsIds.remove(debts.get(position).getDebtId());
+            }
+
+            // Show / Hide delete debts FAB if any CheckBox is checked
+            interfaceDebts.showDeleteDebtsFab(anyCheckBoxChecked());
+        });
+
         // List item onLongClick
         holder.consDebtItem.setOnLongClickListener(v -> {
 
@@ -262,27 +288,25 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
 
         });
 
-        holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        // Edit debt onClick
+        holder.imageEditDebt.setOnClickListener(v -> {
 
-            // Set CheckBox checked to true / false
-            debts.get(position).setCheckBoxChecked(isChecked);
+            setExpandedDebtOptionsMenu(false, position); // Collapse debt item menu
 
-            if (isChecked) {
+            // Create JavaBean to store debt details
+            JB_Debts jbDebts = new JB_Debts();
 
-                // Add debt id to checked debts ids
-                checkedDebtsIds.add(debts.get(position).getDebtId());
+            // Add debt details to JavaBean
+            jbDebts.setDebtId(debts.get(position).getDebtId());
+            jbDebts.setDebtAmount(debts.get(position).getDebtAmount());
+            jbDebts.setDebtDateIssued(debts.get(position).getDebtDateIssued());
+            jbDebts.setDebtDateDue(debts.get(position).getDebtDateDue());
+            jbDebts.setDebtDescription(debts.get(position).getDebtDescription());
 
-            } else {
-
-                // Remove debt id to checked debts ids
-                checkedDebtsIds.remove(debts.get(position).getDebtId());
-            }
-
-            // Show / Hide delete debts FAB if any CheckBox is checked
-            interfaceDebts.showDeleteDebtsFab(anyCheckBoxChecked());
+            // Pass debt details JavaBean to interface
+            interfaceDebts.passDebtDetails(jbDebts);
         });
 
-        setAnimation(holder.itemView, position); // Set animation
     }
 
     @Override

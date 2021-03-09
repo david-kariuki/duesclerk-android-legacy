@@ -4,7 +4,7 @@
     <string name="error_network_connection_error_message_long">"Poor or no internet connection!\nPlease check your internet connection or try again."</string>
     <string name="error_network_connection_error_message_short">"Can't connect at the moment!"</string>
 
-    <!--Input fields errors-->
+    <!--Error messages - Input fields-->
     <string name="error_full_name_or_business_name_null">First name cannot be empty!</string>
     <string name="error_full_name_or_business_name_length">Names should be %1$d character or longer!</string>
     <string name="error_full_name_null">Name cannot be empty!</string>
@@ -24,12 +24,12 @@
     <string name="error_country_null">Please select your country to continue!</string>
     <string name="error_contact_type_null">Please select contact type to continue!</string>
 
-    <!--Email verification-->
+    <!--Error messages - Email verification-->
     <string name="error_email_verification_code_length">The verification code you entered is too short</string>
     <string name="error_email_address_not_verified_with_placeholder">Your email address "%1$s" is not verified!</string>
     <string name="error_enter_code">Enter code</string>
 
-    <!--Debts-->
+    <!--Error messages - Debts-->
     <string name="error_debt_amount_null">Debt amount cannot be empty!</string>
     <string name="error_debt_amount_zero">Debt amount cannot be zero!</string>
     <string name="error_debt_amount_ends_with_period">Debt amount cannot end with a period!</string>
@@ -38,6 +38,6 @@
     <string name="error_debt_date_due_behind_date_issued">Date due cannot be before date issued!</string>
     <string name="error_debt_check_range">Check date range!</string>
 
-    <!--Other-->
+    <!--Error messages - Other-->
     <string name="error_profile_update_failed">Profile update failed!</string>
 </resources>

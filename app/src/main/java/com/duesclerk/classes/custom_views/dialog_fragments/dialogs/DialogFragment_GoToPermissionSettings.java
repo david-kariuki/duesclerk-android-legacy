@@ -34,6 +34,10 @@ public class DialogFragment_GoToPermissionSettings extends DialogFragment {
 
     /**
      * Class constructor
+     *
+     * @param activity                  - Calling Activity
+     * @param permissionTagStringId     - Permission tag string id
+     * @param permissionPurposeStringId - Permission purpose string id
      */
     public DialogFragment_GoToPermissionSettings(Activity activity, int permissionTagStringId,
                                                  int permissionPurposeStringId) {

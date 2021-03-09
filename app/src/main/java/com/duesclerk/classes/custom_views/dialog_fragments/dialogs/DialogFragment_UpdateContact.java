@@ -153,7 +153,7 @@ public class DialogFragment_UpdateContact extends DialogFragment {
                 newContactPhoneNumber = editContactPhoneNumber.getText().toString();
 
                 // Add/Upload  contact
-                this.saveContactEdits(userId, contactId, newContactFullName,
+                this.updateUserContactDetails(userId, contactId, newContactFullName,
                         newContactPhoneNumber, newContactEmailAddress, newContactAddress);
 
             }
@@ -277,10 +277,11 @@ public class DialogFragment_UpdateContact extends DialogFragment {
      * @param newContactEmailAddress - Contact email address
      * @param newContactAddress      - Contact address
      */
-    private void saveContactEdits(final String userId, final String contactId,
-                                  final String newContactFullName, final String newContactPhoneNumber,
-                                  final String newContactEmailAddress,
-                                  final String newContactAddress) {
+    private void updateUserContactDetails(final String userId, final String contactId,
+                                          final String newContactFullName,
+                                          final String newContactPhoneNumber,
+                                          final String newContactEmailAddress,
+                                          final String newContactAddress) {
 
         // Check Internet Connection states
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
@@ -317,7 +318,7 @@ public class DialogFragment_UpdateContact extends DialogFragment {
                             // Show success message
                             CustomToast.infoMessage(mContext,
                                     DataUtils.getStringResource(mContext,
-                                            R.string.msg_contact_updated_successfully),
+                                            R.string.msg_updating_contact_successful),
                                     false,
                                     R.drawable.ic_baseline_person_add_alt_1_24_white);
 

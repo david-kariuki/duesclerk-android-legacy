@@ -661,7 +661,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
             // Update title
             textTitle.setText(DataUtils.getStringResource(mContext,
-                    R.string.msg_password_reset_successfully)
+                    R.string.msg_password_reset_successful)
             );
 
             llSuccessLayout.setVisibility(View.VISIBLE); // Show layout
@@ -1213,7 +1213,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                                         // Set Success Message
                                         String message = DataUtils.getStringResource(mContext,
-                                                R.string.msg_password_reset_successfully_long);
+                                                R.string.msg_password_reset_successful_long);
                                         textSuccessMessage.setText(message);
 
                                         // Show enter password layout

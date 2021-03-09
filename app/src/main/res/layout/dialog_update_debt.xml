@@ -30,7 +30,7 @@
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="20dp"
                 android:singleLine="true"
-                android:text="@string/label_add_debt"
+                android:text="@string/label_update_debt"
                 android:textColor="@color/colorPrimaryDark"
                 android:textColorHint="@color/colorPrimaryDark"
                 android:textSize="@dimen/dimen_text_view_toolbar_title_size"
@@ -131,7 +131,7 @@
                                     android:src="@drawable/ic_baseline_attach_money_24_primary" />
 
                                 <EditText
-                                    android:id="@+id/editAddDebt_DebtAmount"
+                                    android:id="@+id/editUpdateDebt_DebtAmount"
                                     style="@style/Style_TextInputLayout"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
@@ -196,7 +196,7 @@
                                 android:orientation="horizontal">
 
                                 <ImageView
-                                    android:id="@+id/imageAddDebt_DateIssued"
+                                    android:id="@+id/imageUpdateDebt_DateIssued"
                                     android:layout_width="@dimen/dimen_image_view_icon_size_small"
                                     android:layout_height="@dimen/dimen_image_view_icon_size_small"
                                     android:layout_alignParentStart="true"
@@ -207,13 +207,13 @@
                                     android:src="@drawable/ic_baseline_calendar_today_24_primary" />
 
                                 <EditText
-                                    android:id="@+id/editAddDebt_DateIssued"
+                                    android:id="@+id/editUpdateDebt_DateIssued"
                                     style="@style/Style_TextInputLayout"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="0dp"
-                                    android:layout_toStartOf="@id/imageAddDebt_DateIssued_Delete"
-                                    android:layout_toEndOf="@+id/imageAddDebt_DateIssued"
+                                    android:layout_toStartOf="@id/imageUpdateDebt_DateIssued_Delete"
+                                    android:layout_toEndOf="@+id/imageUpdateDebt_DateIssued"
                                     android:autofillHints="@string/hint_date_issued"
                                     android:background="@null"
                                     android:focusable="false"
@@ -223,7 +223,7 @@
                                     android:inputType="datetime" />
 
                                 <ImageView
-                                    android:id="@+id/imageAddDebt_DateIssued_Delete"
+                                    android:id="@+id/imageUpdateDebt_DateIssued_Delete"
                                     android:layout_width="@dimen/dimen_image_view_icon_size_small"
                                     android:layout_height="@dimen/dimen_image_view_icon_size_small"
                                     android:layout_alignParentEnd="true"
@@ -281,7 +281,7 @@
                                 android:orientation="horizontal">
 
                                 <ImageView
-                                    android:id="@+id/imageAddDebt_DateDue"
+                                    android:id="@+id/imageUpdateDebt_DateDue"
                                     android:layout_width="@dimen/dimen_image_view_icon_size_small"
                                     android:layout_height="@dimen/dimen_image_view_icon_size_small"
                                     android:layout_alignParentStart="true"
@@ -292,13 +292,13 @@
                                     android:src="@drawable/ic_baseline_date_range_24_primary" />
 
                                 <EditText
-                                    android:id="@+id/editAddDebt_DateDue"
+                                    android:id="@+id/editUpdateDebt_DateDue"
                                     style="@style/Style_TextInputLayout"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="0dp"
-                                    android:layout_toStartOf="@id/imageAddDebt_DateDue_Delete"
-                                    android:layout_toEndOf="@+id/imageAddDebt_DateDue"
+                                    android:layout_toStartOf="@id/imageUpdateDebt_DateDue_Delete"
+                                    android:layout_toEndOf="@+id/imageUpdateDebt_DateDue"
                                     android:autofillHints="@string/hint_phone_number"
                                     android:background="@null"
                                     android:focusable="false"
@@ -308,7 +308,7 @@
                                     android:inputType="datetime" />
 
                                 <ImageView
-                                    android:id="@+id/imageAddDebt_DateDue_Delete"
+                                    android:id="@+id/imageUpdateDebt_DateDue_Delete"
                                     android:layout_width="@dimen/dimen_image_view_icon_size_small"
                                     android:layout_height="@dimen/dimen_image_view_icon_size_small"
                                     android:layout_alignParentEnd="true"
@@ -383,7 +383,7 @@
                                     android:src="@drawable/ic_baseline_description_24_primary" />
 
                                 <EditText
-                                    android:id="@+id/editAddDebt_DebtDescription"
+                                    android:id="@+id/editUpdateDebt_DebtDescription"
                                     style="@style/Style_TextInputLayout"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -423,7 +423,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/scrollView">
 
                     <LinearLayout
-                        android:id="@+id/llAddDebt_Cancel"
+                        android:id="@+id/llUpdateDebt_Cancel"
                         style="@style/Style_CustomButton_Container_Stroke_Dotted_Primary_Dark"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -443,7 +443,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/llAddDebt_Enabled_Add"
+                        android:id="@+id/llUpdateDebt_Enabled_Update"
                         style="@style/Style_CustomButton_Container_Fill_Primary_Dark"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -457,13 +457,13 @@
                             style="@style/Style_LinearLayout_Button_Text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/action_add_debt"
+                            android:text="@string/action_update_debt"
                             android:textColor="@color/colorWhite" />
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/llAddDebt_Disabled_Add"
+                        android:id="@+id/llUpdateDebt_Disabled_Update"
                         style="@style/Style_CustomButton_Container_Fill_Primary_Grey"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -476,7 +476,7 @@
                             style="@style/Style_LinearLayout_Button_Text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/action_add_debt"
+                            android:text="@string/action_update_debt"
                             android:textColor="@color/colorWhite" />
 
                     </LinearLayout>
