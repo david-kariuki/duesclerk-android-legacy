@@ -10,7 +10,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -60,7 +59,7 @@ public class DialogFragment_UpdateDebt extends DialogFragment implements Interfa
         TextWatcher {
 
     // Get class simple name
-    private final String TAG = DialogFragment_AddDebt.class.getSimpleName();
+    // private final String TAG = DialogFragment_AddDebt.class.getSimpleName();
 
     private final LayoutInflater inflater;
     private final Context mContext;
@@ -432,7 +431,7 @@ public class DialogFragment_UpdateDebt extends DialogFragment implements Interfa
                     NetworkUrls.DebtsURLS.URL_UPDATE_CONTACTS_DEBT, response -> {
 
                 // Log Response
-                Log.d(TAG, "Update contacts debt response:" + response);
+                // Log.d(TAG, "Update contacts debt response:" + response);
 
                 ViewsUtils.dismissProgressDialog(progressDialog); // Hide Dialog
 
