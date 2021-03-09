@@ -59,7 +59,7 @@ import java.util.Map;
 public class DialogFragment_AddDebt extends DialogFragment implements Interface_DatePicker, TextWatcher {
 
     // Get class simple name
-    //private final String TAG = DialogFragment_AddDebt.class.getSimpleName();
+    // private final String TAG = DialogFragment_AddDebt.class.getSimpleName();
 
     private final LayoutInflater inflater;
     private final Context mContext;
@@ -438,7 +438,7 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
                     NetworkUrls.DebtsURLS.URL_ADD_CONTACTS_DEBT, response -> {
 
                 // Log Response
-                //Log.d(TAG, "Add debts response:" + response);
+                // Log.d(TAG, "Add debts response:" + response);
 
                 ViewsUtils.dismissProgressDialog(progressDialog); // Hide Dialog
 
