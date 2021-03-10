@@ -242,6 +242,23 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
         ViewsUtils.selectTabPosition(0, tabLayout);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // Register broadcast
+        BroadCastUtils.registerBroadCasts(this, bcrChangeTabLayoutPosition,
+                BroadCastUtils.bcrActionSwitchMainActivityTabLayoutPosition);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // Unregister BroadcastReceiver
+        BroadCastUtils.unRegisterBroadCast(this, bcrChangeTabLayoutPosition);
+    }
+
     /**
      * Function to saved instance states
      *
@@ -308,23 +325,6 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
                 searchView.setQuery("", true);
                 break;
         }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // Register broadcast
-        BroadCastUtils.registerBroadCasts(this, bcrChangeTabLayoutPosition,
-                BroadCastUtils.bcrActionSwitchMainActivityTabLayoutPosition);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // Unregister BroadcastReceiver
-        BroadCastUtils.unRegisterBroadCast(this, bcrChangeTabLayoutPosition);
     }
 
     @Override
