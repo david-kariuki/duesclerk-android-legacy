@@ -136,6 +136,7 @@
     <string name="label_add_optional_contact_info">Add optional contact information</string>
     <string name="label_fragment_people_i_owe">Those I\nOwe</string>
     <string name="label_fragment_people_owing_me">Owing\nMe</string>
+    <string name="label_about_application">About application</string>
     <!--_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________-->
     
 
@@ -206,6 +207,39 @@
 
     <!--Numbers-->
     <string name="number_decimal_zero">0.0</string>
+    <string name="msg_application_about">
+        \n
+        DuesClerk is an android application to manage dues(debts) for personal and business use.\n\n\n
+
+        This application enables users to:\n\n
+
+        \t\t<b>A. Contacts management</b>
+        \n\t\t\t\t\t\t1.  Add contacts.
+        \n\t\t\t\t\t\t2.  Update(edit) contacts details.
+        \n\t\t\t\t\t\t3.  Delete contacts.
+        \n\n
+
+        \t\t<b>B. Debts management</b>
+        \n\t\t\t\t\t\t1.  Add debt records to contacts.
+        \n\t\t\t\t\t\t2.  Update(edit) debt record details.
+        \n\t\t\t\t\t\t3.  Delete contacts debt records.
+        \n\t\t\t\t\t\t4.  See total number of debts for contacts.
+        \n\t\t\t\t\t\t5.  See sum of contacts debts.
+        \n\n
+
+        \t\t<b>C. Dashboard - Coming soon</b>
+        \n\t\t\t\t\tUsers will see:
+        \n\t\t\t\t\t\t1.  Total number of people they owe.
+        \n\t\t\t\t\t\t2.  Total number of people owing them.
+        \n\t\t\t\t\t\t3.  Total sum of debts they owe.
+        \n\t\t\t\t\t\t4.  Total sum of debts people owe them.
+        \n\t\t\t\t\t\t5.  Contacts the user owes the most.
+        \n\t\t\t\t\t\t6.  Contacts who owes the user the most.
+        \n\t\t\t\t\t\t7.  Debts that are due.
+        \n\t\t\t\t\t\t8.  Debts that are overdue.
+        \n\t\t\t\t\t\t9.  Contacts with and without debts.
+        \n\n
+    </string>
     <!--_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________-->
 
 </resources>
