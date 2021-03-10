@@ -17,11 +17,13 @@ import com.duesclerk.R;
 import com.duesclerk.activities.AccountSettings;
 import com.duesclerk.activities.UserProfileActivity;
 import com.duesclerk.classes.custom_utilities.application.ViewsUtils;
+import com.duesclerk.classes.custom_views.dialog_fragments.bottom_sheets.BottomSheetFragment_AboutApp;
 import com.duesclerk.classes.custom_views.dialog_fragments.bottom_sheets.BottomSheetFragment_Logout;
 
 public class FragmentAppMenu extends Fragment {
 
     private BottomSheetFragment_Logout bottomSheetFragmentLogout;
+    private BottomSheetFragment_AboutApp bottomSheetFragmentAboutApp;
 
     public static FragmentAppMenu newInstance() {
         return new FragmentAppMenu();
@@ -42,6 +44,11 @@ public class FragmentAppMenu extends Fragment {
         LinearLayout llSettings = view.findViewById(R.id.llAppMenu_Settings);
         LinearLayout llLogOut = view.findViewById(R.id.llAppMenu_Logout);
 
+        // Initialize about app fragment
+        bottomSheetFragmentAboutApp = new BottomSheetFragment_AboutApp();
+        bottomSheetFragmentAboutApp.setRetainInstance(true);
+        bottomSheetFragmentAboutApp.setCancelable(true);
+
         // Initialize logout fragment
         bottomSheetFragmentLogout = new BottomSheetFragment_Logout(mContext);
         bottomSheetFragmentLogout.setRetainInstance(true);
@@ -60,6 +67,12 @@ public class FragmentAppMenu extends Fragment {
         // Feedback settings onClick
         llFeedback.setOnClickListener(v -> {
         });
+
+        // Feedback settings onClick
+        llAbout.setOnClickListener(v -> ViewsUtils.showBottomSheetDialogFragment(
+                getParentFragmentManager(),
+                bottomSheetFragmentAboutApp,
+                true));
 
         // Log out onClick
         llLogOut.setOnClickListener(v -> ViewsUtils.showBottomSheetDialogFragment(
