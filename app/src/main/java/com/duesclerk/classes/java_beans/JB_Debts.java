@@ -5,7 +5,7 @@ public class JB_Debts {
     private String debtId, debtAmount, debtDateIssued, debtDateDue, debtDescription, contactId,
             contactType, userId;
     private boolean expandedDebtsOptionsMenu = false, expandedDebtsDetailsLayout = false;
-    private boolean showingCheckBox = false, checkedBox = false, shownButtonsLayout = true;
+    private boolean showingCheckBox = false, checkBoxChecked = false, shownMenuButtonsLayout = true;
 
     /**
      * Default constructor
@@ -16,18 +16,26 @@ public class JB_Debts {
     /**
      * Class constructor
      *
-     * @param debtId          - Debt id
-     * @param debtAmount      - Debt amount
-     * @param debtDateIssued  - Debt date issued
-     * @param debtDateDue     - Debt date due
-     * @param debtDescription - Debt description
+     * @param debtId                     - Debt id
+     * @param debtAmount                 - Debt amount
+     * @param debtDateIssued             - Debt date issued
+     * @param debtDateDue                - Debt date due
+     * @param debtDescription            - Debt description
+     * @param contactId                  - Contact id
+     * @param contactType                - Contact type
+     * @param userId                     - User id
+     * @param expandedDebtsOptionsMenu   - Expanded debts options menu
+     * @param expandedDebtsDetailsLayout - Expanded debts details layout
+     * @param showingCheckBox            - Showing CheckBoxes
+     * @param checkBoxChecked            - CheckBox checked
+     * @param shownMenuButtonsLayout         - Buttons layout shown
      */
     public JB_Debts(final String debtId, final String debtAmount, final String debtDateIssued,
                     final String debtDateDue, final String debtDescription, final String contactId,
                     final String contactType, final String userId,
                     final boolean expandedDebtsOptionsMenu, final boolean expandedDebtsDetailsLayout,
-                    final boolean showingCheckBox, final boolean checkedBox,
-                    final boolean shownButtonsLayout) {
+                    final boolean showingCheckBox, final boolean checkBoxChecked,
+                    final boolean shownMenuButtonsLayout) {
 
         this.debtId = debtId;
         this.debtAmount = debtAmount;
@@ -40,8 +48,8 @@ public class JB_Debts {
         this.expandedDebtsOptionsMenu = expandedDebtsOptionsMenu;
         this.expandedDebtsDetailsLayout = expandedDebtsDetailsLayout;
         this.showingCheckBox = showingCheckBox;
-        this.checkedBox = checkedBox;
-        this.shownButtonsLayout = shownButtonsLayout;
+        this.checkBoxChecked = checkBoxChecked;
+        this.shownMenuButtonsLayout = shownMenuButtonsLayout;
 
     }
 
@@ -247,7 +255,7 @@ public class JB_Debts {
      */
     public boolean checkBoxChecked() {
 
-        return this.checkedBox;
+        return this.checkBoxChecked;
     }
 
     /**
@@ -257,15 +265,15 @@ public class JB_Debts {
      */
     public void setCheckBoxChecked(boolean checked) {
 
-        this.checkedBox = checked;
+        this.checkBoxChecked = checked;
     }
 
     /**
      * Function to check if CheckBox is checked
      */
-    public boolean shownButtonsLayout() {
+    public boolean shownMenuButtonsLayout() {
 
-        return this.shownButtonsLayout;
+        return this.shownMenuButtonsLayout;
     }
 
     /**
@@ -273,8 +281,8 @@ public class JB_Debts {
      *
      * @param shown - Set buttons layout to shown
      */
-    public void setShownButtonsLayout(boolean shown) {
+    public void setShownMenuButtonsLayout(boolean shown) {
 
-        this.shownButtonsLayout = shown;
+        this.shownMenuButtonsLayout = shown;
     }
 }
