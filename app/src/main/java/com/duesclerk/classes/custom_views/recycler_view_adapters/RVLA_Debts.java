@@ -127,7 +127,7 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
         holder.textDateDebtDue.setText(debts.get(position).getDebtDateDue());
 
         // Check if buttons layout is shown so as to show options buttons
-        if (debts.get(position).shownButtonsLayout()) {
+        if (debts.get(position).shownMenuButtonsLayout()) {
             // Layout buttons shown
 
             holder.llButtons.setVisibility(View.VISIBLE); // Show buttons layout
@@ -153,8 +153,11 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
             // Check if menu at current position is showing
             if (debts.get(position).expandedDebtDetailsLayout()) {
 
-                // Show ConstraintLayout with debt options
-                holder.consDebtOptions.setVisibility(View.VISIBLE);
+                if (!debts.get(position).expandedDebtOptionsMenu()) {
+
+                    // Show ConstraintLayout with debt options
+                    holder.consDebtOptions.setVisibility(View.VISIBLE);
+                }
 
                 // Expand ExpandableLayout
                 ViewsUtils.expandExpandableLayout(true, holder.expandableDebtDetails);
@@ -370,14 +373,6 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
 
             // Collapse debt options menu at position
             debts.get(i).setExpandedDebtOptionsMenu(false);
-
-            // Check if current position in loop equals to passed position to
-            // collapse debt details layout
-            if (i == position) {
-
-                // Collapse debt details layout
-                debts.get(i).setExpandedDebtDetailsLayout(false);
-            }
         }
 
         // Set debt options menu to expanded
@@ -464,7 +459,7 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
         for (int i = 0; i < debts.size(); i++) {
 
             // Show CheckBox at position
-            debts.get(i).setShownButtonsLayout(setShown);
+            debts.get(i).setShownMenuButtonsLayout(setShown);
         }
     }
 
@@ -650,7 +645,7 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
                                 filterList.get(i).expandedDebtDetailsLayout(),
                                 filterList.get(i).showingCheckbox(),
                                 filterList.get(i).checkBoxChecked(),
-                                filterList.get(i).shownButtonsLayout()
+                                filterList.get(i).shownMenuButtonsLayout()
                         );
 
                         filters.add(jbDebts); // Add java bean to ArrayList
