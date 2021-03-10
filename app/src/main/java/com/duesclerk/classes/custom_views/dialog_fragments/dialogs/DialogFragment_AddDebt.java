@@ -547,6 +547,10 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
                     // Pud DebtAmount details to Map params
                     params.put(DebtUtils.FIELD_DEBT_AMOUNT, debtAmount);
 
+                    // Put UserId and ContactId to Map params
+                    params.put(UserAccountUtils.FIELD_USER_ID, userId);
+                    params.put(ContactUtils.FIELD_CONTACT_ID, contactId);
+
                     // Check for debt date issued
                     if (!DataUtils.isEmptyString(debtDateIssued)) {
 
@@ -565,10 +569,6 @@ public class DialogFragment_AddDebt extends DialogFragment implements Interface_
                         // Put debt description to Map params
                         params.put(DebtUtils.FIELD_DEBT_DESCRIPTION, debtDescription);
                     }
-
-                    // Put UserId and ContactId to Map params
-                    params.put(UserAccountUtils.FIELD_USER_ID, userId);
-                    params.put(ContactUtils.FIELD_CONTACT_ID, contactId);
 
                     return params; // Return params
                 }

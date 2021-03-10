@@ -885,7 +885,8 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
                             // Show update successful message
                             CustomToast.infoMessage(mContext,
                                     DataUtils.getStringResource(mContext,
-                                            R.string.msg_updating_profile_successful), false,
+                                            R.string.msg_updating_profile_successful),
+                                    false,
                                     R.drawable.ic_baseline_person_24_white);
 
                             // Start SwipeRefreshLayout

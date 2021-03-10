@@ -28,20 +28,23 @@ import java.io.InputStream;
 import okhttp3.OkHttpClient;
 
 @GlideModule
-@Excludes(OkHttpLibraryGlideModule.class) // initialize OkHttp manually
+@Excludes(OkHttpLibraryGlideModule.class) // Initialize OkHttp manually
 public final class CustomGlideModule extends AppGlideModule {
+    
     @Override
     public void registerComponents(@NonNull Context context, @NonNull Glide glide,
                                    @NonNull Registry registry) {
         super.registerComponents(context, glide, registry);
 
         OkHttpClient okHttpClient = new OkHttpClient();
+        
         registry.replace(GlideUrl.class, InputStream.class,
                 new OkHttpUrlLoader.Factory(okHttpClient));
     }
 
     @Override
     public boolean isManifestParsingEnabled() {
+
         return false;
     }
 
@@ -51,7 +54,7 @@ public final class CustomGlideModule extends AppGlideModule {
         // consumed just 50% memory footprint compared to ARGB_8888.
         // Increase memory usage for quality with:
 
-        //Set Default Custom_Request Policy
+        // Set Default Custom_Request Policy
         builder.setDefaultRequestOptions(
                 new RequestOptions()
                         .format(DecodeFormat.PREFER_ARGB_8888));
@@ -59,61 +62,61 @@ public final class CustomGlideModule extends AppGlideModule {
         final GlideExecutor.UncaughtThrowableStrategy uncaughtThrowableStrategy = t -> {
         };
 
-        //builder.setDiskCacheExecutor(new DiskCacheExecutor(uncaughtThrowableStrategy));
-        //builder.setResizeExecutor(new SourceExecutor(uncaughtThrowableStrategy));
+        // builder.setDiskCacheExecutor(new DiskCacheExecutor(uncaughtThrowableStrategy));
+        // builder.setResizeExecutor(new SourceExecutor(uncaughtThrowableStrategy));
 
-        //Set Log Level
-        //builder.setLogLevel(Log.DEBUG);
+        // Set Log Level
+        // builder.setLogLevel(Log.DEBUG);
         builder.setLogLevel(Log.ERROR);
 
 
         // Set Memory Custom_Cache Size
 
-        //Overriding Memory Custom_Cache Size
+        // Overriding Memory Custom_Cache Size
         int memoryCacheSizeBytes = 1024 * 1024 * 20; // 20mb
         builder.setMemoryCache(new LruResourceCache(memoryCacheSizeBytes));
 
-        //Using MemorySizeCalculator:
-        //MemorySizeCalculator calculator = new MemorySizeCalculator
+        // Using MemorySizeCalculator:
+        // MemorySizeCalculator calculator = new MemorySizeCalculator
         // .Builder(context).setMemoryCacheScreens(2).build();
-        //builder.setMemoryCache(new LruResourceCache(calculator.getMemoryCacheSize()));
+        // builder.setMemoryCache(new LruResourceCache(calculator.getMemoryCacheSize()));
 
-        //Custom Implementation
-        //builder.setMemoryCache(new YourAppMemoryCacheImpl());
+        // Custom Implementation
+        // builder.setMemoryCache(new YourAppMemoryCacheImpl());
 
         // Set BitmapPool Size
 
-        //Overriding Pool Size
+        // Overriding Pool Size
         int bitmapPoolSizeBytes = 1024 * 1024 * 30; // 30mb
         builder.setBitmapPool(new LruBitmapPool(bitmapPoolSizeBytes));
 
-        //Using MemorySizeCalculator:
-        //MemorySizeCalculator calculator = new MemorySizeCalculator.Builder(context)
+        // Using MemorySizeCalculator:
+        // MemorySizeCalculator calculator = new MemorySizeCalculator.Builder(context)
         // .setBitmapPoolScreens(3).build();
-        //builder.setBitmapPool(new LruBitmapPool(calculator.getBitmapPoolSize()));
+        // builder.setBitmapPool(new LruBitmapPool(calculator.getBitmapPoolSize()));
 
-        //Custom Implementation
-        //builder.setBitmapPool(new YourAppBitmapPoolImpl());
+        // Custom Implementation
+        // builder.setBitmapPool(new YourAppBitmapPoolImpl());
 
         // Set Disk Custom_Cache Size
 
-        //Overriding Disk Custom_Cache Size
-        //This Changes the location to external storage if the media they display is public
+        // Overriding Disk Custom_Cache Size
+        // This Changes the location to external storage if the media they display is public
         // (obtained from websites without authentication, search engines etc):
         int diskCacheSizeBytes = 1024 * 1024 * 100; // 100 MB
         builder.setDiskCache(new InternalCacheDiskCacheFactory(context, diskCacheSizeBytes));
 
-        //This changes the size of the disk, for either the internal or external disk caches:
-        //int diskCacheSizeBytes = 1024 * 1024 * 100; // 100 MB
-        //builder.setDiskCache(new InternalCacheDiskCacheFactory(context, diskCacheSizeBytes));
+        // This changes the size of the disk, for either the internal or external disk caches:
+        // int diskCacheSizeBytes = 1024 * 1024 * 100; // 100 MB
+        // builder.setDiskCache(new InternalCacheDiskCacheFactory(context, diskCacheSizeBytes));
 
-        //This changes the name of the folder the cache is placed in within external or internal
+        // This changes the name of the folder the cache is placed in within external or internal
         // storage:
-        //int diskCacheSizeBytes = 1024 * 1024 * 100; // 100 MB
-        //builder.setDiskCache(new InternalCacheDiskCacheFactory(context, "cacheFolderName",
+        // int diskCacheSizeBytes = 1024 * 1024 * 100; // 100 MB
+        // builder.setDiskCache(new InternalCacheDiskCacheFactory(context, "cacheFolderName",
         // diskCacheSizeBytes));
 
-        //Custom Implementation
+        // Custom Implementation
         /*builder.setDiskCache(new DiskCache.Factory() {
             @Override
             public DiskCache build() {

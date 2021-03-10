@@ -13,6 +13,7 @@ import java.nio.ByteBuffer;
  * Loads an {@link InputStream} from a Base 64 encoded String.
  */
 public final class Base64ModelLoader implements ModelLoader<String, ByteBuffer> {
+
     // From: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs.
     private static final String DATA_URI_PREFIX = "data:";
 
