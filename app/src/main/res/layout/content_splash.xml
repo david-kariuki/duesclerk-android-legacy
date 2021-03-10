@@ -38,7 +38,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="80dp"
                 android:layout_marginBottom="20dp"
-                android:contentDescription="@string/content_description_app_icon"
+                android:contentDescription="@string/content_description_icon_app"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

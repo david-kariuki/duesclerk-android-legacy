@@ -87,11 +87,13 @@ public class BottomSheetFragment_CountryPicker extends BottomSheetDialogFragment
         RecyclerView recyclerView = contentView.findViewById(R.id.recyclerViewCountryPicker);
         SearchView searchView = contentView.findViewById(R.id.searchViewCountryPicker);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL,
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext,
+                RecyclerView.VERTICAL,
                 false);
 
         // Initialize And Set Item Decorator
-        Decorators decoratorCountryPicker = new Decorators(BottomSheetFragment_CountryPicker.this);
+        Decorators decoratorCountryPicker = new Decorators(
+                BottomSheetFragment_CountryPicker.this);
         recyclerView.addItemDecoration(decoratorCountryPicker);
 
         recyclerView.setLayoutManager(layoutManager);
@@ -104,7 +106,8 @@ public class BottomSheetFragment_CountryPicker extends BottomSheetDialogFragment
             countryListArray = new ArrayList<>();
             JB_CountryData pojoCountryData = null;
 
-            InputStream inputStream = requireActivity().getAssets().open("country_data.xml");
+            InputStream inputStream = requireActivity().getAssets()
+                    .open("country_data.xml");
             XmlPullParserFactory xmlPullParserFactory = XmlPullParserFactory.newInstance();
             xmlPullParserFactory.setNamespaceAware(true);
             XmlPullParser xmlPullParser = xmlPullParserFactory.newPullParser();
@@ -128,7 +131,7 @@ public class BottomSheetFragment_CountryPicker extends BottomSheetDialogFragment
                         }
                         break;
 
-                        case XmlPullParser.TEXT:
+                    case XmlPullParser.TEXT:
 
                         // Get Parser Text
                         tagValue = xmlPullParser.getText();
@@ -136,34 +139,47 @@ public class BottomSheetFragment_CountryPicker extends BottomSheetDialogFragment
 
                     case XmlPullParser.END_TAG:
 
-                        // Put Country Name
+                        // Set Country Name
                         if (key.equalsIgnoreCase(UserAccountUtils.FIELD_COUNTRY_NAME)) {
+
+                            // Set Country Code
                             Objects.requireNonNull(pojoCountryData).setCountryName(tagValue);
-                            // Put Country Code
+
                         } else if (key.equalsIgnoreCase(UserAccountUtils.FIELD_COUNTRY_CODE)) {
+
+                            // Set Country Alpha2
                             Objects.requireNonNull(pojoCountryData).setCountryCode(tagValue);
-                            // Put Country Alpha2
+
                         } else if (key.equalsIgnoreCase(UserAccountUtils.FIELD_COUNTRY_ALPHA2)) {
+
+                            // Set Country Alpha3
                             Objects.requireNonNull(pojoCountryData).setCountryAlpha2(tagValue);
-                            // Put Country Alpha3
+
                         } else if (key.equalsIgnoreCase(UserAccountUtils.FIELD_COUNTRY_ALPHA3)) {
+
+                            // Set Country Flag without file extension
                             Objects.requireNonNull(pojoCountryData).setCountryAlpha3(tagValue);
-                            // Put Country Flag without file extension
+
                         } else if (key.equalsIgnoreCase(UserAccountUtils.FIELD_COUNTRY_FLAG)) {
-                            Objects.requireNonNull(pojoCountryData).setCountryFlag(tagValue.replace(".png",
-                                    ""));
+
+                            Objects.requireNonNull(pojoCountryData).setCountryFlag(
+                                    tagValue.replace(".png", ""));
+
                         } else if (key.equalsIgnoreCase(UserAccountUtils.KEY_COUNTRY_ITEM)) {
+
                             if (pojoCountryData != null) {
+
+                                // Add JavaBean to ArrayList
                                 countryListArray.add(pojoCountryData);
                             }
                         }
                         break;
 
-                        default:
+                    default:
                         break;
                 }
 
-                event = xmlPullParser.next();
+                event = xmlPullParser.next(); // Move to next
             }
 
             inputStream.close(); // Close input stream

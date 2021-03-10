@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--Content description-->
-    <string name="content_description_app_icon">Application icon</string>
+
+    <!--Content descriptions-->
+    <string name="content_description_icon_app">Application icon</string>
     <string name="content_description_icon_close">Close icon</string>
     <string name="content_description_icon_exit">Exit icon</string>
     <string name="content_description_icon_edit">Edit icon</string>
