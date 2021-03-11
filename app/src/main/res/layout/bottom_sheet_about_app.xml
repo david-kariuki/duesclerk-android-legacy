@@ -84,6 +84,17 @@
                 android:layout_marginEnd="0dp"
                 android:text="@string/app_name"
                 android:textColor="@color/colorPrimaryDark" />
+
+            <TextView
+                style="@style/Style_Text_Labels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="0dp"
+                android:text="@string/app_version"
+                android:textColor="@color/colorBlack" />
         </LinearLayout>
 
         <LinearLayout
