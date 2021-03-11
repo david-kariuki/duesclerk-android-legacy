@@ -39,6 +39,8 @@ import com.duesclerk.interfaces.Interface_IDS;
 import com.duesclerk.interfaces.Interface_MainActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import net.cachapa.expandablelayout.ExpandableLayout;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -58,11 +60,13 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
     private FetchContactsClass fetchContactsClass;
     private RVLA_Contacts rvlaContacts;
     private DeleteContactsDebts deleteContactsOrDebts;
-    private ImageView imageDeleteContacts, imageHideCheckBoxes;
+    private ImageView imageHideCheckBoxes, imageExpandMenu, imageCollapseMenu;
     private FloatingActionButton fabAddContact, fabDeleteSelectedContacts;
     private DialogFragment_AddContact dialogFragmentAddContact;
     private TextView textTotalDebtsAmount;
     private String searchQuery = "";
+    private ExpandableLayout expandableMenu;
+    private boolean showingCheckBoxes = false;
 
     public static FragmentPeopleOwingMe newInstance() {
         return new FragmentPeopleOwingMe();
@@ -97,12 +101,18 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
         textTotalDebtsAmount = view.findViewById(R.id.textPeopleOwingMe_DebtsTotalAmount);
 
         // ImageViews
-        imageDeleteContacts = view.findViewById(R.id.imagePeopleOwingMe_DeleteContacts);
         imageHideCheckBoxes = view.findViewById(R.id.imagePeopleOwingMe_HideCheckBoxes);
+        imageExpandMenu = view.findViewById(R.id.imagePeopleOwingMe_ShowMenu);
+        imageCollapseMenu = view.findViewById(R.id.imagePeopleOwingMe_CollapseOptionsMenu);
+        ImageView imageDeleteContacts = view.findViewById(R.id.imagePeopleOwingMe_DeleteContacts);
+        ImageView imageSortList = view.findViewById(R.id.imagePeopleOwingMe_SortList);
 
         // FloatingActionButtons
         fabAddContact = view.findViewById(R.id.fabPeopleOwingMe_AddContact);
         fabDeleteSelectedContacts = view.findViewById(R.id.fabPeopleOwingMe_DeleteContacts);
+
+        // ExpandableLayout
+        expandableMenu = view.findViewById(R.id.expandablePeopleOwingMe_Menu);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext,
                 RecyclerView.VERTICAL, false);
@@ -128,6 +138,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
         // SwipeRefreshLayout listener
         swipeRefreshListener = () -> {
 
+            // Check for network connection
             if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
                 // Network connection established
 
@@ -244,30 +255,15 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
             }
         });
 
-        // Delete contacts onClick
-        imageDeleteContacts.setOnClickListener(v -> {
-
-            // Check if CheckBoxes are not showing
-            if (!rvlaContacts.showingCheckBoxes()) {
-
-                fabAddContact.setVisibility(View.GONE); // Hide add contact FAB
-                showDeleteButton(false); // Hide delete button
-                rvlaContacts.setShownListCheckBoxes(true); // Show list CheckBoxes
-            }
-
-            // Set SearchView hidden to true and hide SearchView
-            interfaceMainActivity.setToHiddenAndHideSearchView(true,
-                    FragmentPeopleOwingMe.this);
-        });
-
         // Hide CheckBoxes onClick
         imageHideCheckBoxes.setOnClickListener(v -> {
 
             // Check if CheckBoxes are showing
             if (rvlaContacts.showingCheckBoxes()) {
 
+                showingCheckBoxes = false; // Set showing CheckBoxes
                 rvlaContacts.setShownListCheckBoxes(false); // Hide list CheckBoxes
-                showDeleteButton(true); // Show delete button
+                showMenuButton(true); // Show menu button
                 showFabAddContact(true); // Show FAB add contact
                 showFabDeleteSelectedContacts(false); // Hide FAB delete selected contact records
             }
@@ -277,6 +273,51 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
                     FragmentPeopleOwingMe.this);
         });
 
+        // Show menu onClick
+        imageExpandMenu.setOnClickListener(v -> {
+
+            showMenuButton(false); // Hide show-menu button
+
+            expandMenuExpandableLayout(true); // Expand ExpandableLayout
+
+        });
+
+        // Show menu onClick
+        imageCollapseMenu.setOnClickListener(v -> {
+
+            showMenuButton(true); // Show show-menu button
+
+            expandMenuExpandableLayout(false); // Collapse ExpandableLayout
+        });
+
+        // Delete contacts onClick
+        imageDeleteContacts.setOnClickListener(v -> {
+
+            expandMenuExpandableLayout(false); // Collapse ExpandableLayout
+
+            // Check if ExpandableLayout is expanded
+            if (!expandableMenu.isExpanded()) {
+
+                // Check if CheckBoxes are not showing
+                if (!rvlaContacts.showingCheckBoxes()) {
+
+                    showingCheckBoxes = true; // Set showing CheckBoxes
+                    fabAddContact.setVisibility(View.GONE); // Hide add contact FAB
+                    rvlaContacts.setShownListCheckBoxes(true); // Show list CheckBoxes
+                    showMenuButton(false); // Hide show-menu button
+                }
+
+                // Set SearchView hidden to true and hide SearchView
+                interfaceMainActivity.setToHiddenAndHideSearchView(true,
+                        FragmentPeopleOwingMe.this);
+            }
+        });
+
+        // Sort list onClick
+        imageSortList.setOnClickListener(v -> {
+
+            expandMenuExpandableLayout(false); // Collapse ExpandableLayout
+        });
 
         // Create ItemTouchHelper call back
         ItemTouchHelper.SimpleCallback touchHelperCallback = new ItemTouchHelper.SimpleCallback(
@@ -363,6 +404,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
      */
     private void loadContacts(ArrayList<JB_Contacts> contacts) {
 
+        // Check if ArrayList is empty
         if (!DataUtils.isEmptyArrayList(contacts)) {
 
             this.fetchedContacts = contacts; // Set ArrayList
@@ -386,14 +428,15 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
                 rvlaContacts.getFilter().filter(this.searchQuery); // Set adapter filter query
             }
 
-            showDeleteButton(true); // Show delete button
+            showMenuButton(true); // Show show-menu button
             showFabAddContact(true); // Show add contact FAB
 
             showSwipeRefreshLayout(true); // Show main layout
 
         } else {
 
-            imageDeleteContacts.setVisibility(View.GONE); // Hide delete multiple debts button
+            imageExpandMenu.setVisibility(View.GONE); // Hide show-menu button
+            imageExpandMenu.setVisibility(View.GONE); // Hide show menu button
 
             // Hide add contact FAB for user to use add debt layout button
             showFabAddContact(false);
@@ -501,21 +544,51 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
     }
 
     /**
-     * Function to show / hide delete button and (Hide CheckBoxes) button
+     * Function to expand and collapse ExpandableLayout,
+     * while hiding and showing dismiss button
+     *
+     * @param expand - Expand / collapse ExpandableLayout
+     */
+    private void expandMenuExpandableLayout(boolean expand) {
+
+        // Expand / collapse ExpandableLayout
+        ViewsUtils.expandExpandableLayout(expand, expandableMenu);
+
+        // Check if expanding
+        if (!expand) {
+
+            showMenuButton(true); // Show show-menu button
+        }
+    }
+
+    /**
+     * Function to show / hide show-menu button and (Hide CheckBoxes) button
      *
      * @param show - Show / hide delete button
      */
-    private void showDeleteButton(boolean show) {
+    private void showMenuButton(boolean show) {
 
         if (show) {
 
-            imageDeleteContacts.setVisibility(View.VISIBLE); // Show delete button
-            imageHideCheckBoxes.setVisibility(View.GONE); // Hide (Hide delete) button
+            imageExpandMenu.setVisibility(View.VISIBLE); // Show delete button
+            imageCollapseMenu.setVisibility(View.GONE); // Hide show-menu button
 
+            // Check if CheckBoxes are showing
+            if (!showingCheckBoxes) {
+
+                imageHideCheckBoxes.setVisibility(View.GONE); // Hide (Hide delete) button
+            }
         } else {
 
-            imageDeleteContacts.setVisibility(View.GONE); // HIde delete button
-            imageHideCheckBoxes.setVisibility(View.VISIBLE); // Show (Hide delete) button
+            imageExpandMenu.setVisibility(View.GONE); // HIde delete button
+            imageCollapseMenu.setVisibility(View.VISIBLE); // Show collapse-menu button
+
+            // Check if CheckBoxes are showing
+            if (showingCheckBoxes) {
+
+                imageHideCheckBoxes.setVisibility(View.VISIBLE); // Show (Hide delete) button
+                imageCollapseMenu.setVisibility(View.GONE); // Hide collapse button
+            }
         }
     }
 
