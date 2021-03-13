@@ -66,7 +66,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginEnd="10dp"
         android:background="@color/colorWhite"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -205,6 +204,7 @@
                     android:layout_marginBottom="5dp"
                     android:contentDescription="@string/content_description_icon_menu"
                     android:padding="@dimen/dimen_image_view_icon_padding_small"
+
                     android:src="@drawable/ic_baseline_more_vert_24_primary_grey"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
