@@ -138,6 +138,14 @@
     <string name="label_fragment_people_i_owe">Those I\nOwe</string>
     <string name="label_fragment_people_owing_me">Owing\nMe</string>
     <string name="label_about_application">About application</string>
+    <string name="label_contacts">Contacts</string>
+    <string name="label_debts">Debts</string>
+    <string name="label_sort">Sort %1$s</string>
+    <string name="label_sort_by_name">Sort by name</string>
+    <string name="label_sort_by_amount">Sort by amount</string>
+    <string name="label_sort_by_number_of_debts">Sort by no. of debts</string>
+    <string name="label_sort_by_date_issued">Sort by date issued</string>
+    <string name="label_sort_by_date_due">Sort by date due</string>
     <!--_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________-->
     
 
