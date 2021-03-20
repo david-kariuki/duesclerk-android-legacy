@@ -312,4 +312,13 @@
         <item name="android:maxLines">2</item>
         <item name="android:layout_marginBottom">5dp</item>
     </style>
+
+    <!--Style Icons-->
+    <style name="Style_Icons">
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintVertical_bias">-1</item>
+        <item name="layout_constraintWidth_percent">.1</item>
+        <item name="android:adjustViewBounds">true</item>
+    </style>
 </resources>
