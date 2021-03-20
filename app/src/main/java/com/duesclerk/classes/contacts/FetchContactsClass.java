@@ -255,7 +255,7 @@ public class FetchContactsClass {
         if (jsonArrayContacts != null) {
 
             // Check JsonArray length
-            if (jsonArrayContacts.length() > 0)
+            if (jsonArrayContacts.length() > 0) {
 
                 // Loop through all the elements of the JSONArray
                 for (int i = 0; i < jsonArrayContacts.length(); i++) {
@@ -319,10 +319,7 @@ public class FetchContactsClass {
                     } catch (Exception ignored) {
                     }
                 }
-
-            // Pass data to interface
-            passContactDataToInterface(contactsPeopleOwingMe, contactsPeopleIOwe);
-
+            }
         }
 
         // Pass data to interface
