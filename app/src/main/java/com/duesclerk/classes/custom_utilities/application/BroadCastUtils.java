@@ -20,6 +20,9 @@ public class BroadCastUtils {
     public static final String bcrActionSwitchMainActivityTabLayoutPosition
             = "SwitchMainActivityTabLayoutPosition";
 
+    // Sort lists Broadcast
+    public static final String bcrAction_SortLists = "SortLists";
+
     /**
      * Function to register BroadCast
      *
