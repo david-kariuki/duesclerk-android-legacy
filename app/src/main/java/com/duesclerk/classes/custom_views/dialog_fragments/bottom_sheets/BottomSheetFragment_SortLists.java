@@ -53,10 +53,13 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
     // Currently selected sort type
     private SortType currentlySelectedSortType;
 
-    public BottomSheetFragment_SortLists(Context mContext, ListType listType) {
+    public BottomSheetFragment_SortLists(@NonNull Context mContext, ListType listType,
+                                         @NonNull SortType currentListSorting) {
 
         this.mContext = mContext; // Get context
         this.listType = listType; // Set list type
+
+        this.currentlySelectedSortType = currentListSorting;
     }
 
     @NonNull
@@ -106,6 +109,8 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
                 R.id.imageSortLists_SortByDebtDateDue_Descending);
 
         showRequiredOptionsSetTitle(); // Show required list options
+
+        showCurrentLisSorting(this.currentlySelectedSortType);
 
         // Sort by name onClick
         llSortByName.setOnClickListener(v -> sortByName(null));
@@ -224,8 +229,8 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
 
     @Override
     public void onStart() {
-
         super.onStart();
+
         this.bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         this.bottomSheetBehavior.addBottomSheetCallback(bottomSheetCallback);
     }
@@ -279,12 +284,64 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
     }
 
     /**
-     * Function to select and un-select sort by name ascending and descending buttons
+     * Function to show current list sorting on the BottomSheet
+     * 
+     * @param sortType - Sort type
+     */
+    private void showCurrentLisSorting(@NonNull SortType sortType) {
+
+        // Check list type
+        if (listType == ListType.LIST_CONTACTS) {
+
+            // Check sort type
+            if ((sortType == SortType.CONTACTS_TOTAL_DEBTS_AMOUNT_ASCENDING)
+                    || (sortType == SortType.CONTACTS_TOTAL_DEBTS_AMOUNT_DESCENDING)) {
+
+                // Select sort option
+                selectSortByDebtAmount(sortType, true);
+
+            } else if ((sortType == SortType.CONTACT_NAME_ASCENDING)
+                    || (sortType == SortType.CONTACT_NAME_DESCENDING)) {
+
+                // Select sort option
+                selectSortByContactName(sortType, true);
+
+            } else if ((sortType == SortType.NO_OF_DEBTS_ASCENDING)
+                    || (sortType == SortType.NO_OF_DEBTS_DESCENDING)) {
+
+                // Select sort option
+                selectSortByNoOfDebts(sortType, true);
+            }
+        } else if (listType == ListType.LIST_DEBTS) {
+
+            if ((sortType == SortType.DEBT_AMOUNT_ASCENDING)
+                    || (sortType == SortType.DEBT_AMOUNT_DESCENDING)) {
+
+                // Select sort option
+                selectSortByDebtAmount(sortType, true);
+
+            } else if ((sortType == SortType.DEBT_DATE_ISSUED_ASCENDING)
+                    || (sortType == SortType.DEBT_DATE_ISSUED_DESCENDING)) {
+
+                // Select sort option
+                selectSortByDebtDateIssued(sortType, true);
+
+            } else if ((sortType == SortType.DEBT_DATE_DUE_ASCENDING)
+                    || (sortType == SortType.DEBT_DATE_DUE_DESCENDING)) {
+
+                // Select sort option
+                selectSortByDebtDateDue(sortType, true);
+            }
+        }
+    }
+
+    /**
+     * Function to select and un-select sort by ContactName ascending and descending buttons
      *
      * @param select   - Select / un-select sort buttons
      * @param sortType - Sort type
      */
-    private void selectSortByName(SortType sortType, boolean select) {
+    private void selectSortByContactName(SortType sortType, boolean select) {
 
         // Check if selecting
         if (select) {
@@ -358,26 +415,26 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
             if (currentlySelectedSortType == SortType.CONTACT_NAME_ASCENDING) {
 
                 // Select sort by SortBy_ContactName in ascending order
-                selectSortByName(SortType.CONTACT_NAME_DESCENDING, true);
+                selectSortByContactName(SortType.CONTACT_NAME_DESCENDING, true);
 
                 // Un-select sort by SortBy_ContactName in ascending order
-                selectSortByName(SortType.CONTACT_NAME_ASCENDING, false);
+                selectSortByContactName(SortType.CONTACT_NAME_ASCENDING, false);
 
             } else if (currentlySelectedSortType == SortType.CONTACT_NAME_DESCENDING) {
 
                 // Select sort by SortBy_ContactName in descending order
-                selectSortByName(SortType.CONTACT_NAME_ASCENDING, true);
+                selectSortByContactName(SortType.CONTACT_NAME_ASCENDING, true);
 
                 // Un-select sort by SortBy_ContactName in descending order
-                selectSortByName(SortType.CONTACT_NAME_DESCENDING, false);
+                selectSortByContactName(SortType.CONTACT_NAME_DESCENDING, false);
 
             } else {
 
                 // Select sort by SortBy_ContactName in ascending order
-                selectSortByName(SortType.CONTACT_NAME_ASCENDING, true);
+                selectSortByContactName(SortType.CONTACT_NAME_ASCENDING, true);
 
                 // Un-select sort by SortBy_ContactName in ascending order
-                selectSortByName(SortType.CONTACT_NAME_DESCENDING, false);
+                selectSortByContactName(SortType.CONTACT_NAME_DESCENDING, false);
             }
         } else {
 
@@ -385,18 +442,18 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
             if (sortType == SortType.CONTACT_NAME_ASCENDING) {
 
                 // Select sort by SortBy_ContactName in ascending order
-                selectSortByName(SortType.CONTACT_NAME_ASCENDING, true);
+                selectSortByContactName(SortType.CONTACT_NAME_ASCENDING, true);
 
                 // Un-select sort by SortBy_ContactName in descending order
-                selectSortByName(SortType.CONTACT_NAME_DESCENDING, false);
+                selectSortByContactName(SortType.CONTACT_NAME_DESCENDING, false);
 
             } else if (sortType == SortType.CONTACT_NAME_DESCENDING) {
 
                 // Select sort by SortBy_ContactName in descending order
-                selectSortByName(SortType.CONTACT_NAME_DESCENDING, true);
+                selectSortByContactName(SortType.CONTACT_NAME_DESCENDING, true);
 
                 // Un-select sort by SortBy_ContactName in ascending order
-                selectSortByName(SortType.CONTACT_NAME_ASCENDING, false);
+                selectSortByContactName(SortType.CONTACT_NAME_ASCENDING, false);
             }
         }
 
@@ -636,8 +693,8 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
         // Check list type
         if (listType == ListType.LIST_CONTACTS) {
 
-            selectSortByName(SortType.CONTACT_NAME_ASCENDING, false);
-            selectSortByName(SortType.CONTACT_NAME_DESCENDING, false);
+            selectSortByContactName(SortType.CONTACT_NAME_ASCENDING, false);
+            selectSortByContactName(SortType.CONTACT_NAME_DESCENDING, false);
 
             selectSortByNoOfDebts(SortType.NO_OF_DEBTS_ASCENDING, false);
             selectSortByNoOfDebts(SortType.NO_OF_DEBTS_DESCENDING, false);
@@ -786,8 +843,8 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
         // Check list type
         if (listType == ListType.LIST_CONTACTS) {
 
-            selectSortByName(SortType.CONTACT_NAME_ASCENDING, false);
-            selectSortByName(SortType.CONTACT_NAME_DESCENDING, false);
+            selectSortByContactName(SortType.CONTACT_NAME_ASCENDING, false);
+            selectSortByContactName(SortType.CONTACT_NAME_DESCENDING, false);
 
         } else if (listType == ListType.LIST_DEBTS) {
 
@@ -938,8 +995,8 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
         // Check list type
         if (listType == ListType.LIST_CONTACTS) {
 
-            selectSortByName(SortType.CONTACT_NAME_ASCENDING, false);
-            selectSortByName(SortType.CONTACT_NAME_DESCENDING, false);
+            selectSortByContactName(SortType.CONTACT_NAME_ASCENDING, false);
+            selectSortByContactName(SortType.CONTACT_NAME_DESCENDING, false);
 
         } else if (listType == ListType.LIST_DEBTS) {
 
@@ -1090,8 +1147,8 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
         // Check list type
         if (listType == ListType.LIST_CONTACTS) {
 
-            selectSortByName(SortType.CONTACT_NAME_ASCENDING, false);
-            selectSortByName(SortType.CONTACT_NAME_DESCENDING, false);
+            selectSortByContactName(SortType.CONTACT_NAME_ASCENDING, false);
+            selectSortByContactName(SortType.CONTACT_NAME_DESCENDING, false);
 
             selectSortByNoOfDebts(SortType.NO_OF_DEBTS_ASCENDING, false);
             selectSortByNoOfDebts(SortType.NO_OF_DEBTS_DESCENDING, false);
