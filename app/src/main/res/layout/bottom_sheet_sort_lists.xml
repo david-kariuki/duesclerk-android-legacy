@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bottom_sheet_header_curved">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:elevation="@dimen/dimen_toolbar_bs_elevation"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_toolbar_bs_height"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
+            android:elevation="@dimen/dimen_toolbar_bs_elevation"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/Style_Toolbar_Title_Medium_Primary_Dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textSortLists_Title"
+                android:layout_gravity="start|center_vertical"
+                android:text="@string/label_sort"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageSortLists_Dismiss"
+                style="@style/Style_BottomSheets_Dismiss"
+                android:layout_width="@dimen/dimen_image_view_icon_size_small"
+                android:layout_height="@dimen/dimen_image_view_icon_size_small"
+                android:layout_marginEnd="0dp"
+                android:contentDescription="@string/content_description_icon_dismiss_dialog"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="-1" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_toolbar_activity_divider_height"
+            android:layout_marginTop="2dp"
+            android:background="@color/colorDividerGrey" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintWidth_percent=".95">
+
+
+        <LinearLayout
+            android:id="@+id/llSortLists_SortByDebtAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imageSortLists_SortByDebtAmount"
+                    style="@style/Style_Options_List_Icons"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/content_description_icon_sort_by_debt_amount"
+                    android:src="@drawable/ic_baseline_attach_money_24_black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0" />
+
+                <TextView
+                    style="@style/Style_Text_Labels"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:text="@string/label_sort_by_amount"
+                    android:textColor="@color/colorBlack"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imageSortLists_SortByDebtAmount_Ascending"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toEndOf="@id/imageSortLists_SortByDebtAmount"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="-1" />
+
+                <ImageView
+                    android:id="@+id/imageSortLists_SortByDebtAmount_Ascending"
+                    style="@style/Style_Sort_Buttons"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="20dp"
+                    android:contentDescription="@string/content_description_icon_sort_by_debt_amount_ascending"
+                    android:src="@drawable/ic_ascending_black_100px"
+                    app:layout_constraintEnd_toStartOf="@id/imageSortLists_SortByDebtAmount_Descending"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="-1" />
+
+                <ImageView
+                    android:id="@+id/imageSortLists_SortByDebtAmount_Descending"
+                    style="@style/Style_Sort_Buttons"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="0dp"
+                    android:contentDescription="@string/content_description_icon_sort_by_debt_amount_descending"
+                    android:src="@drawable/ic_descending_black_100px"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="-1" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llSortLists_SortByName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_list_divider_height"
+                android:layout_marginBottom="15dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginStart="3dp"
+                android:background="@drawable/gradient_divider_white_primary_grey_white" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imageSortLists_SortByName"
+                    style="@style/Style_Options_List_Icons"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/content_description_icon_sort_by_contact_name"
+                    android:src="@drawable/ic_baseline_sort_by_alpha_24_black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0" />
+
+                <TextView
+                    style="@style/Style_Text_Labels"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:text="@string/label_sort_by_name"
+                    android:textColor="@color/colorBlack"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imageSortLists_SortByName_Ascending"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toEndOf="@id/imageSortLists_SortByName"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="-1" />
+
+                <ImageView
+                    android:id="@+id/imageSortLists_SortByName_Ascending"
+                    style="@style/Style_Sort_Buttons"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="20dp"
+                    android:contentDescription="@string/content_description_icon_sort_by_contact_name_ascending"
+                    android:src="@drawable/ic_ascending_black_100px"
+                    app:layout_constraintEnd_toStartOf="@id/imageSortLists_SortByName_Descending"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="-1" />
+
+                <ImageView
+                    android:id="@+id/imageSortLists_SortByName_Descending"
+                    style="@style/Style_Sort_Buttons"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="0dp"
+                    android:contentDescription="@string/content_description_icon_sort_by_contact_name_descending"
+                    android:src="@drawable/ic_descending_black_100px"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="-1" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llSortLists_SortByNoOfDebts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_list_divider_height"
+                android:layout_marginBottom="15dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginStart="3dp"
+                android:background="@drawable/gradient_divider_white_primary_grey_white" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imageSortLists_SortByNoOfDebts"
+                    style="@style/Style_Options_List_Icons"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/content_description_icon_sort_by_no_of_debts"
+                    android:src="@drawable/ic_baseline_format_list_numbered_24_black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0" />
+
+                <TextView
+                    style="@style/Style_Text_Labels"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:text="@string/label_sort_by_number_of_debts"
+                    android:textColor="@color/colorBlack"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imageSortLists_SortByNoOfDebts_Ascending"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toEndOf="@id/imageSortLists_SortByNoOfDebts"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="-1" />
+
+                <ImageView
+                    android:id="@+id/imageSortLists_SortByNoOfDebts_Ascending"
+                    style="@style/Style_Sort_Buttons"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="20dp"
+                    android:contentDescription="@string/content_description_icon_sort_by_no_of_debts_ascending"
+                    android:src="@drawable/ic_ascending_black_100px"
+                    app:layout_constraintEnd_toStartOf="@id/imageSortLists_SortByNoOfDebts_Descending"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="-1" />
+
+                <ImageView
+                    android:id="@+id/imageSortLists_SortByNoOfDebts_Descending"
+                    style="@style/Style_Sort_Buttons"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="0dp"
+                    android:contentDescription="@string/content_description_icon_sort_by_no_of_debts_descending"
+                    android:src="@drawable/ic_descending_black_100px"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="-1" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llSortLists_SortByDebtDateIssued"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_list_divider_height"
+                android:layout_marginBottom="15dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginStart="3dp"
+                android:background="@drawable/gradient_divider_white_primary_grey_white" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imageSortLists_SortByDebtDateIssued"
+                    style="@style/Style_Options_List_Icons"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/content_description_icon_sort_by_debt_date_issued"
+                    android:src="@drawable/ic_baseline_calendar_today_24_black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0" />
+
+                <TextView
+                    style="@style/Style_Text_Labels"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:text="@string/label_sort_by_date_issued"
+                    android:textColor="@color/colorBlack"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imageSortLists_SortByDebtDateIssued_Ascending"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toEndOf="@id/imageSortLists_SortByDebtDateIssued"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="-1" />
+
+                <ImageView
+                    android:id="@+id/imageSortLists_SortByDebtDateIssued_Ascending"
+                    style="@style/Style_Sort_Buttons"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="20dp"
+                    android:contentDescription="@string/content_description_icon_sort_by_debt_date_issued_ascending"
+                    android:src="@drawable/ic_ascending_black_100px"
+                    app:layout_constraintEnd_toStartOf="@id/imageSortLists_SortByDebtDateIssued_Descending"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="-1" />
+
+                <ImageView
+                    android:id="@+id/imageSortLists_SortByDebtDateIssued_Descending"
+                    style="@style/Style_Sort_Buttons"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="0dp"
+                    android:contentDescription="@string/content_description_icon_sort_by_debt_date_issued_descending"
+                    android:src="@drawable/ic_descending_black_100px"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="-1" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llSortLists_SortByDebtDateDue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_list_divider_height"
+                android:layout_marginBottom="15dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginStart="3dp"
+                android:background="@drawable/gradient_divider_white_primary_grey_white" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imageSortLists_SortByDebtDateDue"
+                    style="@style/Style_Options_List_Icons"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/content_description_icon_sort_by_debt_date_due"
+                    android:src="@drawable/ic_baseline_calendar_today_24_black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0" />
+
+                <TextView
+                    style="@style/Style_Text_Labels"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:text="@string/label_sort_by_date_due"
+                    android:textColor="@color/colorBlack"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imageSortLists_SortByDebtDateDue_Ascending"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toEndOf="@id/imageSortLists_SortByDebtDateDue"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="-1" />
+
+                <ImageView
+                    android:id="@+id/imageSortLists_SortByDebtDateDue_Ascending"
+                    style="@style/Style_Sort_Buttons"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="20dp"
+                    android:contentDescription="@string/content_description_icon_sort_by_debt_date_due_ascending"
+                    android:src="@drawable/ic_ascending_black_100px"
+                    app:layout_constraintEnd_toStartOf="@id/imageSortLists_SortByDebtDateDue_Descending"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="-1" />
+
+                <ImageView
+                    android:id="@+id/imageSortLists_SortByDebtDateDue_Descending"
+                    style="@style/Style_Sort_Buttons"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="0dp"
+                    android:contentDescription="@string/content_description_icon_sort_by_debt_date_due_descending"
+                    android:src="@drawable/ic_descending_black_100px"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="-1" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

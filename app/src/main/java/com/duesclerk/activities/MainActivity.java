@@ -130,7 +130,6 @@ public class MainActivity extends AppCompatActivity implements Interface_MainAct
 
                         ViewsUtils.selectTabPosition(1, tabLayout); // Switch to position 1
                     }
-
                 }
             }
         };

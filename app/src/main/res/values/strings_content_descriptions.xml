@@ -4,6 +4,22 @@
     <!--Content descriptions-->
     <string name="content_description_icon_app">Application icon</string>
     <string name="content_description_icon_close">Close icon</string>
+    <string name="content_description_icon_sort_by_debt_amount">Sort by debt amount</string>
+    <string name="content_description_icon_sort_by_debt_amount_ascending">Sort by debt amount ascending</string>
+    <string name="content_description_icon_sort_by_debt_amount_descending">Sort by debt amount descending</string>
+    <string name="content_description_icon_sort_by_contact_name">Sort by contact name</string>
+    <string name="content_description_icon_sort_by_contact_name_ascending">Sort by contact name ascending</string>
+    <string name="content_description_icon_sort_by_contact_name_descending">Sort by contact name descending</string>
+    <string name="content_description_icon_sort_by_no_of_debts">Sort by number of debts</string>
+    <string name="content_description_icon_sort_by_no_of_debts_ascending">Sort by number of debts ascending</string>
+    <string name="content_description_icon_sort_by_no_of_debts_descending">Sort by number of debts descending</string>
+    <string name="content_description_icon_sort_by_debt_date_issued">Sort by debt date issued</string>
+    <string name="content_description_icon_sort_by_debt_date_issued_ascending">Sort by debt date issued ascending</string>
+    <string name="content_description_icon_sort_by_debt_date_issued_descending">Sort by debt date issued descending</string>
+    <string name="content_description_icon_sort_by_debt_date_due">Sort by debt date due</string>
+    <string name="content_description_icon_sort_by_debt_date_due_ascending">Sort by debt date due ascending</string>
+    <string name="content_description_icon_sort_by_debt_date_due_descending">Sort by debt date due descending</string>
+
     <string name="content_description_icon_exit">Exit icon</string>
     <string name="content_description_icon_edit">Edit icon</string>
     <string name="content_description_icon_contact">Contact icon</string>

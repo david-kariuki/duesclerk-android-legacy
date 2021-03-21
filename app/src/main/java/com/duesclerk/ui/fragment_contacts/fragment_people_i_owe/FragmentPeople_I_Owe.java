@@ -26,6 +26,7 @@ import com.duesclerk.classes.contacts.FetchContactsClass;
 import com.duesclerk.classes.custom_utilities.application.BroadCastUtils;
 import com.duesclerk.classes.custom_utilities.application.ViewsUtils;
 import com.duesclerk.classes.custom_utilities.user_data.DataUtils;
+import com.duesclerk.classes.custom_views.dialog_fragments.bottom_sheets.BottomSheetFragment_SortLists;
 import com.duesclerk.classes.custom_views.dialog_fragments.dialogs.DialogFragment_AddContact;
 import com.duesclerk.classes.custom_views.recycler_view_adapters.RVLA_Contacts;
 import com.duesclerk.classes.custom_views.swipe_refresh.MultiSwipeRefreshLayout;
@@ -33,7 +34,10 @@ import com.duesclerk.classes.custom_views.toast.CustomToast;
 import com.duesclerk.classes.custom_views.view_decorators.Decorators;
 import com.duesclerk.classes.java_beans.JB_Contacts;
 import com.duesclerk.classes.network.InternetConnectivity;
+import com.duesclerk.classes.sort.SortLists;
 import com.duesclerk.classes.storage_adapters.UserDatabase;
+import com.duesclerk.enums.ListType;
+import com.duesclerk.enums.SortType;
 import com.duesclerk.interfaces.Interface_Contacts;
 import com.duesclerk.interfaces.Interface_IDS;
 import com.duesclerk.interfaces.Interface_MainActivity;
@@ -52,7 +56,7 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
     private ArrayList<JB_Contacts> fetchedContacts = null;
     private MultiSwipeRefreshLayout swipeRefreshLayout;
     private MultiSwipeRefreshLayout.OnRefreshListener swipeRefreshListener;
-    private BroadcastReceiver bcrReloadContacts;
+    private BroadcastReceiver bcrReloadContacts, bcrSortContacts;
     private RecyclerView recyclerView;
     private LinearLayout llNoConnectionBar, llNoConnectionLayout, llNoContacts;
     private Interface_MainActivity interfaceMainActivity;
@@ -67,6 +71,9 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
     private String searchQuery = "";
     private ExpandableLayout expandableMenu;
     private boolean showingCheckBoxes = false;
+    private BottomSheetFragment_SortLists bottomSheetFragmentSortLists;
+    private SortType selectedSortType = SortType.CONTACT_NAME_ASCENDING; // Default sort type
+    private SortLists sortLists;
 
     public static FragmentPeople_I_Owe newInstance() {
         return new FragmentPeople_I_Owe();
@@ -128,9 +135,17 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
         fetchContactsClass = new FetchContactsClass(mContext,
                 FragmentPeople_I_Owe.this);
 
+        sortLists = new SortLists(); // Initialize sort lists
+
         // Initialize add contact dialog fragment
         dialogFragmentAddContact = new DialogFragment_AddContact(mContext,
-                0);
+                1);
+        dialogFragmentAddContact.setRetainInstance(true);
+
+        bottomSheetFragmentSortLists = new BottomSheetFragment_SortLists(mContext,
+                ListType.LIST_CONTACTS, selectedSortType);
+
+        bottomSheetFragmentSortLists.setRetainInstance(true);
 
         // Initialize interface
         interfaceMainActivity = (Interface_MainActivity) getActivity();
@@ -206,6 +221,29 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
                         // No internet connection
 
                         handleNetworkConnectionEvent(false);
+                    }
+                }
+            }
+        };
+
+        // BroadcastReceiver - Sort contacts by SortBy_ContactName
+        bcrSortContacts = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context arg0, Intent intent) {
+
+                String action = intent.getAction(); // Get action
+
+                // Check action
+                if (action.equals(BroadCastUtils.bcrAction_SortLists)) {
+                    // Sorting by SortBy_ContactName
+
+                    // Update selected sort type
+                    selectedSortType = (SortType) intent.getSerializableExtra("SORT_TYPE");
+
+                    // Check if ArrayList is empty
+                    if (!DataUtils.isEmptyArrayList(fetchedContacts)) {
+
+                        sortAndLoadContacts(fetchedContacts);
                     }
                 }
             }
@@ -317,6 +355,10 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
         imageSortList.setOnClickListener(v -> {
 
             expandMenuExpandableLayout(false); // Collapse ExpandableLayout
+
+            // Show sort contacts BottomSheet
+            ViewsUtils.showBottomSheetDialogFragment(getParentFragmentManager(),
+                    bottomSheetFragmentSortLists, true);
         });
 
         // Create ItemTouchHelper call back
@@ -384,17 +426,24 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
     public void onStart() {
         super.onStart();
 
-        // Register broadcast
+        // Register reload BroadcastReceiver
         BroadCastUtils.registerBroadCasts(requireActivity(), bcrReloadContacts,
                 BroadCastUtils.bcrActionReloadPeopleIOwe);
+
+        // Register sort BroadcastReceiver
+        BroadCastUtils.registerBroadCasts(requireActivity(), bcrSortContacts,
+                BroadCastUtils.bcrAction_SortLists);
     }
 
     @Override
     public void onStop() {
         super.onStop();
 
-        // Unregister BroadcastReceiver
+        // Unregister reload BroadcastReceiver
         BroadCastUtils.unRegisterBroadCast(requireActivity(), bcrReloadContacts);
+
+        // Unregister sort BroadcastReceiver
+        BroadCastUtils.unRegisterBroadCast(requireActivity(), bcrSortContacts);
     }
 
     /**
@@ -402,15 +451,16 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
      *
      * @param contacts - ArrayList with user contacts
      */
-    private void loadContacts(ArrayList<JB_Contacts> contacts) {
+    private void sortAndLoadContacts(ArrayList<JB_Contacts> contacts) {
 
         // Check if ArrayList is empty
         if (!DataUtils.isEmptyArrayList(contacts)) {
 
-            this.fetchedContacts = contacts; // Set ArrayList
+            // Sort ArrayList
+            this.fetchedContacts = sortLists.sortContactsList(contacts, selectedSortType);
 
             // Creating RecyclerView adapter object
-            rvlaContacts = new RVLA_Contacts(contacts,
+            rvlaContacts = new RVLA_Contacts(fetchedContacts,
                     FragmentPeople_I_Owe.this);
 
             // Check for adapter observers
@@ -432,6 +482,8 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
             showFabAddContact(true); // Show add contact FAB
 
             showSwipeRefreshLayout(true); // Show main layout
+
+            imageHideCheckBoxes.setVisibility(View.GONE); // Hide hide-checkboxes button
 
         } else {
 
@@ -653,7 +705,7 @@ public class FragmentPeople_I_Owe extends Fragment implements Interface_Contacts
         if (!DataUtils.isEmptyArrayList(contacts)) {
             // ArrayList not empty
 
-            loadContacts(contacts); // Load contacts to RecyclerView
+            sortAndLoadContacts(contacts); // Load contacts to RecyclerView
 
             // Pass contacts to MainActivity
             interfaceMainActivity.passUserContacts_PeopleIOwe(contacts);
