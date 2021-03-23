@@ -102,198 +102,196 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="5dp"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:gravity="start"
+                                android:orientation="vertical">
 
                                 <LinearLayout
-                                    android:id="@+id/llContact_ContactAvatar"
-                                    android:layout_width="@dimen/dimen_image_view_avatar_size_small"
-                                    android:layout_height="@dimen/dimen_image_view_avatar_size_small"
-                                    android:layout_marginStart="10dp"
-                                    android:background="@drawable/circle_border_primary_fill_primary"
-                                    android:gravity="center"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintDimensionRatio="H,1:1"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent">
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal"
+                                    tools:ignore="TooDeepLayout">
 
                                     <TextView
-                                        android:id="@+id/textContactDetailsAndDebtsActivity_ContactAvatarText"
+                                        style="@style/Style_Text_Labels"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:layout_margin="0dp"
-                                        android:hint="@string/hint_name_abbreviation"
-                                        android:textAllCaps="false"
-                                        android:textColor="@color/colorWhite"
-                                        android:textColorHint="@color/colorWhite"
-                                        android:textSize="@dimen/dimen_text_view_labels_size_normal"
-                                        android:textStyle="bold"
-                                        tools:ignore="TooDeepLayout" />
+                                        android:layout_marginStart="0dp"
+                                        android:ems="6"
+                                        android:minEms="6"
+                                        android:layout_marginBottom="0dp"
+                                        android:maxEms="6"
+                                        android:singleLine="false"
+                                        android:text="@string/hint_full_name_or_business_name"
+                                        android:textColor="@color/colorPrimaryGrey" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="8dp"
+                                        android:ellipsize="marquee"
+                                        android:singleLine="true"
+                                        android:text="@string/symbol_full_colon"
+                                        android:textColor="@color/colorPrimaryGrey"
+                                        android:textSize="13sp" />
+
+                                    <TextView
+                                        android:id="@+id/textContactDetailsAndDebtsActivity_ContactFullName"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="0dp"
+                                        android:hint="@string/hint_not_provided"
+                                        android:maxLines="2"
+                                        android:singleLine="false"
+                                        android:textAlignment="textStart"
+                                        android:textColor="@color/colorBlack"
+                                        android:textColorHint="@color/colorPrimaryGrey"
+                                        android:textSize="14sp" />
                                 </LinearLayout>
-
                                 <LinearLayout
-                                    android:layout_width="match_parent"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginStart="10dp"
-                                    android:layout_marginEnd="10dp"
-                                    android:layout_marginBottom="5dp"
-                                    android:gravity="start"
-                                    android:orientation="vertical">
+                                    android:gravity="center"
+                                    android:orientation="horizontal">
 
-                                    <LinearLayout
+                                    <TextView
+                                        style="@style/Style_Text_Labels"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="5dp"
-                                        android:gravity="center_vertical"
-                                        android:orientation="horizontal"
-                                        tools:ignore="TooDeepLayout">
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginStart="0dp"
+                                        android:layout_marginTop="0dp"
+                                        android:layout_marginBottom="0dp"
+                                        android:layout_marginEnd="0dp"
+                                        android:ems="6"
+                                        android:minEms="6"
+                                        android:maxEms="6"
+                                        android:singleLine="false"
+                                        android:text="@string/hint_phone_number"
+                                        android:textColor="@color/colorPrimaryGrey" />
 
-                                        <TextView
-                                            style="@style/Style_Text_Labels"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginStart="0dp"
-                                            android:ems="6"
-                                            android:singleLine="false"
-                                            android:text="@string/hint_full_name_or_business_name"
-                                            android:textColor="@color/colorPrimaryGrey" />
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginEnd="8dp"
-                                            android:ellipsize="marquee"
-                                            android:singleLine="true"
-                                            android:text="@string/symbol_full_colon"
-                                            android:textColor="@color/colorPrimaryGrey"
-                                            android:textSize="13sp" />
-
-                                        <TextView
-                                            android:id="@+id/textContactDetailsAndDebtsActivity_ContactFullName"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:hint="@string/hint_not_provided"
-                                            android:maxLines="2"
-                                            android:singleLine="false"
-                                            android:textAlignment="textStart"
-                                            android:textColor="@color/colorBlack"
-                                            android:textColorHint="@color/colorPrimaryGrey"
-                                            android:textSize="14sp" />
-                                    </LinearLayout>
-
-                                    <LinearLayout
+                                    <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:gravity="center"
-                                        android:orientation="horizontal">
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginTop="0dp"
+                                        android:layout_marginEnd="8dp"
+                                        android:ellipsize="marquee"
+                                        android:singleLine="true"
+                                        android:text="@string/symbol_full_colon"
+                                        android:textColor="@color/colorPrimaryGrey"
+                                        android:textSize="13sp" />
 
-                                        <TextView
-                                            style="@style/Style_Text_Labels"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginStart="0dp"
-                                            android:ems="6"
-                                            android:singleLine="false"
-                                            android:text="@string/hint_phone_number"
-                                            android:textColor="@color/colorPrimaryGrey" />
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginEnd="8dp"
-                                            android:ellipsize="marquee"
-                                            android:singleLine="true"
-                                            android:text="@string/symbol_full_colon"
-                                            android:textColor="@color/colorPrimaryGrey"
-                                            android:textSize="13sp" />
-
-                                        <TextView
-                                            android:id="@+id/textContactDetailsAndDebtsActivity_ContactPhoneNumber"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:hint="@string/hint_not_provided"
-                                            android:singleLine="true"
-                                            android:textColor="@color/colorBlack"
-                                            android:textColorHint="@color/colorPrimaryGrey"
-                                            android:textSize="14sp" />
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/llContactDetailsAndDebtsActivity_ContactEmailAddress"
+                                    <TextView
+                                        android:id="@+id/textContactDetailsAndDebtsActivity_ContactPhoneNumber"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:gravity="center"
-                                        android:orientation="horizontal">
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginTop="0dp"
+                                        android:hint="@string/hint_not_provided"
+                                        android:singleLine="true"
+                                        android:textColor="@color/colorBlack"
+                                        android:textColorHint="@color/colorPrimaryGrey"
+                                        android:textSize="14sp" />
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/llContactDetailsAndDebtsActivity_ContactEmailAddress"
+                                    android:gravity="center"
+                                    android:orientation="horizontal">
 
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:ems="6"
-                                            android:singleLine="true"
-                                            android:text="@string/hint_email_address"
-                                            android:textColor="@color/colorPrimaryGrey"
-                                            android:textSize="13sp" />
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginEnd="8dp"
-                                            android:ellipsize="marquee"
-                                            android:singleLine="true"
-                                            android:text="@string/symbol_full_colon"
-                                            android:textColor="@color/colorPrimaryGrey"
-                                            android:textSize="13sp" />
-
-                                        <TextView
-                                            android:id="@+id/textContactDetailsAndDebtsActivity_ContactEmailAddress"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:hint="@string/hint_not_provided"
-                                            android:singleLine="true"
-                                            android:textColor="@color/colorBlack"
-                                            android:textColorHint="@color/colorPrimaryGrey"
-                                            android:textSize="14sp" />
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/llContactDetailsAndDebtsActivity_ContactAddress"
+                                    <TextView
+                                        style="@style/Style_Text_Labels"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:gravity="center"
-                                        android:orientation="horizontal">
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginStart="0dp"
+                                        android:layout_marginTop="0dp"
+                                        android:layout_marginBottom="0dp"
+                                        android:layout_marginEnd="0dp"
+                                        android:ems="6"
+                                        android:minEms="6"
+                                        android:maxEms="6"
+                                        android:singleLine="false"
+                                        android:text="@string/hint_email_address"
+                                        android:textColor="@color/colorPrimaryGrey" />
 
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:ems="6"
-                                            android:singleLine="true"
-                                            android:text="@string/hint_address"
-                                            android:textColor="@color/colorPrimaryGrey"
-                                            android:textSize="13sp" />
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginTop="0dp"
+                                        android:layout_marginEnd="8dp"
+                                        android:ellipsize="marquee"
+                                        android:singleLine="true"
+                                        android:text="@string/symbol_full_colon"
+                                        android:textColor="@color/colorPrimaryGrey"
+                                        android:textSize="13sp" />
 
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginEnd="8dp"
-                                            android:ellipsize="marquee"
-                                            android:singleLine="true"
-                                            android:text="@string/symbol_full_colon"
-                                            android:textColor="@color/colorPrimaryGrey"
-                                            android:textSize="13sp" />
+                                    <TextView
+                                        android:id="@+id/textContactDetailsAndDebtsActivity_ContactEmailAddress"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginTop="0dp"
+                                        android:hint="@string/hint_not_provided"
+                                        android:singleLine="true"
+                                        android:textColor="@color/colorBlack"
+                                        android:textColorHint="@color/colorPrimaryGrey"
+                                        android:textSize="14sp" />
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/llContactDetailsAndDebtsActivity_ContactAddress"
+                                    android:gravity="center"
+                                    android:orientation="horizontal">
 
-                                        <TextView
-                                            android:id="@+id/textContactDetailsAndDebtsActivity_ContactAddress"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:hint="@string/hint_not_provided"
-                                            android:singleLine="false"
-                                            android:textColor="@color/colorBlack"
-                                            android:textColorHint="@color/colorPrimaryGrey"
-                                            android:textSize="14sp" />
-                                    </LinearLayout>
+                                    <TextView
+                                        style="@style/Style_Text_Labels"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginStart="0dp"
+                                        android:layout_marginTop="0dp"
+                                        android:layout_marginBottom="0dp"
+                                        android:layout_marginEnd="0dp"
+                                        android:ems="6"
+                                        android:minEms="6"
+                                        android:maxEms="6"
+                                        android:singleLine="false"
+                                        android:text="@string/hint_address"
+                                        android:textColor="@color/colorPrimaryGrey" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginTop="0dp"
+                                        android:layout_marginEnd="8dp"
+                                        android:ellipsize="marquee"
+                                        android:singleLine="true"
+                                        android:text="@string/symbol_full_colon"
+                                        android:textColor="@color/colorPrimaryGrey"
+                                        android:textSize="13sp" />
+
+                                    <TextView
+                                        android:id="@+id/textContactDetailsAndDebtsActivity_ContactAddress"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginTop="0dp"
+                                        android:hint="@string/hint_not_provided"
+                                        android:singleLine="true"
+                                        android:textColor="@color/colorBlack"
+                                        android:textColorHint="@color/colorPrimaryGrey"
+                                        android:textSize="14sp" />
                                 </LinearLayout>
                             </LinearLayout>
 
@@ -301,7 +299,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="10dp"
-                                android:gravity="center"
+                                android:gravity="center_vertical"
+                                android:layout_marginStart="15dp"
                                 android:orientation="horizontal">
 
                                 <LinearLayout
