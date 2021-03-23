@@ -64,12 +64,12 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
     private FetchContactsClass fetchContactsClass;
     private RVLA_Contacts rvlaContacts;
     private DeleteContactsDebts deleteContactsOrDebts;
-    private ImageView imageHideCheckBoxes, imageExpandMenu, imageCollapseMenu;
+    private ImageView imageHideCheckBoxes, imageExpandListOptionsMenu, imageCollapseListOptionsMenu;
     private FloatingActionButton fabAddContact, fabDeleteSelectedContacts;
     private DialogFragment_AddContact dialogFragmentAddContact;
     private TextView textTotalDebtsAmount;
     private String searchQuery = "";
-    private ExpandableLayout expandableMenu;
+    private ExpandableLayout expandableListOptions;
     private boolean showingCheckBoxes = false;
     private BottomSheetFragment_SortLists bottomSheetFragmentSortLists;
     private SortType selectedSortType = SortType.CONTACT_NAME_ASCENDING; // Default sort type
@@ -110,8 +110,8 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
 
         // ImageViews
         imageHideCheckBoxes = view.findViewById(R.id.imagePeopleOwingMe_HideCheckBoxes);
-        imageExpandMenu = view.findViewById(R.id.imagePeopleOwingMe_ShowMenu);
-        imageCollapseMenu = view.findViewById(R.id.imagePeopleOwingMe_CollapseOptionsMenu);
+        imageExpandListOptionsMenu = view.findViewById(R.id.imagePeopleOwingMe_ShowMenu);
+        imageCollapseListOptionsMenu = view.findViewById(R.id.imagePeopleOwingMe_CollapseOptionsMenu);
         ImageView imageDeleteContacts = view.findViewById(R.id.imagePeopleOwingMe_DeleteContacts);
         ImageView imageSortList = view.findViewById(R.id.imagePeopleOwingMe_SortList);
 
@@ -120,7 +120,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
         fabDeleteSelectedContacts = view.findViewById(R.id.fabPeopleOwingMe_DeleteContacts);
 
         // ExpandableLayout
-        expandableMenu = view.findViewById(R.id.expandablePeopleOwingMe_Menu);
+        expandableListOptions = view.findViewById(R.id.expandablePeopleOwingMe_Menu);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext,
                 RecyclerView.VERTICAL, false);
@@ -145,7 +145,6 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
 
         bottomSheetFragmentSortLists = new BottomSheetFragment_SortLists(mContext,
                 ListType.LIST_CONTACTS, selectedSortType);
-
         bottomSheetFragmentSortLists.setRetainInstance(true);
 
         // Initialize interface
@@ -254,6 +253,50 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
         // Initialize Class
         deleteContactsOrDebts = new DeleteContactsDebts(FragmentPeopleOwingMe.this);
 
+        // Create ItemTouchHelper call back
+        ItemTouchHelper.SimpleCallback touchHelperCallback = new ItemTouchHelper.SimpleCallback(
+                0, ItemTouchHelper.LEFT) {
+
+            @Override
+            public boolean onMove(@NotNull RecyclerView recyclerView,
+                                  RecyclerView.@NotNull ViewHolder viewHolder,
+                                  RecyclerView.@NotNull ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.@NotNull ViewHolder viewHolder, int direction) {
+                switch (direction) {
+                    case ItemTouchHelper.LEFT:
+
+                        rvlaContacts.setExpandedContactOptionsMenu(true,
+                                viewHolder.getAdapterPosition());
+                        break;
+
+                    case ItemTouchHelper.RIGHT:
+
+                        rvlaContacts.setExpandedContactOptionsMenu(false,
+                                viewHolder.getAdapterPosition());
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void onChildDraw(@NotNull Canvas c, @NotNull RecyclerView recyclerView,
+                                    RecyclerView.@NotNull ViewHolder viewHolder, float dX,
+                                    float dY, int actionState, boolean isCurrentlyActive) {
+            }
+        };
+
+        // Initialize ItemTouchHelper
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(touchHelperCallback);
+
+        // Attach ItemTouchHelper to RecyclerView
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+
         // Add contact onClick
         llAddContact.setOnClickListener(v -> {
 
@@ -314,7 +357,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
         });
 
         // Show menu onClick
-        imageExpandMenu.setOnClickListener(v -> {
+        imageExpandListOptionsMenu.setOnClickListener(v -> {
 
             showMenuButton(false); // Hide show-menu button
 
@@ -322,8 +365,8 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
 
         });
 
-        // Show menu onClick
-        imageCollapseMenu.setOnClickListener(v -> {
+        // Collapse menu onClick
+        imageCollapseListOptionsMenu.setOnClickListener(v -> {
 
             showMenuButton(true); // Show show-menu button
 
@@ -336,7 +379,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
             expandMenuExpandableLayout(false); // Collapse ExpandableLayout
 
             // Check if ExpandableLayout is expanded
-            if (!expandableMenu.isExpanded()) {
+            if (!expandableListOptions.isExpanded()) {
 
                 // Check if CheckBoxes are not showing
                 if (!rvlaContacts.showingCheckBoxes()) {
@@ -362,51 +405,6 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
             ViewsUtils.showBottomSheetDialogFragment(getParentFragmentManager(),
                     bottomSheetFragmentSortLists, true);
         });
-
-        // Create ItemTouchHelper call back
-        ItemTouchHelper.SimpleCallback touchHelperCallback = new ItemTouchHelper.SimpleCallback(
-                0, ItemTouchHelper.LEFT) {
-
-            @Override
-            public boolean onMove(@NotNull RecyclerView recyclerView,
-                                  RecyclerView.@NotNull ViewHolder viewHolder,
-                                  RecyclerView.@NotNull ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(RecyclerView.@NotNull ViewHolder viewHolder, int direction) {
-                switch (direction) {
-                    case ItemTouchHelper.LEFT:
-
-                        rvlaContacts.setExpandedContactOptionsMenu(true,
-                                viewHolder.getAdapterPosition());
-                        break;
-
-                    case ItemTouchHelper.RIGHT:
-
-                        rvlaContacts.setExpandedContactOptionsMenu(false,
-                                viewHolder.getAdapterPosition());
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-
-            @Override
-            public void onChildDraw(@NotNull Canvas c, @NotNull RecyclerView recyclerView,
-                                    RecyclerView.@NotNull ViewHolder viewHolder, float dX,
-                                    float dY, int actionState, boolean isCurrentlyActive) {
-            }
-        };
-
-        // Initialize ItemTouchHelper
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(touchHelperCallback);
-
-        // Attach ItemTouchHelper to RecyclerView
-        itemTouchHelper.attachToRecyclerView(recyclerView);
-
 
         // Fetch contacts
         ViewsUtils.showSwipeRefreshLayout(true, true, swipeRefreshLayout,
@@ -489,7 +487,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
 
         } else {
 
-            imageExpandMenu.setVisibility(View.GONE); // Hide show-menu button
+            imageExpandListOptionsMenu.setVisibility(View.GONE); // Hide show-menu button
 
             // Hide add contact FAB for user to use add debt layout button
             showFabAddContact(false);
@@ -605,7 +603,7 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
     private void expandMenuExpandableLayout(boolean expand) {
 
         // Expand / collapse ExpandableLayout
-        ViewsUtils.expandExpandableLayout(expand, expandableMenu);
+        ViewsUtils.expandExpandableLayout(expand, expandableListOptions);
 
         // Check if expanding
         if (!expand) {
@@ -623,8 +621,8 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
 
         if (show) {
 
-            imageExpandMenu.setVisibility(View.VISIBLE); // Show delete button
-            imageCollapseMenu.setVisibility(View.GONE); // Hide show-menu button
+            imageExpandListOptionsMenu.setVisibility(View.VISIBLE); // Show delete button
+            imageCollapseListOptionsMenu.setVisibility(View.GONE); // Hide show-menu button
 
             // Check if CheckBoxes are showing
             if (!showingCheckBoxes) {
@@ -633,14 +631,14 @@ public class FragmentPeopleOwingMe extends Fragment implements Interface_Contact
             }
         } else {
 
-            imageExpandMenu.setVisibility(View.GONE); // HIde delete button
-            imageCollapseMenu.setVisibility(View.VISIBLE); // Show collapse-menu button
+            imageExpandListOptionsMenu.setVisibility(View.GONE); // HIde delete button
+            imageCollapseListOptionsMenu.setVisibility(View.VISIBLE); // Show collapse-menu button
 
             // Check if CheckBoxes are showing
             if (showingCheckBoxes) {
 
                 imageHideCheckBoxes.setVisibility(View.VISIBLE); // Show (Hide delete) button
-                imageCollapseMenu.setVisibility(View.GONE); // Hide collapse button
+                imageCollapseListOptionsMenu.setVisibility(View.GONE); // Hide collapse button
             }
         }
     }
