@@ -66,8 +66,4 @@ public class DateTimeUtils {
 
         return elapsedDays; // Return date and time difference in days
     }
-
-    // System.out.printf(
-    //      "%d days, %d hours, %d minutes, %d seconds%n",
-    //      elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds);
 }
