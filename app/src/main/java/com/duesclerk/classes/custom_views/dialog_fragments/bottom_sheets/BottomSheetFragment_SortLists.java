@@ -88,13 +88,10 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
                 R.id.imageSortLists_SortByName_Ascending);
         imageSortByNameDescending = contentView.findViewById(
                 R.id.imageSortLists_SortByName_Descending);
-
         imageSortByDebtAmountAscending = contentView.findViewById(
                 R.id.imageSortLists_SortByDebtAmount_Ascending);
-
         imageSortByDebtAmountDescending = contentView.findViewById(
                 R.id.imageSortLists_SortByDebtAmount_Descending);
-
         imageSortByNoOfDebtsAscending = contentView.findViewById(
                 R.id.imageSortLists_SortByNoOfDebts_Ascending);
         imageSortByNoOfDebtsDescending = contentView.findViewById(
@@ -285,7 +282,7 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
 
     /**
      * Function to show current list sorting on the BottomSheet
-     * 
+     *
      * @param sortType - Sort type
      */
     private void showCurrentLisSorting(@NonNull SortType sortType) {
