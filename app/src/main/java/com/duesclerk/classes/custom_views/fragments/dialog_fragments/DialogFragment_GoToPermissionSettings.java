@@ -1,4 +1,4 @@
-package com.duesclerk.classes.custom_views.fragments.dialogs;
+package com.duesclerk.classes.custom_views.fragments.dialog_fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
