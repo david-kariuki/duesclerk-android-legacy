@@ -3,7 +3,10 @@ package com.duesclerk.classes.sort;
 import com.duesclerk.classes.java_beans.JB_Contacts;
 import com.duesclerk.classes.java_beans.JB_Debts;
 
+import java.text.DateFormat;
 import java.util.Comparator;
+import java.util.Date;
+import java.util.Locale;
 
 public class SortComparator {
 
@@ -176,6 +179,160 @@ public class SortComparator {
             }
         }
 
+        /**
+         * Class to sort list by DebtDateIssued
+         */
+        public static class SortBy_DebtDateIssued {
 
+            /**
+             * Class to sort list by DebtDateIssued in ascending order
+             */
+            public static class Ascending implements Comparator<JB_Debts> {
+
+                @Override
+                public int compare(JB_Debts jbDebts1, JB_Debts jbDebts2) {
+
+                    // Create DateFormat
+                    DateFormat dateFormat = DateFormat.getDateInstance(
+                            DateFormat.FULL, Locale.ENGLISH);
+
+                    // Catch Parse errors
+                    try {
+
+                        // Parse dates
+                        Date debtDateIssued1 = dateFormat.parse(jbDebts1.getDebtDateIssued());
+                        Date debtDateIssued2 = dateFormat.parse(jbDebts2.getDebtDateIssued());
+
+                        // Check if dates are null
+                        if ((debtDateIssued1 != null) && (debtDateIssued2 != null)) {
+
+                            // Ascending
+                            return (debtDateIssued1.getTime() > debtDateIssued2.getTime() ? 1 : -1);
+
+                        } else {
+
+                            return 0; // Return 0 to leave it at current index
+                        }
+                    } catch (Exception ignored) {
+                    }
+
+                    return 0;
+                }
+            }
+
+            /**
+             * Class to sort list by DebtAmount in descending order
+             */
+            public static class Descending implements Comparator<JB_Debts> {
+
+                @Override
+                public int compare(JB_Debts jbDebts1, JB_Debts jbDebts2) {
+
+                    // Create DateFormat
+                    DateFormat dateFormat = DateFormat.getDateInstance(
+                            DateFormat.FULL, Locale.ENGLISH);
+
+                    // Catch Parse and NullPointerExceptions
+                    try {
+
+                        // Parse dates
+                        Date debtDateIssued1 = dateFormat.parse(jbDebts1.getDebtDateIssued());
+                        Date debtDateIssued2 = dateFormat.parse(jbDebts2.getDebtDateIssued());
+
+                        // Check if dates are null
+                        if ((debtDateIssued1 != null) && (debtDateIssued2 != null)) {
+
+                            // Descending
+                            return (debtDateIssued1.getTime() > debtDateIssued2.getTime() ? -1 : 1);
+
+                        } else {
+
+                            return 0; // Return 0 to leave it at current index
+                        }
+                    } catch (Exception ignored) {
+                    }
+
+                    return 0;
+                }
+            }
+        }
+
+        /**
+         * Class to sort list by DebtDateDue
+         */
+        public static class SortBy_DebtDateDue {
+
+            /**
+             * Class to sort list by DebtDateDue in ascending order
+             */
+            public static class Ascending implements Comparator<JB_Debts> {
+
+                @Override
+                public int compare(JB_Debts jbDebts1, JB_Debts jbDebts2) {
+
+                    // Create DateFormat
+                    DateFormat dateFormat = DateFormat.getDateInstance(
+                            DateFormat.FULL, Locale.ENGLISH);
+
+                    // Catch Parse errors
+                    try {
+
+                        // Parse dates
+                        Date debtDateDue1 = dateFormat.parse(jbDebts1.getDebtDateDue());
+                        Date debtDateDue2 = dateFormat.parse(jbDebts2.getDebtDateDue());
+
+                        // Check if dates are null
+                        if ((debtDateDue1 != null) && (debtDateDue2 != null)) {
+
+                            // Ascending
+                            return (debtDateDue1.getTime() > debtDateDue2.getTime() ? 1 : -1);
+
+                        } else {
+
+                            return 0; // Return 0 to leave it at current index
+                        }
+                    } catch (Exception ignored) {
+                    }
+
+                    return 0;
+                }
+            }
+
+            /**
+             * Class to sort list by DebtDateDue in descending order
+             */
+            public static class Descending implements Comparator<JB_Debts> {
+
+                @Override
+                public int compare(JB_Debts jbDebts1, JB_Debts jbDebts2) {
+
+                    // Create DateFormat
+                    DateFormat dateFormat = DateFormat.getDateInstance(
+                            DateFormat.FULL, Locale.ENGLISH);
+
+                    // Catch Parse and NullPointerExceptions
+                    try {
+
+                        // Parse dates
+                        Date debtDateDue1 = dateFormat.parse(jbDebts1.getDebtDateDue());
+                        Date debtDateDue2 = dateFormat.parse(jbDebts2.getDebtDateDue());
+
+                        // Check if dates are null
+                        if ((debtDateDue1 != null) && (debtDateDue2 != null)) {
+
+                            // Descending
+                            return (debtDateDue1.getTime() > debtDateDue2.getTime() ? -1 : 1);
+
+                        } else {
+
+                            return 0; // Return 0 to leave it at current index
+                        }
+                    } catch (Exception ignored) {
+                    }
+
+                    return 0;
+                }
+            }
+        }
     }
 }
