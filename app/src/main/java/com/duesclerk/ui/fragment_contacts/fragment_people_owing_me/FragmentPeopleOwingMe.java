@@ -26,7 +26,7 @@ import com.duesclerk.classes.contacts.FetchContactsClass;
 import com.duesclerk.classes.custom_utilities.application.BroadCastUtils;
 import com.duesclerk.classes.custom_utilities.application.ViewsUtils;
 import com.duesclerk.classes.custom_utilities.user_data.DataUtils;
-import com.duesclerk.classes.custom_views.dialog_fragments.bottom_sheets.BottomSheetFragment_SortLists;
+import com.duesclerk.classes.custom_views.dialog_fragments.bottom_sheet_dialog_fragments.BottomSheetFragment_SortLists;
 import com.duesclerk.classes.custom_views.dialog_fragments.dialogs.DialogFragment_AddContact;
 import com.duesclerk.classes.custom_views.recycler_view_adapters.RVLA_Contacts;
 import com.duesclerk.classes.custom_views.swipe_refresh.MultiSwipeRefreshLayout;

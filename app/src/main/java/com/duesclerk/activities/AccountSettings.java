@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.duesclerk.R;
 import com.duesclerk.classes.custom_utilities.application.BroadCastUtils;
 import com.duesclerk.classes.custom_utilities.application.ViewsUtils;
-import com.duesclerk.classes.custom_views.dialog_fragments.bottom_sheets.BottomSheetFragment_ChangePassword;
+import com.duesclerk.classes.custom_views.dialog_fragments.bottom_sheet_dialog_fragments.BottomSheetFragment_ChangePassword;
 import com.duesclerk.classes.storage_adapters.UserDatabase;
 
 public class AccountSettings extends AppCompatActivity {

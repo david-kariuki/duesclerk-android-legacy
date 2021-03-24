@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.duesclerk.R;
-import com.duesclerk.classes.custom_views.dialog_fragments.bottom_sheets.BottomSheetFragment_CountryPicker;
+import com.duesclerk.classes.custom_views.dialog_fragments.bottom_sheet_dialog_fragments.BottomSheetFragment_CountryPicker;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -1,20 +1,23 @@
-package com.duesclerk.classes.custom_views.dialog_fragments.bottom_sheets;
+package com.duesclerk.classes.custom_views.dialog_fragments.bottom_sheet_dialog_fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.Window;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import com.duesclerk.R;
+import com.duesclerk.activities.SignInSignupActivity;
+import com.duesclerk.classes.custom_utilities.user_data.DataUtils;
+import com.duesclerk.classes.storage_adapters.SessionManager;
+import com.duesclerk.classes.storage_adapters.UserDatabase;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -23,12 +26,18 @@ import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("rawtypes")
 @SuppressLint("ValidFragment")
-public class BottomSheetFragment_AboutApp extends BottomSheetDialogFragment {
+public class BottomSheetFragment_Logout extends BottomSheetDialogFragment {
 
+    private final Context mContext;
+    private final UserDatabase database;
+    private final SessionManager sessionManager;
     private BottomSheetBehavior bottomSheetBehavior;
     private BottomSheetBehavior.BottomSheetCallback bottomSheetCallback;
 
-    public BottomSheetFragment_AboutApp() {
+    public BottomSheetFragment_Logout(Context mContext) {
+        this.mContext = mContext; // Get context
+        this.sessionManager = new SessionManager(mContext); // Initialize SessionManager object
+        this.database = new UserDatabase(mContext); // Initialize database
     }
 
     @NonNull
@@ -37,19 +46,39 @@ public class BottomSheetFragment_AboutApp extends BottomSheetDialogFragment {
         final BottomSheetDialog dialog = (BottomSheetDialog)
                 super.onCreateDialog(savedInstanceState);
 
-        View contentView = View.inflate(getContext(), R.layout.bottom_sheet_about_app, null);
+        View contentView = View.inflate(getContext(), R.layout.bottom_sheet_logout, null);
+        TextView tvCancel = contentView.findViewById(R.id.textBSLogout_Cancel);
+        TextView tvLogout = contentView.findViewById(R.id.textBSLogout_Logout);
+        TextView tvLogoutMessage = contentView.findViewById(R.id.textBSLogout_Message);
 
-        // ImageViews
-        ImageView imageDismiss = contentView.findViewById(R.id.imageAboutApp_Dismiss);
+        // Check for user information
+        if (!DataUtils.isEmptyArrayList(database.getUserAccountInfo(null))) {
+            // Set logout message
+            tvLogoutMessage.setText(DataUtils.getStringResource(mContext,
+                    R.string.msg_logout,
+                    database.getUserAccountInfo(null).get(0).getEmailAddress()));
+        }
 
-        // TextViews
-        TextView textAboutMessage = contentView.findViewById(R.id.textAppAbout_AboutMessage);
+        // Dismiss dialog
+        tvCancel.setOnClickListener(v -> dialog.dismiss());
 
-        // Set scrolling movement method
-        textAboutMessage.setMovementMethod(new ScrollingMovementMethod());
+        tvLogout.setOnClickListener(v -> {
 
-        // Dismiss onClick
-        imageDismiss.setOnClickListener(v -> dismiss());
+            sessionManager.setSignedIn(false); // Falsify session
+
+            // Launch SignInSignUp activity
+            startActivity(new Intent(getActivity(), SignInSignupActivity.class));
+
+            // Delete user details from SQLite database
+            database.deleteUserAccountInfoByUserId(
+                    database.getUserAccountInfo(null).get(0)
+                            .getUserId());
+
+            // Close activity
+            requireActivity().finish();
+
+            dialog.dismiss(); // Dismiss dialog
+        });
 
         // Set BottomSheet callback
         this.bottomSheetCallback = new BottomSheetBehavior.BottomSheetCallback() {
@@ -65,7 +94,6 @@ public class BottomSheetFragment_AboutApp extends BottomSheetDialogFragment {
         };
 
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE); // Remove window title
-
         // Set transparent background
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
@@ -89,7 +117,6 @@ public class BottomSheetFragment_AboutApp extends BottomSheetDialogFragment {
     @Override
     public void onStart() {
         super.onStart();
-
         this.bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         this.bottomSheetBehavior.addBottomSheetCallback(bottomSheetCallback);
     }

@@ -36,7 +36,7 @@ import com.duesclerk.classes.custom_utilities.user_data.ContactUtils;
 import com.duesclerk.classes.custom_utilities.user_data.DataUtils;
 import com.duesclerk.classes.custom_utilities.user_data.DebtUtils;
 import com.duesclerk.classes.custom_utilities.user_data.UserAccountUtils;
-import com.duesclerk.classes.custom_views.dialog_fragments.bottom_sheets.BottomSheetFragment_SortLists;
+import com.duesclerk.classes.custom_views.dialog_fragments.bottom_sheet_dialog_fragments.BottomSheetFragment_SortLists;
 import com.duesclerk.classes.custom_views.dialog_fragments.dialogs.DialogFragment_AddDebt;
 import com.duesclerk.classes.custom_views.dialog_fragments.dialogs.DialogFragment_UpdateContact;
 import com.duesclerk.classes.custom_views.dialog_fragments.dialogs.DialogFragment_UpdateDebt;
