@@ -1234,7 +1234,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
             }
 
             showRecyclerView(true); // Show RecyclerView
-
+            showMenuButton(true); // Show menu button
         } else {
 
             showNoDebtsLayout(true); // Show no debts view
