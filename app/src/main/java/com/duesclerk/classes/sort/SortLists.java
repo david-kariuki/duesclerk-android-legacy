@@ -78,8 +78,6 @@ public class SortLists {
                                                      debtsArrayList,
                                              @NonNull SortType sortType) {
 
-        // Debts ArrayList
-
         // Check sort type
         if (sortType == SortType.DEBT_AMOUNT_ASCENDING) {
 
@@ -95,15 +93,29 @@ public class SortLists {
 
         } else if (sortType == SortType.DEBT_DATE_ISSUED_ASCENDING) {
 
+            // Sort ArrayList
+            Collections.sort(debtsArrayList,
+                    new SortComparator.Debts.SortBy_DebtDateIssued.Ascending());
+
         } else if (sortType == SortType.DEBT_DATE_ISSUED_DESCENDING) {
+
+            // Sort ArrayList
+            Collections.sort(debtsArrayList,
+                    new SortComparator.Debts.SortBy_DebtDateIssued.Descending());
 
         } else if (sortType == SortType.DEBT_DATE_DUE_ASCENDING) {
 
+            // Sort ArrayList
+            Collections.sort(debtsArrayList,
+                    new SortComparator.Debts.SortBy_DebtDateDue.Ascending());
+
         } else if (sortType == SortType.DEBT_DATE_DUE_DESCENDING) {
 
+            // Sort ArrayList
+            Collections.sort(debtsArrayList,
+                    new SortComparator.Debts.SortBy_DebtDateDue.Descending());
         }
 
         return debtsArrayList; // Return sorted ArrayList
-
     }
 }
