@@ -8,8 +8,8 @@ import android.os.Build;
 import androidx.core.app.ActivityCompat;
 
 import com.duesclerk.R;
-import com.duesclerk.classes.custom_views.dialog_fragments.dialogs.DialogFragment_AddContact;
-import com.duesclerk.classes.custom_views.dialog_fragments.dialogs.DialogFragment_GoToPermissionSettings;
+import com.duesclerk.classes.custom_views.fragments.dialogs.DialogFragment_AddContact;
+import com.duesclerk.classes.custom_views.fragments.dialogs.DialogFragment_GoToPermissionSettings;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;

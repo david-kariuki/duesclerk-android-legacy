@@ -1,4 +1,4 @@
-package com.duesclerk.classes.custom_views.dialog_fragments.dialogs;
+package com.duesclerk.classes.custom_views.fragments.dialogs;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;

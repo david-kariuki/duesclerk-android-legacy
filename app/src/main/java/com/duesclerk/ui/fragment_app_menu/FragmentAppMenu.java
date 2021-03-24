@@ -17,8 +17,8 @@ import com.duesclerk.R;
 import com.duesclerk.activities.AccountSettings;
 import com.duesclerk.activities.UserProfileActivity;
 import com.duesclerk.classes.custom_utilities.application.ViewsUtils;
-import com.duesclerk.classes.custom_views.dialog_fragments.bottom_sheet_dialog_fragments.BottomSheetFragment_AboutApp;
-import com.duesclerk.classes.custom_views.dialog_fragments.bottom_sheet_dialog_fragments.BottomSheetFragment_Logout;
+import com.duesclerk.classes.custom_views.fragments.bottom_sheet_dialog_fragments.BottomSheetFragment_AboutApp;
+import com.duesclerk.classes.custom_views.fragments.bottom_sheet_dialog_fragments.BottomSheetFragment_Logout;
 
 public class FragmentAppMenu extends Fragment {
 

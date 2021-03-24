@@ -1,4 +1,4 @@
-package com.duesclerk.classes.custom_views.dialog_fragments.dialogs;
+package com.duesclerk.classes.custom_views.fragments.dialogs;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
@@ -40,10 +39,12 @@ import com.duesclerk.classes.custom_utilities.user_data.DataUtils;
 import com.duesclerk.classes.custom_utilities.user_data.DateTimeUtils;
 import com.duesclerk.classes.custom_utilities.user_data.DebtUtils;
 import com.duesclerk.classes.custom_utilities.user_data.InputFiltersUtils;
+import com.duesclerk.classes.custom_utilities.user_data.UserAccountUtils;
 import com.duesclerk.classes.custom_views.toast.CustomToast;
 import com.duesclerk.classes.network.InternetConnectivity;
 import com.duesclerk.classes.network.NetworkTags;
 import com.duesclerk.classes.network.NetworkUrls;
+import com.duesclerk.classes.storage_adapters.UserDatabase;
 import com.duesclerk.interfaces.Interface_DatePicker;
 
 import org.jetbrains.annotations.NotNull;
@@ -55,7 +56,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DialogFragment_UpdateDebt extends DialogFragment implements Interface_DatePicker,
+public class DialogFragment_AddDebt extends DialogFragment implements Interface_DatePicker,
         TextWatcher {
 
     // Get class simple name
@@ -63,15 +64,12 @@ public class DialogFragment_UpdateDebt extends DialogFragment implements Interfa
 
     private final LayoutInflater inflater;
     private final Context mContext;
-    private final String contactId, debtId, debtAmount, debtDateIssued, debtDateDue,
-            debtDescription;
-    private String newDebtAmount = "", newDebtDateIssued = "", newDebtDateDue = "",
-            newDebtDescription = "";
+    private final String contactFullName, contactId;
     private EditText editDebtAmount, editDebtDescription;
     private EditText editDebtDateIssuedFull, editDebtDateDueFull;
     private String shortDateDebtIssued, shortDateDebtDue;
     private ProgressDialog progressDialog;
-    private LinearLayout llUpdateDebtEnabled, llUpdateDebtDisabled;
+    private LinearLayout llAddDebtEnabled, llAddDebtDisabled;
     private ImageView imageDeleteSelectedDebtDateIssued, imageDeleteSelectedDebtDateDue;
 
     /**
@@ -79,32 +77,16 @@ public class DialogFragment_UpdateDebt extends DialogFragment implements Interfa
      *
      * @param context         - Context
      * @param contactId       - ContactId
-     * @param debtAmount      - DebtAmount
-     * @param debtDateIssued  - DebtDateIssued
-     * @param debtDateDue     - DebtDateDue
-     * @param debtDescription - DebtDescription
+     * @param contactFullName - ContactFullName
      */
-    public DialogFragment_UpdateDebt(@NonNull final Context context,
-                                     @NonNull final String contactId,
-                                     @NonNull final String debtId,
-                                     @NonNull final String debtAmount,
-                                     final String debtDateIssued,
-                                     final String debtDateDue,
-                                     final String debtDescription) {
+    public DialogFragment_AddDebt(final Context context, final String contactId,
+                                  final String contactFullName) {
 
-        this.mContext = context; // Set context
-
-        // Set LayoutInflater
+        this.mContext = context;
         this.inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        // Set strings
         this.contactId = contactId;
-        this.debtId = debtId;
-        this.debtAmount = debtAmount;
-        this.debtDateIssued = debtDateIssued;
-        this.debtDateDue = debtDateDue;
-        this.debtDescription = debtDescription;
+        this.contactFullName = contactFullName;
     }
 
     @Override
@@ -114,27 +96,35 @@ public class DialogFragment_UpdateDebt extends DialogFragment implements Interfa
 
         @SuppressLint("InflateParams")
         View dialogView = inflater.inflate(
-                R.layout.dialog_update_debt, null, false);
+                R.layout.dialog_add_debt, null, false);
 
         // EditTexts
-        this.editDebtAmount = dialogView.findViewById(R.id.editUpdateDebt_DebtAmount);
-        this.editDebtDateIssuedFull = dialogView.findViewById(R.id.editUpdateDebt_DateIssued);
-        this.editDebtDateDueFull = dialogView.findViewById(R.id.editUpdateDebt_DateDue);
-        this.editDebtDescription = dialogView.findViewById(R.id.editUpdateDebt_DebtDescription);
+        this.editDebtAmount = dialogView.findViewById(R.id.editAddDebt_DebtAmount);
+        this.editDebtDateIssuedFull = dialogView.findViewById(R.id.editAddDebt_DateIssued);
+        this.editDebtDateDueFull = dialogView.findViewById(R.id.editAddDebt_DateDue);
+        this.editDebtDescription = dialogView.findViewById(R.id.editAddDebt_DebtDescription);
 
         // LinearLayouts
-        LinearLayout llCancel = dialogView.findViewById(R.id.llUpdateDebt_Cancel);
-        this.llUpdateDebtEnabled = dialogView.findViewById(R.id.llUpdateDebt_Enabled_Update);
-        this.llUpdateDebtDisabled = dialogView.findViewById(R.id.llUpdateDebt_Disabled_Update);
-
-        // ImageViews
-        imageDeleteSelectedDebtDateIssued = dialogView.findViewById(
-                R.id.imageUpdateDebt_DateIssued_Delete);
-        imageDeleteSelectedDebtDateDue = dialogView.findViewById(
-                R.id.imageUpdateDebt_DateDue_Delete);
+        LinearLayout llCancel = dialogView.findViewById(R.id.llAddDebt_Cancel);
+        this.llAddDebtEnabled = dialogView.findViewById(R.id.llAddDebt_Enabled_Add);
+        this.llAddDebtDisabled = dialogView.findViewById(R.id.llAddDebt_Disabled_Add);
 
         // Initialize ProgressDialog
         this.progressDialog = ViewsUtils.initProgressDialog(requireActivity(), false);
+
+        // ImageViews
+        imageDeleteSelectedDebtDateIssued = dialogView.findViewById(
+                R.id.imageAddDebt_DateIssued_Delete);
+        imageDeleteSelectedDebtDateDue = dialogView.findViewById(
+                R.id.imageAddDebt_DateDue_Delete);
+
+        // Add TextWatcher
+        this.editDebtAmount.addTextChangedListener(this);
+        this.editDebtDateIssuedFull.addTextChangedListener(this);
+        this.editDebtDateDueFull.addTextChangedListener(this);
+        this.editDebtDescription.addTextChangedListener(this);
+
+        UserDatabase database = new UserDatabase(mContext); // Initialize user database object
 
         DialogFragment_DatePicker datePickerDateIssued = new DialogFragment_DatePicker(
                 this, true);
@@ -146,17 +136,8 @@ public class DialogFragment_UpdateDebt extends DialogFragment implements Interfa
         datePickerDateDue.setRetainInstance(true);
         datePickerDateDue.setCancelable(false);
 
-        // Set field values
-        this.editDebtAmount.setText(debtAmount);
-        this.editDebtDateIssuedFull.setText(debtDateIssued);
-        this.editDebtDateDueFull.setText(debtDateDue);
-        this.editDebtDescription.setText(debtDescription);
-
-        // Add TextWatcher
-        this.editDebtAmount.addTextChangedListener(this);
-        this.editDebtDateIssuedFull.addTextChangedListener(this);
-        this.editDebtDateDueFull.addTextChangedListener(this);
-        this.editDebtDescription.addTextChangedListener(this);
+        // Cancel onClick
+        llCancel.setOnClickListener(v -> dismiss()); // Dismiss dialog
 
         // Delete date onClick
         imageDeleteSelectedDebtDateIssued.setOnClickListener(v -> {
@@ -172,21 +153,24 @@ public class DialogFragment_UpdateDebt extends DialogFragment implements Interfa
 
         showDeleteDatesButton(); // Show / hide delete dates button
 
-        // Cancel onClick
-        llCancel.setOnClickListener(v -> dismiss()); // Dismiss dialog
-
         // Add person onClick
-        this.llUpdateDebtEnabled.setOnClickListener(v -> {
+        llAddDebtEnabled.setOnClickListener(v -> {
 
-            // Check field inputs
+            // Check fields
             if (checkFieldInputs()) {
                 // Fields ok
 
-                // Update contact
-                this.updateContactsDebt(
-                        this.contactId, this.debtId, this.newDebtAmount, this.newDebtDateIssued,
-                        this.newDebtDateDue, this.newDebtDescription
+                String userId = database.getUserAccountInfo(null).get(0).getUserId();
+
+                // Add debt
+                this.addContactsDebt(
+                        userId, contactId, contactFullName,
+                        editDebtAmount.getText().toString(),
+                        editDebtDateIssuedFull.getText().toString(),
+                        editDebtDateDueFull.getText().toString(),
+                        editDebtDescription.getText().toString()
                 );
+
             }
         });
 
@@ -225,7 +209,6 @@ public class DialogFragment_UpdateDebt extends DialogFragment implements Interfa
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // Check if bundle is null
         if (savedInstanceState != null) {
 
             // Get dialog inputs from savedInstanceState
@@ -302,6 +285,7 @@ public class DialogFragment_UpdateDebt extends DialogFragment implements Interfa
         }
     }
 
+
     /**
      * Function to check field lengths and values and notify by toast on error
      */
@@ -323,42 +307,6 @@ public class DialogFragment_UpdateDebt extends DialogFragment implements Interfa
     }
 
     /**
-     * Function to check if field values changed
-     */
-    private boolean getCheckFieldValueChanges() {
-
-        // Get new inputs if any
-        newDebtAmount = editDebtAmount.getText().toString();
-        newDebtDateIssued = editDebtDateIssuedFull.getText().toString();
-        newDebtDateDue = editDebtDateDueFull.getText().toString();
-        newDebtDescription = editDebtDescription.getText().toString();
-
-        // Return boolean if values changed
-        return (!newDebtAmount.equals(debtAmount)
-                || !newDebtDateIssued.equals(debtDateIssued)
-                || !newDebtDateDue.equals(debtDateDue)
-                || !newDebtDescription.equals(debtDescription));
-    }
-
-    /**
-     * Function to show / hide enabled update button
-     */
-    private void switchUpdateButton() {
-
-        // Check if field values changed
-        if (getCheckFieldValueChanges()) {
-
-            llUpdateDebtDisabled.setVisibility(View.GONE); // Hide update-disabled button
-            llUpdateDebtEnabled.setVisibility(View.VISIBLE); // Show update-enabled button
-
-        } else {
-
-            llUpdateDebtEnabled.setVisibility(View.GONE); // Hide update-enabled button
-            llUpdateDebtDisabled.setVisibility(View.VISIBLE); // Show update-disabled button
-        }
-    }
-
-    /**
      * Function to check if date difference if greater or equal to zero
      * This prevents a negative time difference or backdating date due past date issued
      */
@@ -367,10 +315,10 @@ public class DialogFragment_UpdateDebt extends DialogFragment implements Interfa
         // Create DateFormat
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
 
-        // Catch Parse errors
+        // Catch Parse error
         try {
 
-            // Parse dates
+            // Convert
             Date dateDebtIssued = dateFormat.parse(shortDateDebtIssued);
             Date dateDebtDue = dateFormat.parse(shortDateDebtDue);
 
@@ -402,18 +350,76 @@ public class DialogFragment_UpdateDebt extends DialogFragment implements Interfa
     }
 
     /**
+     * Function to show / hide delete dates button when Dates are set or removed
+     */
+    private void showDeleteDatesButton() {
+
+        // Check if DebtDateIssued is null
+        if (DataUtils.isEmptyString(editDebtDateIssuedFull.getText().toString())) {
+
+            // Hide delete date button
+            imageDeleteSelectedDebtDateIssued.setVisibility(View.GONE);
+
+        } else {
+
+            // Show delete date button
+            imageDeleteSelectedDebtDateIssued.setVisibility(View.VISIBLE);
+        }
+
+        // Check if DebtDateDue is null
+        if (DataUtils.isEmptyString(editDebtDateDueFull.getText().toString())) {
+
+            // Hide delete date button
+            imageDeleteSelectedDebtDateDue.setVisibility(View.GONE);
+
+        } else {
+
+            // Show delete date button
+            imageDeleteSelectedDebtDateDue.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * Function to check if field values changed
+     */
+    private boolean getCheckFieldValueChanges() {
+
+        // Return boolean if field values entered
+        return (InputFiltersUtils.checkDebtAmountLengthNotify(mContext, editDebtAmount, false)
+                || !DataUtils.isEmptyString(editDebtDateIssuedFull.getText().toString())
+                || !DataUtils.isEmptyString(editDebtDateDueFull.getText().toString())
+                || !DataUtils.isEmptyString(editDebtDescription.getText().toString()));
+    }
+
+    /**
+     * Function to show / hide enabled update button
+     */
+    private void switchAddContactButton() {
+
+        // Check if field values changed
+        if (getCheckFieldValueChanges()) {
+
+            llAddDebtDisabled.setVisibility(View.GONE); // Hide update-disabled button
+            llAddDebtEnabled.setVisibility(View.VISIBLE); // Show update-enabled button
+
+        } else {
+
+            llAddDebtEnabled.setVisibility(View.GONE); // Hide update-enabled button
+            llAddDebtDisabled.setVisibility(View.VISIBLE); // Show update-disabled button
+        }
+    }
+
+    /**
      * Function to add contact to remote database
      *
-     * @param contactId       - ContactId
-     * @param debtId          - DebtId
-     * @param debtAmount      - DebtAmount
-     * @param debtDateIssued  - DebtDateIssued
-     * @param debtDateDue     - DebtDateDue
-     * @param debtDescription - DebtDescription
+     * @param userId          - Users id
+     * @param contactId       - Contact id
+     * @param contactFullName - Contact full name
+     * @param debtAmount      - debt amount
      */
-    private void updateContactsDebt(final String contactId, final String debtId,
-                                    final String debtAmount, final String debtDateIssued,
-                                    final String debtDateDue, final String debtDescription) {
+    private void addContactsDebt(final String userId, final String contactId, final String
+            contactFullName, final String debtAmount, final String debtDateIssued, final String
+                                         debtDateDue, final String debtDescription) {
 
         // Check Internet Connection states
         if (InternetConnectivity.isConnectedToAnyNetwork(mContext)) {
@@ -423,15 +429,17 @@ public class DialogFragment_UpdateDebt extends DialogFragment implements Interfa
 
             // Show dialog
             ViewsUtils.showProgressDialog(progressDialog,
-                    DataUtils.getStringResource(mContext, R.string.title_updating_debt),
-                    DataUtils.getStringResource(mContext, R.string.msg_updating_debt)
+                    DataUtils.getStringResource(mContext,
+                            R.string.title_adding_debt),
+                    DataUtils.getStringResource(mContext,
+                            R.string.msg_adding_debt, contactFullName)
             );
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                    NetworkUrls.DebtsURLS.URL_UPDATE_CONTACTS_DEBT, response -> {
+                    NetworkUrls.DebtsURLS.URL_ADD_CONTACTS_DEBT, response -> {
 
                 // Log Response
-                // Log.d(TAG, "Update contacts debt response:" + response);
+                // Log.d(TAG, "Add debts response:" + response);
 
                 ViewsUtils.dismissProgressDialog(progressDialog); // Hide Dialog
 
@@ -447,10 +455,9 @@ public class DialogFragment_UpdateDebt extends DialogFragment implements Interfa
                         // Show success message
                         CustomToast.infoMessage(mContext,
                                 DataUtils.getStringResource(mContext,
-                                        R.string.msg_updating_debt_successful),
+                                        R.string.msg_debt_adding_successful, debtAmount, contactFullName),
                                 false, R.drawable.ic_baseline_attach_money_24_white);
 
-                        // Catch errors
                         try {
 
                             // Broadcast to refresh debts
@@ -488,14 +495,14 @@ public class DialogFragment_UpdateDebt extends DialogFragment implements Interfa
 
                         // Cancel Pending Request
                         ApplicationClass.getClassInstance().cancelPendingRequests(
-                                NetworkTags.DebtsNetworkTags.TAG_UPDATE_CONTACTS_DEBT_STRING_REQUEST);
+                                NetworkTags.DebtsNetworkTags.TAG_ADD_CONTACTS_DEBT_STRING_REQUEST);
                     }
                 } catch (Exception ignored) {
                 }
             }, volleyError -> {
 
                 // Log Response
-                // Log.e(TAG, "Update contacts debt response error : "
+                // Log.e(TAG, "Add debts debt response error : "
                 //        + volleyError.getMessage());
 
                 ViewsUtils.dismissProgressDialog(progressDialog); // Hide Dialog
@@ -518,7 +525,7 @@ public class DialogFragment_UpdateDebt extends DialogFragment implements Interfa
 
                 // Clear url cache
                 ApplicationClass.getClassInstance().deleteUrlVolleyCache(
-                        NetworkUrls.DebtsURLS.URL_UPDATE_CONTACTS_DEBT);
+                        NetworkUrls.DebtsURLS.URL_ADD_CONTACTS_DEBT);
             }) {
                 @Override
                 protected void deliverResponse(String response) {
@@ -535,12 +542,15 @@ public class DialogFragment_UpdateDebt extends DialogFragment implements Interfa
 
                 @Override
                 protected Map<String, String> getParams() {
-
-                    @SuppressWarnings({"unchecked", "rawtypes"})
-                    Map<String, String> params = new HashMap();
+                    @SuppressWarnings({"unchecked", "rawtypes"}) Map<String, String> params =
+                            new HashMap();
 
                     // Pud DebtAmount details to Map params
                     params.put(DebtUtils.FIELD_DEBT_AMOUNT, debtAmount);
+
+                    // Put UserId and ContactId to Map params
+                    params.put(UserAccountUtils.FIELD_USER_ID, userId);
+                    params.put(ContactUtils.FIELD_CONTACT_ID, contactId);
 
                     // Check for debt date issued
                     if (!DataUtils.isEmptyString(debtDateIssued)) {
@@ -560,10 +570,6 @@ public class DialogFragment_UpdateDebt extends DialogFragment implements Interfa
                         // Put debt description to Map params
                         params.put(DebtUtils.FIELD_DEBT_DESCRIPTION, debtDescription);
                     }
-
-                    // Put userId and contactId to Map params
-                    params.put(ContactUtils.FIELD_CONTACT_ID, contactId);
-                    params.put(DebtUtils.FIELD_DEBT_ID, debtId);
 
                     return params; // Return params
                 }
@@ -596,7 +602,7 @@ public class DialogFragment_UpdateDebt extends DialogFragment implements Interfa
 
             // Adding request to request queue
             ApplicationClass.getClassInstance().addToRequestQueue(stringRequest,
-                    NetworkTags.DebtsNetworkTags.TAG_UPDATE_CONTACTS_DEBT_STRING_REQUEST);
+                    NetworkTags.DebtsNetworkTags.TAG_ADD_CONTACTS_DEBT_STRING_REQUEST);
 
         } else {
 
@@ -606,36 +612,6 @@ public class DialogFragment_UpdateDebt extends DialogFragment implements Interfa
                     DataUtils.getStringResource(mContext,
                             R.string.error_network_connection_error_message_long),
                     R.drawable.ic_sad_cloud_100px_white);
-        }
-    }
-
-    /**
-     * Function to show / hide delete dates button when Dates are set or removed
-     */
-    private void showDeleteDatesButton() {
-
-        // Check if DebtDateIssued is null
-        if (DataUtils.isEmptyString(editDebtDateIssuedFull.getText().toString())) {
-
-            // Hide delete date button
-            imageDeleteSelectedDebtDateIssued.setVisibility(View.GONE);
-
-        } else {
-
-            // Show delete date button
-            imageDeleteSelectedDebtDateIssued.setVisibility(View.VISIBLE);
-        }
-
-        // Check if DebtDateDue is null
-        if (DataUtils.isEmptyString(editDebtDateDueFull.getText().toString())) {
-
-            // Hide delete date button
-            imageDeleteSelectedDebtDateDue.setVisibility(View.GONE);
-
-        } else {
-
-            // Show delete date button
-            imageDeleteSelectedDebtDateDue.setVisibility(View.VISIBLE);
         }
     }
 
@@ -655,6 +631,7 @@ public class DialogFragment_UpdateDebt extends DialogFragment implements Interfa
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
     }
 
     @Override
@@ -665,7 +642,7 @@ public class DialogFragment_UpdateDebt extends DialogFragment implements Interfa
     @Override
     public void afterTextChanged(Editable s) {
 
-        switchUpdateButton(); // Switch update button on field value changed
+        switchAddContactButton(); // Switch update button on field value changed
         showDeleteDatesButton(); // Show / hide delete dates button
     }
 }

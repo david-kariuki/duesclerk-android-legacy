@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.duesclerk.R;
 import com.duesclerk.classes.custom_utilities.application.ViewsUtils;
 import com.duesclerk.classes.custom_utilities.user_data.DataUtils;
-import com.duesclerk.classes.custom_views.dialog_fragments.bottom_sheet_dialog_fragments.BottomSheetFragment_CountryPicker;
+import com.duesclerk.classes.custom_views.fragments.bottom_sheet_dialog_fragments.BottomSheetFragment_CountryPicker;
 import com.duesclerk.classes.java_beans.JB_CountryData;
 
 import org.jetbrains.annotations.NotNull;
