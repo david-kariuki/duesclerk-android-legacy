@@ -126,43 +126,7 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:ellipsize="marquee"
-                    android:hint="@string/hint_due"
-                    android:maxEms="8"
-                    android:minEms="3"
-                    android:singleLine="true"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/colorPrimaryGrey"
-                    android:textColorHint="@color/colorPrimaryGrey"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textDebt_DateDue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:ellipsize="marquee"
-                    android:hint="@string/hint_not_provided"
-                    android:minEms="3"
-                    android:singleLine="true"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/colorPrimaryGrey"
-                    android:textColorHint="@color/colorPrimaryGrey"
-                    android:textSize="12sp"
-                    tools:ignore="RtlCompat" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
@@ -184,6 +148,41 @@
 
                 <TextView
                     android:id="@+id/textDebt_DateIssued"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:ellipsize="marquee"
+                    android:hint="@string/hint_not_provided"
+                    android:minEms="3"
+                    android:singleLine="true"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimaryGrey"
+                    android:textColorHint="@color/colorPrimaryGrey"
+                    android:textSize="12sp"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:ellipsize="marquee"
+                    android:hint="@string/hint_due"
+                    android:maxEms="8"
+                    android:minEms="3"
+                    android:singleLine="true"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimaryGrey"
+                    android:textColorHint="@color/colorPrimaryGrey"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textDebt_DateDue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
@@ -263,13 +262,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="10dp"
             app:layout_constraintVertical_bias="-1">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/consDebt_DebtOptions"
-                android:layout_width="@dimen/dimen_image_view_icon_size_medium"
+                android:layout_width="wrap_content"
+                android:layout_marginEnd="0dp"
+                android:layout_gravity="end"
                 android:layout_height="match_parent"
-                android:gravity="center_horizontal"
                 android:orientation="vertical">
 
                 <ImageView
@@ -284,6 +285,7 @@
                     android:src="@drawable/ic_baseline_more_vert_24_primary_grey"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="1"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0" />
 
@@ -294,6 +296,7 @@
                     android:layout_gravity="bottom|center_horizontal"
                     android:layout_marginEnd="0dp"
                     android:contentDescription="@string/content_description_icon_dropdown"
+                    app:layout_constraintHorizontal_bias="1"
                     android:src="@drawable/ic_baseline_arrow_drop_down_24_black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -308,12 +311,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|end"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:orientation="horizontal"
                 app:el_duration="300"
-                app:el_expanded="true">
+                app:el_expanded="false">
 
                 <LinearLayout
                     android:layout_width="match_parent"
