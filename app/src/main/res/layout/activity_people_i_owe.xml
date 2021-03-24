@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context="com.duesclerk.ui.PeopleIOwe">
+        tools:context=".classes.custom_views.fragments.ui.PeopleIOwe">
 
         <LinearLayout
             android:id="@+id/linearLayout"

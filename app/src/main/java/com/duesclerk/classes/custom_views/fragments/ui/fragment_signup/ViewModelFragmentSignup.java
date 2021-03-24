@@ -1,4 +1,4 @@
-package com.duesclerk.ui.fragment_signup;
+package com.duesclerk.classes.custom_views.fragments.ui.fragment_signup;
 
 import androidx.lifecycle.ViewModel;
 

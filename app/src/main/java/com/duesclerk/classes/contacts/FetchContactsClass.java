@@ -20,6 +20,8 @@ import com.duesclerk.classes.custom_utilities.user_data.ContactUtils;
 import com.duesclerk.classes.custom_utilities.user_data.DataUtils;
 import com.duesclerk.classes.custom_utilities.user_data.DebtUtils;
 import com.duesclerk.classes.custom_utilities.user_data.UserAccountUtils;
+import com.duesclerk.classes.custom_views.fragments.ui.fragment_contacts.fragment_people_i_owe.FragmentPeople_I_Owe;
+import com.duesclerk.classes.custom_views.fragments.ui.fragment_contacts.fragment_people_owing_me.FragmentPeopleOwingMe;
 import com.duesclerk.classes.custom_views.swipe_refresh.MultiSwipeRefreshLayout;
 import com.duesclerk.classes.custom_views.toast.CustomToast;
 import com.duesclerk.classes.java_beans.JB_Contacts;
@@ -27,8 +29,6 @@ import com.duesclerk.classes.network.InternetConnectivity;
 import com.duesclerk.classes.network.NetworkTags;
 import com.duesclerk.classes.network.NetworkUrls;
 import com.duesclerk.interfaces.Interface_Contacts;
-import com.duesclerk.ui.fragment_contacts.fragment_people_i_owe.FragmentPeople_I_Owe;
-import com.duesclerk.ui.fragment_contacts.fragment_people_owing_me.FragmentPeopleOwingMe;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

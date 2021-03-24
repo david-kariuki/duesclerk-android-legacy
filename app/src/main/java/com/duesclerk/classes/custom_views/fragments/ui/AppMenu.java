@@ -1,4 +1,4 @@
-package com.duesclerk.ui;
+package com.duesclerk.classes.custom_views.fragments.ui;
 
 import android.os.Bundle;
 

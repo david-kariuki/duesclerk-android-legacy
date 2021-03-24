@@ -12,11 +12,11 @@ import androidx.viewpager.widget.ViewPager;
 import com.duesclerk.R;
 import com.duesclerk.classes.custom_utilities.application.ViewsUtils;
 import com.duesclerk.classes.custom_utilities.user_data.DataUtils;
+import com.duesclerk.classes.custom_views.fragments.ui.fragment_signin.FragmentSignIn;
+import com.duesclerk.classes.custom_views.fragments.ui.fragment_signup.FragmentSignup;
 import com.duesclerk.classes.custom_views.view_pager.CustomViewPager;
 import com.duesclerk.classes.custom_views.view_pager.ViewPagerAdapter;
 import com.duesclerk.interfaces.Interface_SignInSignup;
-import com.duesclerk.ui.fragment_signin.FragmentSignIn;
-import com.duesclerk.ui.fragment_signup.FragmentSignup;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;

@@ -101,7 +101,7 @@
             android:theme="@style/Theme.DuesClerk.NoActionBar" />
 
         <activity
-            android:name=".ui.SignInActivity"
+            android:name=".classes.custom_views.fragments.ui.SignInActivity"
             android:colorMode="wideColorGamut"
             android:label="@string/title_fragment_sign_in"
             android:parentActivityName=".activities.SignInSignupActivity"
@@ -114,19 +114,19 @@
             android:theme="@style/Theme.DuesClerk.NoActionBar" />
 
         <activity
-            android:name=".ui.AppMenu"
+            android:name=".classes.custom_views.fragments.ui.AppMenu"
             android:colorMode="wideColorGamut"
             android:label="@string/tittle_fragment_app_menu"
             android:parentActivityName=".activities.MainActivity" />
 
         <activity
-            android:name=".ui.PeopleOwingMe"
+            android:name=".classes.custom_views.fragments.ui.PeopleOwingMe"
             android:colorMode="wideColorGamut"
             android:label="@string/title_fragment_people_owing_me"
             android:parentActivityName=".activities.MainActivity" />
 
         <activity
-            android:name=".ui.People_I_Owe"
+            android:name=".classes.custom_views.fragments.ui.People_I_Owe"
             android:colorMode="wideColorGamut"
             android:label="@string/title_fragment_people_i_owe"
             android:parentActivityName=".activities.MainActivity" />

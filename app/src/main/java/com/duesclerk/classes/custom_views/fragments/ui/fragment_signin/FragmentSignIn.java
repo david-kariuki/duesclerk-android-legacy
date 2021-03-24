@@ -1,4 +1,4 @@
-package com.duesclerk.ui.fragment_signin;
+package com.duesclerk.classes.custom_views.fragments.ui.fragment_signin;
 
 import android.app.ProgressDialog;
 import android.content.Context;

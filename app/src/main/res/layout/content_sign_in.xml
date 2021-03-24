@@ -9,7 +9,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:focusedByDefault="true"
-    tools:context=".ui.SignInActivity"
+    tools:context=".classes.custom_views.fragments.ui.SignInActivity"
     tools:ignore="UnusedAttribute"
     tools:showIn="@layout/activity_sign_in">
 

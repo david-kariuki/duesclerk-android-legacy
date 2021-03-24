@@ -1,4 +1,4 @@
-package com.duesclerk.ui.fragment_app_menu;
+package com.duesclerk.classes.custom_views.fragments.ui.fragment_app_menu;
 
 import android.content.Context;
 import android.content.Intent;

@@ -21,11 +21,11 @@ import com.duesclerk.activities.ContactDetailsAndDebtsActivity;
 import com.duesclerk.classes.custom_utilities.application.ViewsUtils;
 import com.duesclerk.classes.custom_utilities.user_data.ContactUtils;
 import com.duesclerk.classes.custom_utilities.user_data.DataUtils;
+import com.duesclerk.classes.custom_views.fragments.ui.fragment_contacts.fragment_people_i_owe.FragmentPeople_I_Owe;
+import com.duesclerk.classes.custom_views.fragments.ui.fragment_contacts.fragment_people_owing_me.FragmentPeopleOwingMe;
 import com.duesclerk.classes.java_beans.JB_Contacts;
 import com.duesclerk.interfaces.Interface_Contacts;
 import com.duesclerk.interfaces.Interface_IDS;
-import com.duesclerk.ui.fragment_contacts.fragment_people_i_owe.FragmentPeople_I_Owe;
-import com.duesclerk.ui.fragment_contacts.fragment_people_owing_me.FragmentPeopleOwingMe;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 

@@ -1,11 +1,11 @@
-package com.duesclerk.ui;
+package com.duesclerk.classes.custom_views.fragments.ui;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.duesclerk.R;
-import com.duesclerk.ui.fragment_signup.FragmentSignup;
+import com.duesclerk.classes.custom_views.fragments.ui.fragment_signup.FragmentSignup;
 
 public class Signup extends AppCompatActivity {
 

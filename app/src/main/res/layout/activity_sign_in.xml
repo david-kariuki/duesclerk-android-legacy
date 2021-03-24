@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorActivityBackground"
-    tools:context=".ui.SignInActivity">
+    tools:context=".classes.custom_views.fragments.ui.SignInActivity">
 
     <include layout="@layout/content_sign_in" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

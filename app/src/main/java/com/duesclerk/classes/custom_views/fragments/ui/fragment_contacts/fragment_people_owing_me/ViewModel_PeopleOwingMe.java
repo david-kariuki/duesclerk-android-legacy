@@ -1,4 +1,4 @@
-package com.duesclerk.ui.fragment_contacts.fragment_people_owing_me;
+package com.duesclerk.classes.custom_views.fragments.ui.fragment_contacts.fragment_people_owing_me;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
