@@ -202,53 +202,99 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:el_expanded="false">
+                app:el_expanded="true">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
+                    android:layout_marginTop="2dp"
+                    android:orientation="vertical">
 
-                    <TextView
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:ellipsize="marquee"
+                            android:gravity="center_vertical"
+                            android:hint="@string/hint_description"
+                            android:maxEms="9"
+                            android:maxLength="50"
+                            android:minEms="1"
+                            android:minLines="1"
+                            android:singleLine="false"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/colorBlack"
+                            android:textColorHint="@color/colorPrimaryGrey"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            tools:ignore="RtlCompat" />
+
+                        <TextView
+                            android:id="@+id/textDebt_Description"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:ellipsize="marquee"
+                            android:gravity="center_vertical"
+                            android:hint="@string/hint_not_provided"
+                            android:maxLength="50"
+                            android:minEms="1"
+                            android:minLines="1"
+                            android:singleLine="false"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/colorBlack"
+                            android:textColorHint="@color/colorPrimaryGrey"
+                            android:textSize="13sp"
+                            tools:ignore="RtlCompat" />
+
+                    </LinearLayout>
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        android:ellipsize="marquee"
-                        android:gravity="center_vertical"
-                        android:hint="@string/hint_description"
-                        android:maxEms="9"
-                        android:maxLength="50"
-                        android:minEms="1"
-                        android:minLines="1"
-                        android:singleLine="false"
-                        android:textAlignment="textEnd"
-                        android:textColor="@color/colorBlack"
-                        android:textColorHint="@color/colorPrimaryGrey"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        tools:ignore="RtlCompat" />
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp">
 
-                    <TextView
-                        android:id="@+id/textDebt_Description"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        android:ellipsize="marquee"
-                        android:gravity="center_vertical"
-                        android:hint="@string/hint_not_provided"
-                        android:maxLength="50"
-                        android:minEms="1"
-                        android:minLines="1"
-                        android:singleLine="false"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/colorBlack"
-                        android:textColorHint="@color/colorPrimaryGrey"
-                        android:textSize="13sp"
-                        tools:ignore="RtlCompat" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:ellipsize="marquee"
+                            android:hint="@string/hint_date_added"
+                            android:maxEms="8"
+                            android:minEms="3"
+                            android:singleLine="true"
+                            android:layout_marginEnd="5dp"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/colorPrimaryGrey"
+                            android:textColorHint="@color/colorPrimaryGrey"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
 
+                        <TextView
+                            android:id="@+id/textDebt_DateAdded"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:ellipsize="marquee"
+                            android:hint="@string/hint_not_provided"
+                            android:minEms="3"
+                            android:singleLine="false"
+                            android:lines="2"
+                            android:maxLines="2"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/colorPrimaryGrey"
+                            android:textColorHint="@color/colorPrimaryGrey"
+                            android:textSize="12sp"
+                            tools:ignore="RtlCompat" />
+                    </LinearLayout>
                 </LinearLayout>
             </net.cachapa.expandablelayout.ExpandableLayout>
         </LinearLayout>

@@ -69,6 +69,7 @@
     <string name="hint_issued">Issued</string>
     <string name="hint_date_due">Date due</string>
     <string name="hint_due">Due</string>
+    <string name="hint_date_added">Date added</string>
     <string name="hint_debt_amount">Debt amount</string>
     <string name="hint_description">Description</string>
     <string name="hint_debt_description">Debt description</string>
