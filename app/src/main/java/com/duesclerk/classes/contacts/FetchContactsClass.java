@@ -129,8 +129,7 @@ public class FetchContactsClass {
                     } else {
                         // Error updating details
 
-                        String errorMessage = jsonObject.getString(
-                                VolleyUtils.KEY_ERROR_MESSAGE);
+                        String errorMessage = jsonObject.getString(VolleyUtils.KEY_ERROR_MESSAGE);
 
                         // Toast error message
                         CustomToast.errorMessage(
