@@ -101,7 +101,7 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
         }
 
         // Check and set contact type
-        String contactType = debts.get(position).getDebtAmount();
+        String contactType = debts.get(position).getContactType();
         if (contactType.equals(ContactUtils.KEY_CONTACT_TYPE_PEOPLE_OWING_ME)) {
 
             holder.textDebtType.setText(DataUtils.getStringResource(mContext,
@@ -115,16 +115,30 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
 
         // Get debt description
         String debtDescription = debts.get(position).getDebtDescription();
+        String debtDateIssued = debts.get(position).getDebtDateIssued();
+        String debtDateDue = debts.get(position).getDebtDateDue();
 
+        // Check if debt date issued is empty
+        if (!DataUtils.isEmptyString(debtDateIssued)) {
+
+            // Set debt date issued
+            holder.textDebtDateIssued.setText(debtDateIssued);
+        }
+
+        // Check if debt date due is empty
+        if (!DataUtils.isEmptyString(debtDateDue)) {
+
+            // Set debt date due
+            holder.textDebtDateDue.setText(debtDateDue);
+        }
         // Check if debt description is empty
         if (!DataUtils.isEmptyString(debtDescription)) {
 
             holder.textDebtDescription.setText(debtDescription); // Set debt description
         }
 
-        // Set debt date issued and date due
-        holder.textDateDebtIssued.setText(debts.get(position).getDebtDateIssued());
-        holder.textDateDebtDue.setText(debts.get(position).getDebtDateDue());
+        // Set debt description
+        holder.textDebtDateTimeAdded.setText(debts.get(position).getDebtDateTimeAdded());
 
         // Check if buttons layout is shown so as to show options buttons
         if (debts.get(position).shownMenuButtonsLayout()) {
@@ -546,7 +560,7 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
 
         ConstraintLayout consDebtItem, consDebtOptions;
         TextView textDebtCount, textDebtAmount, textDebtType, textDebtDescription,
-                textDateDebtIssued, textDateDebtDue;
+                textDebtDateTimeAdded, textDebtDateIssued, textDebtDateDue;
         ImageView imageDebtDetailsDropDown, imageDebtOptions;
         ImageView imageEditDebt, imageDeleteDebt, imageCollapseDebtOptionsMenu;
         ExpandableLayout expandableDebtDetails, expandableDebtMenu;
@@ -567,8 +581,9 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
             textDebtAmount = convertView.findViewById(R.id.textDebt_Amount);
             textDebtType = convertView.findViewById(R.id.textDebt_Type);
             textDebtDescription = convertView.findViewById(R.id.textDebt_Description);
-            textDateDebtIssued = convertView.findViewById(R.id.textDebt_DateIssued);
-            textDateDebtDue = convertView.findViewById(R.id.textDebt_DateDue);
+            textDebtDateTimeAdded = convertView.findViewById(R.id.textDebt_DateAdded);
+            textDebtDateIssued = convertView.findViewById(R.id.textDebt_DateIssued);
+            textDebtDateDue = convertView.findViewById(R.id.textDebt_DateDue);
 
             imageDebtDetailsDropDown = convertView.findViewById(R.id.imageDebt_DropDown);
             imageDebtOptions = convertView.findViewById(R.id.imageDebt_Menu);
@@ -637,6 +652,7 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
                                 filterList.get(i).getDebtAmount(),
                                 filterList.get(i).getDebtDateIssued(),
                                 filterList.get(i).getDebtDateDue(),
+                                filterList.get(i).getDebtDateTimeAdded(),
                                 filterList.get(i).getDebtDescription(),
                                 filterList.get(i).getContactId(),
                                 filterList.get(i).getContactType(),
