@@ -1146,11 +1146,13 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                         jsonObject = jsonArray.getJSONObject(i);
 
                         // Getting Data from json object
-                        String debtId, debtAmount, debtDateIssued, debtDateDue, debtDescription,
-                                contactId, contactType, userId;
+                        String debtId, debtAmount, debtDateTimeAdded, debtDateIssued, debtDateDue,
+                                debtDescription, contactId, contactType, userId;
 
                         debtId = jsonObject.getString(DebtUtils.FIELD_DEBT_ID);
                         debtAmount = jsonObject.getString(DebtUtils.FIELD_DEBT_AMOUNT);
+                        debtDateTimeAdded = jsonObject
+                                .getString(DebtUtils.FIELD_DEBT_DATE_TIME_ADDED);
                         debtDateIssued = jsonObject.getString(DebtUtils.FIELD_DEBT_DATE_ISSUED);
                         debtDateDue = jsonObject.getString(DebtUtils.FIELD_DEBT_DATE_DUE);
                         debtDescription = jsonObject.getString(DebtUtils.FIELD_DEBT_DESCRIPTION);
@@ -1161,6 +1163,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                         // Set data to java bean
                         jbDebts.setDebtId(debtId);
                         jbDebts.setDebtAmount(debtAmount);
+                        jbDebts.setDebtDateTimeAdded(debtDateTimeAdded);
                         jbDebts.setDebtDateIssued(debtDateIssued);
                         jbDebts.setDebtDateDue(debtDateDue);
                         jbDebts.setDebtDescription(debtDescription);
