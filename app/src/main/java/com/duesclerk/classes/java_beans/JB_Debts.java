@@ -2,8 +2,8 @@ package com.duesclerk.classes.java_beans;
 
 public class JB_Debts {
 
-    private String debtId, debtAmount, debtDateIssued, debtDateDue, debtDescription, contactId,
-            contactType, userId;
+    private String debtId, debtAmount, debtDateTimeAdded, debtDateIssued, debtDateDue,
+            debtDescription, contactId, contactType, userId;
     private boolean expandedDebtsOptionsMenu = false, expandedDebtsDetailsLayout = false;
     private boolean showingCheckBox = false, checkBoxChecked = false, shownMenuButtonsLayout = true;
 
@@ -20,6 +20,7 @@ public class JB_Debts {
      * @param debtAmount                 - Debt amount
      * @param debtDateIssued             - Debt date issued
      * @param debtDateDue                - Debt date due
+     * @param debtDateTimeAdded          - Debt date time added
      * @param debtDescription            - Debt description
      * @param contactId                  - Contact id
      * @param contactType                - Contact type
@@ -28,19 +29,20 @@ public class JB_Debts {
      * @param expandedDebtsDetailsLayout - Expanded debts details layout
      * @param showingCheckBox            - Showing CheckBoxes
      * @param checkBoxChecked            - CheckBox checked
-     * @param shownMenuButtonsLayout         - Buttons layout shown
+     * @param shownMenuButtonsLayout     - Buttons layout shown
      */
     public JB_Debts(final String debtId, final String debtAmount, final String debtDateIssued,
-                    final String debtDateDue, final String debtDescription, final String contactId,
-                    final String contactType, final String userId,
-                    final boolean expandedDebtsOptionsMenu, final boolean expandedDebtsDetailsLayout,
-                    final boolean showingCheckBox, final boolean checkBoxChecked,
-                    final boolean shownMenuButtonsLayout) {
+                    final String debtDateDue, final String debtDateTimeAdded,
+                    final String debtDescription, final String contactId, final String contactType,
+                    final String userId, final boolean expandedDebtsOptionsMenu,
+                    final boolean expandedDebtsDetailsLayout, final boolean showingCheckBox,
+                    final boolean checkBoxChecked, final boolean shownMenuButtonsLayout) {
 
         this.debtId = debtId;
         this.debtAmount = debtAmount;
         this.debtDateIssued = debtDateIssued;
         this.debtDateDue = debtDateDue;
+        this.debtDateTimeAdded = debtDateTimeAdded;
         this.debtDescription = debtDescription;
         this.contactId = contactId;
         this.contactType = contactType;
@@ -123,6 +125,24 @@ public class JB_Debts {
     public void setDebtDateDue(String debtDateDue) {
 
         this.debtDateDue = debtDateDue;
+    }
+
+    /**
+     * Function to get debt date added
+     */
+    public String getDebtDateTimeAdded() {
+
+        return debtDateTimeAdded;
+    }
+
+    /**
+     * Function to set debt date added
+     *
+     * @param debtDateTimeAdded - Debt date added
+     */
+    public void setDebtDateTimeAdded(String debtDateTimeAdded) {
+
+        this.debtDateTimeAdded = debtDateTimeAdded;
     }
 
     /**
