@@ -19,6 +19,9 @@
     <string name="content_description_icon_sort_by_debt_date_due">Sort by debt date due</string>
     <string name="content_description_icon_sort_by_debt_date_due_ascending">Sort by debt date due ascending</string>
     <string name="content_description_icon_sort_by_debt_date_due_descending">Sort by debt date due descending</string>
+    <string name="content_description_icon_sort_by_debt_date_added">Sort by debt date time added</string>
+    <string name="content_description_icon_sort_by_debt_date_added_ascending">Sort by debt date time added ascending</string>
+    <string name="content_description_icon_sort_by_debt_date_added_descending">Sort by debt date time added descending</string>
 
     <string name="content_description_icon_exit">Exit icon</string>
     <string name="content_description_icon_edit">Edit icon</string>
