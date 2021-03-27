@@ -102,7 +102,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
 
     // Default sort type
     private SortLists sortLists;
-    private SortType selectedSortType;// = SortType.DEBT_DATE_TIME_ADDED_ASCENDING;
+    private SortType selectedSortType = SortType.DEBT_DATE_ADDED_DESCENDING;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
