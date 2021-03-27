@@ -114,6 +114,18 @@ public class SortLists {
             // Sort ArrayList
             Collections.sort(debtsArrayList,
                     new SortComparator.Debts.SortBy_DebtDateDue.Descending());
+
+        } else if (sortType == SortType.DEBT_DATE_ADDED_ASCENDING) {
+
+            // Sort ArrayList
+            Collections.sort(debtsArrayList,
+                    new SortComparator.Debts.SortBy_DebtDateAdded.Ascending());
+
+        } else if (sortType == SortType.DEBT_DATE_ADDED_DESCENDING) {
+
+            // Sort ArrayList
+            Collections.sort(debtsArrayList,
+                    new SortComparator.Debts.SortBy_DebtDateAdded.Descending());
         }
 
         return debtsArrayList; // Return sorted ArrayList
