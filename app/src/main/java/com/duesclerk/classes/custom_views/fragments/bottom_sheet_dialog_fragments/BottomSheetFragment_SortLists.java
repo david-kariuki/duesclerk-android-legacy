@@ -354,7 +354,7 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
                     || (sortType == SortType.DEBT_DATE_ADDED_DESCENDING)) {
 
                 // Select sort option
-                selectSortByDebtDateDue(sortType, true);
+                selectSortByDebtDateAdded(sortType, true);
             }
         }
     }
