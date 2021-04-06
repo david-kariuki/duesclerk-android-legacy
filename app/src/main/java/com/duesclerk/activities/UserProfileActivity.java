@@ -55,7 +55,7 @@ import java.util.Map;
 public class UserProfileActivity extends AppCompatActivity implements Interface_CountryPicker,
         TextWatcher {
 
-    // private final String TAG = UserProfileActivity.class.getSimpleName();
+    //private final String TAG = UserProfileActivity.class.getSimpleName();
 
     private Context mContext; // Create Context object
     private MultiSwipeRefreshLayout swipeRefreshLayout;
@@ -463,17 +463,18 @@ public class UserProfileActivity extends AppCompatActivity implements Interface_
 
                 // Set account type
                 String accountTypeLabel;
-                if (fetchedAccountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_FREE)) {
+                if (fetchedAccountType.equals(UserAccountUtils.KEY_ACCOUNT_TYPE_PRO)) {
+
+                    // Set account type label to PRO account
+                    accountTypeLabel = DataUtils.getStringResource(mContext,
+                            R.string.hint_account_type_pro);
+
+                } else {
 
                     // Set account type label to free account
                     accountTypeLabel = DataUtils.getStringResource(mContext,
                             R.string.hint_account_type_free);
 
-                } else {
-
-                    // Set account type label to PRO account
-                    accountTypeLabel = DataUtils.getStringResource(mContext,
-                            R.string.hint_account_type_pro);
                 }
 
                 // Set account type label
