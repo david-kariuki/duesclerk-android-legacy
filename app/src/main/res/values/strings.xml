@@ -147,6 +147,7 @@
     <string name="label_sort_by_number_of_debts">Sort by no. of debts</string>
     <string name="label_sort_by_date_issued">Sort by date issued</string>
     <string name="label_sort_by_date_due">Sort by date due</string>
+    <string name="label_sort_by_debt_date_added">Sort by date debt added</string>
     <!--_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________-->
     
 

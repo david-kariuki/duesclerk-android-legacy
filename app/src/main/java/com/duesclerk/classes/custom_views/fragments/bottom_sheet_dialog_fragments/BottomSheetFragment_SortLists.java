@@ -38,17 +38,17 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
 
     // Sort options
     private LinearLayout llSortByName, llSortByDebtAmount, llSortByNoOfDebts,
-            llSortByDebtDateIssued, llSortByDebtDateDue;
+            llSortByDebtDateIssued, llSortByDebtDateDue, llSortByDebtDateAdded;
 
     // Sort in ascending buttons
     private ImageView imageSortByNameAscending, imageSortByDebtAmountAscending,
             imageSortByNoOfDebtsAscending, imageSortByDebtDateIssuedAscending,
-            imageSortByDebtDateDueAscending;
+            imageSortByDebtDateDueAscending, imageSortByDebtDateAddedAscending;
 
     // Sort in descending buttons
     private ImageView imageSortByNameDescending, imageSortByDebtAmountDescending,
             imageSortByNoOfDebtsDescending, imageSortByDebtDateIssuedDescending,
-            imageSortByDebtDateDueDescending;
+            imageSortByDebtDateDueDescending, imageSortByDebtDateAddedDescending;
 
     // Currently selected sort type
     private SortType currentlySelectedSortType;
@@ -82,6 +82,7 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
         llSortByNoOfDebts = contentView.findViewById(R.id.llSortLists_SortByNoOfDebts);
         llSortByDebtDateIssued = contentView.findViewById(R.id.llSortLists_SortByDebtDateIssued);
         llSortByDebtDateDue = contentView.findViewById(R.id.llSortLists_SortByDebtDateDue);
+        llSortByDebtDateAdded = contentView.findViewById(R.id.llSortLists_SortByDebtDateAdded);
 
         // ImageViews
         imageSortByNameAscending = contentView.findViewById(
@@ -104,35 +105,42 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
                 R.id.imageSortLists_SortByDebtDateDue_Ascending);
         imageSortByDebtDateDueDescending = contentView.findViewById(
                 R.id.imageSortLists_SortByDebtDateDue_Descending);
+        imageSortByDebtDateAddedAscending = contentView.findViewById(
+                R.id.imageSortLists_SortByDebtDateAdded_Ascending);
+        imageSortByDebtDateAddedDescending = contentView.findViewById(
+                R.id.imageSortLists_SortByDebtDateAdded_Descending);
 
         showRequiredOptionsSetTitle(); // Show required list options
 
         showCurrentLisSorting(this.currentlySelectedSortType);
 
-        // Sort by name onClick
+        // Sort by ContactName onClick
         llSortByName.setOnClickListener(v -> sortByName(null));
 
-        // Sort by name onClick
+        // Sort by DebtAmount onClick
         llSortByDebtAmount.setOnClickListener(v -> sortByDebtAmount(null));
 
-        // Sort by name onClick
+        // Sort by NoOfDebts onClick
         llSortByNoOfDebts.setOnClickListener(v -> sortByNoOfDebts(null));
 
-        // Sort by name onClick
+        // Sort by DebtDateIssued onClick
         llSortByDebtDateIssued.setOnClickListener(v -> sortByDebtDateIssued(null));
 
-        // Sort by name onClick
+        // Sort by DebtDateDue onClick
         llSortByDebtDateDue.setOnClickListener(v -> sortByDebtDateDue(null));
 
-        // Sort by name ascending onClick
+        // Sort by DebtDateAdded onClick
+        llSortByDebtDateAdded.setOnClickListener(v -> sortByDebtDateAdded(null));
+
+        // Sort by ContactName ascending onClick
         imageSortByNameAscending.setOnClickListener(v ->
                 sortByName(SortType.CONTACT_NAME_ASCENDING));
 
-        // Sort by name descending onClick
+        // Sort by ContactName descending onClick
         imageSortByNameDescending.setOnClickListener(v ->
                 sortByName(SortType.CONTACT_NAME_DESCENDING));
 
-        // Sort by amount ascending onClick
+        // Sort by DebtAmount ascending onClick
         imageSortByDebtAmountAscending.setOnClickListener(v -> {
 
             // Check list type
@@ -146,7 +154,7 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
             }
         });
 
-        // Sort by amount descending onClick
+        // Sort by DebtAmount descending onClick
         imageSortByDebtAmountDescending.setOnClickListener(v -> {
 
             // Check list type
@@ -184,6 +192,13 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
         imageSortByDebtDateDueDescending.setOnClickListener(v ->
                 sortByDebtDateDue(SortType.DEBT_DATE_DUE_DESCENDING));
 
+        // Sort by DebtDateAdded ascending onClick
+        imageSortByDebtDateAddedAscending.setOnClickListener(v ->
+                sortByDebtDateAdded(SortType.DEBT_DATE_ADDED_ASCENDING));
+
+        // Sort by DebtDateAdded ascending onClick
+        imageSortByDebtDateAddedDescending.setOnClickListener(v ->
+                sortByDebtDateAdded(SortType.DEBT_DATE_ADDED_DESCENDING));
 
         // Dismiss onClick
         imageDismiss.setOnClickListener(v -> dismiss());
@@ -259,6 +274,9 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
             // Hide sort by DebtDateDue name options
             llSortByDebtDateDue.setVisibility(View.GONE);
 
+            // Hide sort by DebtDateAdded
+            llSortByDebtDateAdded.setVisibility(View.GONE);
+
         } else if (listType == ListType.LIST_DEBTS) {
             // Sorting debts thus show DebtDateIssued and DebtDateDue
 
@@ -271,6 +289,9 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
 
             // Show sort by DebtDateDue name options
             llSortByDebtDateDue.setVisibility(View.VISIBLE);
+
+            // Show sort by DebtDateAdded
+            llSortByDebtDateAdded.setVisibility(View.VISIBLE);
 
             // Hide sort by SortBy_ContactName options
             llSortByName.setVisibility(View.GONE);
@@ -328,6 +349,12 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
 
                 // Select sort option
                 selectSortByDebtDateDue(sortType, true);
+
+            } else if ((sortType == SortType.DEBT_DATE_ADDED_ASCENDING)
+                    || (sortType == SortType.DEBT_DATE_ADDED_DESCENDING)) {
+
+                // Select sort option
+                selectSortByDebtDateAdded(sortType, true);
             }
         }
     }
@@ -471,6 +498,9 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
 
             selectSortByDebtDateDue(SortType.DEBT_DATE_DUE_ASCENDING, false);
             selectSortByDebtDateDue(SortType.DEBT_DATE_DUE_DESCENDING, false);
+
+            selectSortByDebtDateAdded(SortType.DEBT_DATE_ADDED_ASCENDING, false);
+            selectSortByDebtDateAdded(SortType.DEBT_DATE_ADDED_DESCENDING, false);
         }
 
         // Send broadcast for the selected sort operation
@@ -665,22 +695,18 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
                 if (sortType == SortType.DEBT_AMOUNT_ASCENDING) {
 
                     // Select sort by DebtAmount in ascending order
-                    selectSortByDebtAmount(
-                            SortType.DEBT_AMOUNT_ASCENDING, true);
+                    selectSortByDebtAmount(SortType.DEBT_AMOUNT_ASCENDING, true);
 
                     // Un-select sort by DebtAmount in descending order
-                    selectSortByDebtAmount(
-                            SortType.DEBT_AMOUNT_DESCENDING, false);
+                    selectSortByDebtAmount(SortType.DEBT_AMOUNT_DESCENDING, false);
 
                 } else if (sortType == SortType.DEBT_AMOUNT_DESCENDING) {
 
                     // Select sort by DebtAmount in descending order
-                    selectSortByDebtAmount(
-                            SortType.DEBT_AMOUNT_DESCENDING, true);
+                    selectSortByDebtAmount(SortType.DEBT_AMOUNT_DESCENDING, true);
 
                     // Un-select sort by DebtAmount in ascending order
-                    selectSortByDebtAmount(
-                            SortType.DEBT_AMOUNT_ASCENDING, false);
+                    selectSortByDebtAmount(SortType.DEBT_AMOUNT_ASCENDING, false);
                 }
             }
         }
@@ -703,6 +729,9 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
 
             selectSortByDebtDateDue(SortType.DEBT_DATE_DUE_ASCENDING, false);
             selectSortByDebtDateDue(SortType.DEBT_DATE_DUE_DESCENDING, false);
+
+            selectSortByDebtDateAdded(SortType.DEBT_DATE_ADDED_ASCENDING, false);
+            selectSortByDebtDateAdded(SortType.DEBT_DATE_ADDED_DESCENDING, false);
         }
 
         // Send broadcast for the selected sort operation
@@ -850,12 +879,13 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
 
             selectSortByDebtDateDue(SortType.DEBT_DATE_DUE_ASCENDING, false);
             selectSortByDebtDateDue(SortType.DEBT_DATE_DUE_DESCENDING, false);
+
+            selectSortByDebtDateAdded(SortType.DEBT_DATE_ADDED_ASCENDING, false);
+            selectSortByDebtDateAdded(SortType.DEBT_DATE_ADDED_DESCENDING, false);
         }
 
-        selectSortByDebtAmount(SortType.DEBT_AMOUNT_ASCENDING,
-                false);
-        selectSortByDebtAmount(SortType.DEBT_AMOUNT_DESCENDING,
-                false);
+        selectSortByDebtAmount(SortType.DEBT_AMOUNT_ASCENDING, false);
+        selectSortByDebtAmount(SortType.DEBT_AMOUNT_DESCENDING, false);
 
         // Send broadcast for the selected sort operation
         sendSortTypeBroadCast();
@@ -1002,12 +1032,13 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
 
             selectSortByDebtDateDue(SortType.DEBT_DATE_DUE_ASCENDING, false);
             selectSortByDebtDateDue(SortType.DEBT_DATE_DUE_DESCENDING, false);
+
+            selectSortByDebtDateAdded(SortType.DEBT_DATE_ADDED_ASCENDING, false);
+            selectSortByDebtDateAdded(SortType.DEBT_DATE_ADDED_DESCENDING, false);
         }
 
-        selectSortByDebtAmount(SortType.DEBT_AMOUNT_ASCENDING,
-                false);
-        selectSortByDebtAmount(SortType.DEBT_AMOUNT_DESCENDING,
-                false);
+        selectSortByDebtAmount(SortType.DEBT_AMOUNT_ASCENDING, false);
+        selectSortByDebtAmount(SortType.DEBT_AMOUNT_DESCENDING, false);
 
         // Send broadcast for the selected sort operation
         sendSortTypeBroadCast();
@@ -1154,12 +1185,167 @@ public class BottomSheetFragment_SortLists extends BottomSheetDialogFragment {
 
             selectSortByDebtDateIssued(SortType.DEBT_DATE_ISSUED_ASCENDING, false);
             selectSortByDebtDateIssued(SortType.DEBT_DATE_ISSUED_DESCENDING, false);
+
+            selectSortByDebtDateAdded(SortType.DEBT_DATE_ADDED_ASCENDING, false);
+            selectSortByDebtDateAdded(SortType.DEBT_DATE_ADDED_DESCENDING, false);
         }
 
-        selectSortByDebtAmount(SortType.DEBT_AMOUNT_ASCENDING,
-                false);
-        selectSortByDebtAmount(SortType.DEBT_AMOUNT_DESCENDING,
-                false);
+        selectSortByDebtAmount(SortType.DEBT_AMOUNT_ASCENDING, false);
+        selectSortByDebtAmount(SortType.DEBT_AMOUNT_DESCENDING, false);
+
+        // Send broadcast for the selected sort operation
+        sendSortTypeBroadCast();
+    }
+
+    /**
+     * Function to select and un-select sort by DebtDateAdded ascending and descending
+     * buttons
+     *
+     * @param select   - Select / un-select sort buttons
+     * @param sortType - Sort type
+     */
+    private void selectSortByDebtDateAdded(SortType sortType, boolean select) {
+
+        // Check if selecting
+        if (select) {
+            // Selecting sort options
+
+            // Check sort type
+            if (sortType == SortType.DEBT_DATE_ADDED_ASCENDING) {
+                // Sorting by DebtDateAdded ascending
+
+                // Set current sort type
+                currentlySelectedSortType = SortType.DEBT_DATE_ADDED_ASCENDING;
+
+                // Change background resource to primary
+                imageSortByDebtDateAddedAscending.setBackgroundResource(
+                        R.drawable.outline_options_list_icons_background_primary);
+
+                // Set image resource
+                imageSortByDebtDateAddedAscending
+                        .setImageResource(R.drawable.ic_ascending_white_100px);
+
+            } else if (sortType == SortType.DEBT_DATE_ADDED_DESCENDING) {
+                // Sorting by DebtDateAdded descending
+
+                // Set current sort type
+                currentlySelectedSortType = SortType.DEBT_DATE_ADDED_DESCENDING;
+
+                // Change background resource to primary
+                imageSortByDebtDateAddedDescending.setBackgroundResource(
+                        R.drawable.outline_options_list_icons_background_primary);
+
+                // Set image resource
+                imageSortByDebtDateAddedDescending
+                        .setImageResource(R.drawable.ic_descending_white_100px);
+            }
+        } else {
+            // Un-selecting sort options
+
+            // Check sort type
+            if (sortType == SortType.DEBT_DATE_ADDED_ASCENDING) {
+                // Sorting by DebtDateAdded ascending
+
+                // Change background resource to primary
+                imageSortByDebtDateAddedAscending.setBackgroundResource(
+                        R.drawable.outline_options_list_icons_background_grey);
+
+                // Set image resource
+                imageSortByDebtDateAddedAscending
+                        .setImageResource(R.drawable.ic_ascending_black_100px);
+
+            } else if (sortType == SortType.DEBT_DATE_ADDED_DESCENDING) {
+                // Sorting by DebtDateAdded descending
+
+                // Change background resource to primary
+                imageSortByDebtDateAddedDescending.setBackgroundResource(
+                        R.drawable.outline_options_list_icons_background_grey);
+
+                // Set image resource
+                imageSortByDebtDateAddedDescending
+                        .setImageResource(R.drawable.ic_descending_black_100px);
+            }
+        }
+    }
+
+    /**
+     * Function to sort list by DebtDateAdded
+     *
+     * @param sortType - Sort type
+     */
+    private void sortByDebtDateAdded(SortType sortType) {
+
+        // Check if sort type is null
+        if (sortType == null) {
+
+            // Check current sort type
+            if (currentlySelectedSortType == SortType.DEBT_DATE_ADDED_ASCENDING) {
+
+                // Select sort by DebtDateAdded in ascending order
+                selectSortByDebtDateAdded(SortType.DEBT_DATE_ADDED_DESCENDING, true);
+
+                // Un-select sort by DebtDateAdded in ascending order
+                selectSortByDebtDateAdded(SortType.DEBT_DATE_ADDED_ASCENDING, false);
+
+            } else if (currentlySelectedSortType == SortType.DEBT_DATE_ADDED_DESCENDING) {
+
+                // Select sort by DebtDateAdded in descending order
+                selectSortByDebtDateAdded(SortType.DEBT_DATE_ADDED_ASCENDING, true);
+
+                // Un-select sort by DebtDateAdded in descending order
+                selectSortByDebtDateAdded(SortType.DEBT_DATE_ADDED_DESCENDING, false);
+
+            } else {
+
+                // Select sort by DebtDateAdded in ascending order
+                selectSortByDebtDateAdded(SortType.DEBT_DATE_ADDED_ASCENDING, true);
+
+                // Un-select sort by DebtDateAdded in ascending order
+                selectSortByDebtDateAdded(SortType.DEBT_DATE_ADDED_DESCENDING, false);
+            }
+        } else {
+
+            // Check current sort type
+            if (sortType == SortType.DEBT_DATE_ADDED_ASCENDING) {
+
+                // Select sort by DebtDateAdded in ascending order
+                selectSortByDebtDateAdded(SortType.DEBT_DATE_ADDED_ASCENDING, true);
+
+                // Un-select sort by DebtDateAdded in descending order
+                selectSortByDebtDateAdded(SortType.DEBT_DATE_ADDED_DESCENDING, false);
+
+            } else if (sortType == SortType.DEBT_DATE_ADDED_DESCENDING) {
+
+                // Select sort by DebtDateAdded in descending order
+                selectSortByDebtDateAdded(SortType.DEBT_DATE_ADDED_DESCENDING, true);
+
+                // Un-select sort by DebtDateAdded in ascending order
+                selectSortByDebtDateAdded(SortType.DEBT_DATE_ADDED_ASCENDING, false);
+            }
+        }
+
+        // Un-select other sort options
+
+        // Check list type
+        if (listType == ListType.LIST_CONTACTS) {
+
+            selectSortByContactName(SortType.CONTACT_NAME_ASCENDING, false);
+            selectSortByContactName(SortType.CONTACT_NAME_DESCENDING, false);
+
+            selectSortByNoOfDebts(SortType.NO_OF_DEBTS_ASCENDING, false);
+            selectSortByNoOfDebts(SortType.NO_OF_DEBTS_DESCENDING, false);
+
+        } else if (listType == ListType.LIST_DEBTS) {
+
+            selectSortByDebtDateIssued(SortType.DEBT_DATE_ISSUED_ASCENDING, false);
+            selectSortByDebtDateIssued(SortType.DEBT_DATE_ISSUED_DESCENDING, false);
+
+            selectSortByDebtDateDue(SortType.DEBT_DATE_DUE_ASCENDING, false);
+            selectSortByDebtDateDue(SortType.DEBT_DATE_DUE_DESCENDING, false);
+        }
+
+        selectSortByDebtAmount(SortType.DEBT_AMOUNT_ASCENDING, false);
+        selectSortByDebtAmount(SortType.DEBT_AMOUNT_DESCENDING, false);
 
         // Send broadcast for the selected sort operation
         sendSortTypeBroadCast();

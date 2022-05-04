@@ -334,5 +334,84 @@ public class SortComparator {
                 }
             }
         }
+
+        /**
+         * Class to sort list by DebtDateAdded
+         */
+        public static class SortBy_DebtDateAdded {
+
+            /**
+             * Class to sort list by DebtDateAdded in ascending order
+             */
+            public static class Ascending implements Comparator<JB_Debts> {
+
+                @Override
+                public int compare(JB_Debts jbDebts1, JB_Debts jbDebts2) {
+
+                    // Create DateFormat
+                    DateFormat dateFormat = DateFormat.getDateInstance(
+                            DateFormat.FULL, Locale.ENGLISH);
+
+                    // Catch Parse errors
+                    try {
+
+                        // Parse dates
+                        Date DebtDateAdded1 = dateFormat.parse(jbDebts1.getDebtDateAdded());
+                        Date DebtDateAdded2 = dateFormat.parse(jbDebts2.getDebtDateAdded());
+
+                        // Check if dates are null
+                        if ((DebtDateAdded1 != null) && (DebtDateAdded2 != null)) {
+
+                            // Ascending
+                            return (DebtDateAdded1.getTime() > DebtDateAdded2.getTime() ? 1 : -1);
+
+                        } else {
+
+                            return 0; // Return 0 to leave it at current index
+                        }
+                    } catch (Exception ignored) {
+                    }
+
+                    return 0;
+                }
+            }
+
+            /**
+             * Class to sort list by DebtDateAdded in descending order
+             */
+            public static class Descending implements Comparator<JB_Debts> {
+
+                @Override
+                public int compare(JB_Debts jbDebts1, JB_Debts jbDebts2) {
+
+                    // Create DateFormat
+                    DateFormat dateFormat = DateFormat.getDateInstance(
+                            DateFormat.FULL, Locale.ENGLISH);
+
+                    // Catch Parse and NullPointerExceptions
+                    try {
+
+                        // Parse dates
+                        Date DebtDateAdded1 = dateFormat.parse(jbDebts1.getDebtDateAdded());
+                        Date DebtDateAdded2 = dateFormat.parse(jbDebts2.getDebtDateAdded());
+
+                        // Check if dates are null
+                        if ((DebtDateAdded1 != null) && (DebtDateAdded2 != null)) {
+
+                            // Descending
+                            return (DebtDateAdded1.getTime()
+                                    > DebtDateAdded2.getTime() ? -1 : 1);
+
+                        } else {
+
+                            return 0; // Return 0 to leave it at current index
+                        }
+                    } catch (Exception ignored) {
+                    }
+
+                    return 0;
+                }
+            }
+        }
     }
 }

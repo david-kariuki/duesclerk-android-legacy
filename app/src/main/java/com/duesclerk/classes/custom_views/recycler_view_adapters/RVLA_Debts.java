@@ -138,7 +138,7 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
         }
 
         // Set debt description
-        holder.textDebtDateTimeAdded.setText(debts.get(position).getDebtDateTimeAdded());
+        holder.textDebtDateAdded.setText(debts.get(position).getDebtDateAdded());
 
         // Check if buttons layout is shown so as to show options buttons
         if (debts.get(position).shownMenuButtonsLayout()) {
@@ -560,7 +560,7 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
 
         ConstraintLayout consDebtItem, consDebtOptions;
         TextView textDebtCount, textDebtAmount, textDebtType, textDebtDescription,
-                textDebtDateTimeAdded, textDebtDateIssued, textDebtDateDue;
+                textDebtDateAdded, textDebtDateIssued, textDebtDateDue;
         ImageView imageDebtDetailsDropDown, imageDebtOptions;
         ImageView imageEditDebt, imageDeleteDebt, imageCollapseDebtOptionsMenu;
         ExpandableLayout expandableDebtDetails, expandableDebtMenu;
@@ -581,7 +581,7 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
             textDebtAmount = convertView.findViewById(R.id.textDebt_Amount);
             textDebtType = convertView.findViewById(R.id.textDebt_Type);
             textDebtDescription = convertView.findViewById(R.id.textDebt_Description);
-            textDebtDateTimeAdded = convertView.findViewById(R.id.textDebt_DateAdded);
+            textDebtDateAdded = convertView.findViewById(R.id.textDebt_DateAdded);
             textDebtDateIssued = convertView.findViewById(R.id.textDebt_DateIssued);
             textDebtDateDue = convertView.findViewById(R.id.textDebt_DateDue);
 
@@ -652,7 +652,7 @@ public class RVLA_Debts extends RecyclerView.Adapter<RVLA_Debts.RecyclerViewHold
                                 filterList.get(i).getDebtAmount(),
                                 filterList.get(i).getDebtDateIssued(),
                                 filterList.get(i).getDebtDateDue(),
-                                filterList.get(i).getDebtDateTimeAdded(),
+                                filterList.get(i).getDebtDateAdded(),
                                 filterList.get(i).getDebtDescription(),
                                 filterList.get(i).getContactId(),
                                 filterList.get(i).getContactType(),

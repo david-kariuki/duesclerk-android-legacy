@@ -99,8 +99,10 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
     private ExpandableLayout expandableListOptions;
     private boolean showingCheckBoxes = false;
     private BottomSheetFragment_SortLists bottomSheetFragmentSortLists;
-    private SortType selectedSortType = SortType.DEBT_AMOUNT_DESCENDING; // Default sort type
+
+    // Default sort type
     private SortLists sortLists;
+    private SortType selectedSortType = SortType.DEBT_DATE_ADDED_DESCENDING;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -1146,13 +1148,13 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                         jsonObject = jsonArray.getJSONObject(i);
 
                         // Getting Data from json object
-                        String debtId, debtAmount, debtDateTimeAdded, debtDateIssued, debtDateDue,
+                        String debtId, debtAmount, debtDateAdded, debtDateIssued, debtDateDue,
                                 debtDescription, contactId, contactType, userId;
 
                         debtId = jsonObject.getString(DebtUtils.FIELD_DEBT_ID);
                         debtAmount = jsonObject.getString(DebtUtils.FIELD_DEBT_AMOUNT);
-                        debtDateTimeAdded = jsonObject
-                                .getString(DebtUtils.FIELD_DEBT_DATE_TIME_ADDED);
+                        debtDateAdded = jsonObject
+                                .getString(DebtUtils.FIELD_DEBT_DATE_ADDED);
                         debtDateIssued = jsonObject.getString(DebtUtils.FIELD_DEBT_DATE_ISSUED);
                         debtDateDue = jsonObject.getString(DebtUtils.FIELD_DEBT_DATE_DUE);
                         debtDescription = jsonObject.getString(DebtUtils.FIELD_DEBT_DESCRIPTION);
@@ -1163,7 +1165,7 @@ public class ContactDetailsAndDebtsActivity extends AppCompatActivity implements
                         // Set data to java bean
                         jbDebts.setDebtId(debtId);
                         jbDebts.setDebtAmount(debtAmount);
-                        jbDebts.setDebtDateTimeAdded(debtDateTimeAdded);
+                        jbDebts.setDebtDateAdded(debtDateAdded);
                         jbDebts.setDebtDateIssued(debtDateIssued);
                         jbDebts.setDebtDateDue(debtDateDue);
                         jbDebts.setDebtDescription(debtDescription);

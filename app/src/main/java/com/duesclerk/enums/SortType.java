@@ -24,5 +24,9 @@ public enum SortType {
 
     // Sort by DebtDateDue
     DEBT_DATE_DUE_ASCENDING,
-    DEBT_DATE_DUE_DESCENDING
+    DEBT_DATE_DUE_DESCENDING,
+
+    // Sort by DebtDateAdded
+    DEBT_DATE_ADDED_ASCENDING,
+    DEBT_DATE_ADDED_DESCENDING
 }
